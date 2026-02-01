@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'gold' | 'outline'
+  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'gold' | 'outline' | 'violet'
   size?: 'sm' | 'md'
   dot?: boolean
   icon?: React.ReactNode
@@ -19,6 +19,7 @@ export function Badge({
   const variants = {
     default: 'bg-gray-100 text-gray-700 border-gray-200',
     primary: 'bg-violet-50 text-violet-700 border-violet-100',
+    violet: 'bg-violet-100 text-violet-700 border-violet-200',
     success: 'bg-sage-50 text-sage-700 border-sage-100',
     warning: 'bg-gold-light/30 text-gold-dark border-gold-light',
     error: 'bg-rose-50 text-rose-500 border-rose-100',
@@ -48,6 +49,7 @@ export function Badge({
           variant === 'error' && 'bg-rose-500',
           variant === 'warning' && 'bg-gold',
           variant === 'primary' && 'bg-violet',
+          variant === 'violet' && 'bg-violet',
           variant === 'default' && 'bg-gray-500',
           variant === 'gold' && 'bg-gold',
         )} />

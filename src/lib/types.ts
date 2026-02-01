@@ -46,7 +46,7 @@ export interface FAQItem {
   id: string
   question: Record<Locale, string>
   answer: Record<Locale, string>
-  category: 'general' | 'pricing' | 'technical' | 'support'
+  category: 'general' | 'pricing' | 'technical' | 'support' | 'features' | 'process'
 }
 
 export interface DiagnosticQuestion {
