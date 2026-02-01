@@ -1,0 +1,27 @@
+import type { Metadata } from 'next'
+import { OnboardingWizard } from '@/components/features/OnboardingWizard'
+import { copy } from '@/lib/copy'
+import type { Locale } from '@/lib/i18n'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const t = copy[locale as Locale].onboarding
+  return { title: t.title, description: t.subtitle }
+}
+
+export default async function OnboardingPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ recommendation?: string }> }) {
+  const { locale } = await params
+  const { recommendation } = await searchParams
+  const t = copy[locale as Locale].onboarding
+  return (
+    <div className="pt-32 pb-20">
+      <div className="container-narrow">
+        <div className="text-center mb-12">
+          <h1 className="heading-2 text-anthracite mb-4">{t.title}</h1>
+          <p className="body-large max-w-xl mx-auto">{t.subtitle}</p>
+        </div>
+        <OnboardingWizard locale={locale as Locale} initialRecommendation={recommendation} />
+      </div>
+    </div>
+  )
+}
