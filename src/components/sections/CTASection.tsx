@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Button, ArrowIcon } from '@/components/ui/Button'
+import { TrackedLink } from '@/components/ui/TrackedLink'
 import type { Locale } from '@/lib/i18n'
 
 interface CTASectionProps {
@@ -52,16 +52,16 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
           <p className="body-large text-gray-400 mb-10 max-w-xl mx-auto">{t.subtitle}</p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-            <Link href={`/${locale}/diagnostic`}>
+            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="cta_section_dark">
               <Button variant="primary" size="xl" icon={<ArrowIcon />}>
                 {t.primaryCta}
               </Button>
-            </Link>
-            <Link href={`/${locale}/pricing`}>
+            </TrackedLink>
+            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section_dark">
               <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
-            </Link>
+            </TrackedLink>
           </div>
 
           {/* Features */}
@@ -107,16 +107,16 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
           <p className="body-large text-white/80 mb-10 max-w-xl mx-auto">{t.subtitle}</p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-            <Link href={`/${locale}/diagnostic`}>
+            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="cta_section_gradient">
               <Button variant="secondary" size="xl" icon={<ArrowIcon />} className="bg-white text-violet hover:bg-gray-100">
                 {t.primaryCta}
               </Button>
-            </Link>
-            <Link href={`/${locale}/pricing`}>
+            </TrackedLink>
+            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section_gradient">
               <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
-            </Link>
+            </TrackedLink>
           </div>
 
           {/* Features */}
@@ -151,16 +151,16 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
           <p className="body-large mb-10 max-w-xl mx-auto">{t.subtitle}</p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-            <Link href={`/${locale}/diagnostic`}>
+            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="cta_section">
               <Button variant="primary" size="xl" icon={<ArrowIcon />}>
                 {t.primaryCta}
               </Button>
-            </Link>
-            <Link href={`/${locale}/pricing`}>
+            </TrackedLink>
+            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section">
               <Button variant="secondary" size="xl">
                 {t.secondaryCta}
               </Button>
-            </Link>
+            </TrackedLink>
           </div>
 
           {/* Features */}

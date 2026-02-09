@@ -4,11 +4,23 @@ import { copy } from '@/lib/copy'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { buildPageMetadata } from '@/lib/seo'
+
+const reviewDescriptions: Record<string, string> = {
+  fr: 'Découvrez les avis vérifiés de nos clients. Plus de 150 entrepreneurs nous font confiance avec un taux de satisfaction de 98%.',
+  en: 'Read verified reviews from our clients. Over 150 entrepreneurs trust us with a 98% satisfaction rate.',
+  es: 'Descubre las opiniones verificadas de nuestros clientes. Más de 150 emprendedores confían en nosotros con un 98% de satisfacción.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].reviews
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/avis-clients',
+    title: t.title,
+    description: reviewDescriptions[locale] || reviewDescriptions.fr,
+  })
 }
 
 export default async function AvisClientsPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -5,17 +5,23 @@ import { Badge } from '@/components/ui/Badge'
 import { copy } from '@/lib/copy'
 import { blogPosts } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
 
-const content: Record<string, { title: string; subtitle: string }> = {
-  fr: { title: 'Academy', subtitle: 'Formations et tutoriels pour votre présence en ligne' },
-  en: { title: 'Academy', subtitle: 'Training and tutorials for your online presence' },
-  es: { title: 'Academy', subtitle: 'Formación y tutoriales para tu presencia en línea' },
+const content: Record<string, { title: string; subtitle: string; description: string }> = {
+  fr: { title: 'Academy', subtitle: 'Formations et tutoriels pour votre présence en ligne', description: 'Formations gratuites et tutoriels pour développer votre présence en ligne. SEO, marketing digital, réservation en ligne et stratégie web.' },
+  en: { title: 'Academy', subtitle: 'Training and tutorials for your online presence', description: 'Free training and tutorials to grow your online presence. SEO, digital marketing, online booking and web strategy.' },
+  es: { title: 'Academy', subtitle: 'Formación y tutoriales para tu presencia en línea', description: 'Formaciones gratuitas y tutoriales para desarrollar tu presencia en línea. SEO, marketing digital, reservas en línea y estrategia web.' },
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = content[locale]
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/academy',
+    title: t.title,
+    description: t.description,
+  })
 }
 
 export default async function AcademyPage({ params }: { params: Promise<{ locale: string }> }) {

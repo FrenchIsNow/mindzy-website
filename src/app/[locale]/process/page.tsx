@@ -5,11 +5,23 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
+
+const processDescriptions: Record<string, string> = {
+  fr: 'Découvrez comment Mindzy crée votre site en 4 étapes simples : diagnostic, onboarding, design et mise en ligne en 2 semaines.',
+  en: 'Discover how Mindzy creates your website in 4 simple steps: diagnostic, onboarding, design and launch in 2 weeks.',
+  es: 'Descubre cómo Mindzy crea tu sitio en 4 pasos simples: diagnóstico, onboarding, diseño y lanzamiento en 2 semanas.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].process
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/process',
+    title: t.title,
+    description: processDescriptions[locale] || processDescriptions.fr,
+  })
 }
 
 const stepKeys = ['diagnostic', 'onboarding', 'design', 'launch'] as const

@@ -1,35 +1,45 @@
 import type { Metadata } from 'next'
 import { PricingTable } from '@/components/sections/PricingTable'
 import { ROICalculator } from '@/components/features/ROICalculator'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
 import { copy } from '@/lib/copy'
-import { config } from '@/lib/config'
+import { plans } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata, jsonLdService, JsonLd } from '@/lib/seo'
+
+const pricingDescriptions: Record<string, string> = {
+  fr: 'Tarifs transparents pour la création de votre site web professionnel. À partir de 49€/mois, hébergement et support inclus. Sans engagement.',
+  en: 'Transparent pricing for your professional website creation. Starting at €49/month, hosting and support included. No commitment.',
+  es: 'Precios transparentes para la creación de tu sitio web profesional. Desde 49€/mes, alojamiento y soporte incluido. Sin compromiso.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].pricing
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/pricing',
+    title: t.title,
+    description: pricingDescriptions[locale] || pricingDescriptions.fr,
+  })
 }
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = copy[locale as Locale].pricing
+  const serviceJsonLd = jsonLdService(
+    plans.map(plan => ({
+      name: t.plans[plan.id]?.name || plan.id,
+      description: t.plans[plan.id]?.description || '',
+      price: plan.price,
+    }))
+  )
   return (
     <div className="pt-24">
+      <JsonLd data={serviceJsonLd} />
       <PricingTable locale={locale as Locale} />
       <section className="section-padding bg-gray-50">
-        <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <ROICalculator locale={locale as Locale} />
-            <Card variant="elevated">
-              <CardHeader><CardTitle>{t.customQuote.title}</CardTitle><CardDescription>{t.customQuote.description}</CardDescription></CardHeader>
-              <CardContent>
-                <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer"><Button variant="primary" size="lg" className="w-full">{t.customQuote.cta}</Button></a>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="container-narrow">
+          <ROICalculator locale={locale as Locale} />
         </div>
       </section>
     </div>

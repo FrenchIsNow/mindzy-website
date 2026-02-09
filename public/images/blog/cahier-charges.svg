@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecfdf5"/>
+      <stop offset="100%" style="stop-color:#d1fae5"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg3)"/>
+  <!-- Document -->
+  <rect x="250" y="50" width="300" height="380" rx="8" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  <!-- Header -->
+  <rect x="280" y="80" width="150" height="20" rx="4" fill="#8b5cf6"/>
+  <!-- Checklist -->
+  <rect x="280" y="120" width="20" height="20" rx="4" fill="#10b981"/>
+  <path d="M285 130 L290 135 L300 125" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="310" y="123" width="180" height="14" rx="3" fill="#d1d5db"/>
+
+  <rect x="280" y="155" width="20" height="20" rx="4" fill="#10b981"/>
+  <path d="M285 165 L290 170 L300 160" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="310" y="158" width="200" height="14" rx="3" fill="#d1d5db"/>
+
+  <rect x="280" y="190" width="20" height="20" rx="4" fill="#10b981"/>
+  <path d="M285 200 L290 205 L300 195" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="310" y="193" width="160" height="14" rx="3" fill="#d1d5db"/>
+
+  <rect x="280" y="225" width="20" height="20" rx="4" stroke="#d1d5db" stroke-width="2" fill="white"/>
+  <rect x="310" y="228" width="190" height="14" rx="3" fill="#e5e7eb"/>
+
+  <rect x="280" y="260" width="20" height="20" rx="4" stroke="#d1d5db" stroke-width="2" fill="white"/>
+  <rect x="310" y="263" width="140" height="14" rx="3" fill="#e5e7eb"/>
+
+  <!-- Section divider -->
+  <rect x="280" y="300" width="240" height="2" fill="#e5e7eb"/>
+
+  <!-- Budget section -->
+  <rect x="280" y="320" width="100" height="16" rx="4" fill="#8b5cf6" opacity="0.7"/>
+  <rect x="280" y="350" width="80" height="40" rx="6" fill="#f3f4f6" stroke="#e5e7eb"/>
+  <text x="320" y="376" text-anchor="middle" font-family="system-ui" font-size="16" fill="#1f1f23">€</text>
+
+  <!-- Pencil -->
+  <g transform="translate(520, 280) rotate(-45)">
+    <rect x="0" y="0" width="120" height="24" rx="4" fill="#f59e0b"/>
+    <polygon points="120,0 140,12 120,24" fill="#1f1f23"/>
+    <rect x="0" y="0" width="30" height="24" rx="4" fill="#fbbf24"/>
+  </g>
+</svg>

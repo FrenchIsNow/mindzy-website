@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7"/>
+      <stop offset="100%" style="stop-color:#fde68a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  <!-- Blog Posts Stack -->
+  <rect x="150" y="100" width="500" height="80" rx="12" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  <rect x="170" y="120" width="200" height="16" rx="4" fill="#8b5cf6"/>
+  <rect x="170" y="145" width="350" height="10" rx="3" fill="#d1d5db"/>
+  <rect x="170" y="160" width="280" height="10" rx="3" fill="#e5e7eb"/>
+
+  <rect x="180" y="200" width="500" height="80" rx="12" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  <rect x="200" y="220" width="180" height="16" rx="4" fill="#8b5cf6"/>
+  <rect x="200" y="245" width="320" height="10" rx="3" fill="#d1d5db"/>
+  <rect x="200" y="260" width="250" height="10" rx="3" fill="#e5e7eb"/>
+
+  <rect x="210" y="300" width="500" height="80" rx="12" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+  <rect x="230" y="320" width="220" height="16" rx="4" fill="#8b5cf6"/>
+  <rect x="230" y="345" width="380" height="10" rx="3" fill="#d1d5db"/>
+  <rect x="230" y="360" width="300" height="10" rx="3" fill="#e5e7eb"/>
+
+  <!-- Search Icon -->
+  <circle cx="650" cy="150" r="40" fill="#8b5cf6"/>
+  <circle cx="642" cy="142" r="18" fill="none" stroke="white" stroke-width="4"/>
+  <line x1="655" y1="155" x2="668" y2="168" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>

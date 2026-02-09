@@ -8,6 +8,7 @@ import { Button, ArrowIcon } from '@/components/ui/Button'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 export function Header({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -47,7 +48,7 @@ export function Header({ locale }: { locale: Locale }) {
             <LanguageSwitcher locale={locale} />
 
             {/* CTA Button - Desktop */}
-            <Link href={`/${locale}/diagnostic`} className="hidden sm:block">
+            <Link href={`/${locale}/diagnostic`} className="hidden sm:block" onClick={() => analytics.cta.click('diagnostic_start', 'header')}>
               <Button
                 variant="primary"
                 size="md"
@@ -91,7 +92,7 @@ export function Header({ locale }: { locale: Locale }) {
 
             {/* Mobile CTA */}
             <div className="px-6 pt-6 mt-4 border-t border-gray-100">
-              <Link href={`/${locale}/diagnostic`} onClick={() => setMobileOpen(false)}>
+              <Link href={`/${locale}/diagnostic`} onClick={() => { setMobileOpen(false); analytics.cta.click('diagnostic_start', 'header_mobile') }}>
                 <Button variant="primary" size="lg" className="w-full" icon={<ArrowIcon />}>
                   {t.cta}
                 </Button>

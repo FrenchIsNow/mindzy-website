@@ -10,6 +10,7 @@ import { copy } from '@/lib/copy'
 import { faqItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 type FAQCat = 'all' | 'general' | 'pricing' | 'technical' | 'support' | 'features' | 'process'
 
@@ -117,7 +118,7 @@ export function FAQContent({ locale }: { locale: Locale }) {
             <button
               key={c.value}
               type="button"
-              onClick={() => setCategory(c.value)}
+              onClick={() => { setCategory(c.value); analytics.navigation.menuClick(`faq_filter_${c.value}`) }}
               className={cn(
                 'px-4 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2',
                 category === c.value
@@ -168,10 +169,10 @@ export function FAQContent({ locale }: { locale: Locale }) {
             <h2 className="heading-3 text-anthracite mb-4">{ctaText[locale].stillQuestions}</h2>
             <p className="text-gray-600 mb-6">{ctaText[locale].contactUs}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={`/${locale}/diagnostic`}>
+              <Link href={`/${locale}/diagnostic`} onClick={() => analytics.cta.click('diagnostic_start', 'faq_cta')}>
                 <Button variant="primary" size="lg">{ctaText[locale].scheduleCall}</Button>
               </Link>
-              <Link href={`/${locale}/pricing`}>
+              <Link href={`/${locale}/pricing`} onClick={() => analytics.cta.click('view_pricing', 'faq_cta')}>
                 <Button variant="outline" size="lg">{ctaText[locale].contactPage}</Button>
               </Link>
             </div>

@@ -4,20 +4,35 @@ import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Ca
 import { copy } from '@/lib/copy'
 import { professions, portfolioItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
 
 const professionLabels: Record<string, Record<string, string>> = {
+  consultant: { fr: 'Consultant', en: 'Consultant', es: 'Consultor' },
+  restaurant: { fr: 'Restaurant', en: 'Restaurant', es: 'Restaurante' },
+  artisan: { fr: 'Artisan', en: 'Craftsman', es: 'Artesano' },
+  coach: { fr: 'Coach Business', en: 'Business Coach', es: 'Coach Empresarial' },
+  boutique: { fr: 'Boutique', en: 'Shop', es: 'Tienda' },
+  freelance: { fr: 'Freelance', en: 'Freelancer', es: 'Freelance' },
+  therapeute: { fr: 'Thérapeute', en: 'Therapist', es: 'Terapeuta' },
   psychologue: { fr: 'Psychologue', en: 'Psychologist', es: 'Psicólogo' },
-  osteopathe: { fr: 'Ostéopathe', en: 'Osteopath', es: 'Osteópata' },
-  naturopathe: { fr: 'Naturopathe', en: 'Naturopath', es: 'Naturópata' },
-  coach: { fr: 'Coach', en: 'Coach', es: 'Coach' },
-  hypnotherapeute: { fr: 'Hypnothérapeute', en: 'Hypnotherapist', es: 'Hipnoterapeuta' },
-  kinesitherapeute: { fr: 'Kinésithérapeute', en: 'Physiotherapist', es: 'Fisioterapeuta' },
+  'coach-sportif': { fr: 'Coach Sportif', en: 'Sports Coach', es: 'Coach Deportivo' },
+}
+
+const examplesDescriptions: Record<string, string> = {
+  fr: 'Exemples de sites web créés par Mindzy par profession : thérapeutes, psychologues, coachs sportifs, consultants, restaurants, artisans et plus.',
+  en: 'Examples of websites created by Mindzy by profession: therapists, psychologists, sports coaches, consultants, restaurants, craftsmen and more.',
+  es: 'Ejemplos de sitios web creados por Mindzy por profesión: terapeutas, psicólogos, coaches deportivos, consultores, restaurantes, artesanos y más.',
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const titles: Record<string, string> = { fr: 'Exemples par profession', en: 'Examples by profession', es: 'Ejemplos por profesión' }
-  return { title: titles[locale], description: 'Sites web par métier' }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/examples-by-profession',
+    title: titles[locale] || titles.fr,
+    description: examplesDescriptions[locale] || examplesDescriptions.fr,
+  })
 }
 
 export default async function ExamplesByProfessionPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -32,8 +47,9 @@ export default async function ExamplesByProfessionPage({ params }: { params: Pro
           <p className="body-large max-w-2xl mx-auto">{subtitles[locale]}</p>
         </div>
         <div className="space-y-16">
-          {professions.slice(0, 5).map((prof) => {
+          {professions.map((prof) => {
             const items = portfolioItems.filter((i) => i.profession === prof).slice(0, 3)
+            if (items.length === 0) return null
             const label = professionLabels[prof]?.[locale] ?? prof
             return (
               <section key={prof} id={prof}>

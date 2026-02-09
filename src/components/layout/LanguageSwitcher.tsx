@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 const labels: Record<Locale, { flag: string; label: string; fullName: string }> = {
   fr: { flag: '🇫🇷', label: 'FR', fullName: 'Français' },
@@ -26,6 +27,7 @@ export function LanguageSwitcher({ locale }: { locale: Locale }) {
   }, [])
 
   const switchTo = (loc: Locale) => {
+    analytics.navigation.languageSwitch(locale, loc)
     router.push(`/${loc}${pathname.replace(`/${locale}`, '') || '/'}`)
     setOpen(false)
   }

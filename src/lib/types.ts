@@ -59,7 +59,7 @@ export interface DiagnosticResult {
   score: number
   level: 'low' | 'medium' | 'high'
   message: Record<Locale, string>
-  recommendation: Plan['id']
+  recommendation: Plan['id'] | 'custom'
 }
 
 export interface OnboardingStep {
@@ -101,6 +101,12 @@ export interface WhatsAppIncomingMessage {
   text?: { body: string }
   interactive?: { button_reply?: { id: string; title: string }; list_reply?: { id: string; title: string } }
   button?: { payload: string; text: string }
+}
+
+export interface ProfileQuestion {
+  id: string
+  question: Record<Locale, string>
+  options: { value: string; label: Record<Locale, string>; icon?: string }[]
 }
 
 export interface Resource {

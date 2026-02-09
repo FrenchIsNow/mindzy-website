@@ -6,11 +6,23 @@ import { Badge } from '@/components/ui/Badge'
 import { copy } from '@/lib/copy'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
+
+const whyUsDescriptions: Record<string, string> = {
+  fr: 'Pourquoi choisir Mindzy plutôt qu\'une agence web traditionnelle ? Design personnalisé, livraison en 2 semaines, support illimité, prix transparents.',
+  en: 'Why choose Mindzy over a traditional web agency? Custom design, delivery in 2 weeks, unlimited support, transparent pricing.',
+  es: '¿Por qué elegir Mindzy en lugar de una agencia web tradicional? Diseño personalizado, entrega en 2 semanas, soporte ilimitado, precios transparentes.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].whyUs
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/pourquoi-nous',
+    title: t.title,
+    description: whyUsDescriptions[locale] || whyUsDescriptions.fr,
+  })
 }
 
 const stats = {

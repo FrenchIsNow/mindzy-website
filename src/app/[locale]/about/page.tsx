@@ -5,11 +5,23 @@ import { Button, ArrowIcon } from '@/components/ui/Button'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { buildPageMetadata } from '@/lib/seo'
+
+const aboutDescriptions: Record<string, string> = {
+  fr: 'Découvrez Mindzy, l\'agence web nouvelle génération. Notre mission : aider les entrepreneurs à développer leur activité grâce à un site web professionnel.',
+  en: 'Discover Mindzy, the next-gen web agency. Our mission: help entrepreneurs grow their business with a professional website.',
+  es: 'Descubre Mindzy, la agencia web de nueva generación. Nuestra misión: ayudar a emprendedores a crecer con un sitio web profesional.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].about
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/about',
+    title: t.title,
+    description: aboutDescriptions[locale] || aboutDescriptions.fr,
+  })
 }
 
 const teamMembers = [

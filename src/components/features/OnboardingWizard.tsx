@@ -11,6 +11,7 @@ import type { Locale } from '@/lib/i18n'
 import type { Plan } from '@/lib/types'
 import { formatPrice } from '@/lib/utils'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 function recommendPlan(answers: Record<string, string>): Plan['id'] {
   if (answers.payments === 'yes' && answers.objective === 'sales') return 'ecommerce'
@@ -28,10 +29,17 @@ export function OnboardingWizard({ locale, initialRecommendation }: { locale: Lo
   const progress = ((step + 1) / onboardingSteps.length) * 100
 
   const handleAnswer = (id: string, value: string) => {
+    if (step === 0 && Object.keys(answers).length === 0) analytics.onboarding.start(initialRecommendation)
+    analytics.onboarding.stepComplete(step + 1, id)
     const next = { ...answers, [id]: value }
     setAnswers(next)
-    if (step < onboardingSteps.length - 1) setTimeout(() => setStep((s) => s + 1), 300)
-    else setShowResult(true)
+    if (step < onboardingSteps.length - 1) {
+      setTimeout(() => setStep((s) => s + 1), 300)
+    } else {
+      const planId = (initialRecommendation as Plan['id']) || recommendPlan(next)
+      analytics.onboarding.complete(planId)
+      setShowResult(true)
+    }
   }
 
   if (showResult) {
@@ -52,8 +60,8 @@ export function OnboardingWizard({ locale, initialRecommendation }: { locale: Lo
               <div className="flex items-center gap-3"><svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>Google Business</div>
             </div>
             <div className="space-y-3">
-              <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block"><Button variant="primary" size="lg" className="w-full">{t.result.meetingCta}</Button></a>
-              <Link href={`/${locale}/legal/cgv?plan=${plan.id}`}><Button variant="secondary" size="lg" className="w-full">{t.result.contractCta}</Button></Link>
+              <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block" onClick={() => { analytics.calendly.click('onboarding_result'); analytics.lead.generate('onboarding', plan.id) }}><Button variant="primary" size="lg" className="w-full">{t.result.meetingCta}</Button></a>
+              <Link href={`/${locale}/legal/cgv?plan=${plan.id}`} onClick={() => analytics.cta.click('contract_cta', 'onboarding_result')}><Button variant="secondary" size="lg" className="w-full">{t.result.contractCta}</Button></Link>
               <Button variant="ghost" size="sm" className="w-full" onClick={() => { setShowResult(false); setStep(0); setAnswers({}); }}>{copy[locale].chatbot.buttons.restart}</Button>
             </div>
           </CardContent>

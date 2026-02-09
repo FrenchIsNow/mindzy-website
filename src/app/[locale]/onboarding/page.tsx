@@ -2,11 +2,23 @@ import type { Metadata } from 'next'
 import { OnboardingWizard } from '@/components/features/OnboardingWizard'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
+
+const onboardingDescriptions: Record<string, string> = {
+  fr: 'Répondez à 4 questions simples pour recevoir une recommandation personnalisée de formule adaptée à votre activité.',
+  en: 'Answer 4 simple questions to receive a personalized plan recommendation tailored to your business.',
+  es: 'Responde 4 preguntas simples para recibir una recomendación personalizada del plan adaptado a tu negocio.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].onboarding
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/onboarding',
+    title: t.title,
+    description: onboardingDescriptions[locale] || onboardingDescriptions.fr,
+  })
 }
 
 export default async function OnboardingPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ recommendation?: string }> }) {

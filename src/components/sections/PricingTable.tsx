@@ -9,6 +9,7 @@ import { plans } from '@/lib/config'
 import { formatPrice } from '@/lib/utils'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 export function PricingTable({ locale }: { locale: Locale }) {
   const t = copy[locale].pricing
@@ -100,7 +101,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
                     </CardContent>
 
                     <CardFooter className="border-0 pt-6">
-                      <Link href={`/${locale}/onboarding?plan=${plan.id}`} className="w-full">
+                      <Link href={`/${locale}/onboarding?plan=${plan.id}`} className="w-full" onClick={() => { analytics.pricing.selectPlan(plan.id, plan.price); analytics.pricing.beginCheckout(plan.id, plan.price) }}>
                         <Button
                           variant={isPopular ? 'primary' : 'secondary'}
                           size="lg"
@@ -133,7 +134,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
                 </div>
                 <p className="text-gray-600 max-w-lg">{t.customQuote.description}</p>
               </div>
-              <Link href={`/${locale}/diagnostic`} className="flex-shrink-0">
+              <Link href={`/${locale}/profil/custom`} className="flex-shrink-0">
                 <Button variant="gold" size="lg" icon={<ArrowIcon />}>
                   {t.customQuote.cta}
                 </Button>

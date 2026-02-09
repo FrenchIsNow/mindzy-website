@@ -7,6 +7,7 @@ import { copy } from '@/lib/copy'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 export function StickyCTA({ locale }: { locale: Locale }) {
   const [visible, setVisible] = useState(false)
@@ -41,7 +42,7 @@ export function StickyCTA({ locale }: { locale: Locale }) {
 
             {/* CTA buttons */}
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <Link href={`/${locale}/diagnostic`} className="flex-1 sm:flex-none">
+              <Link href={`/${locale}/diagnostic`} className="flex-1 sm:flex-none" onClick={() => analytics.cta.click('diagnostic_start', 'sticky_cta')}>
                 <Button variant="primary" size="md" className="w-full sm:w-auto" icon={<ArrowIcon />}>
                   {t.startButton}
                 </Button>
@@ -51,6 +52,7 @@ export function StickyCTA({ locale }: { locale: Locale }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-none"
+                onClick={() => analytics.calendly.click('sticky_cta')}
               >
                 <Button variant="secondary" size="md" className="w-full sm:w-auto">
                   <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

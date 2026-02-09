@@ -10,6 +10,7 @@ import { portfolioItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import type { PortfolioItem } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 const ITEMS_PER_PAGE = 12
 type CategoryFilter = 'all' | PortfolioItem['category']
@@ -38,7 +39,7 @@ export function PortfolioGrid({ locale }: { locale: Locale }) {
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
-            <button key={f.value} type="button" onClick={() => { setFilter(f.value); setVisible(ITEMS_PER_PAGE); }} className={cn('px-4 py-2 rounded-full text-sm font-medium transition-colors', filter === f.value ? 'bg-violet text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200')}>{f.label}</button>
+            <button key={f.value} type="button" onClick={() => { setFilter(f.value); setVisible(ITEMS_PER_PAGE); analytics.portfolio.filter('category', f.value) }} className={cn('px-4 py-2 rounded-full text-sm font-medium transition-colors', filter === f.value ? 'bg-violet text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200')}>{f.label}</button>
           ))}
         </div>
         <div className="flex-1 max-w-xs"><Input type="search" placeholder={t.search} value={search} onChange={(e) => { setSearch(e.target.value); setVisible(ITEMS_PER_PAGE); }} /></div>
@@ -52,7 +53,7 @@ export function PortfolioGrid({ locale }: { locale: Locale }) {
             <CardContent className="p-4">
               <h3 className="font-semibold text-anthracite mb-1">{item.title[locale]}</h3>
               <p className="text-sm text-gray-600 mb-3">{item.description[locale]}</p>
-              <div className="flex items-center justify-between"><Badge variant="default" size="sm">{item.profession}</Badge>{item.url && <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-violet font-medium hover:underline">{t.viewSite} →</a>}</div>
+              <div className="flex items-center justify-between"><Badge variant="default" size="sm">{item.profession}</Badge>{item.url && <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-violet font-medium hover:underline" onClick={() => { analytics.portfolio.view(item.id, item.category); analytics.external.linkClick(item.url!, item.title[locale], 'portfolio') }}>{t.viewSite} →</a>}</div>
             </CardContent>
           </Card>
         ))}

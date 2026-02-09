@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', icon, iconPosition = 'right', children, ...props }, ref) => {
-    const base = 'btn-base relative overflow-hidden group'
+    const base = 'btn-base group'
 
     const variants = {
       primary: 'bg-violet text-white shadow-soft hover:bg-violet-700 hover:shadow-glow active:scale-[0.98]',
@@ -34,10 +34,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(base, variants[variant], sizes[size], className)}
         {...props}
       >
-        {/* Shimmer effect on hover */}
-        <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-        <span className="relative flex items-center justify-center gap-2">
+        <span className="flex items-center justify-center gap-2">
           {icon && iconPosition === 'left' && <span className="flex-shrink-0">{icon}</span>}
           {children}
           {icon && iconPosition === 'right' && <span className="flex-shrink-0 group-hover:translate-x-0.5 transition-transform">{icon}</span>}

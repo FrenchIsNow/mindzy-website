@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/Badge'
 import { copy } from '@/lib/copy'
 import { resources } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { analytics } from '@/lib/analytics'
 
 export function RessourcesContent({ locale }: { locale: Locale }) {
   const [email, setEmail] = useState('')
@@ -26,13 +27,13 @@ export function RessourcesContent({ locale }: { locale: Locale }) {
               <Card key={r.id} variant="outline" hover>
                 <div className="aspect-video bg-gray-100 rounded-t-xl flex items-center justify-center text-gray-400"><svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
                 <CardHeader><Badge variant="default" size="sm" className="mb-2 w-fit">{r.type.toUpperCase()}</Badge><CardTitle className="text-lg">{r.title[locale]}</CardTitle><CardDescription>{r.description[locale]}</CardDescription></CardHeader>
-                <CardFooter className="pt-0"><Button variant="secondary" size="sm" className="w-full">{t.download}</Button></CardFooter>
+                <CardFooter className="pt-0"><Button variant="secondary" size="sm" className="w-full" onClick={() => analytics.external.linkClick(r.id, r.title[locale], 'resources_download')}>{t.download}</Button></CardFooter>
               </Card>
             ))}
           </div>
           <Card variant="elevated" className="lg:col-span-1 sticky top-24">
             <CardHeader><CardTitle>Newsletter</CardTitle><CardDescription>Recevez nos conseils par email</CardDescription></CardHeader>
-            <CardContent><form onSubmit={(e) => e.preventDefault()} className="space-y-4"><Input type="email" placeholder={t.emailPlaceholder} value={email} onChange={(e) => setEmail(e.target.value)} required /><Button variant="primary" size="md" className="w-full" type="submit">{t.emailCta}</Button></form></CardContent>
+            <CardContent><form onSubmit={(e) => { e.preventDefault(); analytics.lead.formSubmit('newsletter', true); analytics.lead.generate('newsletter') }} className="space-y-4"><Input type="email" placeholder={t.emailPlaceholder} value={email} onChange={(e) => setEmail(e.target.value)} required /><Button variant="primary" size="md" className="w-full" type="submit">{t.emailCta}</Button></form></CardContent>
             <CardFooter><Link href={`/${locale}/onboarding`} className="w-full"><Button variant="ghost" size="sm" className="w-full">{copy[locale].hero.cta} →</Button></Link></CardFooter>
           </Card>
         </div>

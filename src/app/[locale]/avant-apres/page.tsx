@@ -1,17 +1,23 @@
 import type { Metadata } from 'next'
 import { BeforeAfterSlider } from '@/components/features/BeforeAfterSlider'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
 
-const content: Record<string, { title: string; subtitle: string }> = {
-  fr: { title: 'Avant / Après', subtitle: 'Découvrez la transformation de nos clients' },
-  en: { title: 'Before / After', subtitle: 'Discover our clients transformations' },
-  es: { title: 'Antes / Después', subtitle: 'Descubre la transformación de nuestros clientes' },
+const content: Record<string, { title: string; subtitle: string; description: string }> = {
+  fr: { title: 'Avant / Après', subtitle: 'Découvrez la transformation de nos clients', description: 'Avant / Après : découvrez la transformation des sites web de nos clients. Des résultats concrets avec +180% de réservations en moyenne.' },
+  en: { title: 'Before / After', subtitle: 'Discover our clients transformations', description: 'Before / After: discover the transformation of our clients\' websites. Concrete results with +180% bookings on average.' },
+  es: { title: 'Antes / Después', subtitle: 'Descubre la transformación de nuestros clientes', description: 'Antes / Después: descubre la transformación de los sitios web de nuestros clientes. Resultados concretos con +180% de reservas en promedio.' },
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = content[locale]
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/avant-apres',
+    title: t.title,
+    description: t.description,
+  })
 }
 
 export default async function AvantApresPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -2,11 +2,23 @@ import type { Metadata } from 'next'
 import { PortfolioGrid } from '@/components/features/PortfolioGrid'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
+
+const portfolioDescriptions: Record<string, string> = {
+  fr: 'Découvrez plus de 40 sites web créés par Mindzy pour des entrepreneurs : restaurants, consultants, coachs, boutiques et plus.',
+  en: 'Discover over 40 websites created by Mindzy for entrepreneurs: restaurants, consultants, coaches, shops and more.',
+  es: 'Descubre más de 40 sitios web creados por Mindzy para emprendedores: restaurantes, consultores, coaches, tiendas y más.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = copy[locale as Locale].portfolio
-  return { title: t.title, description: t.subtitle }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/portfolio',
+    title: t.title,
+    description: portfolioDescriptions[locale] || portfolioDescriptions.fr,
+  })
 }
 
 export default async function PortfolioPage({ params }: { params: Promise<{ locale: string }> }) {

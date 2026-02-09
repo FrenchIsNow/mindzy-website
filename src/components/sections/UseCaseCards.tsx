@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
+import { TrackedLink } from '@/components/ui/TrackedLink'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
+import type { ProfileKey } from '@/lib/config'
 import { cn } from '@/lib/utils'
 
-const cardData = [
+const cardVisuals: { key: ProfileKey; gradient: string; bgGradient: string; iconBg: string; icon: React.ReactNode }[] = [
   {
     key: 'beginner',
     gradient: 'from-violet-500 to-violet-600',
@@ -49,50 +51,61 @@ const cardData = [
       </svg>
     ),
   },
+  {
+    key: 'custom',
+    gradient: 'from-cyan-500 to-blue-600',
+    bgGradient: 'from-cyan-50 to-blue-100/50',
+    iconBg: 'bg-cyan-100',
+    icon: (
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+      </svg>
+    ),
+  },
 ]
 
 export function UseCaseCards({ locale }: { locale: Locale }) {
   const t = copy[locale].useCases
 
-  const cards = cardData.map((card) => ({
+  const cards = cardVisuals.map((card) => ({
     ...card,
     ...t.cards[card.key as keyof typeof t.cards],
   }))
 
   return (
     <section className="section-padding bg-white relative overflow-hidden">
-      {/* Subtle background decoration */}
       <div className="absolute inset-0 bg-dots opacity-30" />
 
       <div className="container-wide relative">
-        {/* Section header */}
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">Votre profil</span>
+          <span className="eyebrow mb-4 block">
+            {locale === 'fr' ? 'Votre profil' : locale === 'en' ? 'Your profile' : 'Tu perfil'}
+          </span>
           <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
           <p className="body-large max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {cards.map((card, index) => (
-            <Link key={card.key} href={`/${locale}/diagnostic?case=${card.key}`} className="block group">
+            <TrackedLink
+              key={card.key}
+              href={`/${locale}/profil/${card.key}`}
+              trackEvent={`profile_${card.key}`}
+              trackLocation="use_case_cards"
+              className="block group"
+            >
               <Card
                 variant="default"
                 hover
-                className={cn(
-                  'h-full relative overflow-hidden',
-                  'animate-fade-in-up'
-                )}
+                className={cn('h-full relative overflow-hidden', 'animate-fade-in-up')}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Gradient background on hover */}
                 <div className={cn(
                   'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500',
                   `bg-gradient-to-br ${card.bgGradient}`
                 )} />
 
                 <div className="relative">
-                  {/* Icon */}
                   <div className={cn(
                     'w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300',
                     card.iconBg,
@@ -101,7 +114,6 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
                     {card.icon}
                   </div>
 
-                  {/* Content */}
                   <CardTitle className="mb-3 group-hover:text-anthracite transition-colors">
                     {card.title}
                   </CardTitle>
@@ -109,7 +121,6 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
                     {card.description}
                   </CardDescription>
 
-                  {/* CTA link */}
                   <span className={cn(
                     'inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300',
                     `bg-gradient-to-r ${card.gradient} bg-clip-text text-transparent`
@@ -121,24 +132,22 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
                   </span>
                 </div>
 
-                {/* Corner decoration */}
                 <div className={cn(
                   'absolute -bottom-6 -right-6 w-24 h-24 rounded-full opacity-10 transition-all duration-500',
                   `bg-gradient-to-br ${card.gradient}`,
                   'group-hover:scale-150 group-hover:opacity-20'
                 )} />
               </Card>
-            </Link>
+            </TrackedLink>
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <div className="text-center mt-12">
           <p className="text-gray-500 text-sm">
-            Pas sûr de votre situation ?{' '}
-            <Link href={`/${locale}/diagnostic`} className="text-violet font-medium hover:underline">
-              Faites le diagnostic complet
-            </Link>
+            {locale === 'fr' ? 'Pas sûr de votre situation ?' : locale === 'en' ? 'Not sure about your situation?' : '¿No estás seguro de tu situación?'}{' '}
+            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="use_case_cards_bottom" className="text-violet font-medium hover:underline">
+              {locale === 'fr' ? 'Faites le diagnostic complet' : locale === 'en' ? 'Take the full diagnostic' : 'Haz el diagnóstico completo'}
+            </TrackedLink>
           </p>
         </div>
       </div>

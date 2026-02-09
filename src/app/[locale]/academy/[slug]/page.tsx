@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { copy } from '@/lib/copy'
 import { blogPosts } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
+import { buildPageMetadata } from '@/lib/seo'
 
 export async function generateStaticParams() {
   return blogPosts.slice(0, 3).flatMap((post) => ['fr', 'en', 'es'].map((locale) => ({ locale, slug: post.slug })))
@@ -15,7 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, slug } = await params
   const post = blogPosts.find((p) => p.slug === slug)
   if (!post) return { title: 'Formation' }
-  return { title: `Formation: ${post.title[locale as Locale]}`, description: post.excerpt[locale as Locale] }
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: `/academy/${slug}`,
+    title: `Formation: ${post.title[locale as Locale]}`,
+    description: post.excerpt[locale as Locale],
+    image: post.image,
+    type: 'article',
+    publishedTime: post.date,
+    authors: [post.author],
+  })
 }
 
 export default async function AcademyPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

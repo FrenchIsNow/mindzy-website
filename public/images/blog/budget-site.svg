@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg13" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecfdf5"/>
+      <stop offset="100%" style="stop-color:#a7f3d0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg13)"/>
+  <!-- Piggy Bank -->
+  <g transform="translate(280, 100)">
+    <ellipse cx="120" cy="100" rx="100" ry="80" fill="#f472b6"/>
+    <ellipse cx="120" cy="100" rx="90" ry="70" fill="#f9a8d4"/>
+    <!-- Ears -->
+    <ellipse cx="50" cy="50" rx="25" ry="30" fill="#f472b6"/>
+    <ellipse cx="190" cy="50" rx="25" ry="30" fill="#f472b6"/>
+    <!-- Snout -->
+    <ellipse cx="220" cy="100" rx="25" ry="20" fill="#f472b6"/>
+    <circle cx="215" cy="95" r="5" fill="#1f1f23"/>
+    <circle cx="225" cy="95" r="5" fill="#1f1f23"/>
+    <!-- Eye -->
+    <circle cx="170" cy="70" r="10" fill="white"/>
+    <circle cx="173" cy="70" r="5" fill="#1f1f23"/>
+    <!-- Coin Slot -->
+    <rect x="100" y="30" width="40" height="8" rx="4" fill="#1f1f23"/>
+    <!-- Legs -->
+    <rect x="70" y="165" width="20" height="30" rx="4" fill="#f472b6"/>
+    <rect x="150" y="165" width="20" height="30" rx="4" fill="#f472b6"/>
+  </g>
+  <!-- Coins falling -->
+  <g fill="#fbbf24">
+    <circle cx="380" cy="80" r="20" stroke="#f59e0b" stroke-width="3"/>
+    <text x="380" y="87" text-anchor="middle" font-family="system-ui" font-size="18" fill="#f59e0b">€</text>
+
+    <circle cx="420" cy="50" r="15" stroke="#f59e0b" stroke-width="2" opacity="0.7"/>
+    <circle cx="350" cy="40" r="12" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+  </g>
+  <!-- Website Preview -->
+  <rect x="480" y="120" width="220" height="150" rx="8" fill="white" stroke="#10b981" stroke-width="3"/>
+  <rect x="480" y="120" width="220" height="25" rx="8" fill="#10b981"/>
+  <circle cx="500" cy="132" r="5" fill="white" opacity="0.5"/>
+  <circle cx="515" cy="132" r="5" fill="white" opacity="0.5"/>
+  <circle cx="530" cy="132" r="5" fill="white" opacity="0.5"/>
+  <rect x="500" y="160" width="100" height="14" rx="3" fill="#10b981"/>
+  <rect x="500" y="185" width="180" height="10" rx="2" fill="#d1d5db"/>
+  <rect x="500" y="205" width="160" height="10" rx="2" fill="#e5e7eb"/>
+  <rect x="500" y="230" width="80" height="24" rx="12" fill="#10b981"/>
+  <!-- Price Tags -->
+  <g transform="translate(150, 320)">
+    <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+    <text x="75" y="35" text-anchor="middle" font-family="system-ui" font-size="14" fill="#6b7280">À partir de</text>
+    <text x="75" y="65" text-anchor="middle" font-family="system-ui" font-size="28" font-weight="bold" fill="#10b981">49€/mois</text>
+  </g>
+  <g transform="translate(500, 320)">
+    <rect x="0" y="0" width="150" height="80" rx="8" fill="#10b981"/>
+    <text x="75" y="35" text-anchor="middle" font-family="system-ui" font-size="14" fill="white" opacity="0.8">Mise en place</text>
+    <text x="75" y="65" text-anchor="middle" font-family="system-ui" font-size="28" font-weight="bold" fill="white">300€</text>
+  </g>
+</svg>

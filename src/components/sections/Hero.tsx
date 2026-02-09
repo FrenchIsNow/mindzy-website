@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
+import { TrackedLink } from '@/components/ui/TrackedLink'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
 
@@ -57,16 +57,16 @@ export function Hero({ locale }: { locale: Locale }) {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <Link href={`/${locale}/diagnostic`}>
+            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="hero">
               <Button variant="primary" size="xl" icon={<ArrowIcon />}>
                 {t.cta}
               </Button>
-            </Link>
-            <Link href={`/${locale}/portfolio`}>
+            </TrackedLink>
+            <TrackedLink href={`/${locale}/portfolio`} trackEvent="view_portfolio" trackLocation="hero">
               <Button variant="secondary" size="xl">
                 {t.ctaSecondary}
               </Button>
-            </Link>
+            </TrackedLink>
           </div>
 
           {/* Stats */}

@@ -9,6 +9,7 @@ import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import type { ChatState } from '@/lib/types'
 import { getInitialMessage, processUserInput } from '@/lib/chatbot'
+import { analytics } from '@/lib/analytics'
 
 export function Chatbot({ locale }: { locale: Locale }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,6 +36,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
   }
 
   const handleQuickReply = (reply: string, key: 'diagnostic' | 'meeting' | 'whatsapp') => {
+    analytics.chatbot.quickReply(key)
     setState((prev) => ({ ...prev, messages: [...prev.messages, { id: Date.now().toString(), text: reply, sender: 'user' }] }))
     if (key === 'diagnostic') addBotMessage(t.responses.diagnostic)
     else if (key === 'meeting') addBotMessage(t.responses.meeting)
@@ -46,7 +48,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <button type="button" onClick={() => setIsOpen(!isOpen)} className={cn('fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full bg-violet text-white shadow-lg hover:bg-violet-600 transition-all flex items-center justify-center', isOpen && 'rotate-90')} aria-label={isOpen ? 'Fermer' : 'Ouvrir'}>
+      <button type="button" onClick={() => { const next = !isOpen; setIsOpen(next); next ? analytics.chatbot.open() : analytics.chatbot.close() }} className={cn('fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 rounded-full bg-violet text-white shadow-lg hover:bg-violet-600 transition-all flex items-center justify-center', isOpen && 'rotate-90')} aria-label={isOpen ? 'Fermer' : 'Ouvrir'}>
         {isOpen ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg> : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>}
       </button>
       <div className={cn('fixed bottom-36 sm:bottom-24 right-4 sm:right-6 z-50 w-[calc(100%-2rem)] sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300', isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none')}>
@@ -79,9 +81,9 @@ export function Chatbot({ locale }: { locale: Locale }) {
           )}
           {state.messages.length >= 2 && (
             <>
-              <Link href={`/${locale}/diagnostic`}><Button variant="primary" size="sm" className="w-full">{t.buttons.startDiagnostic}</Button></Link>
-              <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer"><Button variant="secondary" size="sm" className="w-full">{t.buttons.bookMeeting}</Button></a>
-              <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer"><Button variant="primary" size="sm" className="w-full flex items-center justify-center gap-2">💬 {t.buttons.continueWhatsApp}</Button></a>
+              <Link href={`/${locale}/diagnostic`} onClick={() => analytics.chatbot.ctaClick('diagnostic')}><Button variant="primary" size="sm" className="w-full">{t.buttons.startDiagnostic}</Button></Link>
+              <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" onClick={() => { analytics.chatbot.ctaClick('calendly'); analytics.calendly.click('chatbot') }}><Button variant="secondary" size="sm" className="w-full">{t.buttons.bookMeeting}</Button></a>
+              <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer" onClick={() => { analytics.chatbot.ctaClick('whatsapp'); analytics.whatsapp.click('chatbot') }}><Button variant="primary" size="sm" className="w-full flex items-center justify-center gap-2">💬 {t.buttons.continueWhatsApp}</Button></a>
               <button type="button" onClick={() => setState({ messages: [], step: 'initial', isTyping: false })} className="w-full text-center text-sm text-gray-500 py-2">{t.buttons.restart}</button>
             </>
           )}

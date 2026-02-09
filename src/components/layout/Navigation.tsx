@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { analytics } from '@/lib/analytics'
 
 interface NavigationProps {
   locale: Locale
@@ -39,7 +40,7 @@ export function Navigation({ locale, className, mobile, onNavigate }: Navigation
         <Link
           key={link.href}
           href={link.href}
-          onClick={onNavigate}
+          onClick={() => { analytics.navigation.menuClick(link.label); onNavigate?.() }}
           className={cn(
             'relative px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-200',
             mobile ? 'block w-full' : 'inline-block',
