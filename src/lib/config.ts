@@ -1,3 +1,4 @@
+import type { Locale } from './i18n'
 import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, Resource, BeforeAfterExample, ProfileQuestion } from './types'
 
 export const config = {
@@ -102,6 +103,14 @@ export const faqItems: FAQItem[] = [
   // Processus
   { id: 'f24', question: { fr: 'Comment se déroule la création de mon site ?', en: 'How does the site creation process work?', es: '¿Cómo es el proceso de creación de mi sitio?' }, answer: { fr: '1. Appel découverte (30 min) pour comprendre vos besoins. 2. Proposition personnalisée sous 48h. 3. Création et première maquette sous 1 semaine. 4. Vos retours et ajustements. 5. Mise en ligne après validation. 6. Formation et support continu.', en: '1. Discovery call (30 min) to understand your needs. 2. Custom proposal within 48h. 3. Creation and first mockup within 1 week. 4. Your feedback and adjustments. 5. Launch after validation. 6. Training and ongoing support.', es: '1. Llamada de descubrimiento (30 min) para entender sus necesidades. 2. Propuesta personalizada en 48h. 3. Creación y primera maqueta en 1 semana. 4. Sus comentarios y ajustes. 5. Lanzamiento tras validación. 6. Formación y soporte continuo.' }, category: 'process' },
   { id: 'f25', question: { fr: 'Combien de modifications puis-je demander ?', en: 'How many modifications can I request?', es: '¿Cuántas modificaciones puedo solicitar?' }, answer: { fr: 'Pendant la création, vous avez droit à 2 rounds de révisions majeures inclus. Après le lancement, les modifications mineures (textes, images) sont illimitées et incluses dans votre abonnement. Les modifications structurelles sont devisées.', en: 'During creation, you are entitled to 2 rounds of major revisions included. After launch, minor modifications (texts, images) are unlimited and included in your subscription. Structural modifications are quoted.', es: 'Durante la creación, tiene derecho a 2 rondas de revisiones mayores incluidas. Después del lanzamiento, las modificaciones menores (textos, imágenes) son ilimitadas e incluidas en su suscripción. Las modificaciones estructurales se presupuestan.' }, category: 'process' },
+]
+
+export const diagnosticProfessionOptions: { value: string; label: Record<Locale, string> }[] = [
+  { value: 'therapist', label: { fr: 'Thérapeute / Praticien bien-être', en: 'Therapist / Wellness practitioner', es: 'Terapeuta / Practicante de bienestar' } },
+  { value: 'coach', label: { fr: 'Coach / Consultant', en: 'Coach / Consultant', es: 'Coach / Consultor' } },
+  { value: 'artisan', label: { fr: 'Artisan / Créateur', en: 'Craftsman / Creator', es: 'Artesano / Creador' } },
+  { value: 'restaurant', label: { fr: 'Restaurateur / Commerce', en: 'Restaurant / Retail', es: 'Restaurante / Comercio' } },
+  { value: 'other', label: { fr: 'Autre profession', en: 'Other profession', es: 'Otra profesión' } },
 ]
 
 export const diagnosticQuestions: DiagnosticQuestion[] = [

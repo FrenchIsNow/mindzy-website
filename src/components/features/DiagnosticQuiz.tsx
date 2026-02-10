@@ -4,8 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
 import { copy } from '@/lib/copy'
-import { diagnosticQuestions, customDiagnosticQuestions } from '@/lib/config'
+import { diagnosticQuestions, customDiagnosticQuestions, diagnosticProfessionOptions } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import type { DiagnosticResult } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -49,20 +50,40 @@ const customResultCopy: Record<Locale, { low: { title: string; message: string }
 export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: string }) {
   const isCustom = profile === 'custom'
   const questions = isCustom ? customDiagnosticQuestions : diagnosticQuestions
+  const hasProfessionStep = !isCustom
+  const totalSteps = hasProfessionStep ? 1 + questions.length : questions.length
 
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [result, setResult] = useState<DiagnosticResult | null>(null)
+  const [profession, setProfession] = useState<string | null>(null)
+  const [professionOther, setProfessionOther] = useState('')
   const t = copy[locale].diagnostic
-  const q = questions[step]
-  const progress = ((step + 1) / questions.length) * 100
+  const isProfessionStep = hasProfessionStep && step === 0
+  const questionIndex = hasProfessionStep ? step - 1 : step
+  const q = !isProfessionStep && questionIndex >= 0 ? questions[questionIndex] : null
+  const progress = ((step + 1) / totalSteps) * 100
+
+  const handleProfessionSelect = (value: string) => {
+    setProfession(value)
+    if (value !== 'other') setProfessionOther('')
+  }
+
+  const canAdvanceFromProfession = profession !== null && (profession !== 'other' || professionOther.trim() !== '')
+
+  const handleProfessionNext = () => {
+    if (!canAdvanceFromProfession) return
+    if (step === 0 && Object.keys(answers).length === 0) analytics.cta.diagnosticStart()
+    analytics.cta.diagnosticStep(1, totalSteps)
+    setTimeout(() => setStep(1), 300)
+  }
 
   const handleAnswer = (questionId: string, score: number) => {
-    if (step === 0 && Object.keys(answers).length === 0) analytics.cta.diagnosticStart()
-    analytics.cta.diagnosticStep(step + 1, questions.length)
+    if (!hasProfessionStep && step === 0 && Object.keys(answers).length === 0) analytics.cta.diagnosticStart()
+    analytics.cta.diagnosticStep(step + 1, totalSteps)
     const next = { ...answers, [questionId]: score }
     setAnswers(next)
-    if (step < questions.length - 1) {
+    if (step < totalSteps - 1) {
       setTimeout(() => setStep((s) => s + 1), 300)
     } else {
       const res = calculateResult(next, isCustom)
@@ -73,9 +94,12 @@ export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: 
 
   if (result) {
     const levelCopy = isCustom ? customResultCopy[locale][result.level] : t.result[result.level]
+    const ctaParams = new URLSearchParams({ recommendation: result.recommendation })
+    if (profession) ctaParams.set('profession', profession)
+    if (profession === 'other' && professionOther.trim()) ctaParams.set('professionOther', professionOther.trim())
     const ctaHref = isCustom
       ? `/${locale}/profil/custom`
-      : `/${locale}/onboarding?recommendation=${result.recommendation}`
+      : `/${locale}/onboarding?${ctaParams.toString()}`
     const ctaLabel = isCustom
       ? (locale === 'fr' ? 'Décrire mon projet sur-mesure' : locale === 'en' ? 'Describe my custom project' : 'Describir mi proyecto personalizado')
       : t.cta
@@ -115,7 +139,7 @@ export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: 
               <Link href={ctaHref} onClick={() => !isCustom && analytics.onboarding.start(result.recommendation)}>
                 <Button variant="primary" size="lg">{ctaLabel}</Button>
               </Link>
-              <Button variant="secondary" size="lg" onClick={() => { setResult(null); setStep(0); setAnswers({}); }}>
+              <Button variant="secondary" size="lg" onClick={() => { setResult(null); setStep(0); setAnswers({}); setProfession(null); setProfessionOther(''); }}>
                 {copy[locale].chatbot.buttons.restart}
               </Button>
             </div>
@@ -128,18 +152,56 @@ export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: 
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
-        <div className="flex justify-between items-center mb-2"><span className="text-sm text-gray-500">{t.progress} {step + 1}/{questions.length}</span><span className="text-sm font-medium text-violet">{Math.round(progress)}%</span></div>
+        <div className="flex justify-between items-center mb-2"><span className="text-sm text-gray-500">{t.progress} {step + 1}/{totalSteps}</span><span className="text-sm font-medium text-violet">{Math.round(progress)}%</span></div>
         <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-violet transition-all duration-500 rounded-full" style={{ width: `${progress}%` }} /></div>
       </div>
       <Card variant="elevated">
         <CardContent className="p-8">
-          <h2 className="heading-3 text-anthracite mb-8 text-center">{q.question[locale]}</h2>
-          <div className="space-y-3">
-            {q.options.map((opt) => (
-              <button key={opt.value} type="button" onClick={() => handleAnswer(q.id, opt.score)} className={cn('w-full p-4 rounded-xl border-2 text-left transition-all', answers[q.id] === opt.score ? 'border-violet bg-violet/5' : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50')}><span className="font-medium text-anthracite">{opt.label[locale]}</span></button>
-            ))}
-          </div>
-          {step > 0 && <div className="mt-8 text-center"><Button variant="ghost" size="sm" onClick={() => setStep((s) => s - 1)}>← {t.back}</Button></div>}
+          {isProfessionStep ? (
+            <>
+              <h2 className="heading-3 text-anthracite mb-8 text-center">{t.professionQuestion}</h2>
+              <div className="space-y-3">
+                {diagnosticProfessionOptions.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => handleProfessionSelect(opt.value)}
+                    className={cn(
+                      'w-full p-4 rounded-xl border-2 text-left transition-all',
+                      profession === opt.value ? 'border-violet bg-violet/5' : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50'
+                    )}
+                  >
+                    <span className="font-medium text-anthracite">{opt.label[locale]}</span>
+                  </button>
+                ))}
+              </div>
+              {profession === 'other' && (
+                <div className="mt-6">
+                  <Input
+                    label=""
+                    placeholder={t.otherProfessionPlaceholder}
+                    value={professionOther}
+                    onChange={(e) => setProfessionOther(e.target.value)}
+                  />
+                </div>
+              )}
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <Button variant="primary" size="lg" onClick={handleProfessionNext} disabled={!canAdvanceFromProfession}>
+                  {t.next}
+                </Button>
+              </div>
+            </>
+          ) : q ? (
+            <>
+              <h2 className="heading-3 text-anthracite mb-8 text-center">{q.question[locale]}</h2>
+              <div className="space-y-3">
+                {q.options.map((opt) => (
+                  <button key={opt.value} type="button" onClick={() => handleAnswer(q.id, opt.score)} className={cn('w-full p-4 rounded-xl border-2 text-left transition-all', answers[q.id] === opt.score ? 'border-violet bg-violet/5' : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50')}><span className="font-medium text-anthracite">{opt.label[locale]}</span></button>
+                ))}
+              </div>
+              {step > 0 && <div className="mt-8 text-center"><Button variant="ghost" size="sm" onClick={() => setStep((s) => s - 1)}>← {t.back}</Button></div>}
+            </>
+          ) : null}
         </CardContent>
       </Card>
     </div>

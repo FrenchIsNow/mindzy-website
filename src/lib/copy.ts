@@ -7,7 +7,7 @@ interface CopyKeys {
   whyMindzy: { title: string; subtitle: string; reasons: Record<string, { title: string; description: string }> }
   testimonials: { title: string; subtitle: string }
   pricing: { title: string; subtitle: string; monthly: string; setup: string; cta: string; popular: string; customQuote: { title: string; description: string; cta: string }; roi: { title: string; businessType: string; plan: string; breakeven: string; timeSaved: string; timeSavedLabel: string; newClients: string; newClientsLabel: string; extraRevenue: string; extraRevenueLabel: string; annualROI: string; disclaimer: string }; features: Record<string, string>; plans: Record<string, { name: string; description: string }> }
-  diagnostic: { title: string; subtitle: string; progress: string; next: string; back: string; result: { title: string; low: { title: string; message: string }; medium: { title: string; message: string }; high: { title: string; message: string } }; cta: string }
+  diagnostic: { title: string; subtitle: string; progress: string; next: string; back: string; professionQuestion: string; otherProfessionPlaceholder: string; result: { title: string; low: { title: string; message: string }; medium: { title: string; message: string }; high: { title: string; message: string } }; cta: string }
   onboarding: { title: string; subtitle: string; step: string; next: string; back: string; finish: string; result: { title: string; recommended: string; meetingCta: string; contractCta: string } }
   portfolio: { title: string; subtitle: string; filter: Record<string, string>; search: string; loadMore: string; viewSite: string }
   process: { title: string; subtitle: string; steps: Record<string, { title: string; description: string; duration: string }> }
@@ -99,6 +99,8 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
       progress: isFr ? 'Question' : isEn ? 'Question' : 'Pregunta',
       next: isFr ? 'Suivant' : isEn ? 'Next' : 'Siguiente',
       back: isFr ? 'Retour' : isEn ? 'Back' : 'Atrás',
+      professionQuestion: isFr ? 'Quelle est votre profession ?' : isEn ? 'What is your profession?' : '¿Cuál es su profesión?',
+      otherProfessionPlaceholder: isFr ? 'Précisez votre profession' : isEn ? 'Specify your profession' : 'Especifique su profesión',
       result: { title: isFr ? 'Votre résultat' : isEn ? 'Your result' : 'Tu resultado', low: { title: isFr ? 'Potentiel inexploité' : isEn ? 'Untapped potential' : 'Potencial sin explotar', message: isFr ? 'Votre présence digitale a un fort potentiel d\'amélioration.' : isEn ? 'Your digital presence has strong improvement potential.' : 'Tu presencia digital tiene fuerte potencial de mejora.' }, medium: { title: isFr ? 'Bonne base' : isEn ? 'Good foundation' : 'Buena base', message: isFr ? 'Il reste des opportunités à saisir.' : isEn ? 'There are still opportunities to seize.' : 'Aún hay oportunidades que aprovechar.' }, high: { title: isFr ? 'Excellente présence' : isEn ? 'Excellent presence' : 'Excelente presencia', message: isFr ? 'Félicitations ! Nous pouvons vous aider à optimiser encore.' : isEn ? 'Congratulations! We can help you optimize further.' : '¡Felicitaciones! Podemos ayudarte a optimizar más.' } },
       cta: isFr ? 'Découvrir ma solution personnalisée' : isEn ? 'Discover my personalized solution' : 'Descubrir mi solución personalizada',
     },
