@@ -7,21 +7,27 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { copy } from '@/lib/copy'
-import { faqItems } from '@/lib/config'
+import { faqItemsV2 } from '@/lib/faq-data'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
 
-type FAQCat = 'all' | 'general' | 'pricing' | 'technical' | 'support' | 'features' | 'process'
+type FAQCat = 'all' | 'vision' | 'positionnement' | 'technique' | 'seo' | 'fonctionnalites' | 'autonomie' | 'accompagnement' | 'formation' | 'tarifs' | 'cas-specifiques' | 'decision' | 'confiance'
 
 const categoryIcons: Record<FAQCat, string> = {
   all: '📋',
-  general: '💡',
-  pricing: '💰',
-  technical: '⚙️',
-  support: '🛟',
-  features: '✨',
-  process: '📝',
+  vision: '💡',
+  positionnement: '🎯',
+  technique: '⚙️',
+  seo: '🔍',
+  fonctionnalites: '✨',
+  autonomie: '🔑',
+  accompagnement: '🤝',
+  formation: '📚',
+  tarifs: '💰',
+  'cas-specifiques': '🧩',
+  decision: '🧭',
+  confiance: '🛡️',
 }
 
 export function FAQContent({ locale }: { locale: Locale }) {
@@ -29,17 +35,15 @@ export function FAQContent({ locale }: { locale: Locale }) {
   const [searchQuery, setSearchQuery] = useState('')
   const t = copy[locale].faq
 
-  const cats: { value: FAQCat; label: string; icon: string }[] = [
-    { value: 'all', label: t.categories.all, icon: categoryIcons.all },
-    { value: 'general', label: t.categories.general, icon: categoryIcons.general },
-    { value: 'pricing', label: t.categories.pricing, icon: categoryIcons.pricing },
-    { value: 'technical', label: t.categories.technical, icon: categoryIcons.technical },
-    { value: 'features', label: t.categories.features, icon: categoryIcons.features },
-    { value: 'process', label: t.categories.process, icon: categoryIcons.process },
-    { value: 'support', label: t.categories.support, icon: categoryIcons.support },
-  ]
+  const cats: { value: FAQCat; label: string; icon: string }[] = Object.entries(t.allCategories).map(
+    ([key, label]) => ({
+      value: key as FAQCat,
+      label,
+      icon: categoryIcons[key as FAQCat] || '❓',
+    })
+  )
 
-  const filtered = faqItems.filter((item) => {
+  const filtered = faqItemsV2.filter((item) => {
     const matchesCategory = category === 'all' || item.category === category
     const matchesSearch = searchQuery === '' ||
       item.question[locale].toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -51,19 +55,19 @@ export function FAQContent({ locale }: { locale: Locale }) {
     fr: {
       stillQuestions: 'Vous avez encore des questions ?',
       contactUs: 'Notre équipe est disponible pour répondre à toutes vos questions. N\'hésitez pas à nous contacter.',
-      scheduleCall: 'Planifier un appel gratuit',
+      scheduleCall: 'Échanger avec nous',
       contactPage: 'Voir les tarifs',
     },
     en: {
       stillQuestions: 'Still have questions?',
       contactUs: 'Our team is available to answer all your questions. Don\'t hesitate to contact us.',
-      scheduleCall: 'Schedule a free call',
+      scheduleCall: 'Talk to us',
       contactPage: 'View pricing',
     },
     es: {
       stillQuestions: '¿Todavía tienes preguntas?',
       contactUs: 'Nuestro equipo está disponible para responder todas tus preguntas. No dudes en contactarnos.',
-      scheduleCall: 'Programar una llamada gratis',
+      scheduleCall: 'Hablar con nosotros',
       contactPage: 'Ver precios',
     },
   }

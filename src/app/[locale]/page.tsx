@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { Hero } from '@/components/sections/Hero'
 import { UseCaseCards } from '@/components/sections/UseCaseCards'
 import { WhyMindzy } from '@/components/sections/WhyMindzy'
+import { PourquoiNous } from '@/components/sections/PourquoiNous'
 import { ProcessTimeline } from '@/components/sections/ProcessTimeline'
+import { Engagements } from '@/components/sections/Engagements'
 import { FeaturedPortfolio } from '@/components/sections/FeaturedPortfolio'
 import { Testimonials } from '@/components/sections/Testimonials'
 import { CTASection } from '@/components/sections/CTASection'
@@ -11,16 +13,16 @@ import { buildPageMetadata } from '@/lib/seo'
 
 const homeMeta: Record<string, { title: string; description: string }> = {
   fr: {
-    title: 'Mindzy | Création de sites web professionnels pour entrepreneurs',
-    description: 'Mindzy crée des sites web premium pour entrepreneurs et professionnels. Réservation en ligne, SEO optimisé, design sur-mesure. Livraison en 2 semaines à partir de 49€/mois.',
+    title: 'Mindzy | Solutions digitales sur mesure pour entrepreneurs',
+    description: 'Mindzy accompagne la création de projets digitaux sur mesure : sites web, applications, systèmes internes. Approche personnalisée, SEO intégré, accompagnement humain.',
   },
   en: {
-    title: 'Mindzy | Professional Website Creation for Entrepreneurs',
-    description: 'Mindzy creates premium websites for entrepreneurs and professionals. Online booking, optimized SEO, custom design. Delivery in 2 weeks from €49/month.',
+    title: 'Mindzy | Custom Digital Solutions for Entrepreneurs',
+    description: 'Mindzy supports the creation of custom digital projects: websites, applications, internal systems. Personalized approach, integrated SEO, human support.',
   },
   es: {
-    title: 'Mindzy | Creación de sitios web profesionales para emprendedores',
-    description: 'Mindzy crea sitios web premium para emprendedores y profesionales. Reservas en línea, SEO optimizado, diseño a medida. Entrega en 2 semanas desde 49€/mes.',
+    title: 'Mindzy | Soluciones digitales a medida para emprendedores',
+    description: 'Mindzy acompaña la creación de proyectos digitales a medida: sitios web, aplicaciones, sistemas internos. Enfoque personalizado, SEO integrado, acompañamiento humano.',
   },
 }
 
@@ -38,14 +40,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Hero Section - Main value proposition */}
       <Hero locale={locale as Locale} />
 
-      {/* Use Cases - Identify user needs */}
+      {/* Service Cards - 6 use cases */}
       <UseCaseCards locale={locale as Locale} />
 
-      {/* Why Mindzy - Differentiation */}
+      {/* Value Propositions - 5 key differentiators */}
       <WhyMindzy locale={locale as Locale} />
 
-      {/* Process Timeline - How it works */}
+      {/* Why Us - 6 detailed blocks */}
+      <PourquoiNous locale={locale as Locale} />
+
+      {/* Process Timeline - 4 steps */}
       <ProcessTimeline locale={locale as Locale} />
+
+      {/* Engagements - 4 commitments */}
+      <Engagements locale={locale as Locale} />
 
       {/* Featured Portfolio - Social proof */}
       <FeaturedPortfolio locale={locale as Locale} />

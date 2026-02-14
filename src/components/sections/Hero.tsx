@@ -1,11 +1,76 @@
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { TrackedLink } from '@/components/ui/TrackedLink'
-import { copy } from '@/lib/copy'
 import type { Locale } from '@/lib/i18n'
 
 export function Hero({ locale }: { locale: Locale }) {
-  const t = copy[locale].hero
+  const content = {
+    fr: {
+      badge: 'Solutions digitales sur mesure',
+      title: 'Des solutions digitales',
+      titleHighlight: 'pensées pour votre activité',
+      subtitle: 'Sites, applications, systèmes internes : Mindzy accompagne la création de projets sur mesure, du simple besoin aux structures complexes.',
+      cta: 'Démarrer mon projet',
+      ctaSecondary: 'Voir nos réalisations',
+      stats: {
+        clients: 'Projets livrés',
+        satisfaction: 'Satisfaction client',
+        support: 'Support inclus',
+      },
+      trustBadgeLeft: {
+        title: 'Projets sur mesure',
+        subtitle: 'Approche personnalisée',
+      },
+      trustBadgeRight: {
+        title: 'Accompagnement humain',
+        subtitle: 'À chaque étape',
+      },
+    },
+    en: {
+      badge: 'Custom digital solutions',
+      title: 'Digital solutions',
+      titleHighlight: 'designed for your business',
+      subtitle: 'Websites, applications, internal systems: Mindzy supports the creation of custom projects, from simple needs to complex structures.',
+      cta: 'Start my project',
+      ctaSecondary: 'View our work',
+      stats: {
+        clients: 'Projects delivered',
+        satisfaction: 'Client satisfaction',
+        support: 'Support included',
+      },
+      trustBadgeLeft: {
+        title: 'Projets sur mesure',
+        subtitle: 'Approche personnalisée',
+      },
+      trustBadgeRight: {
+        title: 'Accompagnement humain',
+        subtitle: 'À chaque étape',
+      },
+    },
+    es: {
+      badge: 'Soluciones digitales a medida',
+      title: 'Soluciones digitales',
+      titleHighlight: 'diseñadas para tu negocio',
+      subtitle: 'Sitios web, aplicaciones, sistemas internos: Mindzy acompaña la creación de proyectos a medida, desde necesidades simples hasta estructuras complejas.',
+      cta: 'Empezar mi proyecto',
+      ctaSecondary: 'Ver nuestros trabajos',
+      stats: {
+        clients: 'Proyectos entregados',
+        satisfaction: 'Satisfacción del cliente',
+        support: 'Soporte incluido',
+      },
+      trustBadgeLeft: {
+        title: 'Projets sur mesure',
+        subtitle: 'Approche personnalisée',
+      },
+      trustBadgeRight: {
+        title: 'Accompagnement humain',
+        subtitle: 'À chaque étape',
+      },
+    },
+  }
+
+  const t = content[locale]
 
   return (
     <section className="relative min-h-[90vh] flex items-center pt-20 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
@@ -81,18 +146,20 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Floating trust logos - positioned asymmetrically */}
+        {/* Floating trust badges - positioned asymmetrically */}
         <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 animate-float" style={{ animationDelay: '1s' }}>
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-soft border border-white/60">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-violet-600 flex items-center justify-center text-white">
+                {/* Target/puzzle icon */}
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                  <circle cx="12" cy="12" r="10" />
                 </svg>
               </div>
               <div className="text-left">
-                <div className="text-sm font-semibold text-anthracite">SSL Sécurisé</div>
-                <div className="text-xs text-gray-500">RGPD Conforme</div>
+                <div className="text-sm font-semibold text-anthracite">{t.trustBadgeLeft.title}</div>
+                <div className="text-xs text-gray-500">{t.trustBadgeLeft.subtitle}</div>
               </div>
             </div>
           </div>
@@ -102,13 +169,14 @@ export function Hero({ locale }: { locale: Locale }) {
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-soft border border-white/60">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sage-400 to-sage-600 flex items-center justify-center text-white">
+                {/* Users/heart icon */}
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
               <div className="text-left">
-                <div className="text-sm font-semibold text-anthracite">Livraison rapide</div>
-                <div className="text-xs text-gray-500">2 semaines</div>
+                <div className="text-sm font-semibold text-anthracite">{t.trustBadgeRight.title}</div>
+                <div className="text-xs text-gray-500">{t.trustBadgeRight.subtitle}</div>
               </div>
             </div>
           </div>
