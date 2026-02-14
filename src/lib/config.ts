@@ -4,7 +4,7 @@ import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQue
 export const config = {
   SITE_URL: 'https://mindzy.me',
   CONTACT_EMAIL: 'contact@mindzy.me',
-  CALENDLY_URL: 'https://calendar.app.google/7ccvgBKCiRJgLXKL7',
+  CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendar.app.google/7ccvgBKCiRJgLXKL7',
   CONTRACT_URL: '/contract',
   WHATSAPP_PHONE_NUMBER: '+41XXXXXXXXX',
   WHATSAPP_PHONE_ID: 'XXXXXXXXXX',
