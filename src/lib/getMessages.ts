@@ -11,5 +11,3 @@ export function getMessages(locale: Locale) {
 }
 
 export type Messages = ReturnType<typeof getMessages>
-export type WhyUsMessages = Messages['whyUs']
-export type WhyMindzyMessages = Messages['whyMindzy']

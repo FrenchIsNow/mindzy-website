@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { Navigation } from './Navigation'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
@@ -13,7 +13,7 @@ import { analytics } from '@/lib/analytics'
 export function Header({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const t = copy[locale].nav
+  const t = getMessages(locale).nav
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)

@@ -6,7 +6,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { faqItemsV2 } from '@/lib/faq-data'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -38,7 +38,7 @@ const sectionTitles: Record<Exclude<FAQCat, 'all'>, Record<Locale, string>> = {
 export function FAQContent({ locale }: { locale: Locale }) {
   const [category, setCategory] = useState<FAQCat>('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const t = copy[locale].faq
+  const t = getMessages(locale).faq
 
   const cats: { value: FAQCat; label: string }[] = Object.entries(t.allCategories).map(
     ([key, label]) => ({

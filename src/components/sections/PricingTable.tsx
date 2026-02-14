@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card'
 import { Button, ArrowIcon, CheckIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { plans } from '@/lib/config'
 import { formatPrice } from '@/lib/utils'
 import type { Locale } from '@/lib/i18n'
@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
 
 export function PricingTable({ locale }: { locale: Locale }) {
-  const t = copy[locale].pricing
+  const t = getMessages(locale).pricing
 
   return (
     <section className="section-padding relative overflow-hidden">
@@ -48,7 +48,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
                   variant={isPopular ? 'featured' : 'default'}
                   padding="none"
                   className={cn(
-                    'h-full relative overflow-hidden',
+                    'h-full relative overflow-hidden flex flex-col',
                     isPopular ? 'shadow-glow' : 'hover:shadow-card-hover',
                     'transition-all duration-300'
                   )}
@@ -60,13 +60,13 @@ export function PricingTable({ locale }: { locale: Locale }) {
                     </div>
                   )}
 
-                  <div className={cn('p-6', isPopular && 'pt-12')}>
+                  <div className={cn('p-6 flex-1 flex flex-col', isPopular && 'pt-12')}>
                     <CardHeader className="text-center pb-6 mb-0">
                       <CardTitle className="text-xl mb-2">{planCopy.name}</CardTitle>
                       <CardDescription className="text-sm">{planCopy.description}</CardDescription>
                     </CardHeader>
 
-                    <CardContent>
+                    <CardContent className="flex-1">
                       {/* Price */}
                       <div className="text-center mb-6">
                         <div className="flex items-baseline justify-center gap-1">
@@ -81,7 +81,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
                         <div className="text-sm text-gray-400 mt-2">
                           {t.setup}: {formatPrice(plan.setup)} HT
                         </div>
-                        <p className="text-xs text-violet-500 font-medium mt-2">
+                        <p className="text-[10px] text-violet-400 font-normal mt-1.5">
                           {locale === 'fr' ? 'Options adaptables pour chaque besoin' : locale === 'en' ? 'Adaptable options for every need' : 'Opciones adaptables para cada necesidad'}
                         </p>
                       </div>
@@ -149,7 +149,6 @@ export function PricingTable({ locale }: { locale: Locale }) {
         {/* Guarantees */}
         <div className="mt-12 flex flex-wrap justify-center gap-8">
           <GuaranteeItem icon="shield" label="Paiement sécurisé" />
-          <GuaranteeItem icon="refresh" label="14 jours satisfait ou remboursé" />
           <GuaranteeItem icon="support" label="Support inclus" />
         </div>
       </div>

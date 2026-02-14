@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { Input } from '@/components/ui/Input'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { portfolioItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import type { PortfolioItem } from '@/lib/types'
@@ -19,7 +19,7 @@ export function PortfolioGrid({ locale }: { locale: Locale }) {
   const [filter, setFilter] = useState<CategoryFilter>('all')
   const [search, setSearch] = useState('')
   const [visible, setVisible] = useState(ITEMS_PER_PAGE)
-  const t = copy[locale].portfolio
+  const t = getMessages(locale).portfolio
   const filtered = useMemo(() => portfolioItems.filter((item) => {
     const matchCat = filter === 'all' || item.category === filter
     const matchSearch = !search || item.title[locale].toLowerCase().includes(search.toLowerCase()) || item.profession.toLowerCase().includes(search.toLowerCase())

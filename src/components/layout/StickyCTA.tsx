@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -11,7 +11,7 @@ import { analytics } from '@/lib/analytics'
 
 export function StickyCTA({ locale }: { locale: Locale }) {
   const [visible, setVisible] = useState(false)
-  const t = copy[locale].stickyCta
+  const t = getMessages(locale).stickyCta
 
   useEffect(() => {
     const handleScroll = () => setVisible(window.scrollY > 400)

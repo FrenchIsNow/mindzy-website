@@ -1,92 +1,75 @@
 {
-  "whyUs": {
-    "metaDescription": "Pourquoi choisir Mindzy plutôt qu'une agence web traditionnelle ? Design personnalisé, livraison en 2 semaines, support illimité, prix transparents.",
-    "badge": "Pourquoi nous choisir",
-    "titles": {
-      "stats": "En quelques chiffres",
-      "differentiators": "Ce qui nous rend uniques",
-      "comparison": "Comparatif détaillé",
-      "process": "Notre processus",
-      "engagements": "Nos engagements",
-      "testimonials": "Ils nous font confiance",
-      "cta": "Prêt à transformer votre présence en ligne ?",
-      "ctaSubtitle": "Réservez un appel découverte gratuit de 30 minutes pour discuter de votre projet.",
-      "ctaButton": "Réserver mon appel gratuit",
-      "ctaSecondary": "Voir nos tarifs"
-    },
-    "stats": [
-      { "value": "150+", "label": "Sites créés", "description": "Pour des entrepreneurs partout en Europe" },
-      { "value": "98%", "label": "Satisfaction client", "description": "Basé sur les avis vérifiés" },
-      { "value": "2 sem.", "label": "Délai moyen", "description": "De la commande à la mise en ligne" },
-      { "value": "24/7", "label": "Support réactif", "description": "Réponse sous 4h en moyenne" }
-    ],
-    "differentiators": [
-      {
-        "icon": "🎯",
-        "title": "Une approche centrée sur votre réalité",
-        "description": "Nous ne partons jamais d'un template ou d'un process figé. Chaque projet commence par la compréhension de votre activité, de vos usages et de vos contraintes.",
-        "details": ["Analyse du besoin réel", "Adaptation à votre métier", "Aucune solution standard imposée", "Vision court et long terme"]
+  "nav": {
+    "home": "Accueil",
+    "portfolio": "Portfolio",
+    "pricing": "Tarifs",
+    "whyUs": "Pourquoi nous",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "cta": "Démarrer"
+  },
+  "hero": {
+    "badge": "Agence web nouvelle génération",
+    "title": "Votre site web premium",
+    "titleHighlight": "en 2 semaines",
+    "subtitle": "Mindzy crée des sites professionnels pour les entrepreneurs ambitieux. Réservation en ligne, SEO optimisé, design sur-mesure.",
+    "cta": "Démarrer mon projet",
+    "ctaSecondary": "Voir nos réalisations",
+    "stats": {
+      "clients": "Clients satisfaits",
+      "satisfaction": "Taux de satisfaction",
+      "support": "Support inclus"
+    }
+  },
+  "useCases": {
+    "title": "Dans quelle situation êtes-vous ?",
+    "subtitle": "Choisissez votre profil pour découvrir la solution adaptée",
+    "cards": {
+      "beginner": {
+        "title": "Je lance mon activité",
+        "description": "Pas encore de site, je veux démarrer avec une présence professionnelle qui inspire confiance."
       },
-      {
-        "icon": "🧩",
-        "title": "Des projets sur mesure, pas des produits",
-        "description": "Nous concevons des sites, applications et systèmes internes adaptés à des besoins simples comme complexes, sans chercher à faire rentrer votre projet dans un cadre pré-défini.",
-        "details": ["Sur mesure fonctionnel et technique", "Évolutivité pensée dès le départ", "Du projet simple au système structuré", "Priorité à l'usage réel"]
+      "pro": {
+        "title": "J'ai déjà un site",
+        "description": "Mon site est obsolète ou ne me ressemble plus, je veux le moderniser."
       },
-      {
-        "icon": "🤝",
-        "title": "Un accompagnement humain et impliqué",
-        "description": "Chez Mindzy, vous n'êtes pas un dossier de plus. Nous vous accompagnons, conseillons et ajustons le projet avec vous, à chaque étape.",
-        "details": ["Interlocuteurs impliqués", "Échanges clairs et pédagogiques", "Conseils concrets, pas du jargon", "Présence avant, pendant et après"]
+      "booking": {
+        "title": "Je veux automatiser",
+        "description": "Je perds du temps avec la gestion manuelle, je veux des réservations et paiements en ligne."
       },
-      {
-        "icon": "🔍",
-        "title": "Une expertise SEO intégrée",
-        "description": "La visibilité n'est pas un ajout, elle fait partie du projet. Le référencement est pensé dès la conception pour assurer une base saine et durable.",
-        "details": ["Structure claire et lisible", "Contenus pensés pour le référencement", "Performance et vitesse optimisées", "Vision long terme, pas de recettes miracles"]
+      "sales": {
+        "title": "Je veux vendre en ligne",
+        "description": "Je propose des produits ou services que je veux vendre directement sur mon site."
       },
-      {
-        "icon": "🛡️",
-        "title": "Des projets pensés pour durer",
-        "description": "Nous privilégions la stabilité, la clarté et la maintenabilité. L'objectif : un projet qui reste pertinent et utilisable dans le temps.",
-        "details": ["Projets fiables et robustes", "Faciles à faire évoluer", "Technologies maîtrisées", "Maintenance simplifiée"]
-      },
-      {
-        "icon": "📱",
-        "title": "Une expérience cohérente sur tous les supports",
-        "description": "Chaque projet est conçu pour être fluide et cohérent, quel que soit l'écran ou le contexte d'utilisation.",
-        "details": ["Responsive natif", "Mobile et desktop cohérents", "Performance maîtrisée", "Expérience claire et accessible"]
+      "custom": {
+        "title": "Projet sur-mesure",
+        "description": "Application web, mobile ou cross-plateforme : je veux une solution technique sur-mesure."
       }
-    ],
-    "process": [
-      { "step": "01", "title": "Compréhension & cadrage", "description": "Nous prenons le temps de comprendre votre activité, vos objectifs et vos contraintes afin de définir un cadre clair et pertinent." },
-      { "step": "02", "title": "Conception sur mesure", "description": "Nous concevons une approche adaptée à votre besoin : structure, fonctionnalités et orientations techniques, validées avec vous." },
-      { "step": "03", "title": "Réalisation & ajustements", "description": "Nous développons le projet de manière progressive, avec des échanges réguliers et des ajustements en fonction de vos retours." },
-      { "step": "04", "title": "Mise en ligne & accompagnement", "description": "Le projet est déployé et nous restons disponibles pour vous accompagner dans la prise en main et les évolutions futures." }
-    ],
-    "engagements": [
-      { "title": "Une relation claire et transparente", "description": "Nous travaillons avec des échanges clairs, des décisions partagées et une vision commune du projet dès le départ." },
-      { "title": "Un projet pensé avec vous", "description": "Chaque projet est construit en collaboration. Vos retours et votre compréhension font partie intégrante du processus." },
-      { "title": "Une base solide et durable", "description": "Nous concevons des projets stables, maintenables et pensés pour évoluer, sans dépendance inutile ni complexité superflue." },
-      { "title": "Une approche responsable", "description": "Nous appliquons les bonnes pratiques en matière de sécurité, de confidentialité et de fiabilité, adaptées à la nature de votre projet." }
-    ],
-    "comparison": {
-      "headers": ["Critère", "Agences traditionnelles", "Freelances", "DIY (Wix, etc.)", "Mindzy"],
-      "rows": [
-        ["Prix moyen", "3 000 - 15 000€", "1 500 - 5 000€", "200 - 500€/an", "À partir de 49€/mois"],
-        ["Délai de livraison", "2-4 mois", "1-2 mois", "DIY (variable)", "2 semaines"],
-        ["Design personnalisé", "✓ Premium", "✓ Variable", "✗ Templates", "✓ Premium"],
-        ["SEO optimisé", "✓ (supplément)", "? Variable", "✗ Basique", "✓ Inclus"],
-        ["Réservation en ligne", "? Sur demande", "? Variable", "? Plugins", "✓ Intégré"],
-        ["Support continu", "✗ Limité", "? Variable", "✗ Forum", "✓ Illimité"],
-        ["Mises à jour", "✗ Facturées", "✗ Facturées", "✓ Auto", "✓ Incluses"],
-        ["Hébergement", "✗ Extra", "✗ Extra", "✓ Inclus", "✓ Premium inclus"]
-      ]
     }
   },
   "whyMindzy": {
+    "title": "Pourquoi choisir Mindzy ?",
+    "subtitle": "Ce qui nous différencie des agences traditionnelles",
     "eyebrow": "Nos engagements",
-    "title": "Ce qui fait la différence",
+    "titleAlt": "Ce qui fait la différence",
+    "reasons": {
+      "specialized": {
+        "title": "Experts en conversion",
+        "description": "Sites conçus pour convertir vos visiteurs en clients."
+      },
+      "turnkey": {
+        "title": "Solution clé en main",
+        "description": "Nous gérons tout : design, textes, SEO, mise en ligne."
+      },
+      "results": {
+        "title": "Résultats garantis",
+        "description": "Nos clients voient leur activité décoller."
+      },
+      "support": {
+        "title": "Support dédié",
+        "description": "Une équipe disponible pour vous accompagner."
+      }
+    },
     "items": [
       {
         "key": "reality",
@@ -119,5 +102,532 @@
         "description": "Chaque projet est conçu pour être fluide et cohérent, quel que soit l'écran ou le contexte d'utilisation."
       }
     ]
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "subtitle": "Témoignages d'entrepreneurs qui nous font confiance"
+  },
+  "pricing": {
+    "title": "Des tarifs transparents",
+    "subtitle": "Choisissez la formule adaptée à vos besoins",
+    "monthly": "/mois HT",
+    "setup": "Setup",
+    "cta": "Choisir",
+    "popular": "Populaire",
+    "customQuote": {
+      "title": "Projet sur-mesure ?",
+      "description": "Gros projets ou besoins spécifiques : contactez-nous pour un devis.",
+      "cta": "Demander un devis"
+    },
+    "roi": {
+      "title": "Calculateur de ROI",
+      "businessType": "Type d'activité",
+      "plan": "Plan",
+      "breakeven": "suffisent pour rentabiliser",
+      "timeSaved": "heures économisées/mois",
+      "timeSavedLabel": "Temps gagné",
+      "newClients": "nouveaux clients estimés/mois",
+      "newClientsLabel": "Croissance",
+      "extraRevenue": "revenu additionnel estimé/mois",
+      "extraRevenueLabel": "Revenu additionnel",
+      "annualROI": "ROI annuel estimé",
+      "disclaimer": "Estimations basées sur les moyennes du secteur"
+    },
+    "features": {
+      "pages": "pages",
+      "articles": "articles SEO/mois",
+      "booking": "Réservation en ligne",
+      "payments": "Paiements en ligne",
+      "products": "products",
+      "gmb": "Google Business",
+      "support": "Support prioritaire",
+      "ssl": "SSL",
+      "hosting": "Hébergement inclus"
+    },
+    "plans": {
+      "basic": {
+        "name": "Starter",
+        "description": "Pour démarrer votre présence en ligne"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Pour développer votre visibilité"
+      },
+      "business": {
+        "name": "Business",
+        "description": "Pour automatiser votre activité"
+      },
+      "ecommerce": {
+        "name": "E-commerce",
+        "description": "Pour vendre en ligne"
+      }
+    }
+  },
+  "diagnostic": {
+    "title": "Diagnostic express",
+    "subtitle": "Évaluez votre présence digitale en 60 secondes",
+    "progress": "Question",
+    "next": "Suivant",
+    "back": "Retour",
+    "professionQuestion": "Quelle est votre profession ?",
+    "otherProfessionPlaceholder": "Précisez votre profession",
+    "result": {
+      "title": "Votre résultat",
+      "low": {
+        "title": "Potentiel inexploité",
+        "message": "Votre présence digitale a un fort potentiel d'amélioration."
+      },
+      "medium": {
+        "title": "Bonne base",
+        "message": "Il reste des opportunités à saisir."
+      },
+      "high": {
+        "title": "Excellente présence",
+        "message": "Félicitations ! Nous pouvons vous aider à optimiser encore."
+      }
+    },
+    "cta": "Découvrir ma solution personnalisée"
+  },
+  "onboarding": {
+    "title": "Trouvez votre formule idéale",
+    "subtitle": "4 questions pour une recommandation personnalisée",
+    "step": "Étape",
+    "next": "Suivant",
+    "back": "Retour",
+    "finish": "Voir ma recommandation",
+    "result": {
+      "title": "Votre formule recommandée",
+      "recommended": "Recommandé pour vous",
+      "meetingCta": "Prendre un meeting",
+      "contractCta": "Contrat + CGU/CGV"
+    }
+  },
+  "portfolio": {
+    "title": "Nos réalisations",
+    "subtitle": "Sites web créés pour nos clients",
+    "filter": {
+      "all": "Tous",
+      "therapist": "Services",
+      "clinic": "Entreprises",
+      "coach": "Coachs",
+      "ecom": "E-commerce"
+    },
+    "search": "Rechercher...",
+    "loadMore": "Voir plus",
+    "viewSite": "Voir le site"
+  },
+  "process": {
+    "title": "Notre processus",
+    "subtitle": "De la première prise de contact à la mise en ligne",
+    "steps": {
+      "diagnostic": {
+        "title": "Diagnostic",
+        "description": "Nous analysons votre situation et objectifs.",
+        "duration": "10 min"
+      },
+      "onboarding": {
+        "title": "Onboarding",
+        "description": "Vous nous transmettez vos contenus.",
+        "duration": "30 min"
+      },
+      "design": {
+        "title": "Design & Développement",
+        "description": "Création de votre site sur-mesure.",
+        "duration": "2 semaines"
+      },
+      "launch": {
+        "title": "Mise en ligne",
+        "description": "Déploiement avec formation et support.",
+        "duration": "1 jour"
+      }
+    }
+  },
+  "whyUs": {
+    "metaDescription": "Pourquoi choisir Mindzy plutôt qu'une agence web traditionnelle ? Design personnalisé, livraison en 2 semaines, support illimité, prix transparents.",
+    "title": "Pourquoi Mindzy ?",
+    "subtitle": "Agences traditionnelles vs Mindzy",
+    "badge": "Pourquoi nous choisir",
+    "comparison": {
+      "title": "La différence Mindzy",
+      "agencies": {
+        "title": "Agences traditionnelles",
+        "points": [
+          "Templates génériques",
+          "Délais longs et coûts élevés",
+          "Support limité après livraison"
+        ]
+      },
+      "mindzy": {
+        "title": "Mindzy",
+        "points": [
+          "Design personnalisé 100%",
+          "Livraison en 2 semaines",
+          "Support illimité inclus"
+        ]
+      }
+    },
+    "titles": {
+      "stats": "En quelques chiffres",
+      "differentiators": "Ce qui nous rend uniques",
+      "comparison": "Comparatif détaillé",
+      "process": "Notre processus",
+      "engagements": "Nos engagements",
+      "testimonials": "Ils nous font confiance",
+      "cta": "Prêt à transformer votre présence en ligne ?",
+      "ctaSubtitle": "Réservez un appel découverte gratuit de 30 minutes pour discuter de votre projet.",
+      "ctaButton": "Réserver mon appel gratuit",
+      "ctaSecondary": "Voir nos tarifs"
+    },
+    "stats": [
+      {
+        "value": "150+",
+        "label": "Sites créés",
+        "description": "Pour des entrepreneurs partout en Europe"
+      },
+      {
+        "value": "98%",
+        "label": "Satisfaction client",
+        "description": "Basé sur les avis vérifiés"
+      },
+      {
+        "value": "2 sem.",
+        "label": "Délai moyen",
+        "description": "De la commande à la mise en ligne"
+      },
+      {
+        "value": "24/7",
+        "label": "Support réactif",
+        "description": "Réponse sous 4h en moyenne"
+      }
+    ],
+    "differentiators": [
+      {
+        "icon": "🎯",
+        "title": "Une approche centrée sur votre réalité",
+        "description": "Nous ne partons jamais d'un template ou d'un process figé. Chaque projet commence par la compréhension de votre activité, de vos usages et de vos contraintes.",
+        "details": [
+          "Analyse du besoin réel",
+          "Adaptation à votre métier",
+          "Aucune solution standard imposée",
+          "Vision court et long terme"
+        ]
+      },
+      {
+        "icon": "🧩",
+        "title": "Des projets sur mesure, pas des produits",
+        "description": "Nous concevons des sites, applications et systèmes internes adaptés à des besoins simples comme complexes, sans chercher à faire rentrer votre projet dans un cadre pré-défini.",
+        "details": [
+          "Sur mesure fonctionnel et technique",
+          "Évolutivité pensée dès le départ",
+          "Du projet simple au système structuré",
+          "Priorité à l'usage réel"
+        ]
+      },
+      {
+        "icon": "🤝",
+        "title": "Un accompagnement humain et impliqué",
+        "description": "Chez Mindzy, vous n'êtes pas un dossier de plus. Nous vous accompagnons, conseillons et ajustons le projet avec vous, à chaque étape.",
+        "details": [
+          "Interlocuteurs impliqués",
+          "Échanges clairs et pédagogiques",
+          "Conseils concrets, pas du jargon",
+          "Présence avant, pendant et après"
+        ]
+      },
+      {
+        "icon": "🔍",
+        "title": "Une expertise SEO intégrée",
+        "description": "La visibilité n'est pas un ajout, elle fait partie du projet. Le référencement est pensé dès la conception pour assurer une base saine et durable.",
+        "details": [
+          "Structure claire et lisible",
+          "Contenus pensés pour le référencement",
+          "Performance et vitesse optimisées",
+          "Vision long terme, pas de recettes miracles"
+        ]
+      },
+      {
+        "icon": "🛡️",
+        "title": "Des projets pensés pour durer",
+        "description": "Nous privilégions la stabilité, la clarté et la maintenabilité. L'objectif : un projet qui reste pertinent et utilisable dans le temps.",
+        "details": [
+          "Projets fiables et robustes",
+          "Faciles à faire évoluer",
+          "Technologies maîtrisées",
+          "Maintenance simplifiée"
+        ]
+      },
+      {
+        "icon": "📱",
+        "title": "Une expérience cohérente sur tous les supports",
+        "description": "Chaque projet est conçu pour être fluide et cohérent, quel que soit l'écran ou le contexte d'utilisation.",
+        "details": [
+          "Responsive natif",
+          "Mobile et desktop cohérents",
+          "Performance maîtrisée",
+          "Expérience claire et accessible"
+        ]
+      }
+    ],
+    "process": [
+      {
+        "step": "01",
+        "title": "Compréhension & cadrage",
+        "description": "Nous prenons le temps de comprendre votre activité, vos objectifs et vos contraintes afin de définir un cadre clair et pertinent."
+      },
+      {
+        "step": "02",
+        "title": "Conception sur mesure",
+        "description": "Nous concevons une approche adaptée à votre besoin : structure, fonctionnalités et orientations techniques, validées avec vous."
+      },
+      {
+        "step": "03",
+        "title": "Réalisation & ajustements",
+        "description": "Nous développons le projet de manière progressive, avec des échanges réguliers et des ajustements en fonction de vos retours."
+      },
+      {
+        "step": "04",
+        "title": "Mise en ligne & accompagnement",
+        "description": "Le projet est déployé et nous restons disponibles pour vous accompagner dans la prise en main et les évolutions futures."
+      }
+    ],
+    "engagements": [
+      {
+        "title": "Une relation claire et transparente",
+        "description": "Nous travaillons avec des échanges clairs, des décisions partagées et une vision commune du projet dès le départ."
+      },
+      {
+        "title": "Un projet pensé avec vous",
+        "description": "Chaque projet est construit en collaboration. Vos retours et votre compréhension font partie intégrante du processus."
+      },
+      {
+        "title": "Une base solide et durable",
+        "description": "Nous concevons des projets stables, maintenables et pensés pour évoluer, sans dépendance inutile ni complexité superflue."
+      },
+      {
+        "title": "Une approche responsable",
+        "description": "Nous appliquons les bonnes pratiques en matière de sécurité, de confidentialité et de fiabilité, adaptées à la nature de votre projet."
+      }
+    ],
+    "comparison": {
+      "headers": [
+        "Critère",
+        "Agences traditionnelles",
+        "Freelances",
+        "DIY (Wix, etc.)",
+        "Mindzy"
+      ],
+      "rows": [
+        [
+          "Prix moyen",
+          "3 000 - 15 000€",
+          "1 500 - 5 000€",
+          "200 - 500€/an",
+          "À partir de 49€/mois"
+        ],
+        [
+          "Délai de livraison",
+          "2-4 mois",
+          "1-2 mois",
+          "DIY (variable)",
+          "2 semaines"
+        ],
+        [
+          "Design personnalisé",
+          "✓ Premium",
+          "✓ Variable",
+          "✗ Templates",
+          "✓ Premium"
+        ],
+        [
+          "SEO optimisé",
+          "✓ (supplément)",
+          "? Variable",
+          "✗ Basique",
+          "✓ Inclus"
+        ],
+        [
+          "Réservation en ligne",
+          "? Sur demande",
+          "? Variable",
+          "? Plugins",
+          "✓ Intégré"
+        ],
+        [
+          "Support continu",
+          "✗ Limité",
+          "? Variable",
+          "✗ Forum",
+          "✓ Illimité"
+        ],
+        [
+          "Mises à jour",
+          "✗ Facturées",
+          "✗ Facturées",
+          "✓ Auto",
+          "✓ Incluses"
+        ],
+        [
+          "Hébergement",
+          "✗ Extra",
+          "✗ Extra",
+          "✓ Inclus",
+          "✓ Premium inclus"
+        ]
+      ]
+    }
+  },
+  "reviews": {
+    "title": "Avis clients",
+    "subtitle": "Témoignages vérifiés"
+  },
+  "resources": {
+    "title": "Ressources gratuites",
+    "subtitle": "Guides et outils pour votre présence en ligne",
+    "download": "Télécharger",
+    "emailPlaceholder": "Votre email",
+    "emailCta": "Recevoir les ressources"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Conseils pour développer votre activité",
+    "readMore": "Lire la suite",
+    "readTime": "min de lecture",
+    "likedArticle": "Vous avez aimé cet article ?",
+    "relatedArticles": "Articles similaires",
+    "categories": {
+      "all": "Tous",
+      "marketing": "Marketing",
+      "seo": "SEO",
+      "productivite": "Productivité",
+      "business": "Business",
+      "branding": "Branding",
+      "sante": "Santé"
+    }
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce que vous devez savoir avant de démarrer",
+    "categories": {
+      "all": "Toutes",
+      "general": "Général",
+      "pricing": "Tarifs",
+      "technical": "Technique",
+      "support": "Support",
+      "features": "Fonctionnalités",
+      "process": "Processus"
+    },
+    "allCategories": {
+      "all": "Toutes",
+      "vision": "Vision & utilité",
+      "positionnement": "Positionnement",
+      "technique": "Technique",
+      "seo": "SEO",
+      "fonctionnalites": "Fonctionnalités",
+      "autonomie": "Autonomie",
+      "accompagnement": "Accompagnement",
+      "formation": "Formation",
+      "tarifs": "Tarifs",
+      "cas-specifiques": "Cas spécifiques",
+      "decision": "Décision",
+      "confiance": "Confiance"
+    }
+  },
+  "about": {
+    "title": "À propos",
+    "subtitle": "Notre mission : digitaliser les entrepreneurs",
+    "mission": {
+      "title": "Notre mission",
+      "description": "Aider les entrepreneurs à développer leur activité en ligne."
+    },
+    "values": {
+      "title": "Nos valeurs",
+      "items": [
+        {
+          "title": "Excellence",
+          "description": "Perfection dans chaque projet."
+        },
+        {
+          "title": "Simplicité",
+          "description": "Technologie accessible à tous."
+        },
+        {
+          "title": "Transparence",
+          "description": "Prix clairs, sans surprise."
+        }
+      ]
+    }
+  },
+  "legal": {
+    "cgu": {
+      "title": "Conditions Générales d'Utilisation"
+    },
+    "cgv": {
+      "title": "Conditions Générales de Vente"
+    },
+    "mentions": {
+      "title": "Mentions Légales"
+    }
+  },
+  "footer": {
+    "description": "Mindzy crée des sites web premium pour les entrepreneurs.",
+    "sections": {
+      "product": "Produit",
+      "resources": "Ressources",
+      "company": "Entreprise",
+      "legal": "Legal"
+    },
+    "links": {
+      "pricing": "Tarifs",
+      "portfolio": "Portfolio",
+      "process": "Processus",
+      "diagnostic": "Diagnostic",
+      "blog": "Blog",
+      "academy": "Academy",
+      "resources": "Ressources",
+      "faq": "FAQ",
+      "about": "À propos",
+      "whyUs": "Pourquoi nous",
+      "reviews": "Avis",
+      "cgu": "CGU",
+      "cgv": "CGV",
+      "mentions": "Mentions"
+    },
+    "copyright": "Tous droits réservés."
+  },
+  "stickyCta": {
+    "message": "Prêt à développer votre présence en ligne ?",
+    "startButton": "Démarrer",
+    "meetingButton": "Prendre un RDV"
+  },
+  "chatbot": {
+    "title": "Assistant Mindzy",
+    "subtitle": "Comment puis-je vous aider ?",
+    "welcome": "Je peux te poser 3 questions ? 👋",
+    "quickReplies": {
+      "diagnostic": "🔍 Faire un diagnostic",
+      "meeting": "📅 Prendre rendez-vous",
+      "whatsapp": "💬 Continuer sur WhatsApp"
+    },
+    "responses": {
+      "diagnostic": "Parfait ! Notre diagnostic express en 60 secondes.",
+      "meeting": "Réservez un créneau avec notre équipe.",
+      "whatsapp": "Cliquez pour continuer sur WhatsApp.",
+      "default": "Je suis là pour vous aider !"
+    },
+    "buttons": {
+      "startDiagnostic": "Commencer le diagnostic",
+      "bookMeeting": "Réserver un créneau",
+      "continueWhatsApp": "Continuer sur WhatsApp",
+      "restart": "Recommencer"
+    },
+    "whatsappMessage": "Bonjour, je viens du site Mindzy."
+  },
+  "common": {
+    "learnMore": "En savoir plus",
+    "getStarted": "Commencer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Envoyer",
+    "loading": "Chargement..."
   }
 }

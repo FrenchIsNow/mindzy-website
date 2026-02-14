@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { getBlogPost, getAllPostSlugs, getRelatedPosts } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 import { BlogContent } from '@/components/features/BlogContent'
@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const post = getBlogPost(locale as Locale, slug)
   if (!post) notFound()
 
-  const t = copy[locale as Locale].blog
+  const t = getMessages(locale as Locale).blog
   const relatedPosts = getRelatedPosts(locale as Locale, slug, 3)
 
   const blogPostJsonLd = jsonLdBlogPosting({
@@ -70,7 +70,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       <article className="container-narrow">
         <div className="mb-8">
           <Link href={`/${locale}/blog`}>
-            <Button variant="ghost" size="sm">← {copy[locale as Locale].common.back}</Button>
+            <Button variant="ghost" size="sm">← {getMessages(locale as Locale).common.back}</Button>
           </Link>
         </div>
 
@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         <footer className="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600">{t.likedArticle || "Vous avez aimé cet article ?"}</p>
           <Link href={`/${locale}/diagnostic`}>
-            <Button variant="primary" size="md">{copy[locale as Locale].hero.cta}</Button>
+            <Button variant="primary" size="md">{getMessages(locale as Locale).hero.cta}</Button>
           </Link>
         </footer>
       </article>

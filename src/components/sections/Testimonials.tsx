@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Card } from '@/components/ui/Card'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 export function Testimonials({ locale }: { locale: Locale }) {
   const [active, setActive] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
-  const t = copy[locale].testimonials
+  const t = getMessages(locale).testimonials
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length)

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -15,7 +15,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
   const [isOpen, setIsOpen] = useState(false)
   const [state, setState] = useState<ChatState>({ messages: [], step: 'initial', isTyping: false })
   const endRef = useRef<HTMLDivElement>(null)
-  const t = copy[locale].chatbot
+  const t = getMessages(locale).chatbot
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [state.messages])
 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
@@ -16,7 +16,7 @@ interface NavigationProps {
 
 export function Navigation({ locale, className, mobile, onNavigate }: NavigationProps) {
   const pathname = usePathname()
-  const t = copy[locale].nav
+  const t = getMessages(locale).nav
 
   const links = [
     { href: `/${locale}`, label: t.home },

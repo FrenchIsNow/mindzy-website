@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { PricingTable } from '@/components/sections/PricingTable'
 import { ROICalculator } from '@/components/features/ROICalculator'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { plans } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata, jsonLdService, JsonLd } from '@/lib/seo'
@@ -14,7 +14,7 @@ const pricingDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].pricing
+  const t = getMessages(locale as Locale).pricing
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/pricing',
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].pricing
+  const t = getMessages(locale as Locale).pricing
   const serviceJsonLd = jsonLdService(
     plans.map(plan => ({
       name: t.plans[plan.id]?.name || plan.id,

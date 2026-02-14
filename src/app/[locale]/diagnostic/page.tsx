@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { DiagnosticQuiz } from '@/components/features/DiagnosticQuiz'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
@@ -12,7 +12,7 @@ const diagnosticDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].diagnostic
+  const t = getMessages(locale as Locale).diagnostic
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/diagnostic',
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function DiagnosticPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].diagnostic
+  const t = getMessages(locale as Locale).diagnostic
 
   return (
     <div className="pt-32 pb-20">

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import { ProfileQuiz } from '@/components/features/ProfileQuiz'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { profileKeys, type ProfileKey } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
@@ -92,13 +91,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ locale
   const { locale, type } = await params
   if (!isValidProfile(type)) notFound()
   const loc = locale as Locale
-  const t = copy[loc].useCases.cards[type]
-
-  const diagnosticHint: Record<Locale, string> = {
-    fr: 'Pas encore sûr ? Faites d\'abord notre diagnostic express pour évaluer votre projet.',
-    en: 'Not sure yet? Take our express diagnostic to evaluate your project first.',
-    es: '¿Aún no está seguro? Haga primero nuestro diagnóstico express para evaluar su proyecto.',
-  }
+  const t = getMessages(loc).useCases.cards[type]
 
   return (
     <div className="pt-32 pb-20">
@@ -106,14 +99,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ locale
         <div className="text-center mb-12">
           <h1 className="heading-2 text-anthracite mb-4">{t?.title ?? profileTitles[type][loc]}</h1>
           <p className="body-large max-w-xl mx-auto">{profileSubtitles[type][loc]}</p>
-          {type === 'custom' && (
-            <p className="text-sm text-gray-500 mt-4">
-              {diagnosticHint[loc]}{' '}
-              <Link href={`/${loc}/diagnostic?profile=custom`} className="text-violet font-medium hover:underline">
-                {loc === 'fr' ? 'Diagnostic projet sur-mesure →' : loc === 'en' ? 'Custom project diagnostic →' : 'Diagnóstico proyecto personalizado →'}
-              </Link>
-            </p>
-          )}
         </div>
         <ProfileQuiz locale={loc} profileType={type} />
       </div>

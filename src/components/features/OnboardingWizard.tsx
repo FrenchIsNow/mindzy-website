@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { onboardingSteps, plans, config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import type { Plan } from '@/lib/types'
@@ -24,7 +24,7 @@ export function OnboardingWizard({ locale, initialRecommendation }: { locale: Lo
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [showResult, setShowResult] = useState(false)
-  const t = copy[locale].onboarding
+  const t = getMessages(locale).onboarding
   const current = onboardingSteps[step]
   const progress = ((step + 1) / onboardingSteps.length) * 100
 
@@ -45,7 +45,7 @@ export function OnboardingWizard({ locale, initialRecommendation }: { locale: Lo
   if (showResult) {
     const planId = (initialRecommendation as Plan['id']) || recommendPlan(answers)
     const plan = plans.find((p) => p.id === planId) ?? plans[1]
-    const planCopy = copy[locale].pricing.plans[plan.id]
+    const planCopy = getMessages(locale).pricing.plans[plan.id]
     return (
       <div className="max-w-2xl mx-auto">
         <Card variant="elevated" className="border-2 border-violet">
@@ -62,7 +62,7 @@ export function OnboardingWizard({ locale, initialRecommendation }: { locale: Lo
             <div className="space-y-3">
               <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block" onClick={() => { analytics.calendly.click('onboarding_result'); analytics.lead.generate('onboarding', plan.id) }}><Button variant="primary" size="lg" className="w-full">{t.result.meetingCta}</Button></a>
               <Link href={`/${locale}/legal/cgv?plan=${plan.id}`} onClick={() => analytics.cta.click('contract_cta', 'onboarding_result')}><Button variant="secondary" size="lg" className="w-full">{t.result.contractCta}</Button></Link>
-              <Button variant="ghost" size="sm" className="w-full" onClick={() => { setShowResult(false); setStep(0); setAnswers({}); }}>{copy[locale].chatbot.buttons.restart}</Button>
+              <Button variant="ghost" size="sm" className="w-full" onClick={() => { setShowResult(false); setStep(0); setAnswers({}); }}>{getMessages(locale).chatbot.buttons.restart}</Button>
             </div>
           </CardContent>
         </Card>

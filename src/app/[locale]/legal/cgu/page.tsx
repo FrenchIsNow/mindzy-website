@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].legal.cgu
+  const t = getMessages(locale as Locale).legal.cgu
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/legal/cgu',
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function CGUPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].legal.cgu
+  const t = getMessages(locale as Locale).legal.cgu
   return (
     <div className="pt-32 pb-20">
       <div className="container-narrow">

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { FAQContent } from './FAQContent'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { faqItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata, jsonLdFaqPage, JsonLd } from '@/lib/seo'
@@ -13,7 +13,7 @@ const faqDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].faq
+  const t = getMessages(locale as Locale).faq
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/faq',

@@ -6,14 +6,14 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { resources } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { analytics } from '@/lib/analytics'
 
 export function RessourcesContent({ locale }: { locale: Locale }) {
   const [email, setEmail] = useState('')
-  const t = copy[locale].resources
+  const t = getMessages(locale).resources
   return (
     <div className="pt-32 pb-20">
       <div className="container-wide">
@@ -34,7 +34,7 @@ export function RessourcesContent({ locale }: { locale: Locale }) {
           <Card variant="elevated" className="lg:col-span-1 sticky top-24">
             <CardHeader><CardTitle>Newsletter</CardTitle><CardDescription>Recevez nos conseils par email</CardDescription></CardHeader>
             <CardContent><form onSubmit={(e) => { e.preventDefault(); analytics.lead.formSubmit('newsletter', true); analytics.lead.generate('newsletter') }} className="space-y-4"><Input type="email" placeholder={t.emailPlaceholder} value={email} onChange={(e) => setEmail(e.target.value)} required /><Button variant="primary" size="md" className="w-full" type="submit">{t.emailCta}</Button></form></CardContent>
-            <CardFooter><Link href={`/${locale}/onboarding`} className="w-full"><Button variant="ghost" size="sm" className="w-full">{copy[locale].hero.cta} →</Button></Link></CardFooter>
+            <CardFooter><Link href={`/${locale}/onboarding`} className="w-full"><Button variant="ghost" size="sm" className="w-full">{getMessages(locale).hero.cta} →</Button></Link></CardFooter>
           </Card>
         </div>
       </div>

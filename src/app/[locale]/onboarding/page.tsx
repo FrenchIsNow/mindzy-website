@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { OnboardingWizard } from '@/components/features/OnboardingWizard'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
@@ -12,7 +12,7 @@ const onboardingDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].onboarding
+  const t = getMessages(locale as Locale).onboarding
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/onboarding',
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function OnboardingPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ recommendation?: string }> }) {
   const { locale } = await params
   const { recommendation } = await searchParams
-  const t = copy[locale as Locale].onboarding
+  const t = getMessages(locale as Locale).onboarding
   return (
     <div className="pt-32 pb-20">
       <div className="container-narrow">

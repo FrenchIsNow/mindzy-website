@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Card, CardContent } from '@/components/ui/Card'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -14,7 +14,7 @@ const reviewDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].reviews
+  const t = getMessages(locale as Locale).reviews
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/avis-clients',
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function AvisClientsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].reviews
+  const t = getMessages(locale as Locale).reviews
   return (
     <div className="pt-32 pb-20">
       <div className="container-wide">

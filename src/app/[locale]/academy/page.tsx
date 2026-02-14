@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { blogPosts } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AcademyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const c = content[locale]
-  const t = copy[locale as Locale].blog
+  const t = getMessages(locale as Locale).blog
   return (
     <div className="pt-32 pb-20">
       <div className="container-wide">

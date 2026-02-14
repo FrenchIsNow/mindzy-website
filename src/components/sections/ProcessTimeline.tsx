@@ -100,20 +100,20 @@ export function ProcessTimeline({ locale }: { locale: Locale }) {
   }))
 
   return (
-    <section className="section-padding bg-cream-50 relative overflow-hidden">
+    <section className="py-16 bg-white relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-grid opacity-20" />
 
       <div className="container-wide relative">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <span className="eyebrow mb-4 block">Notre processus</span>
           <h2 className="heading-2 text-anthracite mb-4">{sectionTitle[locale]}</h2>
         </div>
 
         {/* Timeline */}
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {processSteps.map((step, index) => (
               <div
                 key={step.number}
@@ -122,14 +122,14 @@ export function ProcessTimeline({ locale }: { locale: Locale }) {
               >
                 {/* Connector line (hidden on last item and mobile) */}
                 {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-10 left-[60%] w-full h-0.5 bg-gradient-to-r from-gray-200 to-transparent" />
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-full h-0.5 bg-gradient-to-r from-gray-200 to-transparent" />
                 )}
 
                 {/* Step card */}
-                <div className="relative bg-white rounded-2xl p-6 border border-gray-100 shadow-soft hover:shadow-card-hover transition-all duration-300 group">
+                <div className="relative bg-white rounded-2xl p-8 border border-gray-100 shadow-soft hover:shadow-card-hover transition-all duration-300 group">
                   {/* Step number badge */}
                   <div className={cn(
-                    'absolute -top-4 -left-2 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-white shadow-lg',
+                    'absolute -top-4 -left-3 w-12 h-12 rounded-xl flex items-center justify-center text-base font-bold text-white shadow-lg',
                     `bg-gradient-to-br ${step.colors.gradient}`
                   )}>
                     {step.number}
@@ -137,7 +137,7 @@ export function ProcessTimeline({ locale }: { locale: Locale }) {
 
                   {/* Icon */}
                   <div className={cn(
-                    'w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300 mt-2',
+                    'w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 mt-2',
                     step.colors.bg,
                     step.colors.text,
                     'group-hover:scale-110'
@@ -146,10 +146,10 @@ export function ProcessTimeline({ locale }: { locale: Locale }) {
                   </div>
 
                   {/* Content */}
-                  <h3 className="font-display text-lg font-semibold text-anthracite mb-2">
+                  <h3 className="font-display text-xl font-semibold text-anthracite mb-3 leading-tight">
                     {step.title[locale]}
                   </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
+                  <p className="text-base text-gray-500 leading-relaxed">
                     {step.description[locale]}
                   </p>
                 </div>

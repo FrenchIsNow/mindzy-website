@@ -1,10 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Textarea } from '@/components/ui/Textarea'
+import { ReCaptcha } from '@/components/ui/ReCaptcha'
 import { profileQuestions, type ProfileKey } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -18,10 +21,10 @@ const profileMeta: Record<ProfileKey, { icon: string; gradient: string }> = {
   custom: { icon: '💻', gradient: 'from-cyan-500 to-blue-600' },
 }
 
-const contactCopy: Record<Locale, { title: string; subtitle: string; name: string; email: string; phone: string; message: string; submit: string; back: string; sending: string }> = {
-  fr: { title: 'Dernière étape !', subtitle: 'Laissez-nous vos coordonnées pour recevoir votre recommandation personnalisée.', name: 'Nom complet', email: 'Email', phone: 'Téléphone', message: 'Message (optionnel)', submit: 'Recevoir ma recommandation', back: 'Retour', sending: 'Envoi en cours...' },
-  en: { title: 'Last step!', subtitle: 'Leave your contact info to receive your personalized recommendation.', name: 'Full name', email: 'Email', phone: 'Phone', message: 'Message (optional)', submit: 'Get my recommendation', back: 'Back', sending: 'Sending...' },
-  es: { title: '¡Último paso!', subtitle: 'Déjenos sus datos para recibir su recomendación personalizada.', name: 'Nombre completo', email: 'Email', phone: 'Teléfono', message: 'Mensaje (opcional)', submit: 'Recibir mi recomendación', back: 'Volver', sending: 'Enviando...' },
+const contactCopy: Record<Locale, { title: string; subtitle: string; name: string; email: string; phone: string; message: string; submit: string; back: string; sending: string; recaptchaRequired: string }> = {
+  fr: { title: 'Dernière étape !', subtitle: 'Laissez-nous vos coordonnées pour recevoir votre recommandation personnalisée.', name: 'Nom complet', email: 'Email', phone: 'Téléphone', message: 'Message (optionnel)', submit: 'Recevoir ma recommandation', back: 'Retour', sending: 'Envoi en cours...', recaptchaRequired: 'Veuillez compléter le captcha' },
+  en: { title: 'Last step!', subtitle: 'Leave your contact info to receive your personalized recommendation.', name: 'Full name', email: 'Email', phone: 'Phone', message: 'Message (optional)', submit: 'Get my recommendation', back: 'Back', sending: 'Sending...', recaptchaRequired: 'Please complete the captcha' },
+  es: { title: '¡Último paso!', subtitle: 'Déjenos sus datos para recibir su recomendación personalizada.', name: 'Nombre completo', email: 'Email', phone: 'Teléfono', message: 'Mensaje (opcional)', submit: 'Recibir mi recomendación', back: 'Volver', sending: 'Enviando...', recaptchaRequired: 'Por favor complete el captcha' },
 }
 
 const successCopy: Record<Locale, { title: string; message: string; cta: string }> = {
@@ -46,12 +49,15 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
   const questions = profileQuestions[profileType]
   const totalSteps = questions.length + 1
   const meta = profileMeta[profileType]
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [contact, setContact] = useState({ fullName: '', email: '', phone: '', message: '' })
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [emailError, setEmailError] = useState('')
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
+  const [recaptchaError, setRecaptchaError] = useState('')
 
   const isContactStep = step === questions.length
   const progress = ((step + 1) / totalSteps) * 100
@@ -71,10 +77,16 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setEmailError('')
+    setRecaptchaError('')
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(contact.email)) {
       setEmailError(locale === 'fr' ? 'Email invalide' : locale === 'en' ? 'Invalid email' : 'Email inválido')
+      return
+    }
+
+    if (!recaptchaToken) {
+      setRecaptchaError(ct.recaptchaRequired)
       return
     }
 
@@ -87,6 +99,7 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
         body: JSON.stringify({
           profileType,
           locale,
+          recaptchaToken,
           ...contact,
           ...answers,
         }),
@@ -99,6 +112,9 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
     } catch {
       analytics.lead.formSubmit('profile_quiz', false)
       setFormState('error')
+    } finally {
+      recaptchaRef.current?.reset()
+      setRecaptchaToken(null)
     }
   }
 
@@ -180,11 +196,19 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
                 required
                 placeholder="+33 6 12 34 56 78"
               />
-              <Input
+              <Textarea
                 label={ct.message}
                 value={contact.message}
                 onChange={(e) => setContact((p) => ({ ...p, message: e.target.value }))}
                 placeholder={locale === 'fr' ? 'Précisez votre besoin...' : locale === 'en' ? 'Describe your need...' : 'Describa su necesidad...'}
+              />
+              <ReCaptcha
+                ref={recaptchaRef}
+                onChange={(token) => {
+                  setRecaptchaToken(token)
+                  setRecaptchaError('')
+                }}
+                error={recaptchaError}
               />
               <div className="flex gap-3 pt-4">
                 <Button type="button" variant="ghost" size="lg" onClick={handleBack} className="flex-1">← {ct.back}</Button>

@@ -1,6 +1,7 @@
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { TrackedLink } from '@/components/ui/TrackedLink'
+import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 
 export function Hero({ locale }: { locale: Locale }) {
@@ -10,7 +11,7 @@ export function Hero({ locale }: { locale: Locale }) {
       title: 'Des solutions digitales',
       titleHighlight: 'pensées pour votre activité',
       subtitle: 'Sites, applications, systèmes internes : Mindzy accompagne la création de projets sur mesure, du simple besoin aux structures complexes.',
-      cta: 'Démarrer mon projet',
+      cta: 'Prendre rendez-vous',
       ctaSecondary: 'Voir nos réalisations',
       stats: {
         clients: 'Projets livrés',
@@ -31,7 +32,7 @@ export function Hero({ locale }: { locale: Locale }) {
       title: 'Digital solutions',
       titleHighlight: 'designed for your business',
       subtitle: 'Websites, applications, internal systems: Mindzy supports the creation of custom projects, from simple needs to complex structures.',
-      cta: 'Start my project',
+      cta: 'Book a meeting',
       ctaSecondary: 'View our work',
       stats: {
         clients: 'Projects delivered',
@@ -52,7 +53,7 @@ export function Hero({ locale }: { locale: Locale }) {
       title: 'Soluciones digitales',
       titleHighlight: 'diseñadas para tu negocio',
       subtitle: 'Sitios web, aplicaciones, sistemas internos: Mindzy acompaña la creación de proyectos a medida, desde necesidades simples hasta estructuras complejas.',
-      cta: 'Empezar mi proyecto',
+      cta: 'Reservar una cita',
       ctaSecondary: 'Ver nuestros trabajos',
       stats: {
         clients: 'Proyectos entregados',
@@ -122,11 +123,11 @@ export function Hero({ locale }: { locale: Locale }) {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <TrackedLink href={`/${locale}/diagnostic`} trackEvent="diagnostic_start" trackLocation="hero">
+            <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
               <Button variant="primary" size="xl" icon={<ArrowIcon />}>
                 {t.cta}
               </Button>
-            </TrackedLink>
+            </a>
             <TrackedLink href={`/${locale}/portfolio`} trackEvent="view_portfolio" trackLocation="hero">
               <Button variant="secondary" size="xl">
                 {t.ctaSecondary}

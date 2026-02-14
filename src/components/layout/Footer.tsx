@@ -1,13 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { analytics } from '@/lib/analytics'
 
 export function Footer({ locale }: { locale: Locale }) {
-  const t = copy[locale].footer
+  const t = getMessages(locale).footer
 
   const links = {
     product: [

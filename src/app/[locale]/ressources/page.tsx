@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { RessourcesContent } from './RessourcesContent'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
@@ -12,7 +12,7 @@ const resourceDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].resources
+  const t = getMessages(locale as Locale).resources
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/ressources',

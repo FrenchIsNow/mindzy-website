@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { plans } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { analytics } from '@/lib/analytics'
@@ -88,7 +88,7 @@ export function ROICalculator({ locale }: { locale: Locale }) {
   const [price, setPrice] = useState(businessTypes.therapist.defaultPrice)
   const [selectedPlan, setSelectedPlan] = useState(plans[1])
 
-  const t = copy[locale].pricing.roi
+  const t = getMessages(locale).pricing.roi
   const bt = businessTypes[businessType]
 
   const metrics = useMemo(() => {
@@ -156,7 +156,7 @@ export function ROICalculator({ locale }: { locale: Locale }) {
                     : 'bg-white border border-gray-200 text-gray-600 hover:border-violet'
                 }`}
               >
-                {copy[locale].pricing.plans[plan.id].name}
+                {getMessages(locale).pricing.plans[plan.id].name}
               </button>
             ))}
           </div>

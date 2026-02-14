@@ -18,7 +18,7 @@ const copy: Record<
     eyebrow: 'Pourquoi nous',
     title: 'Une approche centrée sur votre réalité',
     subtitle:
-      'Nous ne partons jamais d\u2019un template ou d\u2019un process figé. Chaque projet commence par la compréhension de votre activité, de vos usages et de vos contraintes.',
+      'Aucun projet ne commence par une solution toute faite. Chaque projet commence par la compréhension de votre activité, de vos usages et de vos contraintes.',
     blocks: [
       {
         title: 'Des projets sur mesure, pas des produits',
@@ -92,7 +92,7 @@ const copy: Record<
     eyebrow: 'Why us',
     title: 'An approach centered on your reality',
     subtitle:
-      'We never start from a template or a rigid process. Every project begins with understanding your business, your workflows, and your constraints.',
+      'No project starts with a ready-made solution. Every project begins with understanding your business, your workflows, and your constraints.',
     blocks: [
       {
         title: 'Custom projects, not off-the-shelf products',
@@ -166,7 +166,7 @@ const copy: Record<
     eyebrow: 'Por qué nosotros',
     title: 'Un enfoque centrado en tu realidad',
     subtitle:
-      'Nunca partimos de una plantilla ni de un proceso rígido. Cada proyecto comienza por comprender tu actividad, tus usos y tus limitaciones.',
+      'Ningún proyecto comienza con una solución prefabricada. Cada proyecto comienza por comprender tu actividad, tus usos y tus limitaciones.',
     blocks: [
       {
         title: 'Proyectos a medida, no productos estándar',
@@ -391,16 +391,15 @@ export function PourquoiNous({ locale }: { locale: Locale }) {
   const t = copy[locale]
 
   return (
-    <section className="section-padding bg-gradient-to-b from-white to-cream-50 relative overflow-hidden">
+    <section className="py-16 bg-cream-50 relative overflow-hidden">
       {/* Decorative gradient blobs */}
-      <div className="absolute top-20 -left-32 w-[420px] h-[420px] bg-violet-100/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-24 w-[360px] h-[360px] bg-sage-100/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-light/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 -left-32 w-[420px] h-[420px] bg-violet-100/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -right-24 w-[360px] h-[360px] bg-sage-100/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-light/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-wide relative">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
+        <div className="text-center mb-14">
           <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
           <p className="body-large max-w-3xl mx-auto">{t.subtitle}</p>
         </div>

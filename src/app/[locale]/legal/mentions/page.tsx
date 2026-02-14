@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].legal.mentions
+  const t = getMessages(locale as Locale).legal.mentions
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/legal/mentions',
@@ -237,7 +237,7 @@ const legalContent: Record<Locale, { lastUpdateLabel: string; lastUpdate: string
 export default async function MentionsLegalesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const loc = locale as Locale
-  const t = copy[loc].legal.mentions
+  const t = getMessages(loc).legal.mentions
   const content = legalContent[loc]
 
   return (

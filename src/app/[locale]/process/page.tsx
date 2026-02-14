@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
 
@@ -15,7 +15,7 @@ const processDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].process
+  const t = getMessages(locale as Locale).process
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/process',
@@ -28,7 +28,7 @@ const stepKeys = ['diagnostic', 'onboarding', 'design', 'launch'] as const
 
 export default async function ProcessPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].process
+  const t = getMessages(locale as Locale).process
   return (
     <div className="pt-32 pb-20">
       <div className="container-wide">
@@ -54,7 +54,7 @@ export default async function ProcessPage({ params }: { params: Promise<{ locale
           })}
         </div>
         <div className="text-center mt-12">
-          <Link href={`/${locale}/diagnostic`}><Button variant="primary" size="lg">{copy[locale as Locale].hero.cta}</Button></Link>
+          <Link href={`/${locale}/diagnostic`}><Button variant="primary" size="lg">{getMessages(locale as Locale).hero.cta}</Button></Link>
         </div>
       </div>
     </div>

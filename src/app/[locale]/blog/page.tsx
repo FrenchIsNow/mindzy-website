@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { getBlogPosts } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
@@ -16,7 +16,7 @@ const blogDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].blog
+  const t = getMessages(locale as Locale).blog
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/blog',
@@ -35,7 +35,7 @@ const categoryColors: Record<string, 'default' | 'primary' | 'success' | 'violet
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].blog
+  const t = getMessages(locale as Locale).blog
   const posts = getBlogPosts(locale as Locale)
 
   return (

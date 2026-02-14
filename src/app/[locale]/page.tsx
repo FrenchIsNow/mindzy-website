@@ -46,15 +46,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Value Propositions - 5 key differentiators */}
       <WhyMindzy locale={locale as Locale} />
 
-      {/* Why Us - 6 detailed blocks */}
-      <PourquoiNous locale={locale as Locale} />
-
-      {/* Process Timeline - 4 steps */}
-      <ProcessTimeline locale={locale as Locale} />
-
-      {/* Engagements - 4 commitments */}
-      <Engagements locale={locale as Locale} />
-
       {/* Featured Portfolio - Social proof */}
       <FeaturedPortfolio locale={locale as Locale} />
 

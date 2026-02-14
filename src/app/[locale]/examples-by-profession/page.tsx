@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import { professions, portfolioItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
@@ -55,7 +55,7 @@ export default async function ExamplesByProfessionPage({ params }: { params: Pro
               <section key={prof} id={prof}>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="heading-3 text-anthracite">{label}</h2>
-                  <Link href={`/${locale}/portfolio?profession=${prof}`} className="text-violet font-medium hover:underline">{copy[locale as Locale].common.learnMore} →</Link>
+                  <Link href={`/${locale}/portfolio?profession=${prof}`} className="text-violet font-medium hover:underline">{getMessages(locale as Locale).common.learnMore} →</Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {items.map((item) => (

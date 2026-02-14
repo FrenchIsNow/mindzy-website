@@ -1,10 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Textarea } from '@/components/ui/Textarea'
+import { ReCaptcha } from '@/components/ui/ReCaptcha'
 import { routingQuestion, commonQuestions, branchQuestions, branchResults } from '@/lib/diagnostic-data'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
@@ -38,6 +41,7 @@ const uiCopy = {
     errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
     retryLabel: 'Réessayer',
     invalidEmail: 'Email invalide',
+    recaptchaRequired: 'Veuillez compléter le captcha',
   },
   en: {
     progress: 'Question',
@@ -64,6 +68,7 @@ const uiCopy = {
     errorMessage: 'An error occurred. Please try again.',
     retryLabel: 'Retry',
     invalidEmail: 'Invalid email',
+    recaptchaRequired: 'Please complete the captcha',
   },
   es: {
     progress: 'Pregunta',
@@ -90,11 +95,13 @@ const uiCopy = {
     errorMessage: 'Ocurrió un error. Inténtelo de nuevo.',
     retryLabel: 'Reintentar',
     invalidEmail: 'Email inválido',
+    recaptchaRequired: 'Por favor complete el captcha',
   },
 }
 
 export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   const t = uiCopy[locale]
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const [step, setStep] = useState(0)
   const [branch, setBranch] = useState<DiagnosticBranch | null>(null)
@@ -105,6 +112,8 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   const [contact, setContact] = useState({ fullName: '', email: '', phone: '', message: '' })
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [emailError, setEmailError] = useState('')
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
+  const [recaptchaError, setRecaptchaError] = useState('')
 
   const totalSteps = 5
   const progress = ((step + 1) / totalSteps) * 100
@@ -194,6 +203,9 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
     setContact({ fullName: '', email: '', phone: '', message: '' })
     setFormState('idle')
     setEmailError('')
+    setRecaptchaToken(null)
+    setRecaptchaError('')
+    recaptchaRef.current?.reset()
   }
 
   function handleCtaClick() {
@@ -203,10 +215,16 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   async function handleSubmitContact(e: React.FormEvent) {
     e.preventDefault()
     setEmailError('')
+    setRecaptchaError('')
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(contact.email)) {
       setEmailError(t.invalidEmail)
+      return
+    }
+
+    if (!recaptchaToken) {
+      setRecaptchaError(t.recaptchaRequired)
       return
     }
 
@@ -227,6 +245,7 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
         body: JSON.stringify({
           profileType: `diagnostic-${branch}`,
           locale,
+          recaptchaToken,
           ...contact,
           ...serializedAnswers,
         }),
@@ -239,6 +258,9 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
     } catch {
       analytics.lead.formSubmit('diagnostic_quiz', false)
       setFormState('error')
+    } finally {
+      recaptchaRef.current?.reset()
+      setRecaptchaToken(null)
     }
   }
 
@@ -327,11 +349,19 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
                 required
                 placeholder="+33 6 12 34 56 78"
               />
-              <Input
+              <Textarea
                 label={t.messageLabel}
                 value={contact.message}
                 onChange={(e) => setContact((p) => ({ ...p, message: e.target.value }))}
                 placeholder={t.freeTextPlaceholder}
+              />
+              <ReCaptcha
+                ref={recaptchaRef}
+                onChange={(token) => {
+                  setRecaptchaToken(token)
+                  setRecaptchaError('')
+                }}
+                error={recaptchaError}
               />
               <div className="flex gap-3 pt-4">
                 <Button

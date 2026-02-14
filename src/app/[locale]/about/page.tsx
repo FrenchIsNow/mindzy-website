@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { copy } from '@/lib/copy'
+import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { buildPageMetadata } from '@/lib/seo'
@@ -15,7 +15,7 @@ const aboutDescriptions: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  const t = copy[locale as Locale].about
+  const t = getMessages(locale as Locale).about
   return buildPageMetadata({
     locale: locale as Locale,
     path: '/about',
@@ -131,7 +131,7 @@ const colorClasses = {
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = copy[locale as Locale].about
+  const t = getMessages(locale as Locale).about
 
   return (
     <div className="pt-28 lg:pt-32">
@@ -361,7 +361,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </p>
           <Link href={`/${locale}/diagnostic`}>
             <Button variant="primary" size="xl" icon={<ArrowIcon />}>
-              {copy[locale as Locale].hero.cta}
+              {getMessages(locale as Locale).hero.cta}
             </Button>
           </Link>
         </div>

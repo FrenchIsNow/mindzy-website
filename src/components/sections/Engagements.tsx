@@ -121,14 +121,13 @@ const colorClasses = {
 
 export function Engagements({ locale }: { locale: Locale }) {
   return (
-    <section className="section-padding bg-cream-50 relative overflow-hidden">
+    <section className="py-16 bg-cream-50 relative overflow-hidden">
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-grid opacity-20" />
 
       <div className="container-wide relative">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{content.eyebrow[locale]}</span>
+        <div className="text-center mb-14">
           <h2 className="heading-2 text-anthracite mb-4">{content.title[locale]}</h2>
         </div>
 

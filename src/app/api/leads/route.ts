@@ -1,16 +1,47 @@
 import { NextResponse } from 'next/server'
 
 const GOOGLE_SHEETS_WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY
 
-const KNOWN_FIELDS = ['profileType', 'fullName', 'email', 'phone', 'message', 'locale'] as const
+const KNOWN_FIELDS = ['profileType', 'fullName', 'email', 'phone', 'message', 'locale', 'recaptchaToken'] as const
+
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  if (!RECAPTCHA_SECRET_KEY) {
+    console.warn('[Leads API] reCAPTCHA not configured — skipping verification')
+    return true
+  }
+
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+    })
+
+    const data = await response.json()
+    return data.success === true
+  } catch (error) {
+    console.error('[Leads API] reCAPTCHA verification error:', error)
+    return false
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const { profileType, fullName, email, phone } = body
+    const { profileType, fullName, email, phone, recaptchaToken } = body
     if (!profileType || !fullName || !email || !phone) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+    }
+
+    if (!recaptchaToken) {
+      return NextResponse.json({ error: 'reCAPTCHA verification required' }, { status: 400 })
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken)
+    if (!isValidRecaptcha) {
+      return NextResponse.json({ error: 'reCAPTCHA verification failed' }, { status: 400 })
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
