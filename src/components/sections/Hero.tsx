@@ -165,7 +165,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="hidden lg:block absolute -right-4 top-1/3 animate-float" style={{ animationDelay: '2s' }}>
+        <div className="hidden lg:block absolute -right-24 top-2/4 animate-float" style={{ animationDelay: '2s' }}>
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-soft border border-white/60">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sage-400 to-sage-600 flex items-center justify-center text-white">
