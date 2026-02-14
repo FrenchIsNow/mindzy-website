@@ -5,142 +5,169 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
-import { copy } from '@/lib/copy'
-import { diagnosticQuestions, customDiagnosticQuestions, diagnosticProfessionOptions } from '@/lib/config'
+import { routingQuestion, commonQuestions, branchQuestions, branchResults } from '@/lib/diagnostic-data'
 import type { Locale } from '@/lib/i18n'
-import type { DiagnosticResult } from '@/lib/types'
+import type { DiagnosticBranch, BranchingDiagnosticQuestion } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
 
-function calculateResult(answers: Record<string, number>, isCustom: boolean): DiagnosticResult {
-  const questions = isCustom ? customDiagnosticQuestions : diagnosticQuestions
-  const total = Object.values(answers).reduce((s, n) => s + n, 0)
-  const max = questions.length * 2
-  const pct = (total / max) * 100
-
-  if (isCustom) {
-    if (pct < 35) return { score: total, level: 'low', message: { fr: '', en: '', es: '' }, recommendation: 'custom' }
-    if (pct < 65) return { score: total, level: 'medium', message: { fr: '', en: '', es: '' }, recommendation: 'custom' }
-    return { score: total, level: 'high', message: { fr: '', en: '', es: '' }, recommendation: 'custom' }
-  }
-
-  if (pct < 40) return { score: total, level: 'low', message: { fr: '', en: '', es: '' }, recommendation: 'pro' }
-  if (pct < 70) return { score: total, level: 'medium', message: { fr: '', en: '', es: '' }, recommendation: 'business' }
-  return { score: total, level: 'high', message: { fr: '', en: '', es: '' }, recommendation: 'basic' }
-}
-
-const customResultCopy: Record<Locale, { low: { title: string; message: string }; medium: { title: string; message: string }; high: { title: string; message: string } }> = {
+const uiCopy = {
   fr: {
-    low: { title: 'Projet en phase de conception', message: 'Votre projet est encore au stade de l\'idéation. Un accompagnement stratégique et technique vous aidera à définir les specs, choisir la bonne architecture et lancer un MVP solide.' },
-    medium: { title: 'Projet bien défini', message: 'Votre projet a de bonnes fondations. Nous pouvons vous aider à accélérer le développement avec un MVP structuré et les bons choix technologiques.' },
-    high: { title: 'Projet prêt à décoller', message: 'Votre projet est mature et bien structuré. Nous pouvons lancer le développement rapidement avec une architecture robuste et scalable.' },
+    progress: 'Question',
+    next: 'Suivant',
+    back: 'Retour',
+    restart: 'Recommencer',
+    orientationLabel: 'Orientation recommandée',
+    selectUpTo: (n: number) => `Sélectionnez jusqu'à ${n} options`,
+    freeTextPlaceholder: 'Précisez votre besoin...',
+    seeResult: 'Voir mon résultat',
   },
   en: {
-    low: { title: 'Project in conception phase', message: 'Your project is still in the ideation stage. Strategic and technical guidance will help define specs, choose the right architecture, and launch a solid MVP.' },
-    medium: { title: 'Well-defined project', message: 'Your project has a solid foundation. We can help you accelerate development with a structured MVP and the right tech choices.' },
-    high: { title: 'Project ready for takeoff', message: 'Your project is mature and well-structured. We can start development quickly with a robust and scalable architecture.' },
+    progress: 'Question',
+    next: 'Next',
+    back: 'Back',
+    restart: 'Start over',
+    orientationLabel: 'Recommended approach',
+    selectUpTo: (n: number) => `Select up to ${n} options`,
+    freeTextPlaceholder: 'Specify your need...',
+    seeResult: 'See my result',
   },
   es: {
-    low: { title: 'Proyecto en fase de concepción', message: 'Su proyecto está aún en la etapa de ideación. Un acompañamiento estratégico y técnico le ayudará a definir las especificaciones, elegir la arquitectura correcta y lanzar un MVP sólido.' },
-    medium: { title: 'Proyecto bien definido', message: 'Su proyecto tiene buenas bases. Podemos ayudarle a acelerar el desarrollo con un MVP estructurado y las decisiones tecnológicas correctas.' },
-    high: { title: 'Proyecto listo para despegar', message: 'Su proyecto es maduro y bien estructurado. Podemos iniciar el desarrollo rápidamente con una arquitectura robusta y escalable.' },
+    progress: 'Pregunta',
+    next: 'Siguiente',
+    back: 'Atrás',
+    restart: 'Empezar de nuevo',
+    orientationLabel: 'Orientación recomendada',
+    selectUpTo: (n: number) => `Seleccione hasta ${n} opciones`,
+    freeTextPlaceholder: 'Especifique su necesidad...',
+    seeResult: 'Ver mi resultado',
   },
 }
 
-export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: string }) {
-  const isCustom = profile === 'custom'
-  const questions = isCustom ? customDiagnosticQuestions : diagnosticQuestions
-  const hasProfessionStep = !isCustom
-  const totalSteps = hasProfessionStep ? 1 + questions.length : questions.length
+export function DiagnosticQuiz({ locale }: { locale: Locale }) {
+  const t = uiCopy[locale]
 
   const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, number>>({})
-  const [result, setResult] = useState<DiagnosticResult | null>(null)
-  const [profession, setProfession] = useState<string | null>(null)
-  const [professionOther, setProfessionOther] = useState('')
-  const t = copy[locale].diagnostic
-  const isProfessionStep = hasProfessionStep && step === 0
-  const questionIndex = hasProfessionStep ? step - 1 : step
-  const q = !isProfessionStep && questionIndex >= 0 ? questions[questionIndex] : null
+  const [branch, setBranch] = useState<DiagnosticBranch | null>(null)
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
+  const [freeText, setFreeText] = useState('')
+  const [showResult, setShowResult] = useState(false)
+
+  const totalSteps = 5
   const progress = ((step + 1) / totalSteps) * 100
 
-  const handleProfessionSelect = (value: string) => {
-    setProfession(value)
-    if (value !== 'other') setProfessionOther('')
+  function getCurrentQuestion(): BranchingDiagnosticQuestion | null {
+    if (step === 0) return routingQuestion
+    if (step === 1) return commonQuestions[0]
+    if (step === 2) return commonQuestions[1]
+    if (step === 3 && branch) return branchQuestions[branch][0]
+    if (step === 4 && branch) return branchQuestions[branch][1]
+    return null
   }
 
-  const canAdvanceFromProfession = profession !== null && (profession !== 'other' || professionOther.trim() !== '')
+  const currentQuestion = getCurrentQuestion()
 
-  const handleProfessionNext = () => {
-    if (!canAdvanceFromProfession) return
-    if (step === 0 && Object.keys(answers).length === 0) analytics.cta.diagnosticStart()
-    analytics.cta.diagnosticStep(1, totalSteps)
-    setTimeout(() => setStep(1), 300)
-  }
+  function handleSingleSelect(questionId: string, value: string) {
+    if (step === 0) {
+      analytics.cta.diagnosticStart()
+    }
 
-  const handleAnswer = (questionId: string, score: number) => {
-    if (!hasProfessionStep && step === 0 && Object.keys(answers).length === 0) analytics.cta.diagnosticStart()
-    analytics.cta.diagnosticStep(step + 1, totalSteps)
-    const next = { ...answers, [questionId]: score }
-    setAnswers(next)
-    if (step < totalSteps - 1) {
-      setTimeout(() => setStep((s) => s + 1), 300)
-    } else {
-      const res = calculateResult(next, isCustom)
-      analytics.cta.diagnosticComplete(res.score, res.level, res.recommendation)
-      setResult(res)
+    const newAnswers = { ...answers, [questionId]: value }
+    setAnswers(newAnswers)
+
+    if (step === 0) {
+      setBranch(value as DiagnosticBranch)
+    }
+
+    if (currentQuestion?.type === 'single') {
+      if (step < totalSteps - 1) {
+        setTimeout(() => setStep((s) => s + 1), 300)
+      } else {
+        setTimeout(() => {
+          setShowResult(true)
+          if (branch) analytics.cta.diagnosticComplete(0, 'low', branch)
+        }, 300)
+      }
     }
   }
 
-  if (result) {
-    const levelCopy = isCustom ? customResultCopy[locale][result.level] : t.result[result.level]
-    const ctaParams = new URLSearchParams({ recommendation: result.recommendation })
-    if (profession) ctaParams.set('profession', profession)
-    if (profession === 'other' && professionOther.trim()) ctaParams.set('professionOther', professionOther.trim())
-    const ctaHref = isCustom
-      ? `/${locale}/profil/custom`
-      : `/${locale}/onboarding?${ctaParams.toString()}`
-    const ctaLabel = isCustom
-      ? (locale === 'fr' ? 'Décrire mon projet sur-mesure' : locale === 'en' ? 'Describe my custom project' : 'Describir mi proyecto personalizado')
-      : t.cta
+  function handleMultiSelect(questionId: string, value: string) {
+    const current = (answers[questionId] as string[] | undefined) || []
+    const maxSelect = currentQuestion?.maxSelect || 2
+    let updated: string[]
 
+    if (current.includes(value)) {
+      updated = current.filter((v) => v !== value)
+    } else if (current.length < maxSelect) {
+      updated = [...current, value]
+    } else {
+      return
+    }
+
+    setAnswers({ ...answers, [questionId]: updated })
+  }
+
+  function handleMultiNext() {
+    if (step < totalSteps - 1) {
+      setStep((s) => s + 1)
+    } else {
+      setShowResult(true)
+      if (branch) analytics.cta.diagnosticComplete(0, 'low', branch)
+    }
+  }
+
+  function canAdvance(): boolean {
+    if (!currentQuestion) return false
+    const answer = answers[currentQuestion.id]
+    if (currentQuestion.type === 'multiple') {
+      return Array.isArray(answer) && answer.length > 0
+    }
+    return !!answer
+  }
+
+  function handleBack() {
+    if (step > 0) {
+      setStep((s) => s - 1)
+    }
+  }
+
+  function handleReset() {
+    setStep(0)
+    setBranch(null)
+    setAnswers({})
+    setFreeText('')
+    setShowResult(false)
+  }
+
+  if (showResult && branch) {
+    const result = branchResults[branch]
     return (
       <div className="max-w-2xl mx-auto">
         <Card variant="elevated" className="text-center">
           <CardContent className="p-8 md:p-12">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-violet/10 flex items-center justify-center text-4xl">
-              {result.level === 'low' ? (isCustom ? '💡' : '🚀') : result.level === 'medium' ? (isCustom ? '🛠️' : '💪') : (isCustom ? '🚀' : '🎉')}
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-violet/10 flex items-center justify-center">
+              <svg className="w-10 h-10 text-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+              </svg>
             </div>
-            <h2 className="heading-3 text-anthracite mb-4">{levelCopy.title}</h2>
-            <p className="body-regular mb-8">{levelCopy.message}</p>
 
-            {isCustom && (
-              <div className="mb-8 p-4 rounded-xl bg-gray-50 text-left">
-                <h3 className="font-semibold text-anthracite mb-3 text-sm uppercase tracking-wider">
-                  {locale === 'fr' ? 'Résumé de votre projet' : locale === 'en' ? 'Your project summary' : 'Resumen de su proyecto'}
-                </h3>
-                <div className="space-y-2 text-sm text-gray-600">
-                  {Object.entries(answers).map(([qId, score]) => {
-                    const question = questions.find((qq) => qq.id === qId)
-                    if (!question) return null
-                    const selectedOption = question.options.find((o) => o.score === score)
-                    return (
-                      <div key={qId} className="flex items-start gap-2">
-                        <span className="text-violet font-medium shrink-0">•</span>
-                        <span>{selectedOption?.label[locale]}</span>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
+            <h2 className="heading-3 text-anthracite mb-4">{result.title[locale]}</h2>
+            <p className="body-regular text-gray-600 mb-6">{result.text[locale]}</p>
+
+            <div className="mb-8 p-4 rounded-xl bg-violet-50 border border-violet-100">
+              <p className="text-sm font-medium text-violet-700">
+                {t.orientationLabel} : {result.orientation[locale]}
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={ctaHref} onClick={() => !isCustom && analytics.onboarding.start(result.recommendation)}>
-                <Button variant="primary" size="lg">{ctaLabel}</Button>
+              <Link href={`/${locale}/diagnostic`}>
+                <Button variant="primary" size="lg">
+                  {result.cta[locale]}
+                </Button>
               </Link>
-              <Button variant="secondary" size="lg" onClick={() => { setResult(null); setStep(0); setAnswers({}); setProfession(null); setProfessionOther(''); }}>
-                {copy[locale].chatbot.buttons.restart}
+              <Button variant="secondary" size="lg" onClick={handleReset}>
+                {t.restart}
               </Button>
             </div>
           </CardContent>
@@ -149,59 +176,118 @@ export function DiagnosticQuiz({ locale, profile }: { locale: Locale; profile?: 
     )
   }
 
+  if (!currentQuestion) return null
+
+  const isMulti = currentQuestion.type === 'multiple'
+  const selectedMulti = (answers[currentQuestion.id] as string[] | undefined) || []
+  const selectedSingle = answers[currentQuestion.id] as string | undefined
+  const showFreeTextField = currentQuestion.freeText && selectedSingle === 'other'
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
-        <div className="flex justify-between items-center mb-2"><span className="text-sm text-gray-500">{t.progress} {step + 1}/{totalSteps}</span><span className="text-sm font-medium text-violet">{Math.round(progress)}%</span></div>
-        <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-violet transition-all duration-500 rounded-full" style={{ width: `${progress}%` }} /></div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-500">
+            {t.progress} {step + 1}/{totalSteps}
+          </span>
+          <span className="text-sm font-medium text-violet">{Math.round(progress)}%</span>
+        </div>
+        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-violet transition-all duration-500 rounded-full"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
+
       <Card variant="elevated">
         <CardContent className="p-8">
-          {isProfessionStep ? (
-            <>
-              <h2 className="heading-3 text-anthracite mb-8 text-center">{t.professionQuestion}</h2>
-              <div className="space-y-3">
-                {diagnosticProfessionOptions.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    onClick={() => handleProfessionSelect(opt.value)}
-                    className={cn(
-                      'w-full p-4 rounded-xl border-2 text-left transition-all',
-                      profession === opt.value ? 'border-violet bg-violet/5' : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50'
+          <h2 className="heading-3 text-anthracite mb-2 text-center">
+            {currentQuestion.question[locale]}
+          </h2>
+
+          {isMulti && currentQuestion.maxSelect && (
+            <p className="text-sm text-gray-400 text-center mb-6">
+              {t.selectUpTo(currentQuestion.maxSelect)}
+            </p>
+          )}
+
+          {!isMulti && <div className="mb-6" />}
+
+          <div className="space-y-3">
+            {currentQuestion.options.map((opt) => {
+              const isSelected = isMulti
+                ? selectedMulti.includes(opt.value)
+                : selectedSingle === opt.value
+
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() =>
+                    isMulti
+                      ? handleMultiSelect(currentQuestion.id, opt.value)
+                      : handleSingleSelect(currentQuestion.id, opt.value)
+                  }
+                  className={cn(
+                    'w-full p-4 rounded-xl border-2 text-left transition-all',
+                    isSelected
+                      ? 'border-violet bg-violet/5'
+                      : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50'
+                  )}
+                >
+                  <div className="flex items-center gap-3">
+                    {isMulti && (
+                      <div
+                        className={cn(
+                          'w-5 h-5 rounded border-2 flex items-center justify-center transition-all shrink-0',
+                          isSelected
+                            ? 'border-violet bg-violet'
+                            : 'border-gray-300'
+                        )}
+                      >
+                        {isSelected && (
+                          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
                     )}
-                  >
                     <span className="font-medium text-anthracite">{opt.label[locale]}</span>
-                  </button>
-                ))}
-              </div>
-              {profession === 'other' && (
-                <div className="mt-6">
-                  <Input
-                    label=""
-                    placeholder={t.otherProfessionPlaceholder}
-                    value={professionOther}
-                    onChange={(e) => setProfessionOther(e.target.value)}
-                  />
-                </div>
-              )}
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-                <Button variant="primary" size="lg" onClick={handleProfessionNext} disabled={!canAdvanceFromProfession}>
-                  {t.next}
-                </Button>
-              </div>
-            </>
-          ) : q ? (
-            <>
-              <h2 className="heading-3 text-anthracite mb-8 text-center">{q.question[locale]}</h2>
-              <div className="space-y-3">
-                {q.options.map((opt) => (
-                  <button key={opt.value} type="button" onClick={() => handleAnswer(q.id, opt.score)} className={cn('w-full p-4 rounded-xl border-2 text-left transition-all', answers[q.id] === opt.score ? 'border-violet bg-violet/5' : 'border-gray-200 hover:border-violet/50 hover:bg-gray-50')}><span className="font-medium text-anthracite">{opt.label[locale]}</span></button>
-                ))}
-              </div>
-              {step > 0 && <div className="mt-8 text-center"><Button variant="ghost" size="sm" onClick={() => setStep((s) => s - 1)}>← {t.back}</Button></div>}
-            </>
-          ) : null}
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+
+          {showFreeTextField && (
+            <div className="mt-4">
+              <Input
+                label=""
+                placeholder={t.freeTextPlaceholder}
+                value={freeText}
+                onChange={(e) => setFreeText(e.target.value)}
+              />
+            </div>
+          )}
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            {isMulti && (
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={handleMultiNext}
+                disabled={!canAdvance()}
+              >
+                {step === totalSteps - 1 ? t.seeResult : t.next}
+              </Button>
+            )}
+            {step > 0 && (
+              <Button variant="ghost" size="sm" onClick={handleBack}>
+                ← {t.back}
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>

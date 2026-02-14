@@ -42,11 +42,34 @@ export interface BlogPost {
   readingTime: number
 }
 
+export type FAQCategory = 'vision' | 'positionnement' | 'technique' | 'seo' | 'fonctionnalites' | 'autonomie' | 'accompagnement' | 'formation' | 'tarifs' | 'cas-specifiques' | 'decision' | 'confiance'
+
+export type FAQCategoryLegacy = 'general' | 'pricing' | 'technical' | 'support' | 'features' | 'process'
+
 export interface FAQItem {
   id: string
   question: Record<Locale, string>
   answer: Record<Locale, string>
-  category: 'general' | 'pricing' | 'technical' | 'support' | 'features' | 'process'
+  category: FAQCategory | FAQCategoryLegacy
+}
+
+export type DiagnosticBranch = 'A' | 'B' | 'C' | 'D'
+
+export interface BranchingDiagnosticQuestion {
+  id: string
+  question: Record<Locale, string>
+  type: 'single' | 'multiple'
+  maxSelect?: number
+  options: { value: string; label: Record<Locale, string> }[]
+  freeText?: boolean
+}
+
+export interface DiagnosticBranchResult {
+  branch: DiagnosticBranch
+  title: Record<Locale, string>
+  text: Record<Locale, string>
+  orientation: Record<Locale, string>
+  cta: Record<Locale, string>
 }
 
 export interface DiagnosticQuestion {

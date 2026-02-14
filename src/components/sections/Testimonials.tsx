@@ -163,7 +163,7 @@ export function Testimonials({ locale }: { locale: Locale }) {
         <div className="mt-20 pt-12 border-t border-white/10">
           <p className="text-center text-sm text-gray-500 mb-8">Ils nous font confiance</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40">
-            {['Psychologues', 'Ostéopathes', 'Naturopathes', 'Coaches', 'Thérapeutes'].map((name) => (
+            {['Consultants', 'Entrepreneurs', 'Indépendants', 'PME', 'Startups'].map((name) => (
               <div key={name} className="text-white/60 font-display text-lg">
                 {name}
               </div>

@@ -11,27 +11,27 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
   const content = {
     fr: {
       eyebrow: 'Prêt à vous lancer ?',
-      title: 'Créez votre site web professionnel dès aujourd\'hui',
-      subtitle: 'Rejoignez plus de 150 thérapeutes qui ont transformé leur présence en ligne avec Mindzy.',
+      title: 'Donnez vie à votre projet digital',
+      subtitle: 'Échangeons sur votre besoin et construisons ensemble une solution adaptée à votre activité.',
       primaryCta: 'Démarrer maintenant',
       secondaryCta: 'Voir les tarifs',
-      features: ['Site livré en 2 semaines', 'Support illimité inclus', 'Satisfait ou remboursé'],
+      features: ['Approche sur mesure', 'Accompagnement humain', 'Expertise SEO intégrée'],
     },
     en: {
       eyebrow: 'Ready to get started?',
-      title: 'Create your professional website today',
-      subtitle: 'Join over 150 therapists who have transformed their online presence with Mindzy.',
+      title: 'Bring your digital project to life',
+      subtitle: 'Let\'s discuss your needs and build a solution tailored to your business together.',
       primaryCta: 'Get started now',
       secondaryCta: 'View pricing',
-      features: ['Site delivered in 2 weeks', 'Unlimited support included', 'Satisfaction guaranteed'],
+      features: ['Custom approach', 'Human support', 'Integrated SEO expertise'],
     },
     es: {
       eyebrow: '¿Listo para empezar?',
-      title: 'Crea tu sitio web profesional hoy',
-      subtitle: 'Únete a más de 150 terapeutas que han transformado su presencia en línea con Mindzy.',
+      title: 'Da vida a tu proyecto digital',
+      subtitle: 'Hablemos de tu necesidad y construyamos juntos una solución adaptada a tu actividad.',
       primaryCta: 'Empezar ahora',
       secondaryCta: 'Ver precios',
-      features: ['Sitio entregado en 2 semanas', 'Soporte ilimitado incluido', 'Garantía de satisfacción'],
+      features: ['Enfoque a medida', 'Acompañamiento humano', 'Experiencia SEO integrada'],
     },
   }
 

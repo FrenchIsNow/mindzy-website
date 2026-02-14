@@ -81,6 +81,9 @@ export function PricingTable({ locale }: { locale: Locale }) {
                         <div className="text-sm text-gray-400 mt-2">
                           {t.setup}: {formatPrice(plan.setup)} HT
                         </div>
+                        <p className="text-xs text-violet-500 font-medium mt-2">
+                          {locale === 'fr' ? 'Options adaptables pour chaque besoin' : locale === 'en' ? 'Adaptable options for every need' : 'Opciones adaptables para cada necesidad'}
+                        </p>
                       </div>
 
                       {/* Divider */}
