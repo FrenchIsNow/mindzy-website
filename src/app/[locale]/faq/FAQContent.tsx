@@ -14,20 +14,25 @@ import { analytics } from '@/lib/analytics'
 
 type FAQCat = 'all' | 'vision' | 'positionnement' | 'technique' | 'seo' | 'fonctionnalites' | 'autonomie' | 'accompagnement' | 'formation' | 'tarifs' | 'cas-specifiques' | 'decision' | 'confiance'
 
-const categoryIcons: Record<FAQCat, string> = {
-  all: '📋',
-  vision: '💡',
-  positionnement: '🎯',
-  technique: '⚙️',
-  seo: '🔍',
-  fonctionnalites: '✨',
-  autonomie: '🔑',
-  accompagnement: '🤝',
-  formation: '📚',
-  tarifs: '💰',
-  'cas-specifiques': '🧩',
-  decision: '🧭',
-  confiance: '🛡️',
+const categoryOrder: Exclude<FAQCat, 'all'>[] = [
+  'vision', 'positionnement', 'technique', 'seo', 'fonctionnalites',
+  'autonomie', 'accompagnement', 'formation', 'tarifs', 'cas-specifiques',
+  'decision', 'confiance',
+]
+
+const sectionTitles: Record<Exclude<FAQCat, 'all'>, Record<Locale, string>> = {
+  vision: { fr: 'Vision & utilité', en: 'Vision & purpose', es: 'Visión y utilidad' },
+  positionnement: { fr: 'Positionnement & personnalisation', en: 'Positioning & customization', es: 'Posicionamiento y personalización' },
+  technique: { fr: 'Technique & performance', en: 'Technical & performance', es: 'Técnica y rendimiento' },
+  seo: { fr: 'SEO & visibilité', en: 'SEO & visibility', es: 'SEO y visibilidad' },
+  fonctionnalites: { fr: 'Fonctionnalités & usages', en: 'Features & usage', es: 'Funcionalidades y usos' },
+  autonomie: { fr: 'Autonomie & contrôle', en: 'Autonomy & control', es: 'Autonomía y control' },
+  accompagnement: { fr: 'Accompagnement & méthode', en: 'Support & methodology', es: 'Acompañamiento y método' },
+  formation: { fr: 'Formation & montée en compétence', en: 'Training & upskilling', es: 'Formación y desarrollo de competencias' },
+  tarifs: { fr: 'Tarifs & engagement', en: 'Pricing & commitment', es: 'Precios y compromiso' },
+  'cas-specifiques': { fr: 'Cas spécifiques & scalabilité', en: 'Specific cases & scalability', es: 'Casos específicos y escalabilidad' },
+  decision: { fr: 'Décision & projection', en: 'Decision & outlook', es: 'Decisión y proyección' },
+  confiance: { fr: 'Confiance & long terme', en: 'Trust & long term', es: 'Confianza y largo plazo' },
 }
 
 export function FAQContent({ locale }: { locale: Locale }) {
@@ -35,11 +40,10 @@ export function FAQContent({ locale }: { locale: Locale }) {
   const [searchQuery, setSearchQuery] = useState('')
   const t = copy[locale].faq
 
-  const cats: { value: FAQCat; label: string; icon: string }[] = Object.entries(t.allCategories).map(
+  const cats: { value: FAQCat; label: string }[] = Object.entries(t.allCategories).map(
     ([key, label]) => ({
       value: key as FAQCat,
       label,
-      icon: categoryIcons[key as FAQCat] || '❓',
     })
   )
 
@@ -50,6 +54,14 @@ export function FAQContent({ locale }: { locale: Locale }) {
       item.answer[locale].toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
+
+  const grouped = categoryOrder
+    .map((cat) => ({
+      category: cat,
+      title: sectionTitles[cat][locale],
+      items: filtered.filter((item) => item.category === cat),
+    }))
+    .filter((group) => group.items.length > 0)
 
   const ctaText = {
     fr: {
@@ -130,7 +142,6 @@ export function FAQContent({ locale }: { locale: Locale }) {
                   : 'bg-white text-gray-600 hover:bg-violet/5 hover:text-violet border border-gray-200'
               )}
             >
-              <span>{c.icon}</span>
               {c.label}
             </button>
           ))}
@@ -143,25 +154,31 @@ export function FAQContent({ locale }: { locale: Locale }) {
 
         {/* FAQ Items */}
         <div className="max-w-3xl mx-auto">
-          {filtered.length > 0 ? (
-            <Accordion type="single" defaultValue={filtered[0]?.id}>
-              {filtered.map((item) => (
-                <AccordionItem key={item.id} value={item.id}>
-                  <AccordionTrigger value={item.id}>
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg">{categoryIcons[item.category as FAQCat] || '❓'}</span>
-                      <span>{item.question[locale]}</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent value={item.id}>
-                    <p className="text-gray-600 leading-relaxed">{item.answer[locale]}</p>
-                  </AccordionContent>
-                </AccordionItem>
+          {grouped.length > 0 ? (
+            <div className="space-y-10">
+              {grouped.map((group, idx) => (
+                <section key={group.category}>
+                  <h2 className="text-lg font-semibold text-anthracite mb-4 pb-2 border-b border-gray-200">
+                    <span className="text-violet/70 font-normal mr-2">{String(idx + 1).padStart(2, '0')}.</span>
+                    {group.title}
+                  </h2>
+                  <Accordion type="single" defaultValue={idx === 0 ? group.items[0]?.id : undefined}>
+                    {group.items.map((item) => (
+                      <AccordionItem key={item.id} value={item.id}>
+                        <AccordionTrigger value={item.id}>
+                          {item.question[locale]}
+                        </AccordionTrigger>
+                        <AccordionContent value={item.id}>
+                          <p className="text-gray-600 leading-relaxed">{item.answer[locale]}</p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
               ))}
-            </Accordion>
+            </div>
           ) : (
             <div className="text-center py-12">
-              <div className="text-4xl mb-4">🔍</div>
               <p className="text-gray-500">{noResults[locale]}</p>
             </div>
           )}

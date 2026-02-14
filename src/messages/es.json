@@ -1,0 +1,123 @@
+{
+  "whyUs": {
+    "metaDescription": "¿Por qué elegir Mindzy en lugar de una agencia web tradicional? Diseño personalizado, entrega en 2 semanas, soporte ilimitado, precios transparentes.",
+    "badge": "Por qué elegirnos",
+    "titles": {
+      "stats": "En números",
+      "differentiators": "Lo que nos hace únicos",
+      "comparison": "Comparación detallada",
+      "process": "Nuestro proceso",
+      "engagements": "Nuestros compromisos",
+      "testimonials": "Confían en nosotros",
+      "cta": "¿Listo para transformar tu presencia en línea?",
+      "ctaSubtitle": "Reserva una llamada de descubrimiento gratuita de 30 minutos para discutir tu proyecto.",
+      "ctaButton": "Reservar mi llamada gratis",
+      "ctaSecondary": "Ver nuestros precios"
+    },
+    "stats": [
+      { "value": "150+", "label": "Sitios creados", "description": "Para emprendedores en toda Europa" },
+      { "value": "98%", "label": "Satisfacción del cliente", "description": "Basado en opiniones verificadas" },
+      { "value": "2 sem.", "label": "Plazo promedio", "description": "Del pedido al lanzamiento" },
+      { "value": "24/7", "label": "Soporte receptivo", "description": "Respuesta promedio en 4h" }
+    ],
+    "differentiators": [
+      {
+        "icon": "🎯",
+        "title": "Un enfoque centrado en su realidad",
+        "description": "Nunca partimos de una plantilla ni de un proceso rígido. Cada proyecto comienza por comprender su actividad, sus usos y sus limitaciones.",
+        "details": ["Análisis de la necesidad real", "Adaptación a su sector", "Ninguna solución estándar impuesta", "Visión a corto y largo plazo"]
+      },
+      {
+        "icon": "🧩",
+        "title": "Proyectos a medida, no productos",
+        "description": "Diseñamos sitios web, aplicaciones y sistemas internos adaptados a necesidades simples o complejas, sin forzar su proyecto en un marco predefinido.",
+        "details": ["Personalización funcional y técnica", "Escalabilidad pensada desde el inicio", "Del proyecto simple al sistema estructurado", "Prioridad al uso real"]
+      },
+      {
+        "icon": "🤝",
+        "title": "Un acompañamiento humano e involucrado",
+        "description": "En Mindzy, usted no es un expediente más. Le acompañamos, asesoramos y ajustamos el proyecto con usted en cada etapa.",
+        "details": ["Interlocutores involucrados", "Intercambios claros y pedagógicos", "Consejos concretos, sin jerga", "Presencia antes, durante y después"]
+      },
+      {
+        "icon": "🔍",
+        "title": "Experiencia SEO integrada",
+        "description": "La visibilidad no es un complemento, forma parte del proyecto. El posicionamiento se piensa desde el diseño para asegurar una base sana y duradera.",
+        "details": ["Estructura clara y legible", "Contenidos pensados para el posicionamiento", "Rendimiento y velocidad optimizados", "Visión a largo plazo, sin recetas milagrosas"]
+      },
+      {
+        "icon": "🛡️",
+        "title": "Proyectos pensados para durar",
+        "description": "Priorizamos la estabilidad, la claridad y la mantenibilidad. El objetivo: un proyecto que siga siendo pertinente y utilizable con el tiempo.",
+        "details": ["Proyectos fiables y robustos", "Fáciles de hacer evolucionar", "Tecnologías dominadas", "Mantenimiento simplificado"]
+      },
+      {
+        "icon": "📱",
+        "title": "Una experiencia coherente en todos los soportes",
+        "description": "Cada proyecto está diseñado para ser fluido y coherente, sin importar la pantalla o el contexto de uso.",
+        "details": ["Responsive nativo", "Móvil y escritorio coherentes", "Rendimiento controlado", "Experiencia clara y accesible"]
+      }
+    ],
+    "process": [
+      { "step": "01", "title": "Comprensión & definición", "description": "Nos tomamos el tiempo de comprender su actividad, sus objetivos y sus limitaciones para definir un marco claro y pertinente." },
+      { "step": "02", "title": "Diseño a medida", "description": "Diseñamos un enfoque adaptado a su necesidad: estructura, funcionalidades y orientaciones técnicas, validadas con usted." },
+      { "step": "03", "title": "Desarrollo & ajustes", "description": "Desarrollamos el proyecto de manera progresiva, con intercambios regulares y ajustes en función de sus comentarios." },
+      { "step": "04", "title": "Puesta en línea & acompañamiento", "description": "El proyecto se despliega y permanecemos disponibles para acompañarle en la toma de control y las evoluciones futuras." }
+    ],
+    "engagements": [
+      { "title": "Una relación clara y transparente", "description": "Trabajamos con intercambios claros, decisiones compartidas y una visión común del proyecto desde el inicio." },
+      { "title": "Un proyecto pensado con usted", "description": "Cada proyecto se construye en colaboración. Sus comentarios y su comprensión son parte integral del proceso." },
+      { "title": "Una base sólida y duradera", "description": "Diseñamos proyectos estables, mantenibles y pensados para evolucionar, sin dependencias innecesarias ni complejidad superflua." },
+      { "title": "Un enfoque responsable", "description": "Aplicamos las mejores prácticas en materia de seguridad, confidencialidad y fiabilidad, adaptadas a la naturaleza de su proyecto." }
+    ],
+    "comparison": {
+      "headers": ["Criterio", "Agencias tradicionales", "Freelancers", "DIY (Wix, etc.)", "Mindzy"],
+      "rows": [
+        ["Precio promedio", "3.000 - 15.000€", "1.500 - 5.000€", "200 - 500€/año", "Desde 49€/mes"],
+        ["Tiempo de entrega", "2-4 meses", "1-2 meses", "DIY (variable)", "2 semanas"],
+        ["Diseño personalizado", "✓ Premium", "✓ Variable", "✗ Plantillas", "✓ Premium"],
+        ["SEO optimizado", "✓ (extra)", "? Variable", "✗ Básico", "✓ Incluido"],
+        ["Reservas en línea", "? Bajo demanda", "? Variable", "? Plugins", "✓ Integrado"],
+        ["Soporte continuo", "✗ Limitado", "? Variable", "✗ Foro", "✓ Ilimitado"],
+        ["Actualizaciones", "✗ Facturadas", "✗ Facturadas", "✓ Auto", "✓ Incluidas"],
+        ["Hosting", "✗ Extra", "✗ Extra", "✓ Incluido", "✓ Premium incluido"]
+      ]
+    }
+  },
+  "whyMindzy": {
+    "eyebrow": "Nuestros compromisos",
+    "title": "Lo que marca la diferencia",
+    "items": [
+      {
+        "key": "reality",
+        "title": "Un enfoque centrado en su realidad",
+        "description": "Nunca partimos de una plantilla ni de un proceso rígido. Cada proyecto comienza por comprender su actividad, sus usos y sus limitaciones."
+      },
+      {
+        "key": "bespoke",
+        "title": "Proyectos a medida, no productos",
+        "description": "Diseñamos sitios web, aplicaciones y sistemas internos adaptados a necesidades simples o complejas, sin forzar su proyecto en un marco predefinido."
+      },
+      {
+        "key": "support",
+        "title": "Un acompañamiento humano e involucrado",
+        "description": "En Mindzy, usted no es un expediente más. Le acompañamos, asesoramos y ajustamos el proyecto con usted en cada etapa."
+      },
+      {
+        "key": "seo",
+        "title": "Experiencia SEO integrada",
+        "description": "La visibilidad no es un complemento, forma parte del proyecto. El posicionamiento se piensa desde el diseño para asegurar una base sana y duradera."
+      },
+      {
+        "key": "durable",
+        "title": "Proyectos pensados para durar",
+        "description": "Priorizamos la estabilidad, la claridad y la mantenibilidad. El objetivo: un proyecto que siga siendo pertinente y utilizable con el tiempo."
+      },
+      {
+        "key": "responsive",
+        "title": "Una experiencia coherente en todos los soportes",
+        "description": "Cada proyecto está diseñado para ser fluido y coherente, sin importar la pantalla o el contexto de uso."
+      }
+    ]
+  }
+}

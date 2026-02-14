@@ -212,7 +212,7 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
               <Card
                 variant="default"
                 hover
-                className={cn('h-full relative overflow-hidden', 'animate-fade-in-up')}
+                className={cn('h-full relative overflow-hidden flex flex-col', 'animate-fade-in-up')}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div
@@ -222,7 +222,7 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
                   )}
                 />
 
-                <div className="relative">
+                <div className="relative flex flex-col flex-1">
                   <div className="flex items-start justify-between mb-5">
                     <div
                       className={cn(
@@ -254,7 +254,7 @@ export function UseCaseCards({ locale }: { locale: Locale }) {
                   >
                     {card.subtitle[locale]}
                   </p>
-                  <CardDescription className="mb-5">
+                  <CardDescription className="mb-5 flex-1">
                     {card.description[locale]}
                   </CardDescription>
 

@@ -1,0 +1,123 @@
+{
+  "whyUs": {
+    "metaDescription": "Why choose Mindzy over a traditional web agency? Custom design, delivery in 2 weeks, unlimited support, transparent pricing.",
+    "badge": "Why choose us",
+    "titles": {
+      "stats": "By the numbers",
+      "differentiators": "What makes us unique",
+      "comparison": "Detailed comparison",
+      "process": "Our process",
+      "engagements": "Our commitments",
+      "testimonials": "They trust us",
+      "cta": "Ready to transform your online presence?",
+      "ctaSubtitle": "Book a free 30-minute discovery call to discuss your project.",
+      "ctaButton": "Book my free call",
+      "ctaSecondary": "See our pricing"
+    },
+    "stats": [
+      { "value": "150+", "label": "Sites created", "description": "For entrepreneurs across Europe" },
+      { "value": "98%", "label": "Client satisfaction", "description": "Based on verified reviews" },
+      { "value": "2 wks", "label": "Average delivery", "description": "From order to launch" },
+      { "value": "24/7", "label": "Responsive support", "description": "Average response under 4h" }
+    ],
+    "differentiators": [
+      {
+        "icon": "🎯",
+        "title": "An approach centered on your reality",
+        "description": "We never start from a template or a rigid process. Every project begins with understanding your business, your workflows, and your constraints.",
+        "details": ["Real needs analysis", "Adapted to your industry", "No standard solution imposed", "Short and long-term vision"]
+      },
+      {
+        "icon": "🧩",
+        "title": "Custom projects, not products",
+        "description": "We design websites, applications, and internal systems tailored to simple or complex needs, without forcing your project into a predefined framework.",
+        "details": ["Functional and technical customization", "Scalability built in from the start", "From simple projects to structured systems", "Priority on real-world usage"]
+      },
+      {
+        "icon": "🤝",
+        "title": "Human and committed support",
+        "description": "At Mindzy, you're not just another file. We guide, advise, and adjust the project with you at every step.",
+        "details": ["Involved team members", "Clear and educational exchanges", "Concrete advice, no jargon", "Present before, during, and after"]
+      },
+      {
+        "icon": "🔍",
+        "title": "Built-in SEO expertise",
+        "description": "Visibility is not an add-on, it's part of the project. SEO is integrated from the design phase to ensure a healthy and lasting foundation.",
+        "details": ["Clear and readable structure", "Content designed for search engines", "Optimized performance and speed", "Long-term vision, no quick fixes"]
+      },
+      {
+        "icon": "🛡️",
+        "title": "Projects built to last",
+        "description": "We prioritize stability, clarity, and maintainability. The goal: a project that stays relevant and usable over time.",
+        "details": ["Reliable and robust projects", "Easy to evolve", "Mastered technologies", "Simplified maintenance"]
+      },
+      {
+        "icon": "📱",
+        "title": "A consistent experience across all devices",
+        "description": "Every project is designed to be fluid and consistent, regardless of the screen or context of use.",
+        "details": ["Native responsive", "Consistent mobile and desktop", "Controlled performance", "Clear and accessible experience"]
+      }
+    ],
+    "process": [
+      { "step": "01", "title": "Understanding & scoping", "description": "We take the time to understand your business, goals, and constraints to define a clear and relevant framework." },
+      { "step": "02", "title": "Custom design", "description": "We design an approach tailored to your needs: structure, features, and technical directions, validated with you." },
+      { "step": "03", "title": "Development & adjustments", "description": "We develop the project progressively, with regular exchanges and adjustments based on your feedback." },
+      { "step": "04", "title": "Launch & support", "description": "The project is deployed and we remain available to support you in getting started and future evolutions." }
+    ],
+    "engagements": [
+      { "title": "A clear and transparent relationship", "description": "We work with clear exchanges, shared decisions, and a common vision of the project from the start." },
+      { "title": "A project designed with you", "description": "Every project is built in collaboration. Your feedback and understanding are an integral part of the process." },
+      { "title": "A solid and lasting foundation", "description": "We design stable, maintainable projects built to evolve, without unnecessary dependencies or superfluous complexity." },
+      { "title": "A responsible approach", "description": "We apply best practices in security, confidentiality, and reliability, adapted to the nature of your project." }
+    ],
+    "comparison": {
+      "headers": ["Criteria", "Traditional agencies", "Freelancers", "DIY (Wix, etc.)", "Mindzy"],
+      "rows": [
+        ["Average price", "€3,000 - €15,000", "€1,500 - €5,000", "€200 - €500/year", "From €49/month"],
+        ["Delivery time", "2-4 months", "1-2 months", "DIY (variable)", "2 weeks"],
+        ["Custom design", "✓ Premium", "✓ Variable", "✗ Templates", "✓ Premium"],
+        ["SEO optimized", "✓ (extra)", "? Variable", "✗ Basic", "✓ Included"],
+        ["Online booking", "? On request", "? Variable", "? Plugins", "✓ Built-in"],
+        ["Ongoing support", "✗ Limited", "? Variable", "✗ Forum", "✓ Unlimited"],
+        ["Updates", "✗ Billed", "✗ Billed", "✓ Auto", "✓ Included"],
+        ["Hosting", "✗ Extra", "✗ Extra", "✓ Included", "✓ Premium included"]
+      ]
+    }
+  },
+  "whyMindzy": {
+    "eyebrow": "Our commitments",
+    "title": "What makes the difference",
+    "items": [
+      {
+        "key": "reality",
+        "title": "An approach centered on your reality",
+        "description": "We never start from a template or a rigid process. Every project begins with understanding your business, your workflows, and your constraints."
+      },
+      {
+        "key": "bespoke",
+        "title": "Custom projects, not products",
+        "description": "We design websites, applications, and internal systems tailored to simple or complex needs, without forcing your project into a predefined framework."
+      },
+      {
+        "key": "support",
+        "title": "Human and committed support",
+        "description": "At Mindzy, you're not just another file. We guide, advise, and adjust the project with you at every step."
+      },
+      {
+        "key": "seo",
+        "title": "Built-in SEO expertise",
+        "description": "Visibility is not an add-on, it's part of the project. SEO is integrated from the design phase to ensure a healthy and lasting foundation."
+      },
+      {
+        "key": "durable",
+        "title": "Projects built to last",
+        "description": "We prioritize stability, clarity, and maintainability. The goal: a project that stays relevant and usable over time."
+      },
+      {
+        "key": "responsive",
+        "title": "A consistent experience across all devices",
+        "description": "Every project is designed to be fluid and consistent, regardless of the screen or context of use."
+      }
+    ]
+  }
+}

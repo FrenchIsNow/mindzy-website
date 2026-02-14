@@ -1,121 +1,47 @@
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
 import type { Locale } from '@/lib/i18n'
+import { getMessages } from '@/lib/getMessages'
 import { cn } from '@/lib/utils'
 
-const translations = {
-  eyebrow: {
-    fr: 'Nos engagements',
-    en: 'Our commitments',
-    es: 'Nuestros compromisos',
-  },
-  title: {
-    fr: 'Ce qui fait la différence',
-    en: 'What makes the difference',
-    es: 'Lo que marca la diferencia',
-  },
+const icons: Record<string, React.ReactNode> = {
+  reality: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      <circle cx="12" cy="12" r="10" strokeLinecap="round" strokeLinejoin="round" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m0 16v2M2 12h2m16 0h2" />
+    </svg>
+  ),
+  bespoke: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
+    </svg>
+  ),
+  support: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+    </svg>
+  ),
+  seo: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+    </svg>
+  ),
+  durable: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+    </svg>
+  ),
+  responsive: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+    </svg>
+  ),
 }
 
-const valuePropositions = [
-  {
-    key: 'bespoke',
-    title: {
-      fr: 'Une approche sur mesure',
-      en: 'A tailored approach',
-      es: 'Un enfoque a medida',
-    },
-    description: {
-      fr: 'Chaque projet est pensé selon votre activité, vos usages et vos objectifs. Pas de modèle standard, pas de solution toute faite.',
-      en: 'Every project is designed around your activity, your workflows, and your goals. No standard template, no off-the-shelf solution.',
-      es: 'Cada proyecto se diseña en función de su actividad, sus usos y sus objetivos. Sin plantillas estándar, sin soluciones prefabricadas.',
-    },
-    color: 'violet' as const,
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-        <circle cx="12" cy="12" r="10" strokeLinecap="round" strokeLinejoin="round" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m0 16v2M2 12h2m16 0h2" />
-      </svg>
-    ),
-  },
-  {
-    key: 'support',
-    title: {
-      fr: 'Un accompagnement & suivi humain',
-      en: 'Human support & follow-up',
-      es: 'Acompañamiento y seguimiento humano',
-    },
-    description: {
-      fr: 'Nous prenons le temps de comprendre votre besoin, de vous conseiller et de vous accompagner à chaque étape du projet.',
-      en: 'We take the time to understand your needs, advise you, and support you at every stage of the project.',
-      es: 'Nos tomamos el tiempo de entender sus necesidades, asesorarle y acompañarle en cada etapa del proyecto.',
-    },
-    color: 'sage' as const,
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'seo',
-    title: {
-      fr: 'Une expertise SEO intégrée',
-      en: 'Built-in SEO expertise',
-      es: 'Experiencia SEO integrada',
-    },
-    description: {
-      fr: 'Le référencement est intégré dès la conception du projet : structure, contenus et performance sont pensés pour une visibilité durable sur les moteurs de recherche.',
-      en: 'SEO is built in from the very start of the project: structure, content, and performance are all designed for lasting visibility on search engines.',
-      es: 'El posicionamiento se integra desde el inicio del proyecto: estructura, contenidos y rendimiento están pensados para una visibilidad duradera en los motores de búsqueda.',
-    },
-    color: 'gold' as const,
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'durable',
-    title: {
-      fr: 'Des projets utiles et durables',
-      en: 'Useful and lasting projects',
-      es: 'Proyectos útiles y duraderos',
-    },
-    description: {
-      fr: 'Nous concevons des projets clairs, fiables et pensés pour évoluer, qu\'ils soient simples ou complexes.',
-      en: 'We build clear, reliable projects designed to evolve, whether simple or complex.',
-      es: 'Diseñamos proyectos claros, fiables y pensados para evolucionar, ya sean simples o complejos.',
-    },
-    color: 'rose' as const,
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-      </svg>
-    ),
-  },
-  {
-    key: 'turnkey',
-    title: {
-      fr: 'Solution Clé en main',
-      en: 'Turnkey solution',
-      es: 'Solución llave en mano',
-    },
-    description: {
-      fr: 'Nous gérons tout : design, textes, SEO, mise en ligne, maintenance.',
-      en: 'We handle everything: design, copy, SEO, launch, and maintenance.',
-      es: 'Nos encargamos de todo: diseño, textos, SEO, puesta en línea y mantenimiento.',
-    },
-    color: 'cyan' as const,
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-      </svg>
-    ),
-  },
-]
+const colorOrder = ['violet', 'sage', 'gold', 'rose', 'cyan', 'violet'] as const
+type ColorKey = (typeof colorOrder)[number]
 
-const colorClasses = {
+const colorClasses: Record<ColorKey, { bg: string; text: string; gradient: string; border: string }> = {
   violet: {
     bg: 'bg-violet-50',
     text: 'text-violet-600',
@@ -149,47 +75,45 @@ const colorClasses = {
 }
 
 export function WhyMindzy({ locale }: { locale: Locale }) {
+  const msg = getMessages(locale).whyMindzy
+
   return (
     <section className="section-padding bg-gradient-to-b from-white to-cream-50 relative overflow-hidden">
-      {/* Background decorations */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-violet-100/30 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-sage-100/40 rounded-full blur-3xl" />
 
       <div className="container-wide relative">
-        {/* Section header */}
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{translations.eyebrow[locale]}</span>
-          <h2 className="heading-2 text-anthracite mb-4">{translations.title[locale]}</h2>
+          <span className="eyebrow mb-4 block">{msg.eyebrow}</span>
+          <h2 className="heading-2 text-anthracite mb-4">{msg.title}</h2>
         </div>
 
-        {/* Value propositions grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {valuePropositions.map((vp, index) => {
-            const colors = colorClasses[vp.color]
+        <div className="flex flex-wrap justify-center gap-8">
+          {msg.items.map((item, index) => {
+            const color = colorOrder[index % colorOrder.length]
+            const colors = colorClasses[color]
+            const icon = icons[item.key]
             return (
               <div
-                key={vp.key}
-                className="animate-fade-in-up"
+                key={item.key}
+                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] animate-fade-in-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <Card variant="glass" className="h-full text-center group hover:shadow-elevated transition-all duration-500">
-                  {/* Icon container */}
                   <div className={cn(
                     'w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center transition-all duration-300',
                     colors.bg,
                     colors.text,
                     'group-hover:scale-110 group-hover:shadow-lg'
                   )}>
-                    {vp.icon}
+                    {icon}
                   </div>
 
-                  {/* Content */}
-                  <CardTitle className="text-lg mb-3">{vp.title[locale]}</CardTitle>
+                  <CardTitle className="text-lg mb-3">{item.title}</CardTitle>
                   <CardDescription className="text-sm leading-relaxed">
-                    {vp.description[locale]}
+                    {item.description}
                   </CardDescription>
 
-                  {/* Decorative line */}
                   <div className={cn(
                     'w-12 h-1 mx-auto mt-6 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300',
                     `bg-gradient-to-r ${colors.gradient}`
