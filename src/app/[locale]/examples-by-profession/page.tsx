@@ -2,20 +2,27 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { getMessages } from '@/lib/getMessages'
-import { professions, portfolioItems } from '@/lib/config'
+import { professions } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata } from '@/lib/seo'
+import { getPortfolioItems } from '@/lib/google-sheets'
 
 const professionLabels: Record<string, Record<string, string>> = {
-  consultant: { fr: 'Consultant', en: 'Consultant', es: 'Consultor' },
-  restaurant: { fr: 'Restaurant', en: 'Restaurant', es: 'Restaurante' },
-  artisan: { fr: 'Artisan', en: 'Craftsman', es: 'Artesano' },
-  coach: { fr: 'Coach Business', en: 'Business Coach', es: 'Coach Empresarial' },
-  boutique: { fr: 'Boutique', en: 'Shop', es: 'Tienda' },
-  freelance: { fr: 'Freelance', en: 'Freelancer', es: 'Freelance' },
   therapeute: { fr: 'Thérapeute', en: 'Therapist', es: 'Terapeuta' },
-  psychologue: { fr: 'Psychologue', en: 'Psychologist', es: 'Psicólogo' },
+  avocat: { fr: 'Avocat', en: 'Lawyer', es: 'Abogado' },
+  consultant: { fr: 'Consultant', en: 'Consultant', es: 'Consultor' },
+  boutique: { fr: 'Boutique / E-commerce', en: 'Shop / E-commerce', es: 'Tienda / E-commerce' },
   'coach-sportif': { fr: 'Coach Sportif', en: 'Sports Coach', es: 'Coach Deportivo' },
+  coach: { fr: 'Coach / Formateur', en: 'Coach / Trainer', es: 'Coach / Formador' },
+  freelance: { fr: 'Freelance', en: 'Freelancer', es: 'Freelance' },
+  'fond-investissement': { fr: 'Fonds d\'Investissement', en: 'Investment Fund', es: 'Fondo de Inversión' },
+  media: { fr: 'Média', en: 'Media', es: 'Medios' },
+  tatoueur: { fr: 'Tatoueur', en: 'Tattoo Artist', es: 'Tatuador' },
+  photographe: { fr: 'Photographe', en: 'Photographer', es: 'Fotógrafo' },
+  designer: { fr: 'Designer', en: 'Designer', es: 'Diseñador' },
+  restaurant: { fr: 'Restaurant', en: 'Restaurant', es: 'Restaurante' },
+  psychologue: { fr: 'Psychologue', en: 'Psychologist', es: 'Psicólogo' },
+  artisan: { fr: 'Artisan', en: 'Craftsman', es: 'Artesano' },
 }
 
 const examplesDescriptions: Record<string, string> = {
@@ -37,6 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ExamplesByProfessionPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  const portfolioItems = await getPortfolioItems()
   const titles: Record<string, string> = { fr: 'Sites web par profession', en: 'Websites by profession', es: 'Sitios por profesión' }
   const subtitles: Record<string, string> = { fr: 'Trouvez l\'inspiration par métier', en: 'Find inspiration by profession', es: 'Encuentra inspiración por profesión' }
   return (

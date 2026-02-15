@@ -16,7 +16,7 @@ export interface PortfolioItem {
   id: string
   title: Record<Locale, string>
   description: Record<Locale, string>
-  category: 'therapist' | 'clinic' | 'coach' | 'ecom'
+  tags: string[]
   profession: string
   image: string
   url?: string

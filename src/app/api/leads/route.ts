@@ -21,7 +21,7 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     const data = await response.json()
     return data.success === true
   } catch (error) {
-    console.error('[Leads API] reCAPTCHA verification error:', error)
+    console.log('[Leads API] reCAPTCHA verification error:', error)
     return false
   }
 }
@@ -81,13 +81,13 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const text = await response.text()
-      console.error('[Leads API] Google Sheets webhook error:', response.status, text)
+      console.log('[Leads API] Google Sheets webhook error:', response.status, text)
       return NextResponse.json({ error: 'Failed to save data' }, { status: 502 })
     }
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[Leads API] Lead submission error:', error)
+    console.log('[Leads API] Lead submission error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

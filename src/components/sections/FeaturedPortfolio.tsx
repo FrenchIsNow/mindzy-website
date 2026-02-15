@@ -1,11 +1,13 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { portfolioItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
+import { getPortfolioItems } from '@/lib/google-sheets'
 
-export function FeaturedPortfolio({ locale }: { locale: Locale }) {
+export async function FeaturedPortfolio({ locale }: { locale: Locale }) {
+  const portfolioItems = await getPortfolioItems()
   const featured = portfolioItems.filter((item) => item.featured).slice(0, 6)
 
   const content = {
@@ -63,16 +65,25 @@ export function FeaturedPortfolio({ locale }: { locale: Locale }) {
               )}
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              {/* Placeholder gradient background */}
-              <div className={cn(
-                'absolute inset-0',
-                index % 6 === 0 && 'bg-gradient-to-br from-violet-100 to-violet-200',
-                index % 6 === 1 && 'bg-gradient-to-br from-sage-100 to-sage-200',
-                index % 6 === 2 && 'bg-gradient-to-br from-cream-200 to-cream-300',
-                index % 6 === 3 && 'bg-gradient-to-br from-rose-100 to-rose-200',
-                index % 6 === 4 && 'bg-gradient-to-br from-violet-50 to-cream-100',
-                index % 6 === 5 && 'bg-gradient-to-br from-sage-50 to-violet-100',
-              )} />
+              {item.image && item.image !== '/images/portfolio/placeholder-1.jpg' ? (
+                <Image
+                  src={item.image}
+                  alt={item.title[locale]}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div className={cn(
+                  'absolute inset-0',
+                  index % 6 === 0 && 'bg-gradient-to-br from-violet-100 to-violet-200',
+                  index % 6 === 1 && 'bg-gradient-to-br from-sage-100 to-sage-200',
+                  index % 6 === 2 && 'bg-gradient-to-br from-cream-200 to-cream-300',
+                  index % 6 === 3 && 'bg-gradient-to-br from-rose-100 to-rose-200',
+                  index % 6 === 4 && 'bg-gradient-to-br from-violet-50 to-cream-100',
+                  index % 6 === 5 && 'bg-gradient-to-br from-sage-50 to-violet-100',
+                )} />
+              )}
 
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-anthracite/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
