@@ -44,7 +44,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <UseCaseCards locale={locale as Locale} />
 
       {/* Value Propositions - 5 key differentiators */}
-      <WhyMindzy locale={locale as Locale} />
+       {/*  <WhyMindzy locale={locale as Locale} />*/}
 
       {/* Featured Portfolio - Social proof */}
       <FeaturedPortfolio locale={locale as Locale} />
