@@ -121,7 +121,6 @@ export async function FeaturedPortfolio({ locale }: { locale: Locale }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatItem value="40+" label="Sites livrés" />
             <StatItem value="98%" label="Satisfaction client" />
-            <StatItem value="+180%" label="Augmentation trafic" />
             <StatItem value="4.9/5" label="Note moyenne" />
           </div>
         </div>

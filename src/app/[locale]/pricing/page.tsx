@@ -37,11 +37,12 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
     <div className="pt-24">
       <JsonLd data={serviceJsonLd} />
       <PricingTable locale={locale as Locale} />
-      <section className="section-padding bg-gray-50">
+      {/** <section className="section-padding bg-gray-50">
         <div className="container-narrow">
           <ROICalculator locale={locale as Locale} />
         </div>
       </section>
+      **/}
     </div>
   )
 }
