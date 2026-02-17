@@ -1,6 +1,4 @@
-import { Card, CardTitle } from '@/components/ui/Card'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import type { Locale } from '@/lib/i18n'
 import { config } from '@/lib/config'
 
@@ -153,6 +151,8 @@ export function AIFormation({ locale }: { locale: Locale }) {
       sessionLabel: 'Session',
       resultLabel: 'Résultat',
       cta: 'Réserver un appel',
+      durationShort: '8h',
+      sessionsShort: '4 sessions',
     },
     en: {
       eyebrow: 'Artificial Intelligence',
@@ -165,6 +165,8 @@ export function AIFormation({ locale }: { locale: Locale }) {
       sessionLabel: 'Session',
       resultLabel: 'Result',
       cta: 'Book a call',
+      durationShort: '8h',
+      sessionsShort: '4 sessions',
     },
     es: {
       eyebrow: 'Inteligencia Artificial',
@@ -177,83 +179,199 @@ export function AIFormation({ locale }: { locale: Locale }) {
       sessionLabel: 'Sesión',
       resultLabel: 'Resultado',
       cta: 'Reservar una llamada',
+      durationShort: '8h',
+      sessionsShort: '4 sesiones',
     },
   }
 
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-cyan-100/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-violet-100/20 rounded-full blur-3xl" />
+    <section
+      className="section-padding relative overflow-hidden"
+      style={{ backgroundColor: '#0A0A1A' }}
+    >
+      {/* Grain texture */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+        }}
+      />
+
+      {/* Subtle radial glow behind price */}
+      <div
+        className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl opacity-10"
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)' }}
+      />
 
       <div className="container-wide relative">
         {/* Section header */}
-        <div className="text-center mb-12">
-          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
-          <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
-          <p className="body-large max-w-2xl mx-auto mb-6">{t.subtitle}</p>
-
-          {/* Meta info */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <Badge variant="primary">{t.duration}</Badge>
-            <Badge variant="default">{t.format}</Badge>
-          </div>
-          <div>
-            <span className="font-display text-4xl font-semibold text-anthracite">{t.price} &euro;</span>
-          </div>
+        <div className="text-center mb-6">
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+            {t.eyebrow}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+            {t.title}
+          </h2>
+          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-400 mb-8">
+            {t.subtitle}
+          </p>
         </div>
 
-        {/* Sessions grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-          {sessions.map((session, i) => (
-            <Card
-              key={session.number}
-              variant="default"
-              padding="none"
-              className="overflow-hidden animate-fade-in-up"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="h-2 bg-gradient-to-r from-cyan-500 to-cyan-700" />
-              <div className="p-6 lg:p-8">
-                {/* Session number */}
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-cyan-50 flex items-center justify-center">
-                    <span className="font-display text-xl font-bold text-cyan-700">{session.number}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium text-cyan-600 uppercase tracking-wider">{t.sessionLabel} {session.number}</span>
-                    <CardTitle as="h3" className="text-lg">{session.title[locale]}</CardTitle>
+        {/* Price display - HUGE centered with flanking badges */}
+        <div className="flex items-center justify-center gap-4 sm:gap-6 mb-16 animate-fade-in-up">
+          {/* Duration badge */}
+          <span
+            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full text-gray-300"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
+            {t.durationShort}
+          </span>
+
+          {/* Price */}
+          <span
+            className="font-display text-6xl sm:text-7xl font-semibold bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(135deg, #D4AF37 0%, #F4E5B0 50%, #D4AF37 100%)',
+            }}
+          >
+            {t.price} &euro;
+          </span>
+
+          {/* Sessions badge */}
+          <span
+            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full text-gray-300"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
+            {t.sessionsShort}
+          </span>
+        </div>
+
+        {/* Mobile duration/sessions display */}
+        <div className="flex sm:hidden items-center justify-center gap-3 -mt-10 mb-12">
+          <span
+            className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
+            {t.durationShort}
+          </span>
+          <span
+            className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
+            {t.sessionsShort}
+          </span>
+        </div>
+
+        {/* Vertical timeline */}
+        <div className="max-w-5xl mx-auto mb-16 relative">
+          {/* Connecting line - center on desktop, left on mobile */}
+          <div
+            className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px"
+            style={{
+              background: 'linear-gradient(to bottom, transparent, rgba(124,58,237,0.3) 10%, rgba(124,58,237,0.3) 90%, transparent)',
+            }}
+          />
+
+          <div className="space-y-12">
+            {sessions.map((session, i) => {
+              const isEven = i % 2 === 0
+              return (
+                <div
+                  key={session.number}
+                  className="relative animate-fade-in-up"
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                >
+                  {/* Timeline dot */}
+                  <div
+                    className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10"
+                    style={{
+                      background: '#7C3AED',
+                      boxShadow: '0 0 12px rgba(124,58,237,0.5)',
+                      top: '2rem',
+                    }}
+                  />
+
+                  <div className={`md:flex items-start gap-8 ${isEven ? '' : 'md:flex-row-reverse'}`}>
+                    {/* Session number side */}
+                    <div className={`hidden md:flex md:w-1/2 ${isEven ? 'justify-end pr-12' : 'justify-start pl-12'}`}>
+                      <span
+                        className="font-display text-6xl font-bold select-none"
+                        style={{ color: 'rgba(255,255,255,0.06)' }}
+                      >
+                        {String(session.number).padStart(2, '0')}
+                      </span>
+                    </div>
+
+                    {/* Card side */}
+                    <div className={`md:w-1/2 ${isEven ? 'md:pl-12' : 'md:pr-12'} pl-14 md:pl-12`}>
+                      <div
+                        className="rounded-2xl p-6"
+                        style={{
+                          background: 'rgba(255,255,255,0.03)',
+                          backdropFilter: 'blur(8px)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                        }}
+                      >
+                        {/* Session header */}
+                        <div className="mb-4">
+                          <span className="text-xs font-medium text-violet-400 uppercase tracking-wider">
+                            {t.sessionLabel} {session.number}
+                          </span>
+                          <h3 className="font-display text-lg font-semibold text-white tracking-tight mt-1">
+                            {session.title[locale]}
+                          </h3>
+                        </div>
+
+                        {/* Items with violet dots */}
+                        <ul className="space-y-2.5 mb-5">
+                          {session.items[locale].map((item) => (
+                            <li key={item} className="flex items-start gap-2.5 text-sm">
+                              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
+                              <span className="text-gray-400">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Result */}
+                        <div
+                          className="p-3 rounded-xl"
+                          style={{
+                            background: 'rgba(124,58,237,0.1)',
+                            border: '1px solid rgba(124,58,237,0.2)',
+                          }}
+                        >
+                          <p className="text-sm font-medium">
+                            <span className="text-violet-400">{t.resultLabel} :</span>{' '}
+                            <span className="text-gray-300">{session.result[locale]}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {/* Items */}
-                <ul className="space-y-3 mb-5">
-                  {session.items[locale].map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
-                      <svg className="w-4 h-4 mt-0.5 text-cyan-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Result */}
-                <div className="p-3 bg-cyan-50 rounded-lg">
-                  <p className="text-sm font-medium text-anthracite">
-                    <span className="text-cyan-700">{t.resultLabel} :</span> {session.result[locale]}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
+              )
+            })}
+          </div>
         </div>
 
         {/* CTA */}
         <div className="text-center">
           <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-            <Button variant="primary" size="xl" icon={<ArrowIcon />}>
+            <Button variant="gold" size="xl" icon={<ArrowIcon />}>
               {t.cta}
             </Button>
           </a>

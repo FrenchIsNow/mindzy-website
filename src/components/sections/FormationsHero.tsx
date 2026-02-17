@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/Badge'
 import type { Locale } from '@/lib/i18n'
 
 export function FormationsHero({ locale }: { locale: Locale }) {
@@ -35,44 +34,41 @@ export function FormationsHero({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="relative min-h-[50vh] flex items-center pt-24 pb-16 overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cream-100 via-cream-50 to-white" />
-
-      {/* Animated gradient blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-violet-200/40 rounded-full blur-3xl animate-blob" />
+    <section className="relative min-h-[60vh] flex items-center pt-28 pb-20 overflow-hidden" style={{ backgroundColor: '#0A0A1A' }}>
+      {/* Grain texture overlay */}
       <div
-        className="absolute top-40 right-10 w-96 h-96 bg-rose-200/30 rounded-full blur-3xl animate-blob"
-        style={{ animationDelay: '2s' }}
-      />
-      <div
-        className="absolute bottom-20 left-1/3 w-80 h-80 bg-sage-200/30 rounded-full blur-3xl animate-blob"
-        style={{ animationDelay: '4s' }}
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+        }}
       />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-grid opacity-50" />
-
-      {/* Decorative floating dots */}
+      {/* Radial gradient orbs */}
       <div
-        className="absolute top-1/4 right-[15%] w-3 h-3 rounded-full bg-violet animate-float"
-        style={{ animationDelay: '0s' }}
+        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
+        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)' }}
       />
       <div
-        className="absolute top-1/3 left-[10%] w-2 h-2 rounded-full bg-gold animate-float"
-        style={{ animationDelay: '1s' }}
+        className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full blur-3xl opacity-15"
+        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)' }}
       />
       <div
-        className="absolute bottom-1/3 right-[20%] w-4 h-4 rounded-full bg-sage-400 animate-float"
-        style={{ animationDelay: '2s' }}
+        className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full blur-3xl opacity-10"
+        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.5) 0%, transparent 70%)' }}
       />
 
       <div className="container-wide relative">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="animate-fade-in-down mb-8">
-            <Badge variant="gold" className="shadow-sm">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          {/* Glass pill badge */}
+          <div className="animate-fade-in-down mb-10">
+            <span
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-gray-300 backdrop-blur-sm"
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}
+            >
+              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -80,38 +76,65 @@ export function FormationsHero({ locale }: { locale: Locale }) {
                 />
               </svg>
               {t.badge}
-            </Badge>
+            </span>
           </div>
 
           {/* Main heading */}
           <h1
-            className="heading-display text-anthracite mb-6 animate-fade-in-up"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] text-white mb-6 animate-fade-in-up"
             style={{ animationDelay: '0.1s' }}
           >
             {t.titleStart}
-            <span className="text-gradient">{t.titleHighlight}</span>
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 40%, #D4AF37 100%)',
+              }}
+            >
+              {t.titleHighlight}
+            </span>
           </h1>
+
+          {/* Animated gradient line */}
+          <div
+            className="mx-auto mb-8 h-px w-48 animate-fade-in-up"
+            style={{
+              animationDelay: '0.15s',
+              background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.6), rgba(212,175,55,0.4), transparent)',
+            }}
+          />
 
           {/* Subtitle */}
           <p
-            className="body-xl max-w-2xl mx-auto text-gray-600 mb-4 animate-fade-in-up"
+            className="text-xl sm:text-2xl leading-relaxed font-light max-w-2xl mx-auto text-gray-400 mb-6 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
             {t.subtitle}
           </p>
 
-          {/* Extra line */}
-          <p
-            className="body-large max-w-xl mx-auto text-gray-500 animate-fade-in-up"
+          {/* Extra text in glass pill */}
+          <div
+            className="animate-fade-in-up"
             style={{ animationDelay: '0.3s' }}
           >
-            {t.extra}
-          </p>
+            <span
+              className="inline-block px-6 py-3 rounded-2xl text-sm text-gray-400 backdrop-blur-sm"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.06)',
+              }}
+            >
+              {t.extra}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom gradient fade to next section */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32"
+        style={{ background: 'linear-gradient(to top, #0F0F1E, transparent)' }}
+      />
     </section>
   )
 }

@@ -1,11 +1,10 @@
 'use client'
 
-import { Card, CardTitle } from '@/components/ui/Card'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/Accordion'
 import type { Locale } from '@/lib/i18n'
 import { config } from '@/lib/config'
+import { cn } from '@/lib/utils'
 
 interface MetaOffer {
   name: Record<Locale, string>
@@ -238,6 +237,14 @@ const offers: MetaOffer[] = [
   },
 ]
 
+const offerNumbers = ['01', '02', '03', '04']
+const accentColors = [
+  { border: '#FB7185', bg: 'rgba(251,113,133,0.06)', dot: '#FB7185', text: '#FB7185', triggerClass: 'text-rose-400' },   // rose
+  { border: '#7C3AED', bg: 'rgba(124,58,237,0.06)', dot: '#7C3AED', text: '#7C3AED', triggerClass: 'text-violet' },    // violet
+  { border: '#22D3EE', bg: 'rgba(34,211,238,0.06)', dot: '#22D3EE', text: '#0891B2', triggerClass: 'text-cyan-600' },     // cyan
+  { border: '#D4AF37', bg: 'rgba(212,175,55,0.06)', dot: '#D4AF37', text: '#D4AF37', triggerClass: 'text-gold' },     // gold (featured)
+]
+
 export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const content = {
     fr: {
@@ -275,100 +282,168 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden bg-cream-50/50">
-      <div className="absolute top-0 left-1/4 w-80 h-80 bg-rose-100/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-100/20 rounded-full blur-3xl" />
-
+    <section className="section-padding relative overflow-hidden bg-white">
       <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
-          <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
-          <p className="body-large max-w-2xl mx-auto">{t.subtitle}</p>
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-rose-400 mb-4 block">
+            {t.eyebrow}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
+            {t.title}
+          </h2>
+          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-600">
+            {t.subtitle}
+          </p>
         </div>
 
-        {/* Offer cards */}
+        {/* Offer cards - 2x2 grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {offers.map((offer, i) => (
-            <Card
-              key={offer.name.fr}
-              variant={offer.featured ? 'featured' : 'default'}
-              padding="none"
-              className="overflow-hidden flex flex-col animate-fade-in-up relative"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              {/* Top color stripe */}
-              <div className={`h-2 ${offer.featured ? 'bg-gradient-to-r from-rose-400 to-rose-600' : 'bg-gradient-to-r from-rose-300 to-rose-500'}`} />
-
-              <div className="p-6 lg:p-8 flex flex-col flex-1">
-                {/* Badge for featured */}
-                {offer.featured && offer.badge && (
-                  <div className="mb-4">
-                    <Badge variant="gold">{offer.badge[locale]}</Badge>
-                  </div>
+          {offers.map((offer, i) => {
+            const accent = accentColors[i]
+            return (
+              <div
+                key={offer.name.fr}
+                className={cn(
+                  'relative bg-white rounded-2xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-500 group',
+                  'hover:shadow-card-hover hover:-translate-y-1'
                 )}
+                style={{
+                  animationDelay: `${i * 0.1}s`,
+                  borderLeft: `4px solid ${accent.border}`,
+                  border: `1px solid ${offer.featured ? accent.border + '40' : '#E4E4E7'}`,
+                  borderLeftWidth: '4px',
+                  borderLeftColor: accent.border,
+                  boxShadow: offer.featured
+                    ? `0 0 40px -10px ${accent.border}30`
+                    : '0 4px 6px -1px rgba(0,0,0,0.05)',
+                }}
+              >
+                {/* Large offer number as watermark */}
+                <span
+                  className="absolute top-3 right-5 font-display text-8xl font-bold select-none pointer-events-none"
+                  style={{ color: 'rgba(0,0,0,0.03)' }}
+                >
+                  {offerNumbers[i]}
+                </span>
 
-                {/* Offer name */}
-                <CardTitle as="h3" className="mb-3">{offer.name[locale]}</CardTitle>
+                <div className="p-6 lg:p-8 flex flex-col flex-1 relative">
+                  {/* Badge for featured */}
+                  {offer.featured && offer.badge && (
+                    <div className="mb-4">
+                      <span
+                        className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05))',
+                          border: '1px solid rgba(212,175,55,0.3)',
+                          color: '#996515',
+                        }}
+                      >
+                        {offer.badge[locale]}
+                      </span>
+                    </div>
+                  )}
 
-                {/* Target audience */}
-                <p className="text-sm text-gray-500 mb-3">
-                  <span className="font-semibold text-anthracite">{t.targetLabel} :</span> {offer.target[locale]}
-                </p>
+                  {/* Offer name */}
+                  <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight mb-3">
+                    {offer.name[locale]}
+                  </h3>
 
-                {/* Duration & format badges */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <Badge variant="primary" size="sm">{offer.duration[locale]}</Badge>
-                  {offer.format && <Badge variant="default" size="sm">{offer.format[locale]}</Badge>}
-                </div>
+                  {/* Price */}
+                  <div className="mb-3">
+                    <span className="font-display text-3xl font-semibold text-anthracite">
+                      {offer.price}
+                    </span>
+                    <span className="font-display text-xl font-normal text-gray-400 ml-1">
+                      &euro;
+                    </span>
+                  </div>
 
-                {/* Price */}
-                <div className="mb-4">
-                  <span className="font-display text-3xl font-semibold text-anthracite">{offer.price} &euro;</span>
-                </div>
-
-                {/* Programme accordion */}
-                <Accordion type="single" className="mb-6">
-                  <AccordionItem value={`meta-${i}`} className="border-gray-100">
-                    <AccordionTrigger value={`meta-${i}`} className="text-sm font-semibold text-rose-500">
-                      {t.programmeLabel}
-                    </AccordionTrigger>
-                    <AccordionContent value={`meta-${i}`}>
-                      <ul className="space-y-2">
-                        {offer.programme[locale].map((item) => (
-                          <li key={item} className="flex items-start gap-2 text-sm">
-                            <svg className="w-4 h-4 mt-0.5 text-rose-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mt-4 p-3 bg-rose-50 rounded-lg">
-                        <p className="text-sm font-medium text-anthracite">
-                          <span className="text-rose-500">{t.resultLabel} :</span> {offer.result[locale]}
-                        </p>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-
-                {/* CTA */}
-                <div className="mt-auto">
-                  <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button
-                      variant={offer.featured ? 'primary' : 'outline'}
-                      size="lg"
-                      icon={<ArrowIcon />}
-                      className="w-full"
+                  {/* Target audience badge */}
+                  <div className="mb-4">
+                    <span
+                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full"
+                      style={{
+                        background: accent.bg,
+                        color: accent.text,
+                        border: `1px solid ${accent.border}20`,
+                      }}
                     >
-                      {t.cta}
-                    </Button>
-                  </a>
+                      {t.targetLabel} : {offer.target[locale]}
+                    </span>
+                  </div>
+
+                  {/* Duration */}
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
+                      {offer.duration[locale]}
+                    </span>
+                    {offer.format && (
+                      <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-gray-50 text-gray-500">
+                        {offer.format[locale]}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Programme accordion */}
+                  <Accordion type="single" className="mb-6">
+                    <AccordionItem
+                      value={`meta-${i}`}
+                      className="border-gray-200 rounded-xl"
+                    >
+                      <AccordionTrigger
+                        value={`meta-${i}`}
+                        className={cn('text-sm font-semibold hover:bg-gray-50', accent.triggerClass)}
+                      >
+                        {t.programmeLabel}
+                      </AccordionTrigger>
+                      <AccordionContent value={`meta-${i}`}>
+                        <ul className="space-y-2.5">
+                          {offer.programme[locale].map((item) => (
+                            <li key={item} className="flex items-start gap-2.5 text-sm">
+                              <span
+                                className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+                                style={{ backgroundColor: accent.dot }}
+                              />
+                              <span className="text-gray-600">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Result callout */}
+                        <div
+                          className="mt-4 p-4 rounded-xl"
+                          style={{
+                            background: accent.bg,
+                            border: `1px solid ${accent.border}20`,
+                          }}
+                        >
+                          <p className="text-sm font-medium text-anthracite">
+                            <span style={{ color: accent.text }}>{t.resultLabel} :</span>{' '}
+                            {offer.result[locale]}
+                          </p>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
+                  {/* CTA */}
+                  <div className="mt-auto">
+                    <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button
+                        variant={offer.featured ? 'gold' : 'outline'}
+                        size="lg"
+                        icon={<ArrowIcon />}
+                        className="w-full"
+                      >
+                        {t.cta}
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </Card>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

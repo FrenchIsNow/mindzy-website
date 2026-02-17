@@ -1,11 +1,10 @@
 'use client'
 
-import { Card, CardTitle } from '@/components/ui/Card'
 import { Button, ArrowIcon } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/Accordion'
 import type { Locale } from '@/lib/i18n'
 import { config } from '@/lib/config'
+import { cn } from '@/lib/utils'
 
 interface LinkedInPack {
   name: Record<Locale, string>
@@ -187,6 +186,8 @@ const packs: LinkedInPack[] = [
   },
 ]
 
+const packNumbers = ['01', '02', '03']
+
 export function LinkedInFormation({ locale }: { locale: Locale }) {
   const content = {
     fr: {
@@ -221,76 +222,174 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-violet-100/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cream-200/30 rounded-full blur-3xl" />
+    <section
+      className="section-padding relative overflow-hidden"
+      style={{ backgroundColor: '#0F0F1E' }}
+    >
+      {/* Grain texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+        }}
+      />
+
+      {/* Subtle radial glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full blur-3xl opacity-10"
+        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)' }}
+      />
 
       <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
-          <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
-          <p className="body-large max-w-2xl mx-auto">{t.subtitle}</p>
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+            {t.eyebrow}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+            {t.title}
+          </h2>
+          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-400">
+            {t.subtitle}
+          </p>
         </div>
 
         {/* Pack cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {packs.map((pack, i) => (
-            <Card
+            <div
               key={pack.name.fr}
-              variant={pack.featured ? 'featured' : 'default'}
-              padding="none"
-              className="overflow-hidden flex flex-col animate-fade-in-up relative"
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={cn(
+                'relative rounded-2xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-500 group',
+                pack.featured
+                  ? 'lg:-translate-y-2'
+                  : ''
+              )}
+              style={{
+                animationDelay: `${i * 0.1}s`,
+                background: 'rgba(255,255,255,0.03)',
+                backdropFilter: 'blur(8px)',
+                border: pack.featured
+                  ? '1px solid rgba(124,58,237,0.3)'
+                  : '1px solid rgba(255,255,255,0.08)',
+                boxShadow: pack.featured
+                  ? '0 0 80px -20px rgba(124,58,237,0.3)'
+                  : 'none',
+              }}
             >
-              {/* Top color stripe */}
-              <div className={`h-2 ${pack.featured ? 'bg-gradient-to-r from-violet-500 to-violet-700' : 'bg-gradient-to-r from-violet-300 to-violet-500'}`} />
+              {/* Hover glow effect */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                style={{
+                  boxShadow: pack.featured
+                    ? '0 0 60px -15px rgba(124,58,237,0.25) inset'
+                    : '0 0 60px -15px rgba(255,255,255,0.05) inset',
+                }}
+              />
 
-              <div className="p-6 lg:p-8 flex flex-col flex-1">
+              {/* Large pack number as decoration */}
+              <span
+                className="absolute top-2 right-4 font-display text-8xl font-bold select-none pointer-events-none"
+                style={{ color: 'rgba(255,255,255,0.03)' }}
+              >
+                {packNumbers[i]}
+              </span>
+
+              <div className="p-6 lg:p-8 flex flex-col flex-1 relative">
                 {/* Badge for featured */}
                 {pack.featured && pack.badge && (
                   <div className="mb-4">
-                    <Badge variant="gold">{pack.badge[locale]}</Badge>
+                    <span
+                      className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1))',
+                        border: '1px solid rgba(212,175,55,0.3)',
+                        color: '#D4AF37',
+                      }}
+                    >
+                      {pack.badge[locale]}
+                    </span>
                   </div>
                 )}
 
                 {/* Pack name */}
-                <CardTitle as="h3" className="mb-3">{pack.name[locale]}</CardTitle>
+                <h3 className="font-display text-xl font-semibold text-white tracking-tight mb-3">
+                  {pack.name[locale]}
+                </h3>
 
-                {/* Duration & format badges */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <Badge variant="primary" size="sm">{pack.duration[locale]}</Badge>
-                  <Badge variant="default" size="sm">{pack.format[locale]}</Badge>
+                {/* Price - OVERSIZED gold */}
+                <div className="mb-4">
+                  <span
+                    className="font-display text-4xl font-semibold"
+                    style={{ color: '#D4AF37' }}
+                  >
+                    {pack.price} &euro;
+                  </span>
                 </div>
 
-                {/* Price */}
-                <div className="mb-4">
-                  <span className="font-display text-3xl font-semibold text-anthracite">{pack.price} &euro;</span>
+                {/* Duration badge - glass pill */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span
+                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                    }}
+                  >
+                    {pack.duration[locale]}
+                  </span>
+                  <span
+                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-400"
+                    style={{
+                      background: 'rgba(255,255,255,0.05)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                    }}
+                  >
+                    {pack.format[locale]}
+                  </span>
                 </div>
 
                 {/* Objective */}
-                <p className="text-gray-600 mb-6">{pack.objective[locale]}</p>
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                  {pack.objective[locale]}
+                </p>
 
-                {/* Programme accordion */}
+                {/* Programme accordion - dark themed */}
                 <Accordion type="single" className="mb-6">
-                  <AccordionItem value={`linkedin-${i}`} className="border-gray-100">
-                    <AccordionTrigger value={`linkedin-${i}`} className="text-sm font-semibold text-violet">
+                  <AccordionItem
+                    value={`linkedin-${i}`}
+                    className="border-white/[0.06] rounded-xl"
+                  >
+                    <AccordionTrigger
+                      value={`linkedin-${i}`}
+                      className="text-sm font-semibold text-gray-300 hover:bg-white/[0.03]"
+                    >
                       {t.programmeLabel}
                     </AccordionTrigger>
-                    <AccordionContent value={`linkedin-${i}`}>
-                      <ul className="space-y-2">
+                    <AccordionContent
+                      value={`linkedin-${i}`}
+                      className="text-gray-400"
+                    >
+                      <ul className="space-y-2.5">
                         {pack.programme[locale].map((item) => (
-                          <li key={item} className="flex items-start gap-2 text-sm">
-                            <svg className="w-4 h-4 mt-0.5 text-violet flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>{item}</span>
+                          <li key={item} className="flex items-start gap-2.5 text-sm">
+                            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
+                            <span className="text-gray-400">{item}</span>
                           </li>
                         ))}
                       </ul>
-                      <div className="mt-4 p-3 bg-cream-50 rounded-lg">
-                        <p className="text-sm font-medium text-anthracite">
-                          <span className="text-violet">{t.resultLabel} :</span> {pack.result[locale]}
+
+                      {/* Result box */}
+                      <div
+                        className="mt-4 p-4 rounded-xl"
+                        style={{
+                          background: 'rgba(124,58,237,0.1)',
+                          border: '1px solid rgba(124,58,237,0.2)',
+                        }}
+                      >
+                        <p className="text-sm font-medium">
+                          <span className="text-violet-400">{t.resultLabel} :</span>{' '}
+                          <span className="text-gray-300">{pack.result[locale]}</span>
                         </p>
                       </div>
                     </AccordionContent>
@@ -300,18 +399,36 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
                 {/* CTA */}
                 <div className="mt-auto">
                   <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button
-                      variant={pack.featured ? 'primary' : 'outline'}
-                      size="lg"
-                      icon={<ArrowIcon />}
-                      className="w-full"
-                    >
-                      {t.cta}
-                    </Button>
+                    {pack.featured ? (
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        icon={<ArrowIcon />}
+                        className="w-full"
+                      >
+                        {t.cta}
+                      </Button>
+                    ) : (
+                      <button
+                        className="w-full inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 px-8 py-3.5 text-base gap-2 group"
+                        style={{
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          color: 'rgba(255,255,255,0.8)',
+                          background: 'transparent',
+                        }}
+                      >
+                        <span className="flex items-center justify-center gap-2">
+                          {t.cta}
+                          <span className="flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                            <ArrowIcon />
+                          </span>
+                        </span>
+                      </button>
+                    )}
                   </a>
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>
