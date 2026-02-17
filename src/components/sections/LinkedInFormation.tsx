@@ -222,34 +222,17 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section
-      className="section-padding relative overflow-hidden"
-      style={{ backgroundColor: '#0F0F1E' }}
-    >
-      {/* Grain texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      {/* Subtle radial glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full blur-3xl opacity-10"
-        style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)' }}
-      />
-
+    <section className="section-padding relative overflow-hidden bg-white">
       <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-400">
+          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-600">
             {t.subtitle}
           </p>
         </div>
@@ -260,38 +243,31 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
             <div
               key={pack.name.fr}
               className={cn(
-                'relative rounded-2xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-500 group',
+                'relative bg-white rounded-3xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-300 group',
+                'hover:-translate-y-1',
                 pack.featured
-                  ? 'lg:-translate-y-2'
+                  ? 'ring-2 ring-violet-200 lg:-translate-y-2'
                   : ''
               )}
               style={{
                 animationDelay: `${i * 0.1}s`,
-                background: 'rgba(255,255,255,0.03)',
-                backdropFilter: 'blur(8px)',
-                border: pack.featured
-                  ? '1px solid rgba(124,58,237,0.3)'
-                  : '1px solid rgba(255,255,255,0.08)',
                 boxShadow: pack.featured
-                  ? '0 0 80px -20px rgba(124,58,237,0.3)'
-                  : 'none',
+                  ? '0 16px 60px -12px rgba(124, 108, 252, 0.18), 0 4px 16px -4px rgba(0,0,0,0.06)'
+                  : '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
               }}
             >
-              {/* Hover glow effect */}
+              {/* Gradient top border accent */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                className="h-1 w-full"
                 style={{
-                  boxShadow: pack.featured
-                    ? '0 0 60px -15px rgba(124,58,237,0.25) inset'
-                    : '0 0 60px -15px rgba(255,255,255,0.05) inset',
+                  background: pack.featured
+                    ? 'linear-gradient(90deg, #7C3AED, #A78BFA, #22D3EE)'
+                    : 'linear-gradient(90deg, #C4B5FD, #A78BFA, #C4B5FD)',
                 }}
               />
 
-              {/* Large pack number as decoration */}
-              <span
-                className="absolute top-2 right-4 font-display text-8xl font-bold select-none pointer-events-none"
-                style={{ color: 'rgba(255,255,255,0.03)' }}
-              >
+              {/* Large pack number as watermark */}
+              <span className="absolute top-4 right-5 font-display text-8xl font-bold select-none pointer-events-none text-gray-100">
                 {packNumbers[i]}
               </span>
 
@@ -302,9 +278,9 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
                     <span
                       className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.1))',
+                        background: 'linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05))',
                         border: '1px solid rgba(212,175,55,0.3)',
-                        color: '#D4AF37',
+                        color: '#996515',
                       }}
                     >
                       {pack.badge[locale]}
@@ -313,11 +289,11 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
                 )}
 
                 {/* Pack name */}
-                <h3 className="font-display text-xl font-semibold text-white tracking-tight mb-3">
+                <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight mb-3">
                   {pack.name[locale]}
                 </h3>
 
-                {/* Price - OVERSIZED gold */}
+                {/* Price - gold */}
                 <div className="mb-4">
                   <span
                     className="font-display text-4xl font-semibold"
@@ -327,69 +303,51 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
                   </span>
                 </div>
 
-                {/* Duration badge - glass pill */}
+                {/* Duration badge - light pill */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span
-                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
-                    style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                    }}
-                  >
+                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
                     {pack.duration[locale]}
                   </span>
-                  <span
-                    className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-400"
-                    style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                    }}
-                  >
+                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-50 text-gray-500">
                     {pack.format[locale]}
                   </span>
                 </div>
 
                 {/* Objective */}
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                   {pack.objective[locale]}
                 </p>
 
-                {/* Programme accordion - dark themed */}
+                {/* Programme accordion - light themed */}
                 <Accordion type="single" className="mb-6">
                   <AccordionItem
                     value={`linkedin-${i}`}
-                    className="border-white/[0.06] rounded-xl"
+                    className="border-gray-200 rounded-xl"
                   >
                     <AccordionTrigger
                       value={`linkedin-${i}`}
-                      className="text-sm font-semibold text-gray-300 hover:bg-white/[0.03]"
+                      className="text-sm font-semibold text-violet-600 hover:bg-violet-50/50"
                     >
                       {t.programmeLabel}
                     </AccordionTrigger>
                     <AccordionContent
                       value={`linkedin-${i}`}
-                      className="text-gray-400"
+                      className="text-gray-600"
                     >
                       <ul className="space-y-2.5">
                         {pack.programme[locale].map((item) => (
                           <li key={item} className="flex items-start gap-2.5 text-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
-                            <span className="text-gray-400">{item}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-violet-500 mt-1.5 flex-shrink-0" />
+                            <span className="text-gray-600">{item}</span>
                           </li>
                         ))}
                       </ul>
 
                       {/* Result box */}
-                      <div
-                        className="mt-4 p-4 rounded-xl"
-                        style={{
-                          background: 'rgba(124,58,237,0.1)',
-                          border: '1px solid rgba(124,58,237,0.2)',
-                        }}
-                      >
+                      <div className="mt-4 p-4 rounded-xl bg-violet-50 border border-violet-200">
                         <p className="text-sm font-medium">
-                          <span className="text-violet-400">{t.resultLabel} :</span>{' '}
-                          <span className="text-gray-300">{pack.result[locale]}</span>
+                          <span className="text-violet-600">{t.resultLabel} :</span>{' '}
+                          <span className="text-gray-700">{pack.result[locale]}</span>
                         </p>
                       </div>
                     </AccordionContent>
@@ -409,21 +367,14 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
                         {t.cta}
                       </Button>
                     ) : (
-                      <button
-                        className="w-full inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 px-8 py-3.5 text-base gap-2 group"
-                        style={{
-                          border: '1px solid rgba(255,255,255,0.2)',
-                          color: 'rgba(255,255,255,0.8)',
-                          background: 'transparent',
-                        }}
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        icon={<ArrowIcon />}
+                        className="w-full"
                       >
-                        <span className="flex items-center justify-center gap-2">
-                          {t.cta}
-                          <span className="flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
-                            <ArrowIcon />
-                          </span>
-                        </span>
-                      </button>
+                        {t.cta}
+                      </Button>
                     )}
                   </a>
                 </div>

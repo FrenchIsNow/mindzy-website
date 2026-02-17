@@ -187,48 +187,25 @@ export function AIFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section
-      className="section-padding relative overflow-hidden"
-      style={{ backgroundColor: '#0A0A1A' }}
-    >
-      {/* Grain texture */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      {/* Subtle radial glow behind price */}
-      <div
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-3xl opacity-10"
-        style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, transparent 70%)' }}
-      />
-
+    <section className="section-padding relative overflow-hidden bg-white">
       <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-6">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-400 mb-8">
+          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-600 mb-8">
             {t.subtitle}
           </p>
         </div>
 
-        {/* Price display - HUGE centered with flanking badges */}
+        {/* Price display - large centered with flanking badges */}
         <div className="flex items-center justify-center gap-4 sm:gap-6 mb-16 animate-fade-in-up">
           {/* Duration badge */}
-          <span
-            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full text-gray-300"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-          >
+          <span className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600">
             {t.durationShort}
           </span>
 
@@ -243,35 +220,17 @@ export function AIFormation({ locale }: { locale: Locale }) {
           </span>
 
           {/* Sessions badge */}
-          <span
-            className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full text-gray-300"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-          >
+          <span className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full bg-gray-100 text-gray-600">
             {t.sessionsShort}
           </span>
         </div>
 
         {/* Mobile duration/sessions display */}
         <div className="flex sm:hidden items-center justify-center gap-3 -mt-10 mb-12">
-          <span
-            className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-          >
+          <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
             {t.durationShort}
           </span>
-          <span
-            className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full text-gray-300"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
-          >
+          <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
             {t.sessionsShort}
           </span>
         </div>
@@ -279,12 +238,7 @@ export function AIFormation({ locale }: { locale: Locale }) {
         {/* Vertical timeline */}
         <div className="max-w-5xl mx-auto mb-16 relative">
           {/* Connecting line - center on desktop, left on mobile */}
-          <div
-            className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px"
-            style={{
-              background: 'linear-gradient(to bottom, transparent, rgba(124,58,237,0.3) 10%, rgba(124,58,237,0.3) 90%, transparent)',
-            }}
-          />
+          <div className="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px bg-gradient-to-b from-violet-200 via-violet-300 to-violet-200" />
 
           <div className="space-y-12">
             {sessions.map((session, i) => {
@@ -297,10 +251,9 @@ export function AIFormation({ locale }: { locale: Locale }) {
                 >
                   {/* Timeline dot */}
                   <div
-                    className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10"
+                    className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10 bg-violet-500"
                     style={{
-                      background: '#7C3AED',
-                      boxShadow: '0 0 12px rgba(124,58,237,0.5)',
+                      boxShadow: '0 0 12px rgba(124,58,237,0.3)',
                       top: '2rem',
                     }}
                   />
@@ -308,10 +261,7 @@ export function AIFormation({ locale }: { locale: Locale }) {
                   <div className={`md:flex items-start gap-8 ${isEven ? '' : 'md:flex-row-reverse'}`}>
                     {/* Session number side */}
                     <div className={`hidden md:flex md:w-1/2 ${isEven ? 'justify-end pr-12' : 'justify-start pl-12'}`}>
-                      <span
-                        className="font-display text-6xl font-bold select-none"
-                        style={{ color: 'rgba(255,255,255,0.06)' }}
-                      >
+                      <span className="font-display text-6xl font-bold select-none text-gray-100">
                         {String(session.number).padStart(2, '0')}
                       </span>
                     </div>
@@ -319,19 +269,17 @@ export function AIFormation({ locale }: { locale: Locale }) {
                     {/* Card side */}
                     <div className={`md:w-1/2 ${isEven ? 'md:pl-12' : 'md:pr-12'} pl-14 md:pl-12`}>
                       <div
-                        className="rounded-2xl p-6"
+                        className="bg-white rounded-2xl p-6 transition-all duration-300"
                         style={{
-                          background: 'rgba(255,255,255,0.03)',
-                          backdropFilter: 'blur(8px)',
-                          border: '1px solid rgba(255,255,255,0.08)',
+                          boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
                         }}
                       >
                         {/* Session header */}
                         <div className="mb-4">
-                          <span className="text-xs font-medium text-violet-400 uppercase tracking-wider">
+                          <span className="text-xs font-medium text-violet-600 uppercase tracking-wider">
                             {t.sessionLabel} {session.number}
                           </span>
-                          <h3 className="font-display text-lg font-semibold text-white tracking-tight mt-1">
+                          <h3 className="font-display text-lg font-semibold text-anthracite tracking-tight mt-1">
                             {session.title[locale]}
                           </h3>
                         </div>
@@ -340,23 +288,17 @@ export function AIFormation({ locale }: { locale: Locale }) {
                         <ul className="space-y-2.5 mb-5">
                           {session.items[locale].map((item) => (
                             <li key={item} className="flex items-start gap-2.5 text-sm">
-                              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0" />
-                              <span className="text-gray-400">{item}</span>
+                              <span className="w-1.5 h-1.5 rounded-full bg-violet-500 mt-1.5 flex-shrink-0" />
+                              <span className="text-gray-600">{item}</span>
                             </li>
                           ))}
                         </ul>
 
                         {/* Result */}
-                        <div
-                          className="p-3 rounded-xl"
-                          style={{
-                            background: 'rgba(124,58,237,0.1)',
-                            border: '1px solid rgba(124,58,237,0.2)',
-                          }}
-                        >
+                        <div className="p-3 rounded-xl bg-violet-50 border border-violet-200">
                           <p className="text-sm font-medium">
-                            <span className="text-violet-400">{t.resultLabel} :</span>{' '}
-                            <span className="text-gray-300">{session.result[locale]}</span>
+                            <span className="text-violet-600">{t.resultLabel} :</span>{' '}
+                            <span className="text-gray-700">{session.result[locale]}</span>
                           </p>
                         </div>
                       </div>

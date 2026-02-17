@@ -239,10 +239,10 @@ const offers: MetaOffer[] = [
 
 const offerNumbers = ['01', '02', '03', '04']
 const accentColors = [
-  { border: '#FB7185', bg: 'rgba(251,113,133,0.06)', dot: '#FB7185', text: '#FB7185', triggerClass: 'text-rose-400' },   // rose
-  { border: '#7C3AED', bg: 'rgba(124,58,237,0.06)', dot: '#7C3AED', text: '#7C3AED', triggerClass: 'text-violet' },    // violet
-  { border: '#22D3EE', bg: 'rgba(34,211,238,0.06)', dot: '#22D3EE', text: '#0891B2', triggerClass: 'text-cyan-600' },     // cyan
-  { border: '#D4AF37', bg: 'rgba(212,175,55,0.06)', dot: '#D4AF37', text: '#D4AF37', triggerClass: 'text-gold' },     // gold (featured)
+  { border: '#FB7185', bg: 'rgba(251,113,133,0.08)', dot: '#FB7185', text: '#E11D48', triggerClass: 'text-rose-500' },
+  { border: '#7C3AED', bg: 'rgba(124,58,237,0.08)', dot: '#7C3AED', text: '#7C3AED', triggerClass: 'text-violet-600' },
+  { border: '#22D3EE', bg: 'rgba(34,211,238,0.08)', dot: '#22D3EE', text: '#0891B2', triggerClass: 'text-cyan-600' },
+  { border: '#D4AF37', bg: 'rgba(212,175,55,0.08)', dot: '#D4AF37', text: '#996515', triggerClass: 'text-amber-700' },
 ]
 
 export function MetaTikTokFormation({ locale }: { locale: Locale }) {
@@ -282,11 +282,21 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden bg-white">
+    <section className="section-padding relative overflow-hidden gradient-mesh-bg">
+      {/* Animated gradient mesh blobs */}
+      <div
+        className="absolute top-20 right-[10%] w-[400px] h-[400px] rounded-full blur-3xl opacity-25 animate-mesh-1 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(124,108,252,0.3) 0%, transparent 70%)' }}
+      />
+      <div
+        className="absolute bottom-20 left-[5%] w-[350px] h-[350px] rounded-full blur-3xl opacity-20 animate-mesh-2 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(78,234,219,0.25) 0%, transparent 70%)' }}
+      />
+
       <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-rose-400 mb-4 block">
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
@@ -305,25 +315,20 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
               <div
                 key={offer.name.fr}
                 className={cn(
-                  'relative bg-white rounded-2xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-500 group',
-                  'hover:shadow-card-hover hover:-translate-y-1'
+                  'relative bg-white rounded-3xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-300 group',
+                  'hover:-translate-y-1'
                 )}
                 style={{
                   animationDelay: `${i * 0.1}s`,
                   borderLeft: `4px solid ${accent.border}`,
-                  border: `1px solid ${offer.featured ? accent.border + '40' : '#E4E4E7'}`,
-                  borderLeftWidth: '4px',
-                  borderLeftColor: accent.border,
                   boxShadow: offer.featured
-                    ? `0 0 40px -10px ${accent.border}30`
-                    : '0 4px 6px -1px rgba(0,0,0,0.05)',
+                    ? `0 16px 60px -12px rgba(212, 175, 55, 0.15), 0 4px 16px -4px rgba(0,0,0,0.06)`
+                    : '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
+                  ...(offer.featured ? { outline: '2px solid rgba(212,175,55,0.25)', outlineOffset: '-2px' } : {}),
                 }}
               >
                 {/* Large offer number as watermark */}
-                <span
-                  className="absolute top-3 right-5 font-display text-8xl font-bold select-none pointer-events-none"
-                  style={{ color: 'rgba(0,0,0,0.03)' }}
-                >
+                <span className="absolute top-3 right-5 font-display text-8xl font-bold select-none pointer-events-none text-gray-100">
                   {offerNumbers[i]}
                 </span>
 
@@ -349,9 +354,12 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                     {offer.name[locale]}
                   </h3>
 
-                  {/* Price */}
+                  {/* Price - gold */}
                   <div className="mb-3">
-                    <span className="font-display text-3xl font-semibold text-anthracite">
+                    <span
+                      className="font-display text-3xl font-semibold"
+                      style={{ color: '#D4AF37' }}
+                    >
                       {offer.price}
                     </span>
                     <span className="font-display text-xl font-normal text-gray-400 ml-1">
@@ -366,7 +374,7 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                       style={{
                         background: accent.bg,
                         color: accent.text,
-                        border: `1px solid ${accent.border}20`,
+                        border: `1px solid ${accent.border}25`,
                       }}
                     >
                       {t.targetLabel} : {offer.target[locale]}
@@ -415,7 +423,7 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                           className="mt-4 p-4 rounded-xl"
                           style={{
                             background: accent.bg,
-                            border: `1px solid ${accent.border}20`,
+                            border: `1px solid ${accent.border}25`,
                           }}
                         >
                           <p className="text-sm font-medium text-anthracite">
