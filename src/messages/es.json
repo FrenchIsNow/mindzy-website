@@ -2,7 +2,7 @@
   "nav": {
     "home": "Inicio",
     "portfolio": "Portfolio",
-    "pricing": "Precios",
+    "pricing": "Servicios",
     "whyUs": "Por qué nosotros",
     "blog": "Blog",
     "faq": "FAQ",
@@ -570,7 +570,7 @@
       "legal": "Legal"
     },
     "links": {
-      "pricing": "Pricing",
+      "pricing": "Servicios",
       "portfolio": "Portfolio",
       "process": "Process",
       "diagnostic": "Diagnostic",

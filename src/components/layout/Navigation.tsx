@@ -21,7 +21,7 @@ export function Navigation({ locale, className, mobile, onNavigate }: Navigation
   const links = [
     { href: `/${locale}`, label: t.home },
     { href: `/${locale}/portfolio`, label: t.portfolio },
-    { href: `/${locale}/pricing`, label: t.pricing },
+    { href: `/${locale}/services`, label: t.pricing },
     { href: `/${locale}/pourquoi-nous`, label: t.whyUs },
     { href: `/${locale}/blog`, label: t.blog },
     { href: `/${locale}/faq`, label: t.faq },

@@ -11,7 +11,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
   const links = {
     product: [
-      { href: `/${locale}/pricing`, label: t.links.pricing },
+      { href: `/${locale}/services`, label: t.links.pricing },
       { href: `/${locale}/portfolio`, label: t.links.portfolio },
       { href: `/${locale}/process`, label: t.links.process },
       { href: `/${locale}/diagnostic`, label: t.links.diagnostic },

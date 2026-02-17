@@ -14,7 +14,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       title: 'Donnez vie à votre projet digital',
       subtitle: 'Échangeons sur votre besoin et construisons ensemble une solution adaptée à votre activité.',
       primaryCta: 'Démarrer maintenant',
-      secondaryCta: 'Voir les tarifs',
+      secondaryCta: 'Nos services',
       features: ['Approche sur mesure', 'Accompagnement humain', 'Expertise SEO intégrée'],
     },
     en: {
@@ -22,7 +22,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       title: 'Bring your digital project to life',
       subtitle: 'Let\'s discuss your needs and build a solution tailored to your business together.',
       primaryCta: 'Get started now',
-      secondaryCta: 'View pricing',
+      secondaryCta: 'Our services',
       features: ['Custom approach', 'Human support', 'Integrated SEO expertise'],
     },
     es: {
@@ -30,7 +30,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       title: 'Da vida a tu proyecto digital',
       subtitle: 'Hablemos de tu necesidad y construyamos juntos una solución adaptada a tu actividad.',
       primaryCta: 'Empezar ahora',
-      secondaryCta: 'Ver precios',
+      secondaryCta: 'Nuestros servicios',
       features: ['Enfoque a medida', 'Acompañamiento humano', 'Experiencia SEO integrada'],
     },
   }
@@ -57,7 +57,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section_dark">
+            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section_dark">
               <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
@@ -112,7 +112,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section_gradient">
+            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section_gradient">
               <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
@@ -156,7 +156,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/pricing`} trackEvent="view_pricing" trackLocation="cta_section">
+            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section">
               <Button variant="secondary" size="xl">
                 {t.secondaryCta}
               </Button>
