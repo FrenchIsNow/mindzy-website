@@ -3,20 +3,16 @@ import type { Locale } from '@/lib/i18n'
 const solutions = [
   {
     icon: 'code',
-    iconBg: 'bg-violet-50',
-    iconColor: 'text-violet-600',
     title: { fr: 'Applications web', en: 'Web applications', es: 'Aplicaciones web' },
     description: {
-      fr: 'Applications performantes et \u00e9volutives sur mesure',
+      fr: 'Applications performantes et évolutives sur mesure',
       en: 'High-performance, scalable custom applications',
       es: 'Aplicaciones de alto rendimiento y escalables a medida',
     },
   },
   {
     icon: 'phone',
-    iconBg: 'bg-rose-50',
-    iconColor: 'text-rose-600',
-    title: { fr: 'Applications mobiles', en: 'Mobile applications', es: 'Aplicaciones m\u00f3viles' },
+    title: { fr: 'Applications mobiles', en: 'Mobile applications', es: 'Aplicaciones móviles' },
     description: {
       fr: 'Apps iOS et Android natives ou cross-platform',
       en: 'Native or cross-platform iOS and Android apps',
@@ -25,8 +21,6 @@ const solutions = [
   },
   {
     icon: 'cloud',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
     title: { fr: 'Plateformes SaaS', en: 'SaaS platforms', es: 'Plataformas SaaS' },
     description: {
       fr: 'Solutions cloud multi-tenant scalables',
@@ -36,44 +30,38 @@ const solutions = [
   },
   {
     icon: 'store',
-    iconBg: 'bg-rose-50',
-    iconColor: 'text-rose-500',
     title: { fr: 'Marketplaces', en: 'Marketplaces', es: 'Marketplaces' },
     description: {
-      fr: 'Plateformes multi-vendeurs et \u00e9cosyst\u00e8mes',
+      fr: 'Plateformes multi-vendeurs et écosystèmes',
       en: 'Multi-vendor platforms and ecosystems',
       es: 'Plataformas multi-vendedor y ecosistemas',
     },
   },
   {
     icon: 'grid',
-    iconBg: 'bg-cyan-50',
-    iconColor: 'text-cyan-600',
-    title: { fr: 'Dashboards strat\u00e9giques', en: 'Strategic dashboards', es: 'Dashboards estrat\u00e9gicos' },
+    title: { fr: 'Dashboards stratégiques', en: 'Strategic dashboards', es: 'Dashboards estratégicos' },
     description: {
-      fr: 'Interfaces priv\u00e9es et outils de pilotage',
+      fr: 'Interfaces privées et outils de pilotage',
       en: 'Private interfaces and management tools',
-      es: 'Interfaces privadas y herramientas de gesti\u00f3n',
+      es: 'Interfaces privadas y herramientas de gestión',
     },
   },
   {
     icon: 'globe',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
     title: { fr: 'Sites web sur mesure', en: 'Custom websites', es: 'Sitios web a medida' },
     description: {
-      fr: 'Corporate, premium, orient\u00e9s conversion',
+      fr: 'Corporate, premium, orientés conversion',
       en: 'Corporate, premium, conversion-oriented',
-      es: 'Corporativos, premium, orientados a conversi\u00f3n',
+      es: 'Corporativos, premium, orientados a conversión',
     },
   },
 ]
 
 const pillars = {
   fr: [
-    'Maximiser l\'exp\u00e9rience utilisateur',
+    'Maximiser l\'expérience utilisateur',
     'Optimiser la conversion',
-    'Assurer la scalabilit\u00e9',
+    'Assurer la scalabilité',
     'Garantir une architecture technique robuste',
   ],
   en: [
@@ -84,9 +72,9 @@ const pillars = {
   ],
   es: [
     'Maximizar la experiencia del usuario',
-    'Optimizar la conversi\u00f3n',
+    'Optimizar la conversión',
     'Asegurar la escalabilidad',
-    'Garantizar una arquitectura t\u00e9cnica robusta',
+    'Garantizar una arquitectura técnica robusta',
   ],
 }
 
@@ -94,8 +82,8 @@ export function DigitalSolutions({ locale }: { locale: Locale }) {
   const content = {
     fr: {
       eyebrow: 'Solutions digitales',
-      title: 'D\u00e9veloppement de Solutions Digitales',
-      subtitle: 'Nous concevons des infrastructures digitales sur mesure adapt\u00e9es \u00e0 vos objectifs business.',
+      title: 'Développement de Solutions Digitales',
+      subtitle: 'Nous concevons des infrastructures digitales sur mesure adaptées à vos objectifs business.',
     },
     en: {
       eyebrow: 'Digital solutions',
@@ -105,22 +93,21 @@ export function DigitalSolutions({ locale }: { locale: Locale }) {
     es: {
       eyebrow: 'Soluciones digitales',
       title: 'Desarrollo de Soluciones Digitales',
-      subtitle: 'Dise\u00f1amos infraestructuras digitales a medida adaptadas a sus objetivos de negocio.',
+      subtitle: 'Diseñamos infraestructuras digitales a medida adaptadas a sus objetivos de negocio.',
     },
   }
 
   const t = content[locale]
 
   return (
-    <section className="bg-gray-50 py-24 lg:py-32">
+    <section className="bg-[#FAFAFF] py-24 lg:py-32">
       <div className="container-wide">
         {/* Section header */}
         <div className="text-center mb-16">
-          <div className="w-12 h-px bg-violet-600 mx-auto mb-6" />
-          <span className="text-xs font-medium uppercase tracking-widest text-violet-600 mb-4 block">
+          <span className="text-xs font-medium uppercase tracking-widest text-violet-500 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-[#1E1B4B] mb-4">
             {t.title}
           </h2>
           <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
@@ -128,17 +115,23 @@ export function DigitalSolutions({ locale }: { locale: Locale }) {
 
         {/* Solution cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {solutions.map((solution) => (
+          {solutions.map((solution, i) => (
             <div
               key={solution.icon}
-              className="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+              className={`bg-white/60 backdrop-blur-xl rounded-2xl border border-white/80 p-6 lg:p-8 transition-all duration-300 hover:bg-white/70 hover:shadow-lg animate-fade-in-up ${
+                i === 0 ? 'lg:col-span-2' : ''
+              }`}
+              style={{
+                boxShadow: '0 8px 32px -8px rgba(124,58,237,0.08)',
+                animationDelay: `${i * 100}ms`,
+              }}
             >
               {/* Icon */}
-              <div className={`w-10 h-10 rounded-lg ${solution.iconBg} flex items-center justify-center ${solution.iconColor} mb-4`}>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-100 to-violet-50 flex items-center justify-center text-violet-600 mb-4">
                 <SolutionIcon name={solution.icon} />
               </div>
 
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-[#1E1B4B] mb-2">
                 {solution.title[locale]}
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed">
