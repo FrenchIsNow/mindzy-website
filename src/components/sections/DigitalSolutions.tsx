@@ -1,0 +1,234 @@
+import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
+import { CheckIcon } from '@/components/ui/Button'
+import type { Locale } from '@/lib/i18n'
+
+const solutions = [
+  {
+    icon: 'code',
+    gradient: 'from-violet-500 to-violet-700',
+    bgLight: 'bg-violet-50',
+    title: { fr: 'Applications web', en: 'Web applications', es: 'Aplicaciones web' },
+    description: {
+      fr: 'Applications performantes et évolutives sur mesure',
+      en: 'High-performance, scalable custom applications',
+      es: 'Aplicaciones de alto rendimiento y escalables a medida',
+    },
+  },
+  {
+    icon: 'phone',
+    gradient: 'from-sage-500 to-sage-700',
+    bgLight: 'bg-sage-50',
+    title: { fr: 'Applications mobiles', en: 'Mobile applications', es: 'Aplicaciones móviles' },
+    description: {
+      fr: 'Apps iOS et Android natives ou cross-platform',
+      en: 'Native or cross-platform iOS and Android apps',
+      es: 'Apps iOS y Android nativas o multiplataforma',
+    },
+  },
+  {
+    icon: 'cloud',
+    gradient: 'from-gold to-gold-dark',
+    bgLight: 'bg-gold-light/30',
+    title: { fr: 'Plateformes SaaS', en: 'SaaS platforms', es: 'Plataformas SaaS' },
+    description: {
+      fr: 'Solutions cloud multi-tenant scalables',
+      en: 'Scalable multi-tenant cloud solutions',
+      es: 'Soluciones cloud multi-tenant escalables',
+    },
+  },
+  {
+    icon: 'store',
+    gradient: 'from-rose-400 to-rose-500',
+    bgLight: 'bg-rose-50',
+    title: { fr: 'Marketplaces', en: 'Marketplaces', es: 'Marketplaces' },
+    description: {
+      fr: 'Plateformes multi-vendeurs et écosystèmes',
+      en: 'Multi-vendor platforms and ecosystems',
+      es: 'Plataformas multi-vendedor y ecosistemas',
+    },
+  },
+  {
+    icon: 'grid',
+    gradient: 'from-cyan-500 to-cyan-700',
+    bgLight: 'bg-cyan-50',
+    title: { fr: 'Dashboards stratégiques', en: 'Strategic dashboards', es: 'Dashboards estratégicos' },
+    description: {
+      fr: 'Interfaces privées et outils de pilotage',
+      en: 'Private interfaces and management tools',
+      es: 'Interfaces privadas y herramientas de gestión',
+    },
+  },
+  {
+    icon: 'globe',
+    gradient: 'from-amber-500 to-amber-700',
+    bgLight: 'bg-amber-50',
+    title: { fr: 'Sites web sur mesure', en: 'Custom websites', es: 'Sitios web a medida' },
+    description: {
+      fr: 'Corporate, premium, orientés conversion',
+      en: 'Corporate, premium, conversion-oriented',
+      es: 'Corporativos, premium, orientados a conversión',
+    },
+  },
+]
+
+const pillars = {
+  fr: [
+    'Maximiser l\'expérience utilisateur',
+    'Optimiser la conversion',
+    'Assurer la scalabilité',
+    'Garantir une architecture technique robuste',
+  ],
+  en: [
+    'Maximize user experience',
+    'Optimize conversion',
+    'Ensure scalability',
+    'Guarantee a robust technical architecture',
+  ],
+  es: [
+    'Maximizar la experiencia del usuario',
+    'Optimizar la conversión',
+    'Asegurar la escalabilidad',
+    'Garantizar una arquitectura técnica robusta',
+  ],
+}
+
+export function DigitalSolutions({ locale }: { locale: Locale }) {
+  const content = {
+    fr: {
+      eyebrow: 'Solutions digitales',
+      title: 'Développement de Solutions Digitales',
+      subtitle: 'Nous concevons des infrastructures digitales sur mesure adaptées à vos objectifs business.',
+      pillarsTitle: 'Nos piliers de développement',
+    },
+    en: {
+      eyebrow: 'Digital solutions',
+      title: 'Digital Solutions Development',
+      subtitle: 'We design custom digital infrastructures tailored to your business objectives.',
+      pillarsTitle: 'Our development pillars',
+    },
+    es: {
+      eyebrow: 'Soluciones digitales',
+      title: 'Desarrollo de Soluciones Digitales',
+      subtitle: 'Diseñamos infraestructuras digitales a medida adaptadas a sus objetivos de negocio.',
+      pillarsTitle: 'Nuestros pilares de desarrollo',
+    },
+  }
+
+  const t = content[locale]
+
+  return (
+    <section className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-cream-50/50 to-white" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-violet-100/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-sage-100/30 rounded-full blur-3xl" />
+
+      <div className="container-wide relative">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
+          <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
+          <p className="body-large max-w-2xl mx-auto">{t.subtitle}</p>
+        </div>
+
+        {/* Solutions grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {solutions.map((solution, i) => (
+            <Card
+              key={solution.icon}
+              variant="default"
+              hover
+              className="group animate-fade-in-up"
+              style={{ animationDelay: `${i * 0.1}s` }}
+            >
+              <div
+                className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300`}
+              >
+                <SolutionIcon name={solution.icon} />
+              </div>
+              <CardTitle>{solution.title[locale]}</CardTitle>
+              <CardDescription>{solution.description[locale]}</CardDescription>
+            </Card>
+          ))}
+        </div>
+
+        {/* Pillars box */}
+        <Card variant="gradient" padding="lg" className="max-w-3xl mx-auto">
+          <h3 className="heading-4 text-anthracite mb-6 text-center">{t.pillarsTitle}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {pillars[locale].map((pillar) => (
+              <div key={pillar} className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-0.5">
+                  <CheckIcon className="text-violet" />
+                </div>
+                <span className="text-gray-700">{pillar}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </section>
+  )
+}
+
+function SolutionIcon({ name }: { name: string }) {
+  switch (name) {
+    case 'code':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      )
+    case 'phone':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      )
+    case 'cloud':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+          />
+        </svg>
+      )
+    case 'store':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"
+          />
+        </svg>
+      )
+    case 'grid':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+          />
+        </svg>
+      )
+    case 'globe':
+      return (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+          />
+        </svg>
+      )
+    default:
+      return null
+  }
+}
