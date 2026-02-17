@@ -87,17 +87,34 @@ export function CustomFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="bg-white py-24 lg:py-32">
-      <div className="container-narrow">
+    <section
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #EEF2FF 0%, #F0ECFF 50%, #F5F0FF 100%)' }}
+    >
+      {/* Background blobs */}
+      <div
+        className="absolute -top-10 right-20 w-[500px] h-[500px] rounded-full blur-3xl animate-blob"
+        style={{ background: 'rgba(167,139,250,0.25)' }}
+      />
+      <div
+        className="absolute bottom-10 -left-20 w-[400px] h-[400px] rounded-full blur-3xl animate-blob"
+        style={{ background: 'rgba(147,197,253,0.2)', animationDelay: '2s' }}
+      />
+      <div
+        className="absolute top-1/2 left-1/3 w-[350px] h-[350px] rounded-full blur-3xl animate-blob"
+        style={{ background: 'rgba(253,164,175,0.15)', animationDelay: '4s' }}
+      />
+
+      <div className="container-narrow relative">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="text-violet-600 text-xs font-medium uppercase tracking-widest mb-4 block">
+          <span className="text-violet-500 text-xs font-medium uppercase tracking-widest mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-[#1E1B4B] mb-4">
             {t.title}
           </h2>
-          <p className="text-xl font-semibold tracking-tight leading-snug text-gray-700 mb-4">
+          <p className="text-xl font-semibold tracking-tight leading-snug text-[#1E1B4B] mb-4">
             {t.subtitle}
           </p>
           <p className="text-lg leading-relaxed max-w-2xl mx-auto text-gray-500">
@@ -108,14 +125,17 @@ export function CustomFormation({ locale }: { locale: Locale }) {
         {/* Two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
           {/* Examples card */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6 animate-fade-in-up transition-all duration-200 hover:border-gray-300 hover:shadow-sm">
-            <h3 className="font-display text-lg font-semibold text-gray-900 tracking-tight mb-6">
+          <div
+            className="bg-white/60 backdrop-blur-xl rounded-2xl border border-white/80 p-6 lg:p-8 animate-fade-in-up transition-all duration-300 hover:bg-white/70 hover:shadow-lg"
+            style={{ boxShadow: '0 8px 32px -8px rgba(124,58,237,0.08)' }}
+          >
+            <h3 className="font-display text-lg font-semibold text-[#1E1B4B] tracking-tight mb-6">
               {t.examplesTitle}
             </h3>
             <ul className="space-y-4">
               {t.examples.map((example) => (
                 <li key={example} className="flex items-start gap-3">
-                  <span className="w-1 h-1 rounded-full bg-violet-500 mt-2 flex-shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-violet-400 mt-2 flex-shrink-0" />
                   <span className="text-sm text-gray-600 leading-relaxed">{example}</span>
                 </li>
               ))}
@@ -124,21 +144,24 @@ export function CustomFormation({ locale }: { locale: Locale }) {
 
           {/* Methodology card - numbered timeline */}
           <div
-            className="bg-white rounded-xl border border-gray-200 p-6 animate-fade-in-up transition-all duration-200 hover:border-gray-300 hover:shadow-sm"
-            style={{ animationDelay: '0.1s' }}
+            className="bg-white/60 backdrop-blur-xl rounded-2xl border border-white/80 p-6 lg:p-8 animate-fade-in-up transition-all duration-300 hover:bg-white/70 hover:shadow-lg"
+            style={{
+              animationDelay: '0.1s',
+              boxShadow: '0 8px 32px -8px rgba(124,58,237,0.08)',
+            }}
           >
-            <h3 className="font-display text-lg font-semibold text-gray-900 tracking-tight mb-6">
+            <h3 className="font-display text-lg font-semibold text-[#1E1B4B] tracking-tight mb-6">
               {t.methodTitle}
             </h3>
             <ol className="space-y-5 relative">
               {/* Connecting line */}
-              <div className="absolute left-3 top-2 bottom-2 w-px bg-gray-200" />
+              <div className="absolute left-[13px] top-2 bottom-2 w-px bg-violet-200/40" />
               {t.steps.map((step, i) => (
                 <li key={step} className="flex items-start gap-4 relative">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center z-10 bg-violet-50">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center z-10 bg-violet-100/80 border border-violet-200/50">
                     <span className="text-xs font-bold text-violet-600">{i + 1}</span>
                   </div>
-                  <span className="text-sm text-gray-600 leading-relaxed pt-0.5">{step}</span>
+                  <span className="text-sm text-gray-600 leading-relaxed pt-1">{step}</span>
                 </li>
               ))}
             </ol>
@@ -147,10 +170,10 @@ export function CustomFormation({ locale }: { locale: Locale }) {
 
         {/* Price & CTA */}
         <div className="text-center">
-          <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">
+          <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">
             {t.priceLabel}
           </p>
-          <p className="font-display text-4xl font-semibold text-gray-900 mb-8">
+          <p className="font-display text-4xl font-semibold text-[#D4AF37] mb-8">
             {t.price}
           </p>
           <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">

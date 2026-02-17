@@ -238,10 +238,10 @@ const offers: MetaOffer[] = [
 ]
 
 const accentColors = [
-  { borderColor: 'border-l-rose-400', dotColor: 'bg-rose-400', triggerColor: 'text-rose-500' },
-  { borderColor: 'border-l-violet-500', dotColor: 'bg-violet-500', triggerColor: 'text-violet-600' },
-  { borderColor: 'border-l-cyan-500', dotColor: 'bg-cyan-500', triggerColor: 'text-cyan-600' },
-  { borderColor: 'border-l-amber-500', dotColor: 'bg-amber-500', triggerColor: 'text-amber-700' },
+  { borderClass: 'border-l-rose-300', dotColor: 'bg-rose-400', triggerClass: 'text-rose-500' },
+  { borderClass: 'border-l-violet-400', dotColor: 'bg-violet-400', triggerClass: 'text-violet-600' },
+  { borderClass: 'border-l-cyan-400', dotColor: 'bg-cyan-400', triggerClass: 'text-cyan-600' },
+  { borderClass: 'border-l-amber-400', dotColor: 'bg-amber-400', triggerClass: 'text-amber-700' },
 ]
 
 export function MetaTikTokFormation({ locale }: { locale: Locale }) {
@@ -281,14 +281,27 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="bg-white py-24 lg:py-32">
-      <div className="container-wide">
+    <section
+      className="relative py-24 lg:py-32 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #F5F3FF 0%, #EEF2FF 100%)' }}
+    >
+      {/* Background blobs */}
+      <div
+        className="absolute top-10 -right-20 w-[500px] h-[500px] rounded-full blur-3xl animate-blob"
+        style={{ background: 'rgba(167,139,250,0.25)' }}
+      />
+      <div
+        className="absolute bottom-20 -left-10 w-[400px] h-[400px] rounded-full blur-3xl animate-blob"
+        style={{ background: 'rgba(147,197,253,0.2)', animationDelay: '3s' }}
+      />
+
+      <div className="container-wide relative">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-violet-600 text-xs font-medium uppercase tracking-widest mb-4 block">
+          <span className="text-violet-500 text-xs font-medium uppercase tracking-widest mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-[#1E1B4B] mb-4">
             {t.title}
           </h2>
           <p className="text-lg leading-relaxed max-w-2xl mx-auto text-gray-500">
@@ -304,32 +317,35 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
               <div
                 key={offer.name.fr}
                 className={cn(
-                  'bg-white rounded-xl border border-gray-200 border-l-2 p-6 flex flex-col animate-fade-in-up transition-all duration-200',
-                  accent.borderColor,
-                  'hover:border-gray-300 hover:shadow-sm'
+                  'bg-white/60 backdrop-blur-xl rounded-2xl border border-white/80 border-l-2 p-6 lg:p-8 flex flex-col animate-fade-in-up transition-all duration-300 hover:bg-white/70 hover:shadow-lg',
+                  accent.borderClass,
+                  offer.featured && 'ring-1 ring-amber-200/30'
                 )}
-                style={{ animationDelay: `${i * 0.1}s` }}
+                style={{
+                  animationDelay: `${i * 0.1}s`,
+                  boxShadow: '0 8px 32px -8px rgba(124,58,237,0.08)',
+                }}
               >
                 {/* Badge for featured */}
                 {offer.featured && offer.badge && (
                   <div className="mb-4">
-                    <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2 py-1 rounded">
+                    <span className="bg-amber-50/60 text-amber-700 text-xs font-medium px-3 py-1 rounded-full">
                       {offer.badge[locale]}
                     </span>
                   </div>
                 )}
 
                 {/* Offer name */}
-                <h3 className="font-display text-lg font-semibold text-gray-900 tracking-tight mb-3">
+                <h3 className="font-display text-lg font-semibold text-[#1E1B4B] tracking-tight mb-3">
                   {offer.name[locale]}
                 </h3>
 
                 {/* Price */}
                 <div className="mb-3">
-                  <span className="font-display text-2xl font-semibold text-gray-900">
+                  <span className="font-display text-2xl font-semibold text-[#1E1B4B]">
                     {offer.price}
                   </span>
-                  <span className="text-base text-gray-400 ml-1">&euro;</span>
+                  <span className="text-base text-[#1E1B4B]/40 ml-1">&euro;</span>
                 </div>
 
                 {/* Target audience */}
@@ -337,11 +353,15 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                   {t.targetLabel} : {offer.target[locale]}
                 </p>
 
-                {/* Duration */}
-                <div className="space-y-1 mb-5">
-                  <p className="text-xs text-gray-400">{offer.duration[locale]}</p>
+                {/* Duration in frosted pill */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  <span className="bg-white/40 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-gray-400">
+                    {offer.duration[locale]}
+                  </span>
                   {offer.format && (
-                    <p className="text-xs text-gray-400">{offer.format[locale]}</p>
+                    <span className="bg-white/40 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-gray-400">
+                      {offer.format[locale]}
+                    </span>
                   )}
                 </div>
 
@@ -349,11 +369,11 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                 <Accordion type="single" className="mb-6">
                   <AccordionItem
                     value={`meta-${i}`}
-                    className="border-gray-200 rounded-xl"
+                    className="border-white/40 rounded-xl"
                   >
                     <AccordionTrigger
                       value={`meta-${i}`}
-                      className={cn('text-sm font-medium hover:bg-gray-50', accent.triggerColor)}
+                      className={cn('text-sm font-medium hover:bg-white/30', accent.triggerClass)}
                     >
                       {t.programmeLabel}
                     </AccordionTrigger>
@@ -370,9 +390,9 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
                       </ul>
 
                       {/* Result box */}
-                      <div className="mt-4 p-3 rounded-lg bg-gray-50">
+                      <div className="mt-4 bg-white/40 backdrop-blur-sm rounded-xl p-3">
                         <p className="text-sm">
-                          <span className={cn('font-medium', accent.triggerColor)}>{t.resultLabel} :</span>{' '}
+                          <span className={cn('font-medium', accent.triggerClass)}>{t.resultLabel} :</span>{' '}
                           <span className="text-gray-600">{offer.result[locale]}</span>
                         </p>
                       </div>
