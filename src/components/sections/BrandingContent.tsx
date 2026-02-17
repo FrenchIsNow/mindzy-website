@@ -1,16 +1,14 @@
-import { Card } from '@/components/ui/Card'
-import { CheckIcon } from '@/components/ui/Button'
 import type { Locale } from '@/lib/i18n'
 
 const brandingItems = {
   fr: [
-    'Positionnement stratégique & différenciation',
-    'Identité visuelle complète',
+    'Positionnement strat\u00e9gique & diff\u00e9renciation',
+    'Identit\u00e9 visuelle compl\u00e8te',
     'Direction artistique',
-    'Stratégie éditoriale',
-    'Création de contenu digital (LinkedIn, Meta, TikTok…)',
+    'Strat\u00e9gie \u00e9ditoriale',
+    'Cr\u00e9ation de contenu digital (LinkedIn, Meta, TikTok\u2026)',
     'Structuration d\'un personal branding puissant',
-    'Contenu orienté autorité & conversion',
+    'Contenu orient\u00e9 autorit\u00e9 & conversion',
   ],
   en: [
     'Strategic positioning & differentiation',
@@ -22,13 +20,13 @@ const brandingItems = {
     'Authority & conversion-oriented content',
   ],
   es: [
-    'Posicionamiento estratégico y diferenciación',
+    'Posicionamiento estrat\u00e9gico y diferenciaci\u00f3n',
     'Identidad visual completa',
-    'Dirección artística',
+    'Direcci\u00f3n art\u00edstica',
     'Estrategia editorial',
-    'Creación de contenido digital (LinkedIn, Meta, TikTok…)',
-    'Estructuración de un personal branding potente',
-    'Contenido orientado a autoridad y conversión',
+    'Creaci\u00f3n de contenido digital (LinkedIn, Meta, TikTok\u2026)',
+    'Estructuraci\u00f3n de un personal branding potente',
+    'Contenido orientado a autoridad y conversi\u00f3n',
   ],
 }
 
@@ -36,11 +34,11 @@ export function BrandingContent({ locale }: { locale: Locale }) {
   const content = {
     fr: {
       eyebrow: 'Branding & Contenu',
-      title: 'Branding & Création de Contenu',
+      title: 'Branding & Cr\u00e9ation de Contenu',
       subtitle:
-        'Nous développons des identités fortes et des stratégies de contenu orientées impact et acquisition.',
+        'Nous d\u00e9veloppons des identit\u00e9s fortes et des strat\u00e9gies de contenu orient\u00e9es impact et acquisition.',
       closing:
-        'Nous ne créons pas du contenu pour « poster ». Nous construisons des actifs stratégiques qui génèrent visibilité et opportunités.',
+        'Nous ne cr\u00e9ons pas du contenu pour \u00ab poster \u00bb. Nous construisons des actifs strat\u00e9giques qui g\u00e9n\u00e8rent visibilit\u00e9 et opportunit\u00e9s.',
     },
     en: {
       eyebrow: 'Branding & Content',
@@ -52,50 +50,80 @@ export function BrandingContent({ locale }: { locale: Locale }) {
     },
     es: {
       eyebrow: 'Branding y Contenido',
-      title: 'Branding y Creación de Contenido',
+      title: 'Branding y Creaci\u00f3n de Contenido',
       subtitle:
-        'Desarrollamos identidades fuertes y estrategias de contenido orientadas al impacto y la adquisición.',
+        'Desarrollamos identidades fuertes y estrategias de contenido orientadas al impacto y la adquisici\u00f3n.',
       closing:
-        'No creamos contenido para «publicar». Construimos activos estratégicos que generan visibilidad y oportunidades.',
+        'No creamos contenido para \u00abpublicar\u00bb. Construimos activos estrat\u00e9gicos que generan visibilidad y oportunidades.',
     },
   }
 
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-cream-50/30 to-white" />
-      <div className="absolute top-0 left-0 w-80 h-80 bg-rose-100/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-100/20 rounded-full blur-3xl" />
+    <section className="relative py-20 sm:py-24 lg:py-32 overflow-hidden bg-anthracite">
+      {/* Noise texture overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+        }}
+      />
 
-      <div className="container-wide relative">
+      {/* Ambient glow accents */}
+      <div
+        className="absolute top-[10%] left-[5%] w-[400px] h-[400px] opacity-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(253,164,175,0.3) 0%, transparent 60%)',
+        }}
+      />
+      <div
+        className="absolute bottom-[10%] right-[10%] w-[350px] h-[350px] opacity-10"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.3) 0%, transparent 60%)',
+        }}
+      />
+
+      <div className="container-wide relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="eyebrow mb-4 block">{t.eyebrow}</span>
-          <h2 className="heading-2 text-anthracite mb-4">{t.title}</h2>
-          <p className="body-large max-w-2xl mx-auto">{t.subtitle}</p>
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+            {t.eyebrow}
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+            {t.title}
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Items grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+        {/* Items in horizontal strip with pipe separators - editorial feel */}
+        <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-3 mb-16 max-w-5xl mx-auto">
           {brandingItems[locale].map((item, i) => (
-            <div
-              key={item}
-              className="flex items-start gap-3 animate-fade-in-up"
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
-              <div className="flex-shrink-0 mt-0.5">
-                <CheckIcon className="text-violet" />
-              </div>
-              <span className="text-gray-700">{item}</span>
+            <div key={item} className="flex items-center gap-1 animate-fade-in-up" style={{ animationDelay: `${i * 0.06}s` }}>
+              <span className="text-gray-400 text-sm sm:text-base whitespace-nowrap">{item}</span>
+              {i < brandingItems[locale].length - 1 && (
+                <span className="text-violet-500/40 mx-2 sm:mx-3 select-none">|</span>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Closing statement */}
-        <Card variant="gradient" padding="lg" className="max-w-3xl mx-auto text-center">
-          <p className="body-large text-anthracite font-medium leading-relaxed">{t.closing}</p>
-        </Card>
+        {/* Closing statement - glass card with violet glow */}
+        <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <div className="relative rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] p-8 sm:p-10 lg:p-12 text-center shadow-[0_0_100px_-30px_rgba(124,58,237,0.2)]">
+            {/* Decorative quote marks */}
+            <span className="absolute top-4 left-6 font-display text-6xl text-violet-500/10 leading-none select-none">&ldquo;</span>
+            <span className="absolute bottom-4 right-6 font-display text-6xl text-violet-500/10 leading-none select-none">&rdquo;</span>
+
+            <p className="font-display text-xl sm:text-2xl lg:text-3xl text-white font-medium leading-relaxed tracking-tight relative z-10">
+              {t.closing}
+            </p>
+
+            {/* Glow line at bottom */}
+            <div className="mt-8 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
+          </div>
+        </div>
       </div>
     </section>
   )
