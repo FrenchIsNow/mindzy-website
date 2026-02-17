@@ -3,9 +3,8 @@ import type { Locale } from '@/lib/i18n'
 const solutions = [
   {
     icon: 'code',
-    gradient: 'from-violet-500 to-violet-700',
-    lightBg: 'from-violet-50 to-violet-100',
-    borderColor: 'border-l-violet-400',
+    iconBg: 'bg-violet-50',
+    iconColor: 'text-violet-600',
     title: { fr: 'Applications web', en: 'Web applications', es: 'Aplicaciones web' },
     description: {
       fr: 'Applications performantes et \u00e9volutives sur mesure',
@@ -15,9 +14,8 @@ const solutions = [
   },
   {
     icon: 'phone',
-    gradient: 'from-sage-500 to-sage-700',
-    lightBg: 'from-sage-50 to-sage-100',
-    borderColor: 'border-l-sage-400',
+    iconBg: 'bg-rose-50',
+    iconColor: 'text-rose-600',
     title: { fr: 'Applications mobiles', en: 'Mobile applications', es: 'Aplicaciones m\u00f3viles' },
     description: {
       fr: 'Apps iOS et Android natives ou cross-platform',
@@ -27,9 +25,8 @@ const solutions = [
   },
   {
     icon: 'cloud',
-    gradient: 'from-gold to-gold-dark',
-    lightBg: 'from-amber-50 to-amber-100',
-    borderColor: 'border-l-gold',
+    iconBg: 'bg-amber-50',
+    iconColor: 'text-amber-600',
     title: { fr: 'Plateformes SaaS', en: 'SaaS platforms', es: 'Plataformas SaaS' },
     description: {
       fr: 'Solutions cloud multi-tenant scalables',
@@ -39,9 +36,8 @@ const solutions = [
   },
   {
     icon: 'store',
-    gradient: 'from-rose-400 to-rose-500',
-    lightBg: 'from-rose-50 to-rose-100',
-    borderColor: 'border-l-rose-400',
+    iconBg: 'bg-rose-50',
+    iconColor: 'text-rose-500',
     title: { fr: 'Marketplaces', en: 'Marketplaces', es: 'Marketplaces' },
     description: {
       fr: 'Plateformes multi-vendeurs et \u00e9cosyst\u00e8mes',
@@ -51,9 +47,8 @@ const solutions = [
   },
   {
     icon: 'grid',
-    gradient: 'from-cyan-500 to-cyan-700',
-    lightBg: 'from-cyan-50 to-cyan-100',
-    borderColor: 'border-l-cyan-400',
+    iconBg: 'bg-cyan-50',
+    iconColor: 'text-cyan-600',
     title: { fr: 'Dashboards strat\u00e9giques', en: 'Strategic dashboards', es: 'Dashboards estrat\u00e9gicos' },
     description: {
       fr: 'Interfaces priv\u00e9es et outils de pilotage',
@@ -63,9 +58,8 @@ const solutions = [
   },
   {
     icon: 'globe',
-    gradient: 'from-amber-500 to-amber-700',
-    lightBg: 'from-amber-50 to-orange-100',
-    borderColor: 'border-l-amber-400',
+    iconBg: 'bg-amber-50',
+    iconColor: 'text-amber-600',
     title: { fr: 'Sites web sur mesure', en: 'Custom websites', es: 'Sitios web a medida' },
     description: {
       fr: 'Corporate, premium, orient\u00e9s conversion',
@@ -102,111 +96,76 @@ export function DigitalSolutions({ locale }: { locale: Locale }) {
       eyebrow: 'Solutions digitales',
       title: 'D\u00e9veloppement de Solutions Digitales',
       subtitle: 'Nous concevons des infrastructures digitales sur mesure adapt\u00e9es \u00e0 vos objectifs business.',
-      pillarsTitle: 'Nos piliers de d\u00e9veloppement',
     },
     en: {
       eyebrow: 'Digital solutions',
       title: 'Digital Solutions Development',
       subtitle: 'We design custom digital infrastructures tailored to your business objectives.',
-      pillarsTitle: 'Our development pillars',
     },
     es: {
       eyebrow: 'Soluciones digitales',
       title: 'Desarrollo de Soluciones Digitales',
       subtitle: 'Dise\u00f1amos infraestructuras digitales a medida adaptadas a sus objetivos de negocio.',
-      pillarsTitle: 'Nuestros pilares de desarrollo',
     },
   }
 
   const t = content[locale]
 
   return (
-    <section className="relative py-24 sm:py-28 lg:py-32 overflow-hidden bg-white">
-      {/* Subtle gradient mesh blobs */}
-      <div
-        className="absolute top-[5%] right-[10%] w-[400px] h-[400px] rounded-full blur-3xl opacity-20 animate-mesh-1"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(124,108,252,0.2) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute bottom-[10%] left-[5%] w-[350px] h-[350px] rounded-full blur-3xl opacity-15 animate-mesh-2"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(78,234,219,0.2) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="container-wide relative z-10">
+    <section className="bg-gray-50 py-24 lg:py-32">
+      <div className="container-wide">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
+          <div className="w-12 h-px bg-violet-600 mx-auto mb-6" />
+          <span className="text-xs font-medium uppercase tracking-widest text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
+          <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Bento grid - white cards */}
+        {/* Solution cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {solutions.map((solution, i) => (
+          {solutions.map((solution) => (
             <div
               key={solution.icon}
-              className={`group relative bg-white rounded-3xl border-l-4 ${solution.borderColor} p-8 transition-all duration-500 animate-fade-in-up ${i === 0 ? 'lg:col-span-2 lg:row-span-2 lg:p-10' : ''}`}
-              style={{
-                animationDelay: `${i * 0.1}s`,
-                boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
-              }}
+              className="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
             >
-              {/* Icon with light gradient background */}
-              <div className="relative mb-5">
-                <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.lightBg} flex items-center justify-center text-violet-600 group-hover:scale-110 transition-transform duration-300 ${i === 0 ? 'w-16 h-16' : ''}`}
-                >
-                  <SolutionIcon name={solution.icon} large={i === 0} />
-                </div>
+              {/* Icon */}
+              <div className={`w-10 h-10 rounded-lg ${solution.iconBg} flex items-center justify-center ${solution.iconColor} mb-4`}>
+                <SolutionIcon name={solution.icon} />
               </div>
 
-              <h3 className={`font-display font-semibold tracking-tight text-anthracite mb-2 ${i === 0 ? 'text-2xl' : 'text-xl'}`}>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {solution.title[locale]}
               </h3>
-              <p className={`text-gray-600 leading-relaxed ${i === 0 ? 'text-lg' : ''}`}>
+              <p className="text-sm text-gray-500 leading-relaxed">
                 {solution.description[locale]}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Pillars - white/light card */}
-        <div
-          className="relative rounded-3xl bg-violet-50/50 border border-violet-100 p-8"
-          style={{
-            boxShadow: '0 4px 24px -8px rgba(124, 108, 252, 0.08)',
-          }}
-        >
-          <h3 className="font-display text-xl font-semibold text-anthracite mb-6 text-center">{t.pillarsTitle}</h3>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {pillars[locale].map((pillar, i) => (
-              <div key={pillar} className="flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-violet-500 flex-shrink-0" />
-                <span className="text-gray-600 text-sm sm:text-base">{pillar}</span>
-                {i < pillars[locale].length - 1 && (
-                  <span className="hidden lg:block text-violet-200 ml-5">|</span>
-                )}
-              </div>
-            ))}
-          </div>
+        {/* Pillars */}
+        <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 text-sm text-gray-500">
+          {pillars[locale].map((pillar, i) => (
+            <span key={pillar} className="flex items-center gap-2">
+              {pillar}
+              {i < pillars[locale].length - 1 && (
+                <span className="text-gray-300 select-none">&middot;</span>
+              )}
+            </span>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-function SolutionIcon({ name, large = false }: { name: string; large?: boolean }) {
-  const size = large ? 'w-7 h-7' : 'w-6 h-6'
+function SolutionIcon({ name }: { name: string }) {
+  const size = 'w-5 h-5'
   switch (name) {
     case 'code':
       return (

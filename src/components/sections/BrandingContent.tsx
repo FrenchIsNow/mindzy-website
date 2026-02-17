@@ -61,82 +61,38 @@ export function BrandingContent({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="relative py-24 sm:py-28 lg:py-32 overflow-hidden bg-white">
-      {/* Gradient mesh blobs */}
-      <div
-        className="absolute top-[10%] left-[5%] w-[400px] h-[400px] rounded-full blur-3xl opacity-20 animate-mesh-2"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(196,181,253,0.3) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute bottom-[10%] right-[10%] w-[350px] h-[350px] rounded-full blur-3xl opacity-20 animate-mesh-1"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(124,108,252,0.2) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute top-[40%] right-[25%] w-[300px] h-[300px] rounded-full blur-3xl opacity-15 animate-mesh-3"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(78,234,219,0.2) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="container-wide relative z-10">
+    <section className="bg-gray-50 py-24 lg:py-32">
+      <div className="container-narrow">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
+          <div className="w-12 h-px bg-violet-600 mx-auto mb-6" />
+          <span className="text-xs font-medium uppercase tracking-widest text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
+          <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Items in horizontal strip with pipe separators */}
-        <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-3 mb-16 max-w-5xl mx-auto">
-          {brandingItems[locale].map((item, i) => (
-            <div key={item} className="flex items-center gap-1 animate-fade-in-up" style={{ animationDelay: `${i * 0.06}s` }}>
-              <span className="text-gray-600 text-sm sm:text-base whitespace-nowrap">{item}</span>
-              {i < brandingItems[locale].length - 1 && (
-                <span className="text-violet-300 mx-2 sm:mx-3 select-none">|</span>
-              )}
-            </div>
+        {/* Tags */}
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
+          {brandingItems[locale].map((item) => (
+            <span
+              key={item}
+              className="inline-flex px-3 py-1.5 rounded-full border border-gray-200 text-sm text-gray-600"
+            >
+              {item}
+            </span>
           ))}
         </div>
 
-        {/* Closing statement - white card with violet border */}
-        <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-          <div
-            className="relative rounded-3xl bg-white border border-violet-100 p-8 sm:p-10 lg:p-12 text-center overflow-hidden"
-            style={{
-              boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
-            }}
-          >
-            {/* Gradient mesh blob behind card content */}
-            <div
-              className="absolute top-[-20%] right-[-10%] w-[250px] h-[250px] rounded-full blur-3xl opacity-20 animate-mesh-2"
-              style={{
-                background:
-                  'radial-gradient(circle at center, rgba(124,108,252,0.2) 0%, transparent 70%)',
-              }}
-            />
-
-            {/* Decorative quote marks */}
-            <span className="absolute top-4 left-6 font-display text-6xl text-violet-200 leading-none select-none">&ldquo;</span>
-            <span className="absolute bottom-4 right-6 font-display text-6xl text-violet-200 leading-none select-none">&rdquo;</span>
-
-            <p className="font-display text-xl sm:text-2xl lg:text-3xl text-anthracite font-medium leading-relaxed tracking-tight relative z-10">
-              {t.closing}
-            </p>
-
-            {/* Decorative gradient line at bottom */}
-            <div className="mt-8 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
-          </div>
+        {/* Closing quote */}
+        <div className="text-center max-w-3xl mx-auto">
+          <div className="w-12 h-px bg-violet-600 mx-auto mb-6" />
+          <p className="text-xl lg:text-2xl text-gray-900 font-medium leading-relaxed">
+            {t.closing}
+          </p>
         </div>
       </div>
     </section>
