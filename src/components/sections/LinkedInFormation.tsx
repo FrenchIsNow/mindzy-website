@@ -186,13 +186,11 @@ const packs: LinkedInPack[] = [
   },
 ]
 
-const packNumbers = ['01', '02', '03']
-
 export function LinkedInFormation({ locale }: { locale: Locale }) {
   const content = {
     fr: {
       eyebrow: 'LinkedIn',
-      title: 'LINKEDIN -- SYSTÈME D\'ACQUISITION COMPLET',
+      title: 'LINKEDIN -- SYSTEME D\'ACQUISITION COMPLET',
       subtitle:
         'Des formations courtes, concrètes et directement applicables pour générer des résultats rapidement.',
       programmeLabel: 'Voir le programme',
@@ -210,7 +208,7 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
     },
     es: {
       eyebrow: 'LinkedIn',
-      title: 'LINKEDIN -- SISTEMA DE ADQUISICIÓN COMPLETO',
+      title: 'LINKEDIN -- SISTEMA DE ADQUISICION COMPLETO',
       subtitle:
         'Formaciones cortas, concretas y directamente aplicables para generar resultados rápidamente.',
       programmeLabel: 'Ver el programa',
@@ -222,162 +220,126 @@ export function LinkedInFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden bg-white">
-      <div className="container-wide relative">
+    <section className="bg-gray-50 py-24 lg:py-32">
+      <div className="container-wide">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
+          <span className="text-violet-600 text-xs font-medium uppercase tracking-widest mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-600">
+          <p className="text-lg leading-relaxed max-w-2xl mx-auto text-gray-500">
             {t.subtitle}
           </p>
         </div>
 
         {/* Pack cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {packs.map((pack, i) => (
             <div
               key={pack.name.fr}
               className={cn(
-                'relative bg-white rounded-3xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-300 group',
-                'hover:-translate-y-1',
+                'bg-white rounded-xl border p-6 lg:p-8 flex flex-col animate-fade-in-up transition-all duration-200',
                 pack.featured
-                  ? 'ring-2 ring-violet-200 lg:-translate-y-2'
-                  : ''
+                  ? 'border-violet-200 hover:border-violet-300 hover:shadow-sm'
+                  : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
               )}
-              style={{
-                animationDelay: `${i * 0.1}s`,
-                boxShadow: pack.featured
-                  ? '0 16px 60px -12px rgba(124, 108, 252, 0.18), 0 4px 16px -4px rgba(0,0,0,0.06)'
-                  : '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
-              }}
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
-              {/* Gradient top border accent */}
-              <div
-                className="h-1 w-full"
-                style={{
-                  background: pack.featured
-                    ? 'linear-gradient(90deg, #7C3AED, #A78BFA, #22D3EE)'
-                    : 'linear-gradient(90deg, #C4B5FD, #A78BFA, #C4B5FD)',
-                }}
-              />
-
-              {/* Large pack number as watermark */}
-              <span className="absolute top-4 right-5 font-display text-8xl font-bold select-none pointer-events-none text-gray-100">
-                {packNumbers[i]}
-              </span>
-
-              <div className="p-6 lg:p-8 flex flex-col flex-1 relative">
-                {/* Badge for featured */}
-                {pack.featured && pack.badge && (
-                  <div className="mb-4">
-                    <span
-                      className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05))',
-                        border: '1px solid rgba(212,175,55,0.3)',
-                        color: '#996515',
-                      }}
-                    >
-                      {pack.badge[locale]}
-                    </span>
-                  </div>
-                )}
-
-                {/* Pack name */}
-                <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight mb-3">
-                  {pack.name[locale]}
-                </h3>
-
-                {/* Price - gold */}
+              {/* Badge for featured */}
+              {pack.featured && pack.badge && (
                 <div className="mb-4">
-                  <span
-                    className="font-display text-4xl font-semibold"
-                    style={{ color: '#D4AF37' }}
-                  >
-                    {pack.price} &euro;
+                  <span className="text-xs text-violet-600 font-medium bg-violet-50 px-2 py-1 rounded">
+                    {pack.badge[locale]}
                   </span>
                 </div>
+              )}
 
-                {/* Duration badge - light pill */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
-                    {pack.duration[locale]}
-                  </span>
-                  <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-gray-50 text-gray-500">
-                    {pack.format[locale]}
-                  </span>
-                </div>
+              {/* Pack name */}
+              <h3 className="font-display text-lg font-semibold text-gray-900 tracking-tight mb-3">
+                {pack.name[locale]}
+              </h3>
 
-                {/* Objective */}
-                <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-                  {pack.objective[locale]}
-                </p>
+              {/* Price */}
+              <div className="mb-4">
+                <span className="font-display text-3xl font-semibold text-gray-900">
+                  {pack.price}
+                </span>
+                <span className="text-lg text-gray-400 ml-1">&euro;</span>
+              </div>
 
-                {/* Programme accordion - light themed */}
-                <Accordion type="single" className="mb-6">
-                  <AccordionItem
+              {/* Duration & format */}
+              <div className="space-y-1 mb-4">
+                <p className="text-xs text-gray-400">{pack.duration[locale]}</p>
+                <p className="text-xs text-gray-400">{pack.format[locale]}</p>
+              </div>
+
+              {/* Objective */}
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                {pack.objective[locale]}
+              </p>
+
+              {/* Programme accordion */}
+              <Accordion type="single" className="mb-6">
+                <AccordionItem
+                  value={`linkedin-${i}`}
+                  className="border-gray-200 rounded-xl"
+                >
+                  <AccordionTrigger
                     value={`linkedin-${i}`}
-                    className="border-gray-200 rounded-xl"
+                    className="text-violet-600 text-sm font-medium hover:bg-gray-50"
                   >
-                    <AccordionTrigger
-                      value={`linkedin-${i}`}
-                      className="text-sm font-semibold text-violet-600 hover:bg-violet-50/50"
-                    >
-                      {t.programmeLabel}
-                    </AccordionTrigger>
-                    <AccordionContent
-                      value={`linkedin-${i}`}
-                      className="text-gray-600"
-                    >
-                      <ul className="space-y-2.5">
-                        {pack.programme[locale].map((item) => (
-                          <li key={item} className="flex items-start gap-2.5 text-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-violet-500 mt-1.5 flex-shrink-0" />
-                            <span className="text-gray-600">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    {t.programmeLabel}
+                  </AccordionTrigger>
+                  <AccordionContent
+                    value={`linkedin-${i}`}
+                    className="text-gray-600"
+                  >
+                    <ul className="space-y-2.5">
+                      {pack.programme[locale].map((item) => (
+                        <li key={item} className="flex items-start gap-2.5 text-sm">
+                          <span className="w-1 h-1 rounded-full bg-violet-500 mt-2 flex-shrink-0" />
+                          <span className="text-gray-600">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                      {/* Result box */}
-                      <div className="mt-4 p-4 rounded-xl bg-violet-50 border border-violet-200">
-                        <p className="text-sm font-medium">
-                          <span className="text-violet-600">{t.resultLabel} :</span>{' '}
-                          <span className="text-gray-700">{pack.result[locale]}</span>
-                        </p>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                    {/* Result box */}
+                    <div className="mt-4 p-3 rounded-lg bg-gray-50">
+                      <p className="text-sm">
+                        <span className="text-violet-600 font-medium">{t.resultLabel} :</span>{' '}
+                        <span className="text-gray-600">{pack.result[locale]}</span>
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
 
-                {/* CTA */}
-                <div className="mt-auto">
-                  <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
-                    {pack.featured ? (
-                      <Button
-                        variant="primary"
-                        size="lg"
-                        icon={<ArrowIcon />}
-                        className="w-full"
-                      >
-                        {t.cta}
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="outline"
-                        size="lg"
-                        icon={<ArrowIcon />}
-                        className="w-full"
-                      >
-                        {t.cta}
-                      </Button>
-                    )}
-                  </a>
-                </div>
+              {/* CTA */}
+              <div className="mt-auto">
+                <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
+                  {pack.featured ? (
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      icon={<ArrowIcon />}
+                      className="w-full"
+                    >
+                      {t.cta}
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      icon={<ArrowIcon />}
+                      className="w-full"
+                    >
+                      {t.cta}
+                    </Button>
+                  )}
+                </a>
               </div>
             </div>
           ))}

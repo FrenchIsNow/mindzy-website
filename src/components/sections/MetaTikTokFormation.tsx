@@ -237,19 +237,18 @@ const offers: MetaOffer[] = [
   },
 ]
 
-const offerNumbers = ['01', '02', '03', '04']
 const accentColors = [
-  { border: '#FB7185', bg: 'rgba(251,113,133,0.08)', dot: '#FB7185', text: '#E11D48', triggerClass: 'text-rose-500' },
-  { border: '#7C3AED', bg: 'rgba(124,58,237,0.08)', dot: '#7C3AED', text: '#7C3AED', triggerClass: 'text-violet-600' },
-  { border: '#22D3EE', bg: 'rgba(34,211,238,0.08)', dot: '#22D3EE', text: '#0891B2', triggerClass: 'text-cyan-600' },
-  { border: '#D4AF37', bg: 'rgba(212,175,55,0.08)', dot: '#D4AF37', text: '#996515', triggerClass: 'text-amber-700' },
+  { borderColor: 'border-l-rose-400', dotColor: 'bg-rose-400', triggerColor: 'text-rose-500' },
+  { borderColor: 'border-l-violet-500', dotColor: 'bg-violet-500', triggerColor: 'text-violet-600' },
+  { borderColor: 'border-l-cyan-500', dotColor: 'bg-cyan-500', triggerColor: 'text-cyan-600' },
+  { borderColor: 'border-l-amber-500', dotColor: 'bg-amber-500', triggerColor: 'text-amber-700' },
 ]
 
 export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const content = {
     fr: {
       eyebrow: 'Meta & TikTok',
-      title: 'META & TIKTOK -- GÉNÉRER DES LEADS AVEC LES RÉSEAUX',
+      title: 'META & TIKTOK -- GENERER DES LEADS AVEC LES RESEAUX',
       subtitle:
         'Apprenez à utiliser Meta (Facebook + Instagram) et TikTok pour créer un vrai système d\'acquisition.',
       targetLabel: 'Pour',
@@ -282,172 +281,117 @@ export function MetaTikTokFormation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="section-padding relative overflow-hidden gradient-mesh-bg">
-      {/* Animated gradient mesh blobs */}
-      <div
-        className="absolute top-20 right-[10%] w-[400px] h-[400px] rounded-full blur-3xl opacity-25 animate-mesh-1 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(124,108,252,0.3) 0%, transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-20 left-[5%] w-[350px] h-[350px] rounded-full blur-3xl opacity-20 animate-mesh-2 pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(78,234,219,0.25) 0%, transparent 70%)' }}
-      />
-
-      <div className="container-wide relative">
+    <section className="bg-white py-24 lg:py-32">
+      <div className="container-wide">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
+          <span className="text-violet-600 text-xs font-medium uppercase tracking-widest mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-gray-900 mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto text-gray-600">
+          <p className="text-lg leading-relaxed max-w-2xl mx-auto text-gray-500">
             {t.subtitle}
           </p>
         </div>
 
         {/* Offer cards - 2x2 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {offers.map((offer, i) => {
             const accent = accentColors[i]
             return (
               <div
                 key={offer.name.fr}
                 className={cn(
-                  'relative bg-white rounded-3xl overflow-hidden flex flex-col animate-fade-in-up transition-all duration-300 group',
-                  'hover:-translate-y-1'
+                  'bg-white rounded-xl border border-gray-200 border-l-2 p-6 flex flex-col animate-fade-in-up transition-all duration-200',
+                  accent.borderColor,
+                  'hover:border-gray-300 hover:shadow-sm'
                 )}
-                style={{
-                  animationDelay: `${i * 0.1}s`,
-                  borderLeft: `4px solid ${accent.border}`,
-                  boxShadow: offer.featured
-                    ? `0 16px 60px -12px rgba(212, 175, 55, 0.15), 0 4px 16px -4px rgba(0,0,0,0.06)`
-                    : '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
-                  ...(offer.featured ? { outline: '2px solid rgba(212,175,55,0.25)', outlineOffset: '-2px' } : {}),
-                }}
+                style={{ animationDelay: `${i * 0.1}s` }}
               >
-                {/* Large offer number as watermark */}
-                <span className="absolute top-3 right-5 font-display text-8xl font-bold select-none pointer-events-none text-gray-100">
-                  {offerNumbers[i]}
-                </span>
-
-                <div className="p-6 lg:p-8 flex flex-col flex-1 relative">
-                  {/* Badge for featured */}
-                  {offer.featured && offer.badge && (
-                    <div className="mb-4">
-                      <span
-                        className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full"
-                        style={{
-                          background: 'linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05))',
-                          border: '1px solid rgba(212,175,55,0.3)',
-                          color: '#996515',
-                        }}
-                      >
-                        {offer.badge[locale]}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Offer name */}
-                  <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight mb-3">
-                    {offer.name[locale]}
-                  </h3>
-
-                  {/* Price - gold */}
-                  <div className="mb-3">
-                    <span
-                      className="font-display text-3xl font-semibold"
-                      style={{ color: '#D4AF37' }}
-                    >
-                      {offer.price}
-                    </span>
-                    <span className="font-display text-xl font-normal text-gray-400 ml-1">
-                      &euro;
-                    </span>
-                  </div>
-
-                  {/* Target audience badge */}
+                {/* Badge for featured */}
+                {offer.featured && offer.badge && (
                   <div className="mb-4">
-                    <span
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full"
-                      style={{
-                        background: accent.bg,
-                        color: accent.text,
-                        border: `1px solid ${accent.border}25`,
-                      }}
-                    >
-                      {t.targetLabel} : {offer.target[locale]}
+                    <span className="text-xs bg-amber-50 text-amber-700 font-medium px-2 py-1 rounded">
+                      {offer.badge[locale]}
                     </span>
                   </div>
+                )}
 
-                  {/* Duration */}
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
-                      {offer.duration[locale]}
-                    </span>
-                    {offer.format && (
-                      <span className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full bg-gray-50 text-gray-500">
-                        {offer.format[locale]}
-                      </span>
-                    )}
-                  </div>
+                {/* Offer name */}
+                <h3 className="font-display text-lg font-semibold text-gray-900 tracking-tight mb-3">
+                  {offer.name[locale]}
+                </h3>
 
-                  {/* Programme accordion */}
-                  <Accordion type="single" className="mb-6">
-                    <AccordionItem
+                {/* Price */}
+                <div className="mb-3">
+                  <span className="font-display text-2xl font-semibold text-gray-900">
+                    {offer.price}
+                  </span>
+                  <span className="text-base text-gray-400 ml-1">&euro;</span>
+                </div>
+
+                {/* Target audience */}
+                <p className="text-xs text-gray-400 mb-2">
+                  {t.targetLabel} : {offer.target[locale]}
+                </p>
+
+                {/* Duration */}
+                <div className="space-y-1 mb-5">
+                  <p className="text-xs text-gray-400">{offer.duration[locale]}</p>
+                  {offer.format && (
+                    <p className="text-xs text-gray-400">{offer.format[locale]}</p>
+                  )}
+                </div>
+
+                {/* Programme accordion */}
+                <Accordion type="single" className="mb-6">
+                  <AccordionItem
+                    value={`meta-${i}`}
+                    className="border-gray-200 rounded-xl"
+                  >
+                    <AccordionTrigger
                       value={`meta-${i}`}
-                      className="border-gray-200 rounded-xl"
+                      className={cn('text-sm font-medium hover:bg-gray-50', accent.triggerColor)}
                     >
-                      <AccordionTrigger
-                        value={`meta-${i}`}
-                        className={cn('text-sm font-semibold hover:bg-gray-50', accent.triggerClass)}
-                      >
-                        {t.programmeLabel}
-                      </AccordionTrigger>
-                      <AccordionContent value={`meta-${i}`}>
-                        <ul className="space-y-2.5">
-                          {offer.programme[locale].map((item) => (
-                            <li key={item} className="flex items-start gap-2.5 text-sm">
-                              <span
-                                className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
-                                style={{ backgroundColor: accent.dot }}
-                              />
-                              <span className="text-gray-600">{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      {t.programmeLabel}
+                    </AccordionTrigger>
+                    <AccordionContent value={`meta-${i}`}>
+                      <ul className="space-y-2.5">
+                        {offer.programme[locale].map((item) => (
+                          <li key={item} className="flex items-start gap-2.5 text-sm">
+                            <span
+                              className={cn('w-1 h-1 rounded-full mt-2 flex-shrink-0', accent.dotColor)}
+                            />
+                            <span className="text-gray-600">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
 
-                        {/* Result callout */}
-                        <div
-                          className="mt-4 p-4 rounded-xl"
-                          style={{
-                            background: accent.bg,
-                            border: `1px solid ${accent.border}25`,
-                          }}
-                        >
-                          <p className="text-sm font-medium text-anthracite">
-                            <span style={{ color: accent.text }}>{t.resultLabel} :</span>{' '}
-                            {offer.result[locale]}
-                          </p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                      {/* Result box */}
+                      <div className="mt-4 p-3 rounded-lg bg-gray-50">
+                        <p className="text-sm">
+                          <span className={cn('font-medium', accent.triggerColor)}>{t.resultLabel} :</span>{' '}
+                          <span className="text-gray-600">{offer.result[locale]}</span>
+                        </p>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
 
-                  {/* CTA */}
-                  <div className="mt-auto">
-                    <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button
-                        variant={offer.featured ? 'gold' : 'outline'}
-                        size="lg"
-                        icon={<ArrowIcon />}
-                        className="w-full"
-                      >
-                        {t.cta}
-                      </Button>
-                    </a>
-                  </div>
+                {/* CTA */}
+                <div className="mt-auto">
+                  <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button
+                      variant={offer.featured ? 'gold' : 'outline'}
+                      size="lg"
+                      icon={<ArrowIcon />}
+                      className="w-full"
+                    >
+                      {t.cta}
+                    </Button>
+                  </a>
                 </div>
               </div>
             )
