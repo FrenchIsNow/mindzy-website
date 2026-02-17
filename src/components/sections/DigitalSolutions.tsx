@@ -4,6 +4,8 @@ const solutions = [
   {
     icon: 'code',
     gradient: 'from-violet-500 to-violet-700',
+    lightBg: 'from-violet-50 to-violet-100',
+    borderColor: 'border-l-violet-400',
     title: { fr: 'Applications web', en: 'Web applications', es: 'Aplicaciones web' },
     description: {
       fr: 'Applications performantes et \u00e9volutives sur mesure',
@@ -14,6 +16,8 @@ const solutions = [
   {
     icon: 'phone',
     gradient: 'from-sage-500 to-sage-700',
+    lightBg: 'from-sage-50 to-sage-100',
+    borderColor: 'border-l-sage-400',
     title: { fr: 'Applications mobiles', en: 'Mobile applications', es: 'Aplicaciones m\u00f3viles' },
     description: {
       fr: 'Apps iOS et Android natives ou cross-platform',
@@ -24,6 +28,8 @@ const solutions = [
   {
     icon: 'cloud',
     gradient: 'from-gold to-gold-dark',
+    lightBg: 'from-amber-50 to-amber-100',
+    borderColor: 'border-l-gold',
     title: { fr: 'Plateformes SaaS', en: 'SaaS platforms', es: 'Plataformas SaaS' },
     description: {
       fr: 'Solutions cloud multi-tenant scalables',
@@ -34,6 +40,8 @@ const solutions = [
   {
     icon: 'store',
     gradient: 'from-rose-400 to-rose-500',
+    lightBg: 'from-rose-50 to-rose-100',
+    borderColor: 'border-l-rose-400',
     title: { fr: 'Marketplaces', en: 'Marketplaces', es: 'Marketplaces' },
     description: {
       fr: 'Plateformes multi-vendeurs et \u00e9cosyst\u00e8mes',
@@ -44,6 +52,8 @@ const solutions = [
   {
     icon: 'grid',
     gradient: 'from-cyan-500 to-cyan-700',
+    lightBg: 'from-cyan-50 to-cyan-100',
+    borderColor: 'border-l-cyan-400',
     title: { fr: 'Dashboards strat\u00e9giques', en: 'Strategic dashboards', es: 'Dashboards estrat\u00e9gicos' },
     description: {
       fr: 'Interfaces priv\u00e9es et outils de pilotage',
@@ -54,6 +64,8 @@ const solutions = [
   {
     icon: 'globe',
     gradient: 'from-amber-500 to-amber-700',
+    lightBg: 'from-amber-50 to-orange-100',
+    borderColor: 'border-l-amber-400',
     title: { fr: 'Sites web sur mesure', en: 'Custom websites', es: 'Sitios web a medida' },
     description: {
       fr: 'Corporate, premium, orient\u00e9s conversion',
@@ -109,77 +121,80 @@ export function DigitalSolutions({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="relative py-20 sm:py-24 lg:py-32 overflow-hidden bg-[#0F0F1E]">
-      {/* Noise texture */}
+    <section className="relative py-24 sm:py-28 lg:py-32 overflow-hidden bg-white">
+      {/* Subtle gradient mesh blobs */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute top-[5%] right-[10%] w-[400px] h-[400px] rounded-full blur-3xl opacity-20 animate-mesh-1"
         style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+          background:
+            'radial-gradient(circle at center, rgba(124,108,252,0.2) 0%, transparent 70%)',
         }}
       />
-
-      {/* Ambient glow */}
       <div
-        className="absolute top-0 right-[20%] w-[500px] h-[500px] opacity-10"
+        className="absolute bottom-[10%] left-[5%] w-[350px] h-[350px] rounded-full blur-3xl opacity-15 animate-mesh-2"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(124,58,237,0.4) 0%, transparent 60%)',
+          background:
+            'radial-gradient(circle at center, rgba(78,234,219,0.2) 0%, transparent 70%)',
         }}
       />
 
       <div className="container-wide relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-400 mb-4 block">
+          <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] text-violet-600 mb-4 block">
             {t.eyebrow}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
+          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+        {/* Bento grid - white cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {solutions.map((solution, i) => (
             <div
               key={solution.icon}
-              className={`group relative rounded-2xl bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] p-6 lg:p-8 transition-all duration-500 hover:border-violet-500/30 hover:shadow-[0_0_80px_-20px_rgba(124,58,237,0.15)] animate-fade-in-up ${i === 0 ? 'lg:col-span-2 lg:row-span-2 lg:p-10' : ''}`}
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`group relative bg-white rounded-3xl border-l-4 ${solution.borderColor} p-8 transition-all duration-500 animate-fade-in-up ${i === 0 ? 'lg:col-span-2 lg:row-span-2 lg:p-10' : ''}`}
+              style={{
+                animationDelay: `${i * 0.1}s`,
+                boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
+              }}
             >
-              {/* Icon with gradient glow */}
+              {/* Icon with light gradient background */}
               <div className="relative mb-5">
                 <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 ${i === 0 ? 'w-16 h-16' : ''}`}
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.lightBg} flex items-center justify-center text-violet-600 group-hover:scale-110 transition-transform duration-300 ${i === 0 ? 'w-16 h-16' : ''}`}
                 >
                   <SolutionIcon name={solution.icon} large={i === 0} />
                 </div>
-                {/* Glow behind icon */}
-                <div
-                  className={`absolute inset-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${solution.gradient} opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 ${i === 0 ? 'w-16 h-16' : ''}`}
-                />
               </div>
 
-              <h3 className={`font-display font-semibold tracking-tight text-white mb-2 ${i === 0 ? 'text-2xl' : 'text-xl'}`}>
+              <h3 className={`font-display font-semibold tracking-tight text-anthracite mb-2 ${i === 0 ? 'text-2xl' : 'text-xl'}`}>
                 {solution.title[locale]}
               </h3>
-              <p className={`text-gray-400 leading-relaxed ${i === 0 ? 'text-lg' : ''}`}>
+              <p className={`text-gray-600 leading-relaxed ${i === 0 ? 'text-lg' : ''}`}>
                 {solution.description[locale]}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Pillars - horizontal row */}
-        <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] p-8">
-          <h3 className="font-display text-xl font-semibold text-white mb-6 text-center">{t.pillarsTitle}</h3>
+        {/* Pillars - white/light card */}
+        <div
+          className="relative rounded-3xl bg-violet-50/50 border border-violet-100 p-8"
+          style={{
+            boxShadow: '0 4px 24px -8px rgba(124, 108, 252, 0.08)',
+          }}
+        >
+          <h3 className="font-display text-xl font-semibold text-anthracite mb-6 text-center">{t.pillarsTitle}</h3>
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
             {pillars[locale].map((pillar, i) => (
               <div key={pillar} className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-violet-500 flex-shrink-0" />
-                <span className="text-gray-300 text-sm sm:text-base">{pillar}</span>
+                <span className="text-gray-600 text-sm sm:text-base">{pillar}</span>
                 {i < pillars[locale].length - 1 && (
-                  <span className="hidden lg:block text-gray-700 ml-5">|</span>
+                  <span className="hidden lg:block text-violet-200 ml-5">|</span>
                 )}
               </div>
             ))}

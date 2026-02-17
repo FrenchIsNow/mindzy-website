@@ -76,14 +76,27 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="relative py-20 sm:py-24 lg:py-32 overflow-hidden bg-white">
-      {/* Subtle background texture */}
+    <section className="relative py-24 sm:py-28 lg:py-32 overflow-hidden bg-violet-50/30">
+      {/* Animated gradient mesh blobs */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute top-[10%] left-[5%] w-[450px] h-[450px] rounded-full blur-3xl opacity-25 animate-mesh-1"
         style={{
-          backgroundSize: '40px 40px',
-          backgroundImage:
-            'linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)',
+          background:
+            'radial-gradient(circle at center, rgba(124,108,252,0.2) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full blur-3xl opacity-20 animate-mesh-3"
+        style={{
+          background:
+            'radial-gradient(circle at center, rgba(126,236,216,0.2) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute top-[50%] right-[30%] w-[300px] h-[300px] rounded-full blur-3xl opacity-20 animate-mesh-2"
+        style={{
+          background:
+            'radial-gradient(circle at center, rgba(196,181,253,0.25) 0%, transparent 70%)',
         }}
       />
 
@@ -96,7 +109,7 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.2] text-anthracite mb-4">
             {t.title}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
+          <p className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
         {/* AI Agents - Split screen: editorial left, card right */}
@@ -104,7 +117,7 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
           {/* Editorial typography */}
           <div className="animate-fade-in-up">
             <div className="relative">
-              <span className="font-display text-7xl sm:text-8xl lg:text-9xl font-semibold text-violet-100 leading-none select-none">
+              <span className="font-display text-7xl sm:text-8xl lg:text-9xl font-semibold text-violet-200 leading-none select-none">
                 Agents
               </span>
               <span
@@ -115,13 +128,16 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          {/* Glass-dark card with items */}
+          {/* White card with items */}
           <div
-            className="rounded-2xl bg-[#0F0F1E] border border-white/[0.08] p-8 lg:p-10 shadow-[0_0_80px_-20px_rgba(124,58,237,0.12)] animate-fade-in-up"
-            style={{ animationDelay: '0.15s' }}
+            className="rounded-3xl bg-white p-8 lg:p-10 animate-fade-in-up"
+            style={{
+              animationDelay: '0.15s',
+              boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
+            }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center text-violet-400">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-100 to-violet-200 flex items-center justify-center text-violet-600">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path
                     strokeLinecap="round"
@@ -130,32 +146,35 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
                   />
                 </svg>
               </div>
-              <h3 className="font-display text-xl font-semibold text-white tracking-tight">{t.agentsTitle}</h3>
+              <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight">{t.agentsTitle}</h3>
             </div>
             <ul className="space-y-4">
               {agentsItems[locale].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-violet-500 mt-2.5 flex-shrink-0" />
-                  <span className="text-gray-300 leading-relaxed">{item}</span>
+                  <span className="text-gray-600 leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Animated gradient divider */}
+        {/* Decorative gradient divider */}
         <div className="flex justify-center mb-16 lg:mb-24">
-          <div className="w-64 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent animate-pulse-slow" />
+          <div className="w-64 h-px bg-gradient-to-r from-transparent via-violet-300 to-transparent" />
         </div>
 
         {/* Automation - Split screen: card left, editorial right (mirrored) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Glass-dark card with items */}
+          {/* White card with items */}
           <div
-            className="rounded-2xl bg-[#0F0F1E] border border-white/[0.08] p-8 lg:p-10 shadow-[0_0_80px_-20px_rgba(125,148,99,0.12)] animate-fade-in-up order-2 lg:order-1"
+            className="rounded-3xl bg-white p-8 lg:p-10 animate-fade-in-up order-2 lg:order-1"
+            style={{
+              boxShadow: '0 8px 40px -12px rgba(124, 108, 252, 0.12), 0 2px 12px -4px rgba(0,0,0,0.04)',
+            }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-sage-500/20 flex items-center justify-center text-sage-400">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sage-50 to-sage-100 flex items-center justify-center text-sage-600">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path
                     strokeLinecap="round"
@@ -164,13 +183,13 @@ export function AIAgentsAutomation({ locale }: { locale: Locale }) {
                   />
                 </svg>
               </div>
-              <h3 className="font-display text-xl font-semibold text-white tracking-tight">{t.automationTitle}</h3>
+              <h3 className="font-display text-xl font-semibold text-anthracite tracking-tight">{t.automationTitle}</h3>
             </div>
             <ul className="space-y-4">
               {automationItems[locale].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-sage-500 mt-2.5 flex-shrink-0" />
-                  <span className="text-gray-300 leading-relaxed">{item}</span>
+                  <span className="text-gray-600 leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>

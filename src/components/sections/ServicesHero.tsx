@@ -28,99 +28,116 @@ export function ServicesHero({ locale }: { locale: Locale }) {
   const t = content[locale]
 
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-28 pb-20 overflow-hidden bg-[#0A0A1A]">
-      {/* Animated gradient mesh - radial orbs */}
+    <section className="relative min-h-[70vh] flex items-center pt-28 pb-20 overflow-hidden gradient-mesh-bg">
+      {/* Animated gradient mesh blobs - background layer */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-30 animate-pulse-slow"
+        className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full blur-3xl opacity-30 animate-mesh-1"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(124,58,237,0.4) 0%, rgba(124,58,237,0.1) 40%, transparent 70%)',
+            'radial-gradient(circle at center, rgba(124,108,252,0.3) 0%, transparent 70%)',
         }}
       />
       <div
-        className="absolute top-[20%] right-[15%] w-[400px] h-[400px] opacity-20"
+        className="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full blur-3xl opacity-25 animate-mesh-2"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(212,175,55,0.3) 0%, transparent 60%)',
+            'radial-gradient(circle at center, rgba(78,234,219,0.25) 0%, transparent 70%)',
         }}
       />
       <div
-        className="absolute bottom-[10%] left-[10%] w-[300px] h-[300px] opacity-15"
+        className="absolute bottom-[5%] left-[30%] w-[600px] h-[600px] rounded-full blur-3xl opacity-20 animate-mesh-3"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(139,92,246,0.4) 0%, transparent 60%)',
+            'radial-gradient(circle at center, rgba(196,181,253,0.3) 0%, transparent 70%)',
         }}
       />
-
-      {/* Noise texture overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute bottom-[15%] right-[20%] w-[350px] h-[350px] rounded-full blur-3xl opacity-25 animate-mesh-1"
         style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      {/* Subtle grid on dark */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundSize: '60px 60px',
-          backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          background:
+            'radial-gradient(circle at center, rgba(107,159,255,0.2) 0%, transparent 70%)',
         }}
       />
 
       <div className="container-wide relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Glass pill badge */}
-          <div className="animate-fade-in-down mb-10">
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] text-sm font-medium text-violet-300 shadow-[0_0_30px_-10px_rgba(124,58,237,0.3)]">
-              <svg
-                className="w-4 h-4 text-violet-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              {t.badge}
-            </span>
+        {/* White inner card container - STAN-style */}
+        <div
+          className="relative max-w-4xl mx-auto bg-white rounded-4xl p-10 sm:p-14 lg:p-16 overflow-hidden"
+          style={{
+            boxShadow:
+              '0 8px 60px -12px rgba(124, 108, 252, 0.15), 0 2px 20px -4px rgba(0,0,0,0.04)',
+          }}
+        >
+          {/* Animated mesh blobs INSIDE the card */}
+          <div
+            className="absolute top-[-20%] right-[-10%] w-[300px] h-[300px] rounded-full blur-3xl opacity-30 animate-mesh-2"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(124,108,252,0.25) 0%, transparent 70%)',
+            }}
+          />
+          <div
+            className="absolute bottom-[-15%] left-[-5%] w-[250px] h-[250px] rounded-full blur-3xl opacity-25 animate-mesh-3"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(78,234,219,0.2) 0%, transparent 70%)',
+            }}
+          />
+          <div
+            className="absolute top-[30%] left-[50%] w-[200px] h-[200px] rounded-full blur-3xl opacity-20 animate-mesh-1"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(196,181,253,0.25) 0%, transparent 70%)',
+            }}
+          />
+
+          <div className="relative z-10 text-center">
+            {/* Badge pill */}
+            <div className="animate-fade-in-down mb-10">
+              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-violet-200 text-sm font-medium text-violet-600 shadow-soft">
+                <svg
+                  className="w-4 h-4 text-violet-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+                {t.badge}
+              </span>
+            </div>
+
+            {/* Main heading */}
+            <h1
+              className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] text-anthracite mb-8 animate-fade-in-up"
+              style={{ animationDelay: '0.1s' }}
+            >
+              {t.titleStart}
+              <span className="bg-gradient-to-r from-violet-600 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
+                {t.titleHighlight}
+              </span>
+            </h1>
+
+            {/* Decorative gradient line */}
+            <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
+            </div>
+
+            {/* Subtitle */}
+            <p
+              className="text-xl sm:text-2xl max-w-2xl mx-auto text-gray-600 leading-relaxed font-light animate-fade-in-up"
+              style={{ animationDelay: '0.3s' }}
+            >
+              {t.subtitle}
+            </p>
           </div>
-
-          {/* Main heading - MASSIVE */}
-          <h1
-            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] text-white mb-8 animate-fade-in-up"
-            style={{ animationDelay: '0.1s' }}
-          >
-            {t.titleStart}
-            <span className="bg-gradient-to-r from-violet-400 via-violet-300 to-[#D4AF37] bg-clip-text text-transparent">
-              {t.titleHighlight}
-            </span>
-          </h1>
-
-          {/* Animated glow line */}
-          <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="w-32 h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent animate-pulse-slow" />
-          </div>
-
-          {/* Subtitle */}
-          <p
-            className="text-xl sm:text-2xl max-w-2xl mx-auto text-gray-400 leading-relaxed font-light animate-fade-in-up"
-            style={{ animationDelay: '0.3s' }}
-          >
-            {t.subtitle}
-          </p>
         </div>
       </div>
-
-      {/* Bottom gradient transition to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F0F1E] to-transparent" />
     </section>
   )
 }
