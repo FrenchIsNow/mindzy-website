@@ -480,13 +480,6 @@
     "title": "Opiniones",
     "subtitle": "Testimonios verificados"
   },
-  "resources": {
-    "title": "Recursos gratuitos",
-    "subtitle": "Guías y herramientas para tu presencia en línea",
-    "download": "Descargar",
-    "emailPlaceholder": "Tu email",
-    "emailCta": "Recibir recursos"
-  },
   "blog": {
     "title": "Blog",
     "subtitle": "Consejos para desarrollar tu negocio",
@@ -569,7 +562,7 @@
     }
   },
   "footer": {
-    "description": "Mindzy crea sitios premium para emprendedores.",
+    "description": "Mindzy crea solutiones premium para emprendedores.",
     "sections": {
       "product": "Product",
       "resources": "Resources",
@@ -582,8 +575,6 @@
       "process": "Process",
       "diagnostic": "Diagnostic",
       "blog": "Blog",
-      "academy": "Academy",
-      "resources": "Resources",
       "faq": "FAQ",
       "about": "About",
       "whyUs": "Why us",

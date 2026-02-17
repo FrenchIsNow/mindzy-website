@@ -18,8 +18,6 @@ export function Footer({ locale }: { locale: Locale }) {
     ],
     resources: [
       { href: `/${locale}/blog`, label: t.links.blog },
-      { href: `/${locale}/academy`, label: t.links.academy },
-      { href: `/${locale}/ressources`, label: t.links.resources },
       { href: `/${locale}/faq`, label: t.links.faq },
     ],
     company: [

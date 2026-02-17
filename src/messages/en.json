@@ -480,13 +480,6 @@
     "title": "Client reviews",
     "subtitle": "Verified testimonials"
   },
-  "resources": {
-    "title": "Free resources",
-    "subtitle": "Guides and tools for your online presence",
-    "download": "Download",
-    "emailPlaceholder": "Your email",
-    "emailCta": "Get resources"
-  },
   "blog": {
     "title": "Blog",
     "subtitle": "Tips to grow your business",
@@ -569,7 +562,7 @@
     }
   },
   "footer": {
-    "description": "Mindzy creates premium websites for entrepreneurs.",
+    "description": "Mindzy creates premium solutions for entrepreneurs.",
     "sections": {
       "product": "Product",
       "resources": "Resources",
@@ -582,8 +575,6 @@
       "process": "Process",
       "diagnostic": "Diagnostic",
       "blog": "Blog",
-      "academy": "Academy",
-      "resources": "Resources",
       "faq": "FAQ",
       "about": "About",
       "whyUs": "Why us",

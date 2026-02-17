@@ -1,5 +1,5 @@
 import type { Locale } from './i18n'
-import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, Resource, BeforeAfterExample, ProfileQuestion } from './types'
+import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, BeforeAfterExample, ProfileQuestion } from './types'
 
 export const config = {
   SITE_URL: 'https://mindzy.me',
@@ -244,12 +244,6 @@ export const onboardingSteps: OnboardingStep[] = [
   { id: 'assets', question: { fr: 'Quels éléments de marque avez-vous ?', en: 'What brand elements do you have?', es: '¿Qué elementos de marca tiene?' }, options: [{ value: 'logo', label: { fr: 'Logo professionnel', en: 'Professional logo', es: 'Logo profesional' }, icon: '🎨' }, { value: 'colors', label: { fr: 'Charte graphique', en: 'Brand guidelines', es: 'Guía de marca' }, icon: '🎯' }, { value: 'nothing', label: { fr: 'Rien pour l\'instant', en: 'Nothing yet', es: 'Nada por ahora' }, icon: '✨' }] },
   { id: 'booking', question: { fr: 'Avez-vous besoin de réservation en ligne ?', en: 'Do you need online booking?', es: '¿Necesita reservas en línea?' }, options: [{ value: 'yes', label: { fr: 'Oui, essentiel', en: 'Yes, essential', es: 'Sí, esencial' }, icon: '✅' }, { value: 'no', label: { fr: 'Non', en: 'No', es: 'No' }, icon: '❌' }] },
   { id: 'payments', question: { fr: 'Souhaitez-vous accepter les paiements en ligne ?', en: 'Do you want to accept online payments?', es: '¿Desea aceptar pagos en línea?' }, options: [{ value: 'yes', label: { fr: 'Oui', en: 'Yes', es: 'Sí' }, icon: '💳' }, { value: 'no', label: { fr: 'Non', en: 'No', es: 'No' }, icon: '🚫' }] },
-]
-
-export const resources: Resource[] = [
-  { id: 'r1', title: { fr: 'Guide SEO pour entrepreneurs', en: 'SEO Guide for entrepreneurs', es: 'Guía SEO para emprendedores' }, description: { fr: 'Les bases du référencement pour attirer plus de clients.', en: 'SEO basics to attract more clients.', es: 'Conceptos básicos de SEO para atraer más clientes.' }, type: 'pdf', downloadUrl: '/resources/guide-seo.pdf', image: '/images/resources/1.jpg' },
-  { id: 'r2', title: { fr: 'Checklist de lancement', en: 'Launch checklist', es: 'Lista de verificación de lanzamiento' }, description: { fr: 'Tout vérifier avant de lancer votre site.', en: 'Everything to check before launching.', es: 'Todo lo que debe verificar antes de lanzar.' }, type: 'template', downloadUrl: '/resources/checklist.pdf', image: '/images/resources/2.jpg' },
-  { id: 'r3', title: { fr: 'Template de contenu pour site web', en: 'Website content template', es: 'Plantilla de contenido para sitio web' }, description: { fr: 'Préparez facilement le contenu de votre futur site.', en: 'Easily prepare content for your future site.', es: 'Prepare fácilmente el contenido de su futuro sitio.' }, type: 'template', downloadUrl: '/resources/content-template.pdf', image: '/images/resources/3.jpg' },
 ]
 
 export const beforeAfterExamples: BeforeAfterExample[] = [
