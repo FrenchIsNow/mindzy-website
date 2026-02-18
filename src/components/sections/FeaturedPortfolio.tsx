@@ -13,21 +13,21 @@ export async function FeaturedPortfolio({ locale }: { locale: Locale }) {
   const content = {
     fr: {
       eyebrow: 'Nos réalisations',
-      title: 'Des sites qui convertissent',
+      title: 'Ce que nous avons créé',
       subtitle: 'Découvrez les projets que nous avons réalisés pour des entrepreneurs comme vous.',
       cta: 'Voir tout le portfolio',
       viewProject: 'Voir le projet',
     },
     en: {
       eyebrow: 'Our work',
-      title: 'Websites that convert',
+      title: 'What we\'ve built',
       subtitle: 'Discover the projects we\'ve built for entrepreneurs like you.',
       cta: 'View full portfolio',
       viewProject: 'View project',
     },
     es: {
       eyebrow: 'Nuestro trabajo',
-      title: 'Sitios que convierten',
+      title: 'Lo que hemos creado',
       subtitle: 'Descubre los proyectos que hemos realizado para emprendedores como tú.',
       cta: 'Ver todo el portfolio',
       viewProject: 'Ver proyecto',
@@ -116,26 +116,7 @@ export async function FeaturedPortfolio({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        {/* Stats row */}
-        <div className="mt-16 pt-12 border-t border-gray-100">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatItem value="40+" label="Sites livrés" />
-            <StatItem value="98%" label="Satisfaction client" />
-            <StatItem value="4.9/5" label="Note moyenne" />
-          </div>
-        </div>
       </div>
     </section>
-  )
-}
-
-function StatItem({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="group">
-      <div className="font-display text-3xl sm:text-4xl font-semibold text-anthracite mb-1 group-hover:text-violet transition-colors">
-        {value}
-      </div>
-      <div className="text-sm text-gray-500">{label}</div>
-    </div>
   )
 }

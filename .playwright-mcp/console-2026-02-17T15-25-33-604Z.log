@@ -1,0 +1,5 @@
+[     127ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/fr/services:0
+[    1454ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://us-assets.i.posthog.com/array/%3Cyour-posthog-key%3E/config.js:0
+[    1454ms] [ERROR] Refused to execute script from 'https://us-assets.i.posthog.com/array/%3Cyour-posthog-key%3E/config.js' because its MIME type ('application/json') is not executable, and strict MIME type checking is enabled. @ http://localhost:3000/fr/services:0
+[    1869ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://us.i.posthog.com/flags/?v=2&config=true&ip=0&_=1771341933785&ver=1.335.2&compression=base64:0
+[    1911ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://us-assets.i.posthog.com/array/%3Cyour-posthog-key%3E/config?ip=0&_=1771341935057&ver=1.335.2:0

@@ -48,6 +48,14 @@ export const routingQuestion: BranchingDiagnosticQuestion = {
         es: 'Tengo una necesidad específica o compleja',
       },
     },
+    {
+      value: 'E',
+      label: {
+        fr: 'Je souhaite me former ou former mes équipes',
+        en: 'I want to train myself or my teams',
+        es: 'Quiero formarme o formar a mis equipos',
+      },
+    },
   ],
 }
 
@@ -508,6 +516,101 @@ export const branchQuestions: Record<
       ],
     },
   ],
+
+  // -----------------------------------------------------------------------
+  // BRANCHE E — FORMATION
+  // -----------------------------------------------------------------------
+  E: [
+    // Q4E — Domaine de formation
+    {
+      id: 'q4e',
+      question: {
+        fr: 'Dans quel domaine souhaitez-vous vous former ?',
+        en: 'In which area would you like to get trained?',
+        es: '¿En qué área desea formarse?',
+      },
+      type: 'multiple',
+      maxSelect: 2,
+      options: [
+        {
+          value: 'linkedin',
+          label: {
+            fr: 'LinkedIn & Social Selling',
+            en: 'LinkedIn & Social Selling',
+            es: 'LinkedIn & Social Selling',
+          },
+        },
+        {
+          value: 'social-media',
+          label: {
+            fr: 'Réseaux sociaux (Meta, TikTok…)',
+            en: 'Social media (Meta, TikTok…)',
+            es: 'Redes sociales (Meta, TikTok…)',
+          },
+        },
+        {
+          value: 'ai',
+          label: {
+            fr: 'Intelligence artificielle',
+            en: 'Artificial intelligence',
+            es: 'Inteligencia artificial',
+          },
+        },
+        {
+          value: 'marketing',
+          label: {
+            fr: 'Marketing digital global',
+            en: 'Overall digital marketing',
+            es: 'Marketing digital global',
+          },
+        },
+      ],
+    },
+    // Q5E — Objectif principal
+    {
+      id: 'q5e',
+      question: {
+        fr: 'Quel est votre objectif principal ?',
+        en: 'What is your main objective?',
+        es: '¿Cuál es su objetivo principal?',
+      },
+      type: 'single',
+      options: [
+        {
+          value: 'skills',
+          label: {
+            fr: 'Acquérir de nouvelles compétences',
+            en: 'Acquire new skills',
+            es: 'Adquirir nuevas competencias',
+          },
+        },
+        {
+          value: 'strategy',
+          label: {
+            fr: 'Structurer ma stratégie digitale',
+            en: 'Structure my digital strategy',
+            es: 'Estructurar mi estrategia digital',
+          },
+        },
+        {
+          value: 'growth',
+          label: {
+            fr: 'Monter en puissance sur les réseaux',
+            en: 'Scale up on social media',
+            es: 'Crecer en las redes sociales',
+          },
+        },
+        {
+          value: 'ai-integration',
+          label: {
+            fr: 'Intégrer l\'IA dans mon activité',
+            en: 'Integrate AI into my business',
+            es: 'Integrar la IA en mi actividad',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 // ---------------------------------------------------------------------------
@@ -604,6 +707,29 @@ export const branchResults: Record<DiagnosticBranch, DiagnosticBranchResult> = {
       fr: 'Échanger de manière confidentielle',
       en: 'Discuss confidentially',
       es: 'Hablar de manera confidencial',
+    },
+  },
+  E: {
+    branch: 'E',
+    title: {
+      fr: 'Monter en compétences pour accélérer votre croissance',
+      en: 'Build skills to accelerate your growth',
+      es: 'Desarrollar competencias para acelerar su crecimiento',
+    },
+    text: {
+      fr: 'Votre besoin porte sur la montée en compétences dans le digital. Nos formations stratégiques — LinkedIn, réseaux sociaux, IA — sont conçues pour produire des résultats concrets et mesurables.',
+      en: 'Your need focuses on building digital skills. Our strategic training programs — LinkedIn, social media, AI — are designed to deliver concrete and measurable results.',
+      es: 'Su necesidad se centra en el desarrollo de competencias digitales. Nuestras formaciones estratégicas — LinkedIn, redes sociales, IA — están diseñadas para producir resultados concretos y medibles.',
+    },
+    orientation: {
+      fr: 'Formation personnalisée avec accompagnement opérationnel.',
+      en: 'Personalized training with hands-on support.',
+      es: 'Formación personalizada con acompañamiento operativo.',
+    },
+    cta: {
+      fr: 'Découvrir nos formations',
+      en: 'Discover our training programs',
+      es: 'Descubrir nuestras formaciones',
     },
   },
 }

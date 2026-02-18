@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { TrackedLink } from '@/components/ui/TrackedLink'
@@ -13,6 +14,7 @@ export function Hero({ locale }: { locale: Locale }) {
       subtitle: 'Sites, applications, systèmes internes : Mindzy accompagne la création de projets sur mesure, du simple besoin aux structures complexes.',
       cta: 'Prendre rendez-vous',
       ctaSecondary: 'Voir nos réalisations',
+      ctaFormation: 'Démarrer une formation',
       stats: {
         clients: 'Projets livrés',
         satisfaction: 'Satisfaction client',
@@ -34,6 +36,7 @@ export function Hero({ locale }: { locale: Locale }) {
       subtitle: 'Websites, applications, internal systems: Mindzy supports the creation of custom projects, from simple needs to complex structures.',
       cta: 'Book a meeting',
       ctaSecondary: 'View our work',
+      ctaFormation: 'Start a training',
       stats: {
         clients: 'Projects delivered',
         satisfaction: 'Client satisfaction',
@@ -55,6 +58,7 @@ export function Hero({ locale }: { locale: Locale }) {
       subtitle: 'Sitios web, aplicaciones, sistemas internos: Mindzy acompaña la creación de proyectos a medida, desde necesidades simples hasta estructuras complejas.',
       cta: 'Reservar una cita',
       ctaSecondary: 'Ver nuestros trabajos',
+      ctaFormation: 'Iniciar una formación',
       stats: {
         clients: 'Proyectos entregados',
         satisfaction: 'Satisfacción del cliente',
@@ -133,10 +137,11 @@ export function Hero({ locale }: { locale: Locale }) {
                 {t.ctaSecondary}
               </Button>
             </TrackedLink>
+            
           </div>
 
           {/* Stats */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div className="hidden sm:block animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <div className="inline-flex flex-wrap items-center justify-center gap-8 sm:gap-12 px-8 py-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/80 shadow-soft">
               <StatItem value="150+" label={t.stats.clients} icon={<UsersIcon />} />
               <div className="hidden sm:block w-px h-10 bg-gray-200" />

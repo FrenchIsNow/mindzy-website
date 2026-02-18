@@ -10,20 +10,20 @@ export function Footer({ locale }: { locale: Locale }) {
   const t = getMessages(locale).footer
 
   const links = {
-    product: [
-      { href: `/${locale}/services`, label: t.links.pricing },
-      { href: `/${locale}/portfolio`, label: t.links.portfolio },
-      { href: `/${locale}/process`, label: t.links.process },
-      { href: `/${locale}/diagnostic`, label: t.links.diagnostic },
+    solutions: [
+      { href: `/${locale}/solutions/site-web`, label: (t.links as any).siteWeb },
+      { href: `/${locale}/solutions/sur-mesure`, label: (t.links as any).surMesure },
+      { href: `/${locale}/solutions/formations`, label: (t.links as any).formations },
+      { href: `/${locale}/solutions/branding`, label: (t.links as any).branding },
     ],
     resources: [
+      { href: `/${locale}/portfolio`, label: t.links.portfolio },
       { href: `/${locale}/blog`, label: t.links.blog },
       { href: `/${locale}/faq`, label: t.links.faq },
     ],
     company: [
-      { href: `/${locale}/about`, label: t.links.about },
-      { href: `/${locale}/pourquoi-nous`, label: t.links.whyUs },
-      { href: `/${locale}/avis-clients`, label: t.links.reviews },
+      { href: `/${locale}/pourquoi-nous`, label: (t.links as any).whyUs },
+      { href: `/${locale}/avis-clients`, label: (t.links as any).reviews },
     ],
     legal: [
       { href: `/${locale}/legal/cgu`, label: t.links.cgu },
@@ -96,7 +96,7 @@ export function Footer({ locale }: { locale: Locale }) {
             </div>
 
             {/* Links columns */}
-            {(['product', 'resources', 'company', 'legal'] as const).map((key) => (
+            {(['solutions', 'resources', 'company', 'legal'] as const).map((key) => (
               <div key={key}>
                 <h4 className="font-semibold text-white mb-5">{t.sections[key]}</h4>
                 <ul className="space-y-3">

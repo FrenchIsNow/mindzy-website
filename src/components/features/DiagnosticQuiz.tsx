@@ -412,9 +412,17 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg" onClick={handleCtaClick}>
-                {t.contactUs}
-              </Button>
+              {branch === 'E' ? (
+                <Link href={`/${locale}/solutions/formations`}>
+                  <Button variant="primary" size="lg" className="w-full">
+                    {result.cta[locale]}
+                  </Button>
+                </Link>
+              ) : (
+                <Button variant="primary" size="lg" onClick={handleCtaClick}>
+                  {t.contactUs}
+                </Button>
+              )}
               <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
                 <Button variant="primary" size="lg" className="w-full">
                   {t.bookMeeting}

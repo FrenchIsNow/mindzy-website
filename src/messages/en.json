@@ -1,12 +1,18 @@
 {
   "nav": {
     "home": "Home",
+    "solutions": "Solutions",
     "portfolio": "Portfolio",
-    "pricing": "Services",
     "whyUs": "Why us",
     "blog": "Blog",
     "faq": "FAQ",
-    "cta": "Get started"
+    "cta": "Get started",
+    "solutionsItems": {
+      "siteWeb": { "title": "Website", "subtitle": "An essential digital storefront" },
+      "surMesure": { "title": "Custom solution", "subtitle": "Strategic projects & digital architecture" },
+      "formations": { "title": "Training & Social Media", "subtitle": "Boost your visibility" },
+      "branding": { "title": "Branding & Content", "subtitle": "Visual identity & content strategy" }
+    }
   },
   "hero": {
     "badge": "Next-gen web agency",
@@ -564,16 +570,17 @@
   "footer": {
     "description": "Mindzy creates premium solutions for entrepreneurs.",
     "sections": {
-      "product": "Product",
+      "solutions": "Solutions",
       "resources": "Resources",
       "company": "Company",
       "legal": "Legal"
     },
     "links": {
-      "pricing": "Services",
+      "siteWeb": "Website",
+      "surMesure": "Custom solution",
+      "formations": "Training",
+      "branding": "Branding & Content",
       "portfolio": "Portfolio",
-      "process": "Process",
-      "diagnostic": "Diagnostic",
       "blog": "Blog",
       "faq": "FAQ",
       "about": "About",

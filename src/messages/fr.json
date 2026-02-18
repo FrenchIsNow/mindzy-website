@@ -1,12 +1,18 @@
 {
   "nav": {
     "home": "Accueil",
+    "solutions": "Solutions",
     "portfolio": "Portfolio",
-    "pricing": "Services",
     "whyUs": "Pourquoi nous",
     "blog": "Blog",
     "faq": "FAQ",
-    "cta": "Démarrer"
+    "cta": "Démarrer",
+    "solutionsItems": {
+      "siteWeb": { "title": "Site web", "subtitle": "Une vitrine digitale incontournable" },
+      "surMesure": { "title": "Solution sur mesure", "subtitle": "Projets stratégiques & architecture digitale" },
+      "formations": { "title": "Formations & Réseaux Sociaux", "subtitle": "Boostez votre notoriété" },
+      "branding": { "title": "Branding & Contenu", "subtitle": "Identité visuelle & stratégie de contenu" }
+    }
   },
   "hero": {
     "badge": "Agence web nouvelle génération",
@@ -564,16 +570,17 @@
   "footer": {
     "description": "Mindzy crée des solutions premium pour les entrepreneurs.",
     "sections": {
-      "product": "Produit",
+      "solutions": "Solutions",
       "resources": "Ressources",
       "company": "Entreprise",
       "legal": "Legal"
     },
     "links": {
-      "pricing": "Services",
+      "siteWeb": "Site web",
+      "surMesure": "Solution sur mesure",
+      "formations": "Formations",
+      "branding": "Branding & Contenu",
       "portfolio": "Portfolio",
-      "process": "Processus",
-      "diagnostic": "Diagnostic",
       "blog": "Blog",
       "faq": "FAQ",
       "about": "À propos",

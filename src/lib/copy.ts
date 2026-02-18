@@ -1,7 +1,7 @@
 import type { Locale } from './i18n'
 
 interface CopyKeys {
-  nav: { home: string; portfolio: string; pricing: string; whyUs: string; blog: string; faq: string; cta: string }
+  nav: { home: string; solutions: string; portfolio: string; whyUs: string; blog: string; faq: string; cta: string; solutionsItems: Record<string, { title: string; subtitle: string }> }
   hero: { badge: string; title: string; titleHighlight: string; subtitle: string; cta: string; ctaSecondary: string; stats: { clients: string; satisfaction: string; support: string } }
   useCases: { title: string; subtitle: string; cards: Record<string, { title: string; description: string }> }
   whyMindzy: { title: string; subtitle: string; reasons: Record<string, { title: string; description: string }> }
@@ -17,7 +17,7 @@ interface CopyKeys {
   faq: { title: string; subtitle: string; categories: Record<string, string>; allCategories: Record<string, string> }
   about: { title: string; subtitle: string; mission: { title: string; description: string }; values: { title: string; items: { title: string; description: string }[] } }
   legal: { cgu: { title: string }; cgv: { title: string }; mentions: { title: string } }
-  footer: { description: string; sections: Record<string, string>; links: Record<string, string>; copyright: string }
+  footer: { description: string; sections: Record<string, string>; links: Record<string, string | undefined>; copyright: string }
   stickyCta: { message: string; startButton: string; meetingButton: string }
   chatbot: { title: string; subtitle: string; welcome: string; quickReplies: Record<string, string>; responses: Record<string, string>; buttons: Record<string, string>; whatsappMessage: string }
   common: { learnMore: string; getStarted: string; back: string; next: string; submit: string; loading: string }
@@ -29,12 +29,18 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
   return {
     nav: {
       home: isFr ? 'Accueil' : isEn ? 'Home' : 'Inicio',
+      solutions: isFr ? 'Solutions' : isEn ? 'Solutions' : 'Soluciones',
       portfolio: 'Portfolio',
-      pricing: isFr ? 'Tarifs' : isEn ? 'Pricing' : 'Precios',
       whyUs: isFr ? 'Pourquoi nous' : isEn ? 'Why us' : 'Por qué nosotros',
       blog: 'Blog',
       faq: 'FAQ',
       cta: isFr ? 'Démarrer' : isEn ? 'Get started' : 'Empezar',
+      solutionsItems: {
+        siteWeb: { title: isFr ? 'Site web' : isEn ? 'Website' : 'Sitio web', subtitle: isFr ? 'Une vitrine digitale incontournable' : isEn ? 'An essential digital storefront' : 'Una vitrina digital imprescindible' },
+        surMesure: { title: isFr ? 'Solution sur mesure' : isEn ? 'Custom solution' : 'Solución a medida', subtitle: isFr ? 'Projets stratégiques & architecture digitale' : isEn ? 'Strategic projects & digital architecture' : 'Proyectos estratégicos y arquitectura digital' },
+        formations: { title: isFr ? 'Formations & Réseaux Sociaux' : isEn ? 'Training & Social Media' : 'Formación y Redes Sociales', subtitle: isFr ? 'Boostez votre notoriété' : isEn ? 'Boost your visibility' : 'Impulsa tu notoriedad' },
+        branding: { title: isFr ? 'Branding & Contenu' : isEn ? 'Branding & Content' : 'Branding y Contenido', subtitle: isFr ? 'Identité visuelle & stratégie de contenu' : isEn ? 'Visual identity & content strategy' : 'Identidad visual y estrategia de contenido' },
+      },
     },
     hero: {
       badge: isFr ? 'Agence web nouvelle génération' : isEn ? 'Next-gen web agency' : 'Agencia web de nueva generación',
@@ -120,7 +126,7 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
     faq: { title: isFr ? 'Questions fréquentes' : isEn ? 'FAQ' : 'Preguntas frecuentes', subtitle: isFr ? 'Tout ce que vous devez savoir avant de démarrer' : isEn ? 'Everything you need to know before getting started' : 'Todo lo que necesitas saber antes de empezar', categories: { all: isFr ? 'Toutes' : isEn ? 'All' : 'Todas', general: isFr ? 'Général' : 'General', pricing: isFr ? 'Tarifs' : 'Pricing', technical: isFr ? 'Technique' : 'Technical', support: 'Support', features: isFr ? 'Fonctionnalités' : isEn ? 'Features' : 'Funcionalidades', process: isFr ? 'Processus' : isEn ? 'Process' : 'Proceso' }, allCategories: { all: isFr ? 'Toutes' : isEn ? 'All' : 'Todas', vision: isFr ? 'Vision & utilité' : isEn ? 'Vision & purpose' : 'Visión y utilidad', positionnement: isFr ? 'Positionnement' : isEn ? 'Positioning' : 'Posicionamiento', technique: isFr ? 'Technique' : isEn ? 'Technical' : 'Técnica', seo: 'SEO', fonctionnalites: isFr ? 'Fonctionnalités' : isEn ? 'Features' : 'Funcionalidades', autonomie: isFr ? 'Autonomie' : isEn ? 'Autonomy' : 'Autonomía', accompagnement: isFr ? 'Accompagnement' : isEn ? 'Support' : 'Acompañamiento', formation: 'Formation', tarifs: isFr ? 'Tarifs' : isEn ? 'Pricing' : 'Precios', 'cas-specifiques': isFr ? 'Cas spécifiques' : isEn ? 'Specific cases' : 'Casos específicos', decision: isFr ? 'Décision' : isEn ? 'Decision' : 'Decisión', confiance: isFr ? 'Confiance' : isEn ? 'Trust' : 'Confianza' } },
     about: { title: isFr ? 'À propos' : isEn ? 'About' : 'Sobre nosotros', subtitle: isFr ? 'Notre mission : digitaliser les entrepreneurs' : isEn ? 'Our mission: digitize entrepreneurs' : 'Nuestra misión: digitalizar a los emprendedores', mission: { title: isFr ? 'Notre mission' : isEn ? 'Our mission' : 'Nuestra misión', description: isFr ? 'Aider les entrepreneurs à développer leur activité en ligne.' : isEn ? 'Help entrepreneurs grow their business online.' : 'Ayudar a emprendedores a crecer en línea.' }, values: { title: isFr ? 'Nos valeurs' : isEn ? 'Our values' : 'Nuestros valores', items: [{ title: 'Excellence', description: isFr ? 'Perfection dans chaque projet.' : isEn ? 'Perfection in every project.' : 'Perfección en cada proyecto.' }, { title: isFr ? 'Simplicité' : isEn ? 'Simplicity' : 'Simplicidad', description: isFr ? 'Technologie accessible à tous.' : isEn ? 'Technology accessible to all.' : 'Tecnología accesible para todos.' }, { title: isFr ? 'Transparence' : isEn ? 'Transparency' : 'Transparencia', description: isFr ? 'Prix clairs, sans surprise.' : isEn ? 'Clear pricing, no surprises.' : 'Precios claros, sin sorpresas.' }] } },
     legal: { cgu: { title: isFr ? 'Conditions Générales d\'Utilisation' : isEn ? 'Terms of Use' : 'Términos de Uso' }, cgv: { title: isFr ? 'Conditions Générales de Vente' : isEn ? 'Terms of Sale' : 'Condiciones de Venta' }, mentions: { title: isFr ? 'Mentions Légales' : isEn ? 'Legal Notice' : 'Aviso Legal' } },
-    footer: { description: isFr ? 'Mindzy crée des sites web premium pour les entrepreneurs.' : isEn ? 'Mindzy creates premium solutions for entrepreneurs.' : 'Mindzy crea sitios premium para emprendedores.', sections: { product: isFr ? 'Produit' : 'Product', resources: isFr ? 'Ressources' : 'Resources', company: isFr ? 'Entreprise' : 'Company', legal: 'Legal' }, links: { pricing: isFr ? 'Tarifs' : 'Pricing', portfolio: 'Portfolio', process: isFr ? 'Processus' : 'Process', diagnostic: 'Diagnostic', blog: 'Blog', faq: 'FAQ', about: isFr ? 'À propos' : 'About', whyUs: isFr ? 'Pourquoi nous' : 'Why us', reviews: isFr ? 'Avis' : 'Reviews', cgu: 'CGU', cgv: 'CGV', mentions: isFr ? 'Mentions' : 'Legal' }, copyright: isFr ? 'Tous droits réservés.' : isEn ? 'All rights reserved.' : 'Todos los derechos reservados.' },
+    footer: { description: isFr ? 'Mindzy crée des solutions premium pour les entrepreneurs.' : isEn ? 'Mindzy creates premium solutions for entrepreneurs.' : 'Mindzy crea soluciones premium para emprendedores.', sections: { solutions: 'Solutions', resources: isFr ? 'Ressources' : isEn ? 'Resources' : 'Recursos', company: isFr ? 'Entreprise' : isEn ? 'Company' : 'Empresa', legal: 'Legal' }, links: { siteWeb: isFr ? 'Site web' : isEn ? 'Website' : 'Sitio web', surMesure: isFr ? 'Solution sur mesure' : isEn ? 'Custom solution' : 'Solución a medida', formations: isFr ? 'Formations' : isEn ? 'Training' : 'Formación', branding: isFr ? 'Branding & Contenu' : isEn ? 'Branding & Content' : 'Branding y Contenido', portfolio: 'Portfolio', blog: 'Blog', faq: 'FAQ', about: isFr ? 'À propos' : isEn ? 'About' : 'Sobre nosotros', whyUs: isFr ? 'Pourquoi nous' : isEn ? 'Why us' : 'Por qué nosotros', reviews: isFr ? 'Avis' : isEn ? 'Reviews' : 'Opiniones', cgu: 'CGU', cgv: 'CGV', mentions: isFr ? 'Mentions' : 'Legal' }, copyright: isFr ? 'Tous droits réservés.' : isEn ? 'All rights reserved.' : 'Todos los derechos reservados.' },
     stickyCta: { message: isFr ? 'Prêt à développer votre présence en ligne ?' : isEn ? 'Ready to grow your online presence?' : '¿Listo para desarrollar tu presencia en línea?', startButton: isFr ? 'Démarrer' : isEn ? 'Get started' : 'Empezar', meetingButton: isFr ? 'Prendre un RDV' : isEn ? 'Book a call' : 'Reservar llamada' },
     chatbot: {
       title: isFr ? 'Assistant Mindzy' : isEn ? 'Mindzy Assistant' : 'Asistente Mindzy',

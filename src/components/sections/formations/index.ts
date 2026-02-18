@@ -1,0 +1,5 @@
+export { FormationsPageHero } from './FormationsPageHero'
+export { FormationsFeatureGrid } from './FormationsFeatureGrid'
+export { FormationsBentoGrid } from './FormationsBentoGrid'
+export { FormationsPricingTiers } from './FormationsPricingTiers'
+export { FormationsPricingIA } from './FormationsPricingIA'

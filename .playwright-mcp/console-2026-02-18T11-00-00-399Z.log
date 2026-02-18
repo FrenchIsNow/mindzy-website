@@ -1,0 +1,28 @@
+[   18484ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=2MLfwI81L7A0SfBwG6mU9' failed:  @ http://localhost:3000/_next/static/chunks/a5dda_next_dist_client_e7baee3b._.js:10878
+[   71482ms] TypeError: Cannot read properties of undefined (reading 'map')
+    at SiteWebPage (about://React/Server/file:///Users/levelup/Dev/WEBSITES/MINDZY/main-website/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__2e2e456f._.js?258:2151:60)
+    at resolveErrorDev (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:1894:148)
+    at processFullStringRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2402:29)
+    at processFullBinaryRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2361:9)
+    at processBinaryChunk (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2470:221)
+    at progress (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2640:13)
+[   78513ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/fr/solutions/site-web:0
+[   78621ms] TypeError: Cannot read properties of undefined (reading 'map')
+    at SiteWebPage (about://React/Server/file:///Users/levelup/Dev/WEBSITES/MINDZY/main-website/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__2e2e456f._.js?6:2137:60)
+    at resolveErrorDev (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:1894:148)
+    at processFullStringRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2402:29)
+    at processFullBinaryRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2361:9)
+    at processBinaryChunk (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2470:221)
+    at progress (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2640:13)
+[   81596ms] [WARNING] The resource http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__6341ac1c._.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/fr/solutions/site-web:0
+[   84459ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/fr/solutions/site-web:0
+[   84556ms] TypeError: Cannot read properties of undefined (reading 'map')
+    at SiteWebPage (about://React/Server/file:///Users/levelup/Dev/WEBSITES/MINDZY/main-website/.next/dev/server/chunks/ssr/%5Broot-of-the-server%5D__2e2e456f._.js?6:2123:60)
+    at resolveErrorDev (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:1894:148)
+    at processFullStringRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2402:29)
+    at processFullBinaryRow (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2361:9)
+    at processBinaryChunk (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2470:221)
+    at progress (http://localhost:3000/_next/static/chunks/a5dda_next_dist_compiled_react-server-dom-turbopack_5791e7a8._.js:2640:13)
+[   87526ms] [WARNING] The resource http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__6341ac1c._.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/fr/solutions/site-web:0
+[  256144ms] [WARNING] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior @ http://localhost:3000/_next/static/chunks/a5dda_next_dist_fd2d7206._.js:2297
+[  441564ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=15f2NryYVLzQRTiVgtyiu' failed:  @ http://localhost:3000/_next/static/chunks/a5dda_next_dist_client_e7baee3b._.js:10878

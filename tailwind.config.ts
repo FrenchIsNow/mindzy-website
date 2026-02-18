@@ -110,6 +110,21 @@ const config: Config = {
           '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
+        meshFloat1: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '25%': { transform: 'translate(60px, -40px) scale(1.05)' },
+          '50%': { transform: 'translate(-30px, 50px) scale(0.95)' },
+          '75%': { transform: 'translate(40px, 20px) scale(1.02)' },
+        },
+        meshFloat2: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(-50px, 40px) scale(1.08)' },
+          '66%': { transform: 'translate(30px, -60px) scale(0.92)' },
+        },
+        meshFloat3: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(50px, 50px) scale(1.1)' },
+        },
         marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } },
         'border-beam': {
           '100%': { 'offset-distance': '100%' },
@@ -128,6 +143,9 @@ const config: Config = {
         'shimmer': 'shimmer 2s linear infinite',
         'scale-in': 'scaleIn 0.3s ease-out',
         'blob': 'blob 7s infinite',
+        'mesh-1': 'meshFloat1 18s ease-in-out infinite',
+        'mesh-2': 'meshFloat2 22s ease-in-out infinite',
+        'mesh-3': 'meshFloat3 14s ease-in-out infinite',
         'marquee': 'marquee 25s linear infinite',
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
       },

@@ -57,7 +57,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section_dark">
+            <TrackedLink href={`/${locale}/solutions/site-web`} trackEvent="view_pricing" trackLocation="cta_section_dark">
               <Button variant="outline" size="xl" className="border-white/20 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
@@ -112,7 +112,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section_gradient">
+            <TrackedLink href={`/${locale}/solutions/site-web`} trackEvent="view_pricing" trackLocation="cta_section_gradient">
               <Button variant="outline" size="xl" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
                 {t.secondaryCta}
               </Button>
@@ -156,7 +156,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
                 {t.primaryCta}
               </Button>
             </TrackedLink>
-            <TrackedLink href={`/${locale}/services`} trackEvent="view_pricing" trackLocation="cta_section">
+            <TrackedLink href={`/${locale}/solutions/site-web`} trackEvent="view_pricing" trackLocation="cta_section">
               <Button variant="secondary" size="xl">
                 {t.secondaryCta}
               </Button>

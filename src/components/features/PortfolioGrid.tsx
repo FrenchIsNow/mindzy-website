@@ -43,14 +43,14 @@ export function PortfolioGrid({ locale, items }: PortfolioGridProps) {
   ]
   return (
     <div>
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
+      {/**<div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="flex flex-wrap gap-2">
           {filters.map((f) => (
             <button key={f.value} type="button" onClick={() => { setFilter(f.value); setVisible(ITEMS_PER_PAGE); analytics.portfolio.filter('tag', f.value) }} className={cn('px-4 py-2 rounded-full text-sm font-medium transition-colors', filter === f.value ? 'bg-violet text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200')}>{f.label}</button>
           ))}
         </div>
         <div className="flex-1 max-w-xs"><Input type="search" placeholder={t.search} value={search} onChange={(e) => { setSearch(e.target.value); setVisible(ITEMS_PER_PAGE); }} /></div>
-      </div>
+      </div>**/}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {visibleItems.map((item) => (
           <Card key={item.id} variant="outline" hover className="overflow-hidden group">

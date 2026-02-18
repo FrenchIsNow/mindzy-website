@@ -1,12 +1,18 @@
 {
   "nav": {
     "home": "Inicio",
+    "solutions": "Soluciones",
     "portfolio": "Portfolio",
-    "pricing": "Servicios",
     "whyUs": "Por qué nosotros",
     "blog": "Blog",
     "faq": "FAQ",
-    "cta": "Empezar"
+    "cta": "Empezar",
+    "solutionsItems": {
+      "siteWeb": { "title": "Sitio web", "subtitle": "Una vitrina digital imprescindible" },
+      "surMesure": { "title": "Solución a medida", "subtitle": "Proyectos estratégicos y arquitectura digital" },
+      "formations": { "title": "Formación y Redes Sociales", "subtitle": "Impulsa tu notoriedad" },
+      "branding": { "title": "Branding y Contenido", "subtitle": "Identidad visual y estrategia de contenido" }
+    }
   },
   "hero": {
     "badge": "Agencia web de nueva generación",
@@ -564,21 +570,22 @@
   "footer": {
     "description": "Mindzy crea solutiones premium para emprendedores.",
     "sections": {
-      "product": "Product",
-      "resources": "Resources",
-      "company": "Company",
+      "solutions": "Soluciones",
+      "resources": "Recursos",
+      "company": "Empresa",
       "legal": "Legal"
     },
     "links": {
-      "pricing": "Servicios",
+      "siteWeb": "Sitio web",
+      "surMesure": "Solución a medida",
+      "formations": "Formación",
+      "branding": "Branding y Contenido",
       "portfolio": "Portfolio",
-      "process": "Process",
-      "diagnostic": "Diagnostic",
       "blog": "Blog",
       "faq": "FAQ",
-      "about": "About",
-      "whyUs": "Why us",
-      "reviews": "Reviews",
+      "about": "Sobre nosotros",
+      "whyUs": "Por qué nosotros",
+      "reviews": "Opiniones",
       "cgu": "CGU",
       "cgv": "CGV",
       "mentions": "Legal"

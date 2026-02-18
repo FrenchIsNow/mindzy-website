@@ -53,7 +53,7 @@ export interface FAQItem {
   category: FAQCategory | FAQCategoryLegacy
 }
 
-export type DiagnosticBranch = 'A' | 'B' | 'C' | 'D'
+export type DiagnosticBranch = 'A' | 'B' | 'C' | 'D' | 'E'
 
 export interface BranchingDiagnosticQuestion {
   id: string
