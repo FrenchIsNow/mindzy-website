@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PortfolioGrid } from '@/components/features/PortfolioGrid'
 import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import { getPortfolioItems } from '@/lib/google-sheets'
 
 const portfolioDescriptions: Record<string, string> = {
@@ -26,8 +26,20 @@ export default async function PortfolioPage({ params }: { params: Promise<{ loca
   const { locale } = await params
   const t = getMessages(locale as Locale).portfolio
   const items = await getPortfolioItems()
+  const bcLabels: Record<string, { home: string; portfolio: string }> = {
+    fr: { home: 'Accueil', portfolio: 'Portfolio' },
+    en: { home: 'Home', portfolio: 'Portfolio' },
+    es: { home: 'Inicio', portfolio: 'Portfolio' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.portfolio, url: `https://mindzy.me/${locale}/portfolio` },
+  ])
+
   return (
     <div className="pt-32 pb-20">
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="container-wide">
         <div className="text-center mb-12">
           <h1 className="heading-2 text-anthracite mb-4">{t.title}</h1>

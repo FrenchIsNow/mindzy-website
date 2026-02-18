@@ -23,7 +23,7 @@ export function FormationsBentoGrid({ badge, title, items }: FormationsBentoGrid
             <div className="absolute inset-0 rounded-lg bg-white max-lg:rounded-t-4xl lg:rounded-tl-4xl" />
             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
               <img
-                alt=""
+                alt="Planification stratégique de contenu"
                 src="/images/planification-strategie.png"
                 className="h-80 object-cover object-left"
               />
@@ -39,7 +39,7 @@ export function FormationsBentoGrid({ badge, title, items }: FormationsBentoGrid
             <div className="absolute inset-0 rounded-lg bg-white lg:rounded-tr-4xl" />
             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
               <img
-                alt=""
+                alt="Planning de diffusion et distribution de contenu"
                 src="/images/diffusion-planification.png"
                 className="h-80 object-cover object-left lg:object-right"
               />
@@ -55,8 +55,8 @@ export function FormationsBentoGrid({ badge, title, items }: FormationsBentoGrid
             <div className="absolute inset-0 rounded-lg bg-white lg:rounded-bl-4xl" />
             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
               <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
+                alt="Graphique de vitesse et performance des formations"
+                src="/images/sections/vitesse-performance-bento.png"
                 className="h-80 object-cover object-left"
               />
               <div className="p-10 pt-4">
@@ -71,8 +71,8 @@ export function FormationsBentoGrid({ badge, title, items }: FormationsBentoGrid
             <div className="absolute inset-0 rounded-lg bg-white" />
             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
               <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
+                alt="Intégrations avec les plateformes digitales"
+                src="/images/sections/integrations-plateformes-bento.png"
                 className="h-80 object-cover"
               />
               <div className="p-10 pt-4">
@@ -87,8 +87,8 @@ export function FormationsBentoGrid({ badge, title, items }: FormationsBentoGrid
             <div className="absolute inset-0 rounded-lg bg-white max-lg:rounded-b-4xl lg:rounded-br-4xl" />
             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
               <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
+                alt="Réseau de connexions et automatisations"
+                src="/images/sections/reseau-connexions-bento.png"
                 className="h-80 object-cover"
               />
               <div className="p-10 pt-4">

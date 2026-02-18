@@ -5,12 +5,12 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { getMessages } from '@/lib/getMessages'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const processDescriptions: Record<string, string> = {
-  fr: 'Découvrez comment Mindzy crée votre site en 4 étapes simples : diagnostic, onboarding, design et mise en ligne en 2 semaines.',
-  en: 'Discover how Mindzy creates your website in 4 simple steps: diagnostic, onboarding, design and launch in 2 weeks.',
-  es: 'Descubre cómo Mindzy crea tu sitio en 4 pasos simples: diagnóstico, onboarding, diseño y lanzamiento en 2 semanas.',
+  fr: 'Découvrez comment Mindzy crée votre site web professionnel en 4 étapes simples : diagnostic stratégique, onboarding, design sur mesure et mise en ligne en 2 semaines.',
+  en: 'Discover how Mindzy creates your professional website in 4 simple steps: strategic diagnostic, onboarding, custom design and launch — all delivered in just 2 weeks.',
+  es: 'Descubre cómo Mindzy crea tu sitio web profesional en 4 pasos simples: diagnóstico estratégico, onboarding, diseño a medida y lanzamiento en solo 2 semanas.',
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -29,8 +29,19 @@ const stepKeys = ['diagnostic', 'onboarding', 'design', 'launch'] as const
 export default async function ProcessPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = getMessages(locale as Locale).process
+  const bcLabels: Record<string, { home: string; process: string }> = {
+    fr: { home: 'Accueil', process: 'Notre processus' },
+    en: { home: 'Home', process: 'Our process' },
+    es: { home: 'Inicio', process: 'Nuestro proceso' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.process, url: `https://mindzy.me/${locale}/process` },
+  ])
   return (
     <div className="pt-32 pb-20">
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="container-wide">
         <div className="text-center mb-16">
           <h1 className="heading-2 text-anthracite mb-4">{t.title}</h1>

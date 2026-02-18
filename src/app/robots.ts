@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/legal/'],
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://mindzy.me/sitemap.xml',

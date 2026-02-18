@@ -13,7 +13,8 @@ import { Testimonials } from '@/components/sections/Testimonials'
 import { CTASection } from '@/components/sections/CTASection'
 import { TechnologiesPartners } from '@/components/sections/TechnologiesPartners'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdAggregateRating, JsonLd } from '@/lib/seo'
+import { testimonials } from '@/lib/config'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 
 const homeMeta: Record<string, { title: string; description: string }> = {
@@ -40,8 +41,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
+  const reviewsJsonLd = jsonLdAggregateRating(
+    testimonials.map(t => ({
+      name: t.name,
+      reviewBody: t.quote[locale as Locale] || t.quote.fr,
+      ratingValue: t.rating,
+    }))
+  )
+
   return (
     <>
+      <JsonLd data={reviewsJsonLd} />
       {/* Hero Section - Main value proposition */}
       <Hero locale={locale as Locale} />
      {/* Technologies & Partners - Scrolling logos */}

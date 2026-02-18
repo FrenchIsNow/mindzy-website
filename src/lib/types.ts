@@ -1,7 +1,7 @@
 import type { Locale } from './i18n'
 
 export interface Plan {
-  id: 'basic' | 'pro' | 'business' | 'ecommerce'
+  id: 'basic' | 'pro' | 'ecommerce'
   price: number
   setup: number
   pages: number

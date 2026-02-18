@@ -7,7 +7,7 @@ import {
 import { getMessages } from '@/lib/getMessages'
 import { plans } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata, jsonLdService, JsonLd } from '@/lib/seo'
+import { buildPageMetadata, jsonLdService, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const pricingDescriptions: Record<string, string> = {
   fr: 'Tarifs transparents pour la création de votre site web professionnel. À partir de 49€/mois, hébergement et support inclus. Sans engagement.',
@@ -273,9 +273,21 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
     }))
   )
 
+  const bcLabels: Record<string, { home: string; pricing: string }> = {
+    fr: { home: 'Accueil', pricing: 'Tarifs' },
+    en: { home: 'Home', pricing: 'Pricing' },
+    es: { home: 'Inicio', pricing: 'Precios' },
+  }
+  const bc = bcLabels[l] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${l}` },
+    { name: bc.pricing, url: `https://mindzy.me/${l}/pricing` },
+  ])
+
   return (
     <div className="pt-24">
       <JsonLd data={serviceJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <PricingTable locale={l} />
 
       <FormationsPricingTiers

@@ -9,7 +9,7 @@ import {
   FormationsPricingIA,
 } from '@/components/sections/formations'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const meta: Record<string, { title: string; description: string }> = {
   fr: {
@@ -425,8 +425,21 @@ export default async function FormationsPage({
   const locale = l as Locale
   const t = content[locale]
 
+  const bcLabels: Record<string, { home: string; solutions: string; formations: string }> = {
+    fr: { home: 'Accueil', solutions: 'Solutions', formations: 'Formations' },
+    en: { home: 'Home', solutions: 'Solutions', formations: 'Training' },
+    es: { home: 'Inicio', solutions: 'Soluciones', formations: 'Formaciones' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.solutions, url: `https://mindzy.me/${locale}/solutions/formations` },
+    { name: bc.formations, url: `https://mindzy.me/${locale}/solutions/formations` },
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <FormationsPageHero
         locale={locale}
         badge={t.badge}

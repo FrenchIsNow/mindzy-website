@@ -4,7 +4,7 @@ import { getMessages } from '@/lib/getMessages'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdAggregateRating, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const reviewDescriptions: Record<string, string> = {
   fr: 'Découvrez les avis vérifiés de nos clients. Plus de 150 entrepreneurs nous font confiance avec un taux de satisfaction de 98%.',
@@ -26,8 +26,27 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AvisClientsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = getMessages(locale as Locale).reviews
+  const reviewsJsonLd = jsonLdAggregateRating(
+    testimonials.map(r => ({
+      name: r.name,
+      reviewBody: r.quote[locale as Locale] || r.quote.fr,
+      ratingValue: r.rating,
+    }))
+  )
+  const bcLabels: Record<string, { home: string; reviews: string }> = {
+    fr: { home: 'Accueil', reviews: 'Avis clients' },
+    en: { home: 'Home', reviews: 'Client reviews' },
+    es: { home: 'Inicio', reviews: 'Opiniones de clientes' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.reviews, url: `https://mindzy.me/${locale}/avis-clients` },
+  ])
   return (
     <div className="pt-32 pb-20">
+      <JsonLd data={reviewsJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="container-wide">
         <div className="text-center mb-12">
           <h1 className="heading-2 text-anthracite mb-4">{t.title}</h1>

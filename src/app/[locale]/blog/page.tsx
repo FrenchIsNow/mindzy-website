@@ -6,12 +6,12 @@ import { Badge } from '@/components/ui/Badge'
 import { getMessages } from '@/lib/getMessages'
 import { getBlogPosts } from '@/lib/blog'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const blogDescriptions: Record<string, string> = {
-  fr: 'Conseils, guides et stratégies pour développer votre activité en ligne. SEO, marketing digital, réservation en ligne et plus.',
-  en: 'Tips, guides and strategies to grow your business online. SEO, digital marketing, online booking and more.',
-  es: 'Consejos, guías y estrategias para desarrollar tu negocio en línea. SEO, marketing digital, reservas en línea y más.',
+  fr: 'Conseils, guides et stratégies pour développer votre activité en ligne. SEO, marketing digital, création de site web et réservation en ligne pour entrepreneurs.',
+  en: 'Tips, guides and strategies to grow your business online. SEO, digital marketing, website creation and online booking tips for ambitious entrepreneurs.',
+  es: 'Consejos, guías y estrategias para desarrollar tu negocio en línea. SEO, marketing digital, creación de sitios web y reservas en línea para emprendedores.',
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -37,9 +37,20 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = getMessages(locale as Locale).blog
   const posts = getBlogPosts(locale as Locale)
+  const bcLabels: Record<string, { home: string; blog: string }> = {
+    fr: { home: 'Accueil', blog: 'Blog' },
+    en: { home: 'Home', blog: 'Blog' },
+    es: { home: 'Inicio', blog: 'Blog' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.blog, url: `https://mindzy.me/${locale}/blog` },
+  ])
 
   return (
     <div className="pt-32 pb-20">
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="container-wide">
         <div className="text-center mb-12">
           <h1 className="heading-2 text-anthracite mb-4">{t.title}</h1>

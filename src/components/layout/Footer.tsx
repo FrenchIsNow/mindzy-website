@@ -15,11 +15,13 @@ export function Footer({ locale }: { locale: Locale }) {
       { href: `/${locale}/solutions/sur-mesure`, label: (t.links as any).surMesure },
       { href: `/${locale}/solutions/formations`, label: (t.links as any).formations },
       { href: `/${locale}/solutions/branding`, label: (t.links as any).branding },
+      { href: `/${locale}/pricing`, label: (t.links as any).pricing },
     ],
     resources: [
       { href: `/${locale}/portfolio`, label: t.links.portfolio },
       { href: `/${locale}/blog`, label: t.links.blog },
       { href: `/${locale}/faq`, label: t.links.faq },
+      { href: `/${locale}/diagnostic`, label: (t.links as any).diagnostic },
     ],
     company: [
       { href: `/${locale}/pourquoi-nous`, label: (t.links as any).whyUs },
@@ -27,8 +29,8 @@ export function Footer({ locale }: { locale: Locale }) {
     ],
     legal: [
       { href: `/${locale}/legal/cgu`, label: t.links.cgu },
-      { href: `/${locale}/legal/cgv`, label: t.links.cgv },
       { href: `/${locale}/legal/mentions`, label: t.links.mentions },
+      { href: '/sitemap.xml', label: (t.links as any).sitemap },
     ],
   }
 
@@ -98,7 +100,7 @@ export function Footer({ locale }: { locale: Locale }) {
             {/* Links columns */}
             {(['solutions', 'resources', 'company', 'legal'] as const).map((key) => (
               <div key={key}>
-                <h4 className="font-semibold text-white mb-5">{t.sections[key]}</h4>
+                <p className="font-semibold text-white mb-5">{t.sections[key]}</p>
                 <ul className="space-y-3">
                   {links[key].map((link) => (
                     <li key={link.href}>
@@ -120,19 +122,19 @@ export function Footer({ locale }: { locale: Locale }) {
         {/* Bottom bar */}
         <div className="py-6 border-t border-white/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Mindzy. {t.copyright}
             </p>
 
             {/* Trust badges */}
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 text-gray-500 text-xs">
+              <div className="flex items-center gap-2 text-gray-400 text-xs">
                 <svg className="w-4 h-4 text-sage-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 SSL Secure
               </div>
-              <div className="flex items-center gap-2 text-gray-500 text-xs">
+              <div className="flex items-center gap-2 text-gray-400 text-xs">
                 <svg className="w-4 h-4 text-violet-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                 </svg>

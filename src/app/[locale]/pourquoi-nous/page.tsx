@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { getMessages } from '@/lib/getMessages'
 import { testimonials } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import { PourquoiNous } from '@/components/sections/PourquoiNous'
 import { ProcessTimeline } from '@/components/sections/ProcessTimeline'
 import { Engagements } from '@/components/sections/Engagements'
@@ -30,8 +30,20 @@ export default async function PourquoiNousPage({ params }: { params: Promise<{ l
   const t = getMessages(l).whyUs
   const msg = getMessages(l).whyUs
 
+  const bcLabels: Record<string, { home: string; whyUs: string }> = {
+    fr: { home: 'Accueil', whyUs: 'Pourquoi nous' },
+    en: { home: 'Home', whyUs: 'Why us' },
+    es: { home: 'Inicio', whyUs: 'Por qué nosotros' },
+  }
+  const bc = bcLabels[l] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${l}` },
+    { name: bc.whyUs, url: `https://mindzy.me/${l}/pourquoi-nous` },
+  ])
+
   return (
     <div className="pt-32 pb-12">
+      <JsonLd data={breadcrumbJsonLd} />
       {/* Hero Section */}
       <section className="container-wide mb-8">
         <div className="text-center max-w-4xl mx-auto">

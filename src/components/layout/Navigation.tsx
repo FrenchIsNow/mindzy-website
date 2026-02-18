@@ -56,7 +56,7 @@ export function Navigation({ locale, className, mobile, onNavigate }: Navigation
 
   if (mobile) {
     return (
-      <nav className={cn('items-center gap-1 px-4', className)}>
+      <nav className={cn('items-start gap-1 px-4', className)}>
         {/* Solutions accordion */}
         <div className="animate-fade-in-up">
           <button

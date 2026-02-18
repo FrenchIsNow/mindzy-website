@@ -6,10 +6,11 @@ import { Badge } from '@/components/ui/Badge'
 import { CTASection } from '@/components/sections/CTASection'
 import { SiteWebFAQ } from './faq'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
-import { plans } from '@/lib/config'
+import { buildPageMetadata, jsonLdFaqPage, jsonLdBreadcrumb, jsonLdAggregateRating, JsonLd } from '@/lib/seo'
+import { plans, testimonials } from '@/lib/config'
 import { formatPrice, cn } from '@/lib/utils'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
+import { SiteWebPricingCards } from '@/components/features/SiteWebPricingCards'
 
 const meta: Record<string, { title: string; description: string }> = {
   fr: {
@@ -71,12 +72,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Visibilité maximale avec SEO et réservation.',
-          features: ['5 pages', '15 articles SEO/mois', 'Réservation en ligne', 'Google Business optimisé', 'Hébergement premium', 'Certificat SSL'],
-        },
-        business: {
-          name: 'Business',
-          description: 'Tout inclus pour automatiser votre activité.',
+          description: 'Visibilité maximale avec SEO, réservation et paiements.',
           features: ['5 pages', '15 articles SEO/mois', 'Réservation en ligne', 'Paiements en ligne', 'Google Business optimisé', 'Hébergement premium', 'Certificat SSL'],
         },
         ecommerce: {
@@ -346,12 +342,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Maximum visibility with SEO & booking.',
-          features: ['5 pages', '15 SEO articles/month', 'Online booking', 'Optimized Google Business', 'Premium hosting', 'SSL certificate'],
-        },
-        business: {
-          name: 'Business',
-          description: 'All-inclusive to automate your business.',
+          description: 'Maximum visibility with SEO, booking & payments.',
           features: ['5 pages', '15 SEO articles/month', 'Online booking', 'Online payments', 'Optimized Google Business', 'Premium hosting', 'SSL certificate'],
         },
         ecommerce: {
@@ -626,12 +617,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Máxima visibilidad con SEO y reservas.',
-          features: ['5 páginas', '15 artículos SEO/mes', 'Reserva online', 'Google Business optimizado', 'Alojamiento premium', 'Certificado SSL'],
-        },
-        business: {
-          name: 'Business',
-          description: 'Todo incluido para automatizar tu actividad.',
+          description: 'Máxima visibilidad con SEO, reservas y pagos.',
           features: ['5 páginas', '15 artículos SEO/mes', 'Reserva online', 'Pagos online', 'Google Business optimizado', 'Alojamiento premium', 'Certificado SSL'],
         },
         ecommerce: {
@@ -890,8 +876,32 @@ export default async function SiteWebPage({
   const locale = l as Locale
   const t = content[locale]
 
+  const breadcrumbLabels: Record<string, { home: string; solutions: string; siteWeb: string }> = {
+    fr: { home: 'Accueil', solutions: 'Solutions', siteWeb: 'Création de site web' },
+    en: { home: 'Home', solutions: 'Solutions', siteWeb: 'Website creation' },
+    es: { home: 'Inicio', solutions: 'Soluciones', siteWeb: 'Creación de sitio web' },
+  }
+  const bc = breadcrumbLabels[locale] || breadcrumbLabels.fr
+
+  const faqJsonLd = jsonLdFaqPage(t.faq.items.map(item => ({ question: item.q, answer: item.a })))
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.solutions, url: `https://mindzy.me/${locale}/solutions/site-web` },
+    { name: bc.siteWeb, url: `https://mindzy.me/${locale}/solutions/site-web` },
+  ])
+  const reviewsJsonLd = jsonLdAggregateRating(
+    testimonials.map(r => ({
+      name: r.name,
+      reviewBody: r.quote[locale] || r.quote.fr,
+      ratingValue: r.rating,
+    }))
+  )
+
   return (
     <>
+      <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={reviewsJsonLd} />
       {/* ═══════ HERO ═══════ */}
       <div className="relative isolate overflow-hidden bg-white">
         <svg
@@ -977,61 +987,13 @@ export default async function SiteWebPage({
         <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-600 sm:text-xl/8">
           {t.pricingHero.subtitle}
         </p>
-        <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-start gap-6 sm:mt-20 lg:max-w-7xl lg:grid-cols-4">
-          {plans.map((plan) => {
-            const isPopular = plan.id === 'pro'
-            const planCopy = t.pricingHero.plans[plan.id as keyof typeof t.pricingHero.plans]
-            return (
-              <div
-                key={plan.id}
-                className={cn(
-                  'relative rounded-3xl p-8 ring-1 sm:p-10',
-                  isPopular
-                    ? 'bg-white shadow-2xl ring-violet-600/20'
-                    : 'bg-white/60 ring-gray-900/10',
-                )}
-              >
-                {isPopular && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-violet-600 px-4 py-1 text-xs font-semibold text-white">
-                    {t.pricingHero.popular}
-                  </span>
-                )}
-                <h3 className="text-base/7 font-semibold text-violet-600">
-                  {planCopy.name}
-                </h3>
-                <p className="mt-4 flex items-baseline gap-x-2">
-                  <span className="text-5xl font-semibold tracking-tight text-gray-900">
-                    {formatPrice(plan.price)}
-                  </span>
-                  <span className="text-base text-gray-500">{t.pricingHero.monthly}</span>
-                </p>
-                <p className="mt-1 text-sm text-gray-400">
-                  {t.pricingHero.setup} : {formatPrice(plan.setup)} HT
-                </p>
-                <p className="mt-6 text-base/7 text-gray-600">{planCopy.description}</p>
-                <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
-                  {planCopy.features.map((feature: string) => (
-                    <li key={feature} className="flex gap-x-3">
-                      <CheckIcon className="h-6 w-5 flex-none text-violet-600" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/${locale}/onboarding?plan=${plan.id}`}
-                  className={cn(
-                    'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:mt-10',
-                    isPopular
-                      ? 'bg-violet-600 text-white shadow-sm hover:bg-violet-500'
-                      : 'text-violet-600 ring-1 ring-inset ring-violet-200 hover:ring-violet-300',
-                  )}
-                >
-                  {t.pricingHero.cta}
-                </Link>
-              </div>
-            )
-          })}
-        </div>
+        <SiteWebPricingCards
+          plansCopy={t.pricingHero.plans}
+          monthly={t.pricingHero.monthly}
+          setup={t.pricingHero.setup}
+          cta={t.pricingHero.cta}
+          popular={t.pricingHero.popular}
+        />
       </div>
 
       {/* ═══════ PAIN POINTS ═══════ */}
@@ -1117,8 +1079,8 @@ export default async function SiteWebPage({
                 </div>
                 <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
                   <img
-                    alt=""
-                    src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
+                    alt="Score de performance et vitesse du site web"
+                    src="/images/sections/performance-score-bento.png"
                     className="w-full max-lg:max-w-xs"
                   />
                 </div>
@@ -1140,8 +1102,8 @@ export default async function SiteWebPage({
                 </div>
                 <div className="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
                   <img
-                    alt=""
-                    src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
+                    alt="Sécurité SSL et protection des données"
+                    src="/images/sections/securite-ssl-bento.png"
                     className="h-[min(152px,40cqw)] object-cover"
                   />
                 </div>
@@ -1416,8 +1378,18 @@ export default async function SiteWebPage({
         </div>
       </section>
 
-      <TestimonialsSection locale={locale as Locale} />
+      {/* ═══════ FAQ ═══════ */}
+      <section className="py-24 lg:py-32 bg-[#FAFAFF]">
+        <div className="container-narrow">
+          <div className="text-center mb-16">
+            <span className="eyebrow mb-4 block">{t.faq.eyebrow}</span>
+            <h2 className="heading-2 text-anthracite">{t.faq.title}</h2>
+          </div>
+          <SiteWebFAQ items={t.faq.items} />
+        </div>
+      </section>
 
+      <TestimonialsSection locale={locale as Locale} />
 
       {/* ═══════ CTA ═══════ */}
       <CTASection locale={locale} variant="gradient" />

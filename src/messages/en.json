@@ -157,11 +157,7 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "To develop your visibility"
-      },
-      "business": {
-        "name": "Business",
-        "description": "To automate your business"
+        "description": "Visibility, booking & payments"
       },
       "ecommerce": {
         "name": "E-commerce",
@@ -586,9 +582,11 @@
       "about": "About",
       "whyUs": "Why us",
       "reviews": "Reviews",
+      "pricing": "Pricing",
+      "diagnostic": "Diagnostic",
       "cgu": "CGU",
-      "cgv": "CGV",
-      "mentions": "Legal"
+      "mentions": "Legal",
+      "sitemap": "Sitemap"
     },
     "copyright": "All rights reserved."
   },

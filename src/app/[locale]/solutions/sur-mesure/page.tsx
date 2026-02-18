@@ -5,7 +5,7 @@ import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/2
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { CTASection } from '@/components/sections/CTASection'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata } from '@/lib/seo'
+import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const meta: Record<string, { title: string; description: string }> = {
   fr: {
@@ -274,8 +274,21 @@ export default async function SurMesurePage({
   const locale = l as Locale
   const t = content[locale]
 
+  const bcLabels: Record<string, { home: string; solutions: string; surMesure: string }> = {
+    fr: { home: 'Accueil', solutions: 'Solutions', surMesure: 'Sur mesure' },
+    en: { home: 'Home', solutions: 'Solutions', surMesure: 'Custom' },
+    es: { home: 'Inicio', solutions: 'Soluciones', surMesure: 'A medida' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.solutions, url: `https://mindzy.me/${locale}/solutions/sur-mesure` },
+    { name: bc.surMesure, url: `https://mindzy.me/${locale}/solutions/sur-mesure` },
+  ])
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       {/* Hero */}
       <section
         className="relative min-h-[70vh] flex items-center pt-32 pb-20 overflow-hidden"
@@ -350,8 +363,8 @@ export default async function SurMesurePage({
               </div>
             </div>
             <img
-              alt="Application sur mesure"
-              src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
+              alt="Capture d'écran d'une application sur mesure"
+              src="/images/sections/capture-application-sur-mesure.png"
               width={2432}
               height={1442}
               className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"

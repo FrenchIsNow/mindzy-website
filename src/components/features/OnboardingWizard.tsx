@@ -15,7 +15,7 @@ import { analytics } from '@/lib/analytics'
 
 function recommendPlan(answers: Record<string, string>): Plan['id'] {
   if (answers.payments === 'yes' && answers.objective === 'sales') return 'ecommerce'
-  if (answers.payments === 'yes') return 'business'
+  if (answers.payments === 'yes') return 'pro'
   if (answers.booking === 'yes' || answers.objective === 'booking') return 'pro'
   return 'basic'
 }

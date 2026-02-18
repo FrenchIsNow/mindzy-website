@@ -6,18 +6,19 @@ const SITE_URL = 'https://mindzy.me'
 
 const staticPages = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
+  { path: '/solutions/site-web', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/solutions/branding', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/solutions/formations', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/solutions/sur-mesure', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/portfolio', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/pourquoi-nous', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/process', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/diagnostic', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/process', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/onboarding', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
-  { path: '/examples-by-profession', priority: 0.6, changeFrequency: 'monthly' as const },
   { path: '/avis-clients', priority: 0.6, changeFrequency: 'weekly' as const },
-  { path: '/avant-apres', priority: 0.6, changeFrequency: 'monthly' as const },
   { path: '/faq', priority: 0.6, changeFrequency: 'monthly' as const },
-  { path: '/about', priority: 0.5, changeFrequency: 'monthly' as const },
   { path: '/legal/mentions', priority: 0.3, changeFrequency: 'yearly' as const },
   { path: '/legal/cgu', priority: 0.3, changeFrequency: 'yearly' as const },
 ]
@@ -35,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       entries.push({
         url: `${SITE_URL}/${locale}${page.path}`,
-        lastModified: new Date(),
+        lastModified: new Date('2026-02-18'),
         changeFrequency: page.changeFrequency,
         priority: page.priority,
         alternates: { languages: alternates },

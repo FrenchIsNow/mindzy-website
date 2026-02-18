@@ -57,6 +57,7 @@ export async function POST(request: Request) {
     }
 
     const payload = {
+      sheetName: 'MINDZY_FORM_FILLED',
       timestamp: new Date().toISOString(),
       profileType,
       fullName,

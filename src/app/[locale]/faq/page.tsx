@@ -3,7 +3,7 @@ import { FAQContent } from './FAQContent'
 import { getMessages } from '@/lib/getMessages'
 import { faqItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata, jsonLdFaqPage, JsonLd } from '@/lib/seo'
+import { buildPageMetadata, jsonLdFaqPage, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const faqDescriptions: Record<string, string> = {
   fr: 'Réponses à toutes vos questions sur la création de site web avec Mindzy. Tarifs, délais, fonctionnalités, support technique et plus.',
@@ -30,9 +30,21 @@ export default async function FAQPage({ params }: { params: Promise<{ locale: st
       answer: item.answer[locale as Locale],
     }))
   )
+  const bcLabels: Record<string, { home: string; faq: string }> = {
+    fr: { home: 'Accueil', faq: 'FAQ' },
+    en: { home: 'Home', faq: 'FAQ' },
+    es: { home: 'Inicio', faq: 'FAQ' },
+  }
+  const bc = bcLabels[locale] || bcLabels.fr
+  const breadcrumbJsonLd = jsonLdBreadcrumb([
+    { name: bc.home, url: `https://mindzy.me/${locale}` },
+    { name: bc.faq, url: `https://mindzy.me/${locale}/faq` },
+  ])
+
   return (
     <>
       <JsonLd data={faqJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <FAQContent locale={locale as Locale} />
     </>
   )

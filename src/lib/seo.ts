@@ -55,7 +55,7 @@ export function buildPageMetadata({
   section,
 }: PageSeoParams): Metadata {
   const url = buildCanonicalUrl(locale, path)
-  const ogImage = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : `${SITE_URL}/og-default.jpg`
+  const ogImage = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : undefined
 
   const metadata: Metadata = {
     title,
@@ -69,7 +69,7 @@ export function buildPageMetadata({
       locale: localeMap[locale],
       alternateLocale: locales.filter(l => l !== locale).map(l => localeMap[l]),
       type: type === 'article' ? 'article' : 'website',
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630, alt: title }] }),
       ...(type === 'article' && {
         publishedTime,
         modifiedTime,
@@ -81,7 +81,7 @@ export function buildPageMetadata({
       card: 'summary_large_image',
       title,
       description,
-      images: [ogImage],
+      ...(ogImage && { images: [ogImage] }),
     },
   }
 
@@ -98,7 +98,7 @@ export function jsonLdOrganization() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/logo.svg`,
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'contact@mindzy.me',
@@ -116,11 +116,6 @@ export function jsonLdWebsite() {
     name: SITE_NAME,
     url: SITE_URL,
     inLanguage: ['fr', 'en', 'es'],
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${SITE_URL}/fr/blog?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
   }
 }
 
@@ -130,7 +125,7 @@ export function jsonLdLocalBusiness() {
     '@type': 'ProfessionalService',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/logo.svg`,
     description: 'Agence de création de sites web professionnels pour entrepreneurs',
     email: 'contact@mindzy.me',
     priceRange: '€€',
@@ -171,7 +166,7 @@ export function jsonLdBlogPosting({ title, description, url, image, datePublishe
       '@type': 'Organization',
       name: SITE_NAME,
       url: SITE_URL,
-      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.svg` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   }
@@ -245,6 +240,39 @@ export function jsonLdService(offers: ServiceOffer[]) {
         },
       })),
     },
+  }
+}
+
+interface ReviewItem {
+  name: string
+  reviewBody: string
+  ratingValue: number
+}
+
+export function jsonLdAggregateRating(reviews: ReviewItem[]) {
+  const avg = reviews.reduce((sum, r) => sum + r.ratingValue, 0) / reviews.length
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: SITE_NAME,
+    url: SITE_URL,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: Math.round(avg * 10) / 10,
+      bestRating: 5,
+      worstRating: 1,
+      reviewCount: reviews.length,
+    },
+    review: reviews.map(r => ({
+      '@type': 'Review',
+      author: { '@type': 'Organization', name: r.name },
+      reviewBody: r.reviewBody,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: r.ratingValue,
+        bestRating: 5,
+      },
+    })),
   }
 }
 

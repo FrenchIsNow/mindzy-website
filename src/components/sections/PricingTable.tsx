@@ -10,9 +10,11 @@ import { formatPrice } from '@/lib/utils'
 import type { Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { analytics } from '@/lib/analytics'
+import { useContactModal } from '@/components/features/ContactFormModal'
 
 export function PricingTable({ locale }: { locale: Locale }) {
   const t = getMessages(locale).pricing
+  const { open: openContactModal } = useContactModal()
 
   return (
     <section className="section-padding relative overflow-hidden">
@@ -30,7 +32,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
         </div>
 
         {/* Pricing cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
             const isPopular = plan.id === 'pro'
             const planCopy = t.plans[plan.id as keyof typeof t.plans]
@@ -104,16 +106,18 @@ export function PricingTable({ locale }: { locale: Locale }) {
                     </CardContent>
 
                     <CardFooter className="border-0 pt-6">
-                      <Link href={`/${locale}/onboarding?plan=${plan.id}`} className="w-full" onClick={() => { analytics.pricing.selectPlan(plan.id, plan.price); analytics.pricing.beginCheckout(plan.id, plan.price) }}>
-                        <Button
-                          variant={isPopular ? 'primary' : 'secondary'}
-                          size="lg"
-                          className="w-full"
-                          icon={<ArrowIcon />}
-                        >
-                          {t.cta}
-                        </Button>
-                      </Link>
+                      <Button
+                        variant={isPopular ? 'primary' : 'secondary'}
+                        size="lg"
+                        className="w-full"
+                        icon={<ArrowIcon />}
+                        onClick={() => {
+                          analytics.pricing.selectPlan(plan.id, plan.price)
+                          openContactModal(plan.id)
+                        }}
+                      >
+                        {t.cta}
+                      </Button>
                     </CardFooter>
                   </div>
                 </Card>

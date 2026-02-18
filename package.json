@@ -21,6 +21,11 @@
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.0"
   },
+  "browserslist": [
+    ">0.3%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",

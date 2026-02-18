@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Locale } from '@/lib/i18n'
 
 const content = {
@@ -147,32 +148,40 @@ export function PainPoints({ locale }: { locale: Locale }) {
 
           <div className="pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto">
             <div className="-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 xl:gap-8">
-              <div className="aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
-                  className="block size-full object-cover"
+              <div className="relative aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
+                <Image
+                  alt="Analyse de données financières sur un écran"
+                  src="/images/sections/analyse-donnees-financieres.jpg"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 280px"
+                  className="object-cover"
                 />
               </div>
-              <div className="-mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40">
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
-                  className="block size-full object-cover"
+              <div className="relative -mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40">
+                <Image
+                  alt="Équipe de professionnels collaborant ensemble"
+                  src="/images/sections/equipe-professionnels-collaboration.jpg"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 280px"
+                  className="object-cover"
                 />
               </div>
-              <div className="aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1553877522-43269d4ea984?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
-                  className="block size-full object-cover"
+              <div className="relative aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
+                <Image
+                  alt="Espace de travail professionnel avec ordinateur"
+                  src="/images/sections/espace-travail-professionnel.jpg"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 280px"
+                  className="object-cover"
                 />
               </div>
-              <div className="-mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40">
-                <img
-                  alt=""
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
-                  className="block size-full object-cover"
+              <div className="relative -mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40">
+                <Image
+                  alt="Équipe travaillant sur un projet digital"
+                  src="/images/sections/equipe-projet-digital.jpg"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 280px"
+                  className="object-cover"
                 />
               </div>
             </div>

@@ -157,11 +157,7 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "Para desarrollar tu visibilidad"
-      },
-      "business": {
-        "name": "Business",
-        "description": "Para automatizar tu negocio"
+        "description": "Visibilidad, reservas y pagos"
       },
       "ecommerce": {
         "name": "E-commerce",
@@ -586,9 +582,11 @@
       "about": "Sobre nosotros",
       "whyUs": "Por qué nosotros",
       "reviews": "Opiniones",
+      "pricing": "Precios",
+      "diagnostic": "Diagnostico",
       "cgu": "CGU",
-      "cgv": "CGV",
-      "mentions": "Legal"
+      "mentions": "Legal",
+      "sitemap": "Mapa del sitio"
     },
     "copyright": "Todos los derechos reservados."
   },
