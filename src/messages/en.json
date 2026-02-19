@@ -190,20 +190,6 @@
     },
     "cta": "Discover my personalized solution"
   },
-  "onboarding": {
-    "title": "Find your ideal plan",
-    "subtitle": "4 questions for a personalized recommendation",
-    "step": "Step",
-    "next": "Next",
-    "back": "Back",
-    "finish": "See my recommendation",
-    "result": {
-      "title": "Your recommended plan",
-      "recommended": "Recommended for you",
-      "meetingCta": "Book a meeting",
-      "contractCta": "Contract + Terms"
-    }
-  },
   "portfolio": {
     "title": "Our work",
     "subtitle": "Websites created for our clients",

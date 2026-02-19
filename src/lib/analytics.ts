@@ -131,24 +131,6 @@ export const analytics = {
       }),
   },
 
-  onboarding: {
-    start: (recommendation?: string) =>
-      event('onboarding_start', {
-        event_category: 'conversion',
-        recommended_plan: recommendation,
-      }),
-    stepComplete: (stepNumber: number, stepName: string) =>
-      event('onboarding_step', {
-        event_category: 'conversion',
-        step_number: stepNumber,
-        step_name: stepName,
-      }),
-    complete: (planId: string) =>
-      event('onboarding_complete', {
-        event_category: 'conversion',
-        selected_plan: planId,
-      }),
-  },
 
   lead: {
     generate: (source: string, planId?: string) =>

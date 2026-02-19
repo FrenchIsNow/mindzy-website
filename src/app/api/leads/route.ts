@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 const GOOGLE_SHEETS_WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY
 
-const KNOWN_FIELDS = ['profileType', 'fullName', 'email', 'phone', 'message', 'locale', 'recaptchaToken'] as const
+const KNOWN_FIELDS = ['profileType', 'fullName', 'email', 'phone', 'message', 'sector', 'locale', 'recaptchaToken', 'sheetName'] as const
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   if (!RECAPTCHA_SECRET_KEY) {
@@ -19,7 +19,10 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     })
 
     const data = await response.json()
-    return data.success === true
+    if (!data.success) return false
+    // reCAPTCHA v3 returns a score from 0.0 (bot) to 1.0 (human)
+    if (typeof data.score === 'number' && data.score < 0.5) return false
+    return true
   } catch (error) {
     console.log('[Leads API] reCAPTCHA verification error:', error)
     return false
@@ -57,12 +60,13 @@ export async function POST(request: Request) {
     }
 
     const payload = {
-      sheetName: 'MINDZY_FORM_FILLED',
+      sheetName: body.sheetName || 'MINDZY_FORM_FILLED',
       timestamp: new Date().toISOString(),
       profileType,
       fullName,
       email,
       phone,
+      sector: body.sector || '',
       message: body.message || '',
       locale: body.locale || 'fr',
       ...quizAnswers,

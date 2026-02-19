@@ -1,5 +1,5 @@
 import type { Locale } from './i18n'
-import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, BeforeAfterExample, ProfileQuestion } from './types'
+import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, BeforeAfterExample, ProfileQuestion } from './types'
 
 export const config = {
   SITE_URL: 'https://mindzy.me',
@@ -238,12 +238,6 @@ export const profileQuestions: Record<ProfileKey, ProfileQuestion[]> = {
   ],
 }
 
-export const onboardingSteps: OnboardingStep[] = [
-  { id: 'objective', question: { fr: 'Quel est votre objectif principal ?', en: 'What is your main objective?', es: '¿Cuál es su objetivo principal?' }, options: [{ value: 'visibility', label: { fr: 'Gagner en visibilité', en: 'Increase visibility', es: 'Aumentar visibilidad' }, icon: '👁️' }, { value: 'booking', label: { fr: 'Automatiser les réservations', en: 'Automate bookings', es: 'Automatizar reservas' }, icon: '📅' }, { value: 'sales', label: { fr: 'Vendre des produits/services', en: 'Sell products/services', es: 'Vender productos/servicios' }, icon: '💰' }, { value: 'credibility', label: { fr: 'Renforcer ma crédibilité', en: 'Strengthen credibility', es: 'Fortalecer credibilidad' }, icon: '🏆' }] },
-  { id: 'assets', question: { fr: 'Quels éléments de marque avez-vous ?', en: 'What brand elements do you have?', es: '¿Qué elementos de marca tiene?' }, options: [{ value: 'logo', label: { fr: 'Logo professionnel', en: 'Professional logo', es: 'Logo profesional' }, icon: '🎨' }, { value: 'colors', label: { fr: 'Charte graphique', en: 'Brand guidelines', es: 'Guía de marca' }, icon: '🎯' }, { value: 'nothing', label: { fr: 'Rien pour l\'instant', en: 'Nothing yet', es: 'Nada por ahora' }, icon: '✨' }] },
-  { id: 'booking', question: { fr: 'Avez-vous besoin de réservation en ligne ?', en: 'Do you need online booking?', es: '¿Necesita reservas en línea?' }, options: [{ value: 'yes', label: { fr: 'Oui, essentiel', en: 'Yes, essential', es: 'Sí, esencial' }, icon: '✅' }, { value: 'no', label: { fr: 'Non', en: 'No', es: 'No' }, icon: '❌' }] },
-  { id: 'payments', question: { fr: 'Souhaitez-vous accepter les paiements en ligne ?', en: 'Do you want to accept online payments?', es: '¿Desea aceptar pagos en línea?' }, options: [{ value: 'yes', label: { fr: 'Oui', en: 'Yes', es: 'Sí' }, icon: '💳' }, { value: 'no', label: { fr: 'Non', en: 'No', es: 'No' }, icon: '🚫' }] },
-]
 
 export const beforeAfterExamples: BeforeAfterExample[] = [
   { id: 'ba1', title: { fr: 'Restaurant Le Gourmet', en: 'Le Gourmet Restaurant', es: 'Restaurante Le Gourmet' }, profession: 'restaurant', before: { image: '/images/ba/before-1.jpg', issues: { fr: ['Design daté', 'Pas de réservation en ligne', 'Non optimisé mobile'], en: ['Dated design', 'No online booking', 'Not mobile optimized'], es: ['Diseño anticuado', 'Sin reservas en línea', 'No optimizado móvil'] } }, after: { image: '/images/ba/after-1.jpg', improvements: { fr: ['Design moderne et appétissant', 'Réservation en ligne 24/7', 'Top 3 Google local'], en: ['Modern appetizing design', '24/7 online booking', 'Top 3 local Google'], es: ['Diseño moderno y apetitoso', 'Reservas en línea 24/7', 'Top 3 Google local'] } }, metrics: [{ label: { fr: 'Augmentation des réservations', en: 'Booking increase', es: 'Aumento de reservas' }, value: '+180%' }, { label: { fr: 'Temps gagné/semaine', en: 'Time saved/week', es: 'Tiempo ahorrado/semana' }, value: '8h' }] },

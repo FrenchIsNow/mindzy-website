@@ -1,36 +1,48 @@
 'use client'
 
-import { forwardRef } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { useCallback, useEffect, useState } from 'react'
 
-interface ReCaptchaProps {
-  onChange?: (token: string | null) => void
-  error?: string
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (cb: () => void) => void
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+    }
+  }
 }
 
-export const ReCaptcha = forwardRef<ReCAPTCHA, ReCaptchaProps>(
-  ({ onChange, error }, ref) => {
-    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
-    if (!siteKey) {
-      console.error('NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not configured')
-      return null
+export function useRecaptcha() {
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    if (!SITE_KEY) return
+    if (document.getElementById('recaptcha-v3-script')) {
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => setIsReady(true))
+      }
+      return
     }
 
-    return (
-      <div className="w-full">
-        <div className="flex justify-center">
-          <ReCAPTCHA
-            ref={ref}
-            sitekey={siteKey}
-            onChange={onChange}
-            theme="light"
-          />
-        </div>
-        {error && <p className="mt-2 text-sm text-red-500 text-center">{error}</p>}
-      </div>
-    )
-  }
-)
+    const script = document.createElement('script')
+    script.id = 'recaptcha-v3-script'
+    script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`
+    script.async = true
+    script.onload = () => {
+      window.grecaptcha.ready(() => setIsReady(true))
+    }
+    document.head.appendChild(script)
+  }, [])
 
-ReCaptcha.displayName = 'ReCaptcha'
+  const executeRecaptcha = useCallback(async (action: string): Promise<string | null> => {
+    if (!SITE_KEY || !isReady) return null
+    try {
+      return await window.grecaptcha.execute(SITE_KEY, { action })
+    } catch {
+      return null
+    }
+  }, [isReady])
+
+  return { executeRecaptcha, isReady }
+}

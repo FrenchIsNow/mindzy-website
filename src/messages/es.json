@@ -190,20 +190,6 @@
     },
     "cta": "Descubrir mi solución personalizada"
   },
-  "onboarding": {
-    "title": "Encuentra tu plan ideal",
-    "subtitle": "4 preguntas para una recomendación personalizada",
-    "step": "Paso",
-    "next": "Siguiente",
-    "back": "Atrás",
-    "finish": "Ver mi recomendación",
-    "result": {
-      "title": "Tu plan recomendado",
-      "recommended": "Recomendado para ti",
-      "meetingCta": "Reservar una cita",
-      "contractCta": "Contrato + Términos"
-    }
-  },
   "portfolio": {
     "title": "Nuestros trabajos",
     "subtitle": "Sitios creados para nuestros clientes",

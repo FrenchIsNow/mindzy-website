@@ -141,7 +141,7 @@ export function PricingTable({ locale }: { locale: Locale }) {
                 </div>
                 <p className="text-gray-600 max-w-lg">{t.customQuote.description}</p>
               </div>
-              <Link href={`/${locale}/profil/custom`} className="flex-shrink-0">
+              <Link href={`/${locale}/diagnostic`} className="flex-shrink-0">
                 <Button variant="gold" size="lg" icon={<ArrowIcon />}>
                   {t.customQuote.cta}
                 </Button>

@@ -1,14 +1,13 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import ReCAPTCHA from 'react-google-recaptcha'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
-import { ReCaptcha } from '@/components/ui/ReCaptcha'
-import { routingQuestion, commonQuestions, branchQuestions, branchResults } from '@/lib/diagnostic-data'
+import { useRecaptcha } from '@/components/ui/ReCaptcha'
+import { routingQuestion, branchQuestions, branchResults } from '@/lib/diagnostic-data'
 import { config } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
 import type { DiagnosticBranch, BranchingDiagnosticQuestion } from '@/lib/types'
@@ -17,23 +16,22 @@ import { analytics } from '@/lib/analytics'
 
 const uiCopy = {
   fr: {
-    progress: 'Question',
+    progress: 'Étape',
     next: 'Suivant',
     back: 'Retour',
     restart: 'Recommencer',
     orientationLabel: 'Orientation recommandée',
     selectUpTo: (n: number) => `Sélectionnez jusqu'à ${n} options`,
     freeTextPlaceholder: 'Précisez votre besoin...',
-    seeResult: 'Voir mon résultat',
-    contactUs: 'Nous contacter',
     bookMeeting: 'Prendre rendez-vous',
-    contactTitle: 'Dernière étape !',
-    contactSubtitle: 'Laissez-nous vos coordonnées pour être recontacté par un expert.',
+    contactTitle: 'Dernière étape',
+    contactSubtitle: 'Laissez-nous vos coordonnées pour recevoir votre diagnostic personnalisé.',
     nameLabel: 'Nom complet',
     emailLabel: 'Email',
     phoneLabel: 'Téléphone',
     messageLabel: 'Message (optionnel)',
-    submitLabel: 'Envoyer ma demande',
+    messagePlaceholder: 'Décrivez brièvement votre besoin...',
+    submitLabel: 'Voir mon diagnostic',
     sending: 'Envoi en cours...',
     successTitle: 'Merci !',
     successMessage: 'Nous avons bien reçu votre demande. Un expert vous contactera sous 24h.',
@@ -41,26 +39,24 @@ const uiCopy = {
     errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
     retryLabel: 'Réessayer',
     invalidEmail: 'Email invalide',
-    recaptchaRequired: 'Veuillez compléter le captcha',
   },
   en: {
-    progress: 'Question',
+    progress: 'Step',
     next: 'Next',
     back: 'Back',
     restart: 'Start over',
     orientationLabel: 'Recommended approach',
     selectUpTo: (n: number) => `Select up to ${n} options`,
     freeTextPlaceholder: 'Specify your need...',
-    seeResult: 'See my result',
-    contactUs: 'Contact us',
     bookMeeting: 'Book a meeting',
-    contactTitle: 'Last step!',
-    contactSubtitle: 'Leave your contact info so an expert can reach out to you.',
+    contactTitle: 'Last step',
+    contactSubtitle: 'Leave your contact info to receive your personalized diagnostic.',
     nameLabel: 'Full name',
     emailLabel: 'Email',
     phoneLabel: 'Phone',
     messageLabel: 'Message (optional)',
-    submitLabel: 'Send my request',
+    messagePlaceholder: 'Briefly describe your need...',
+    submitLabel: 'See my diagnostic',
     sending: 'Sending...',
     successTitle: 'Thank you!',
     successMessage: 'We received your request. An expert will contact you within 24h.',
@@ -68,26 +64,24 @@ const uiCopy = {
     errorMessage: 'An error occurred. Please try again.',
     retryLabel: 'Retry',
     invalidEmail: 'Invalid email',
-    recaptchaRequired: 'Please complete the captcha',
   },
   es: {
-    progress: 'Pregunta',
+    progress: 'Paso',
     next: 'Siguiente',
     back: 'Atrás',
     restart: 'Empezar de nuevo',
     orientationLabel: 'Orientación recomendada',
     selectUpTo: (n: number) => `Seleccione hasta ${n} opciones`,
     freeTextPlaceholder: 'Especifique su necesidad...',
-    seeResult: 'Ver mi resultado',
-    contactUs: 'Contáctenos',
     bookMeeting: 'Reservar una cita',
-    contactTitle: '¡Último paso!',
-    contactSubtitle: 'Déjenos sus datos para que un experto le contacte.',
+    contactTitle: 'Último paso',
+    contactSubtitle: 'Déjenos sus datos para recibir su diagnóstico personalizado.',
     nameLabel: 'Nombre completo',
     emailLabel: 'Email',
     phoneLabel: 'Teléfono',
     messageLabel: 'Mensaje (opcional)',
-    submitLabel: 'Enviar mi solicitud',
+    messagePlaceholder: 'Describa brevemente su necesidad...',
+    submitLabel: 'Ver mi diagnóstico',
     sending: 'Enviando...',
     successTitle: '¡Gracias!',
     successMessage: 'Hemos recibido su solicitud. Un experto le contactará en 24h.',
@@ -95,60 +89,49 @@ const uiCopy = {
     errorMessage: 'Ocurrió un error. Inténtelo de nuevo.',
     retryLabel: 'Reintentar',
     invalidEmail: 'Email inválido',
-    recaptchaRequired: 'Por favor complete el captcha',
   },
 }
 
+type Phase = 'questions' | 'contact' | 'result'
+
 export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   const t = uiCopy[locale]
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const { executeRecaptcha } = useRecaptcha()
 
   const [step, setStep] = useState(0)
   const [branch, setBranch] = useState<DiagnosticBranch | null>(null)
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
   const [freeText, setFreeText] = useState('')
-  const [showResult, setShowResult] = useState(false)
-  const [showContactForm, setShowContactForm] = useState(false)
+  const [phase, setPhase] = useState<Phase>('questions')
   const [contact, setContact] = useState({ fullName: '', email: '', phone: '', message: '' })
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [emailError, setEmailError] = useState('')
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
-  const [recaptchaError, setRecaptchaError] = useState('')
 
-  const totalSteps = 5
-  const progress = ((step + 1) / totalSteps) * 100
+  const totalSteps = 3
+  const currentStep = phase === 'questions' ? step + 1 : phase === 'contact' ? 3 : 3
+  const progress = (currentStep / totalSteps) * 100
 
   function getCurrentQuestion(): BranchingDiagnosticQuestion | null {
     if (step === 0) return routingQuestion
-    if (step === 1) return commonQuestions[0]
-    if (step === 2) return commonQuestions[1]
-    if (step === 3 && branch) return branchQuestions[branch][0]
-    if (step === 4 && branch) return branchQuestions[branch][1]
+    if (step === 1 && branch) return branchQuestions[branch]
     return null
   }
 
   const currentQuestion = getCurrentQuestion()
 
   function handleSingleSelect(questionId: string, value: string) {
-    if (step === 0) {
-      analytics.cta.diagnosticStart()
-    }
+    if (step === 0) analytics.cta.diagnosticStart()
 
     const newAnswers = { ...answers, [questionId]: value }
     setAnswers(newAnswers)
 
-    if (step === 0) {
-      setBranch(value as DiagnosticBranch)
-    }
+    if (step === 0) setBranch(value as DiagnosticBranch)
 
     if (currentQuestion?.type === 'single') {
-      if (step < totalSteps - 1) {
+      if (step < 1) {
         setTimeout(() => setStep((s) => s + 1), 300)
       } else {
-        setTimeout(() => {
-          setShowResult(true)
-          if (branch) analytics.cta.diagnosticComplete(0, 'low', branch)
-        }, 300)
+        setTimeout(() => setPhase('contact'), 300)
       }
     }
   }
@@ -170,11 +153,10 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   }
 
   function handleMultiNext() {
-    if (step < totalSteps - 1) {
+    if (step < 1) {
       setStep((s) => s + 1)
     } else {
-      setShowResult(true)
-      if (branch) analytics.cta.diagnosticComplete(0, 'low', branch)
+      setPhase('contact')
     }
   }
 
@@ -188,9 +170,11 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
   }
 
   function handleBack() {
-    if (step > 0) {
-      setStep((s) => s - 1)
+    if (phase === 'contact') {
+      setPhase('questions')
+      return
     }
+    if (step > 0) setStep((s) => s - 1)
   }
 
   function handleReset() {
@@ -198,24 +182,15 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
     setBranch(null)
     setAnswers({})
     setFreeText('')
-    setShowResult(false)
-    setShowContactForm(false)
+    setPhase('questions')
     setContact({ fullName: '', email: '', phone: '', message: '' })
     setFormState('idle')
     setEmailError('')
-    setRecaptchaToken(null)
-    setRecaptchaError('')
-    recaptchaRef.current?.reset()
-  }
-
-  function handleCtaClick() {
-    setShowContactForm(true)
   }
 
   async function handleSubmitContact(e: React.FormEvent) {
     e.preventDefault()
     setEmailError('')
-    setRecaptchaError('')
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(contact.email)) {
@@ -223,26 +198,22 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
       return
     }
 
-    if (!recaptchaToken) {
-      setRecaptchaError(t.recaptchaRequired)
-      return
-    }
-
     setFormState('submitting')
+
+    const recaptchaToken = await executeRecaptcha('diagnostic_submit')
 
     const serializedAnswers: Record<string, string> = {}
     for (const [key, value] of Object.entries(answers)) {
       serializedAnswers[key] = Array.isArray(value) ? value.join(', ') : value
     }
-    if (freeText) {
-      serializedAnswers['freeText'] = freeText
-    }
+    if (freeText) serializedAnswers['freeText'] = freeText
 
     try {
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          sheetName: 'MINDZY_FORM_FILLED',
           profileType: `diagnostic-${branch}`,
           locale,
           recaptchaToken,
@@ -254,43 +225,21 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
       if (!response.ok) throw new Error('Failed')
       analytics.lead.generate('diagnostic_quiz', `branch-${branch}`)
       analytics.lead.formSubmit('diagnostic_quiz', true)
-      setFormState('success')
+      if (branch) analytics.cta.diagnosticComplete(0, 'low', branch)
+      setFormState('idle')
+      setPhase('result')
     } catch {
       analytics.lead.formSubmit('diagnostic_quiz', false)
       setFormState('error')
-    } finally {
-      recaptchaRef.current?.reset()
-      setRecaptchaToken(null)
     }
   }
 
-  if (formState === 'success') {
+  if (formState === 'error' && phase === 'contact') {
     return (
       <div className="max-w-2xl mx-auto animate-fade-in-up">
         <Card variant="elevated" className="text-center">
           <CardContent className="p-8 md:p-12">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-50 flex items-center justify-center">
-              <svg className="w-10 h-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h2 className="heading-3 text-anthracite mb-4">{t.successTitle}</h2>
-            <p className="body-regular text-gray-600 mb-8 max-w-md mx-auto">{t.successMessage}</p>
-            <Link href={`/${locale}`}>
-              <Button variant="primary" size="lg">{t.successCta}</Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  if (formState === 'error') {
-    return (
-      <div className="max-w-2xl mx-auto animate-fade-in-up">
-        <Card variant="elevated" className="text-center">
-          <CardContent className="p-8 md:p-12">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center text-4xl">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
               <svg className="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
               </svg>
@@ -303,94 +252,7 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
     )
   }
 
-  if (showContactForm && branch) {
-    const result = branchResults[branch]
-    return (
-      <div className="max-w-2xl mx-auto animate-fade-in-up">
-        <Card variant="elevated">
-          <CardContent className="p-8 md:p-10">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-violet to-purple-600 flex items-center justify-center">
-                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                </svg>
-              </div>
-              <h2 className="heading-3 text-anthracite mb-2">{t.contactTitle}</h2>
-              <p className="body-regular text-gray-600">{t.contactSubtitle}</p>
-            </div>
-
-            <div className="mb-6 p-4 rounded-xl bg-violet-50 border border-violet-100">
-              <p className="text-sm font-medium text-violet-700 mb-1">{result.title[locale]}</p>
-              <p className="text-xs text-violet-600">{t.orientationLabel} : {result.orientation[locale]}</p>
-            </div>
-
-            <form onSubmit={handleSubmitContact} className="space-y-4">
-              <Input
-                label={t.nameLabel}
-                value={contact.fullName}
-                onChange={(e) => setContact((p) => ({ ...p, fullName: e.target.value }))}
-                required
-                placeholder="Jean Dupont"
-              />
-              <Input
-                label={t.emailLabel}
-                type="email"
-                value={contact.email}
-                onChange={(e) => { setContact((p) => ({ ...p, email: e.target.value })); setEmailError('') }}
-                required
-                placeholder="jean@example.com"
-                error={emailError}
-              />
-              <Input
-                label={t.phoneLabel}
-                type="tel"
-                value={contact.phone}
-                onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
-                required
-                placeholder="+33 6 12 34 56 78"
-              />
-              <Textarea
-                label={t.messageLabel}
-                value={contact.message}
-                onChange={(e) => setContact((p) => ({ ...p, message: e.target.value }))}
-                placeholder={t.freeTextPlaceholder}
-              />
-              <ReCaptcha
-                ref={recaptchaRef}
-                onChange={(token) => {
-                  setRecaptchaToken(token)
-                  setRecaptchaError('')
-                }}
-                error={recaptchaError}
-              />
-              <div className="flex gap-3 pt-4">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="lg"
-                  onClick={() => setShowContactForm(false)}
-                  className="flex-1"
-                >
-                  ← {t.back}
-                </Button>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="lg"
-                  disabled={formState === 'submitting' || !contact.fullName || !contact.email || !contact.phone}
-                  className="flex-[2]"
-                >
-                  {formState === 'submitting' ? t.sending : t.submitLabel}
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  if (showResult && branch) {
+  if (phase === 'result' && branch) {
     const result = branchResults[branch]
     return (
       <div className="max-w-2xl mx-auto animate-fade-in-up">
@@ -411,24 +273,12 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {branch === 'E' ? (
-                <Link href={`/${locale}/solutions/formations`}>
-                  <Button variant="primary" size="lg" className="w-full">
-                    {result.cta[locale]}
-                  </Button>
-                </Link>
-              ) : (
-                <Button variant="primary" size="lg" onClick={handleCtaClick}>
-                  {t.contactUs}
-                </Button>
-              )}
-              <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                <Button variant="primary" size="lg" className="w-full">
-                  {t.bookMeeting}
-                </Button>
-              </a>
-            </div>
+            <a href={config.CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              <Button variant="primary" size="lg" className="w-full">
+                {t.bookMeeting}
+              </Button>
+            </a>
+
             <button
               type="button"
               onClick={handleReset}
@@ -436,6 +286,91 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
             >
               {t.restart}
             </button>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  if (phase === 'contact' && branch) {
+    return (
+      <div className="max-w-2xl mx-auto animate-fade-in-up">
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm text-gray-500">{t.progress} 3/3</span>
+            <span className="text-sm font-medium text-violet">100%</span>
+          </div>
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-full bg-violet transition-all duration-500 rounded-full" style={{ width: '100%' }} />
+          </div>
+        </div>
+
+        <Card variant="elevated">
+          <CardContent className="p-8 md:p-10">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-violet to-purple-600 flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+              </div>
+              <h2 className="heading-3 text-anthracite mb-2">{t.contactTitle}</h2>
+              <p className="body-regular text-gray-600">{t.contactSubtitle}</p>
+            </div>
+
+            <form onSubmit={handleSubmitContact} className="space-y-4">
+              <Input
+                label={t.nameLabel}
+                value={contact.fullName}
+                onChange={(e) => setContact((p) => ({ ...p, fullName: e.target.value }))}
+                required
+                placeholder="Jean Dupont"
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input
+                  label={t.emailLabel}
+                  type="email"
+                  value={contact.email}
+                  onChange={(e) => { setContact((p) => ({ ...p, email: e.target.value })); setEmailError('') }}
+                  required
+                  placeholder="jean@example.com"
+                  error={emailError}
+                />
+                <Input
+                  label={t.phoneLabel}
+                  type="tel"
+                  value={contact.phone}
+                  onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
+                  required
+                  placeholder="+33 6 12 34 56 78"
+                />
+              </div>
+              <Textarea
+                label={t.messageLabel}
+                value={contact.message}
+                onChange={(e) => setContact((p) => ({ ...p, message: e.target.value }))}
+                placeholder={t.messagePlaceholder}
+              />
+              <div className="flex gap-3 pt-4">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="lg"
+                  onClick={handleBack}
+                  className="flex-1"
+                >
+                  ← {t.back}
+                </Button>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  disabled={formState === 'submitting' || !contact.fullName || !contact.email || !contact.phone}
+                  className="flex-[2]"
+                >
+                  {formState === 'submitting' ? t.sending : t.submitLabel}
+                </Button>
+              </div>
+            </form>
           </CardContent>
         </Card>
       </div>
@@ -545,7 +480,7 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
                 onClick={handleMultiNext}
                 disabled={!canAdvance()}
               >
-                {step === totalSteps - 1 ? t.seeResult : t.next}
+                {t.next}
               </Button>
             )}
             {step > 0 && (

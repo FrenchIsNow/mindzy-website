@@ -85,11 +85,6 @@ export interface DiagnosticResult {
   recommendation: Plan['id'] | 'custom'
 }
 
-export interface OnboardingStep {
-  id: string
-  question: Record<Locale, string>
-  options: { value: string; label: Record<Locale, string>; icon?: string }[]
-}
 
 export interface ChatMessage {
   id: string

@@ -1,6 +1,6 @@
-# Configuration Google reCAPTCHA v2
+# Configuration Google reCAPTCHA v3
 
-Ce guide explique comment configurer Google reCAPTCHA v2 pour protéger les formulaires de contact contre les bots.
+Ce guide explique comment configurer Google reCAPTCHA v3 pour protéger les formulaires de contact contre les bots. La v3 est invisible — aucune interaction utilisateur requise.
 
 ## 1. Créer des clés reCAPTCHA
 
@@ -8,7 +8,7 @@ Ce guide explique comment configurer Google reCAPTCHA v2 pour protéger les form
 2. Cliquez sur **"Créer"** ou **"+"** pour ajouter un nouveau site
 3. Remplissez le formulaire :
    - **Libellé** : Mindzy (ou le nom de votre choix)
-   - **Type de reCAPTCHA** : Sélectionnez **reCAPTCHA v2** > **Case à cocher "Je ne suis pas un robot"**
+   - **Type de reCAPTCHA** : Sélectionnez **reCAPTCHA v3** (score-based)
    - **Domaines** : Ajoutez vos domaines (sans http://)
      - `mindzy.me`
      - `www.mindzy.me`
@@ -28,7 +28,7 @@ Après la création, vous obtiendrez deux clés :
 Ajoutez les clés dans votre fichier `.env.local` :
 
 ```bash
-# Google reCAPTCHA v2 keys
+# Google reCAPTCHA v3 keys
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=votre_cle_publique_ici
 RECAPTCHA_SECRET_KEY=votre_cle_secrete_ici
 ```
@@ -46,36 +46,26 @@ Après avoir ajouté les variables d'environnement, redémarrez votre serveur de
 npm run dev
 ```
 
-## 5. Tester le captcha
+## 5. Fonctionnement
 
-1. Accédez à un formulaire de contact (Diagnostic Quiz ou Profile Quiz)
-2. Remplissez le formulaire
-3. Cochez la case "Je ne suis pas un robot"
-4. Soumettez le formulaire
-
-Si tout est configuré correctement :
-- Le captcha s'affiche
-- La validation fonctionne
-- Les soumissions sont enregistrées
+reCAPTCHA v3 fonctionne de manière invisible :
+- Le script Google est chargé automatiquement au chargement de la page
+- Lors de la soumission d'un formulaire, un token est généré en arrière-plan
+- Le serveur vérifie le token et reçoit un score de 0.0 (bot) à 1.0 (humain)
+- Les soumissions avec un score < 0.5 sont rejetées
 
 ## Dépannage
 
-### Le captcha ne s'affiche pas
-- Vérifiez que `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` est correctement définie
-- Vérifiez que le domaine est autorisé dans la console reCAPTCHA
-- Regardez la console du navigateur pour les erreurs
+### Erreur "Invalid key type"
+- Vous utilisez probablement des clés v2. Créez de nouvelles clés v3 dans la console reCAPTCHA.
 
-### Erreur "reCAPTCHA verification failed"
-- Vérifiez que `RECAPTCHA_SECRET_KEY` est correctement définie
-- Assurez-vous que la clé secrète correspond à la clé du site
-- Vérifiez les logs du serveur pour plus de détails
+### Le formulaire est rejeté pour des utilisateurs légitimes
+- Ajustez le seuil de score dans `src/app/api/leads/route.ts` (par défaut : 0.5)
 
 ### Erreur en développement local
 - Ajoutez `localhost` dans la liste des domaines autorisés
-- Utilisez `http://localhost:3000` dans votre navigateur
 
 ## Documentation officielle
 
-Pour plus d'informations :
-- [Documentation Google reCAPTCHA](https://developers.google.com/recaptcha/docs/display)
+- [Documentation Google reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 - [FAQ reCAPTCHA](https://developers.google.com/recaptcha/docs/faq)

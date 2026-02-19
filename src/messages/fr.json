@@ -190,20 +190,6 @@
     },
     "cta": "Découvrir ma solution personnalisée"
   },
-  "onboarding": {
-    "title": "Trouvez votre formule idéale",
-    "subtitle": "4 questions pour une recommandation personnalisée",
-    "step": "Étape",
-    "next": "Suivant",
-    "back": "Retour",
-    "finish": "Voir ma recommandation",
-    "result": {
-      "title": "Votre formule recommandée",
-      "recommended": "Recommandé pour vous",
-      "meetingCta": "Prendre un meeting",
-      "contractCta": "Contrat + CGU/CGV"
-    }
-  },
   "portfolio": {
     "title": "Nos réalisations",
     "subtitle": "Sites web créés pour nos clients",
