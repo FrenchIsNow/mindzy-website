@@ -19,6 +19,7 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     })
 
     const data = await response.json()
+    console.log('[Leads API] reCAPTCHA response:', JSON.stringify(data))
     if (!data.success) return false
     // reCAPTCHA v3 returns a score from 0.0 (bot) to 1.0 (human)
     if (typeof data.score === 'number' && data.score < 0.5) return false
@@ -37,6 +38,8 @@ export async function POST(request: Request) {
     if (!profileType || !fullName || !email || !phone) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
+
+    console.log('[Leads API] recaptchaToken received:', recaptchaToken ? `${String(recaptchaToken).substring(0, 20)}... (length: ${String(recaptchaToken).length})` : 'NULL/EMPTY')
 
     if (!recaptchaToken) {
       return NextResponse.json({ error: 'reCAPTCHA verification required' }, { status: 400 })

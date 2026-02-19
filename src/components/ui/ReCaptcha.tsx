@@ -36,10 +36,16 @@ export function useRecaptcha() {
   }, [])
 
   const executeRecaptcha = useCallback(async (action: string): Promise<string | null> => {
-    if (!SITE_KEY || !isReady) return null
+    if (!SITE_KEY || !isReady) {
+      console.warn('[reCAPTCHA] Not ready — siteKey:', !!SITE_KEY, 'isReady:', isReady)
+      return null
+    }
     try {
-      return await window.grecaptcha.execute(SITE_KEY, { action })
-    } catch {
+      const token = await window.grecaptcha.execute(SITE_KEY, { action })
+      console.log('[reCAPTCHA] Token generated, length:', token?.length)
+      return token
+    } catch (err) {
+      console.error('[reCAPTCHA] Execute error:', err)
       return null
     }
   }, [isReady])
