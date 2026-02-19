@@ -24,6 +24,7 @@ const uiCopy = {
     selectUpTo: (n: number) => `Sélectionnez jusqu'à ${n} options`,
     freeTextPlaceholder: 'Précisez votre besoin...',
     bookMeeting: 'Prendre rendez-vous',
+    deepDiagnosticNotice: 'Un expert Mindzy vous contactera prochainement pour réaliser un diagnostic approfondi et personnalisé de votre projet.',
     contactTitle: 'Dernière étape',
     contactSubtitle: 'Laissez-nous vos coordonnées pour recevoir votre diagnostic personnalisé.',
     nameLabel: 'Nom complet',
@@ -49,6 +50,7 @@ const uiCopy = {
     selectUpTo: (n: number) => `Select up to ${n} options`,
     freeTextPlaceholder: 'Specify your need...',
     bookMeeting: 'Book a meeting',
+    deepDiagnosticNotice: 'A Mindzy expert will contact you soon to conduct an in-depth, personalized diagnostic of your project.',
     contactTitle: 'Last step',
     contactSubtitle: 'Leave your contact info to receive your personalized diagnostic.',
     nameLabel: 'Full name',
@@ -74,6 +76,7 @@ const uiCopy = {
     selectUpTo: (n: number) => `Seleccione hasta ${n} opciones`,
     freeTextPlaceholder: 'Especifique su necesidad...',
     bookMeeting: 'Reservar una cita',
+    deepDiagnosticNotice: 'Un experto de Mindzy le contactará próximamente para realizar un diagnóstico en profundidad y personalizado de su proyecto.',
     contactTitle: 'Último paso',
     contactSubtitle: 'Déjenos sus datos para recibir su diagnóstico personalizado.',
     nameLabel: 'Nombre completo',
@@ -262,6 +265,12 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
               <svg className="w-10 h-10 text-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
               </svg>
+            </div>
+
+            <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+              <p className="text-sm font-medium text-emerald-700">
+                {t.deepDiagnosticNotice}
+              </p>
             </div>
 
             <h2 className="heading-3 text-anthracite mb-4">{result.title[locale]}</h2>
