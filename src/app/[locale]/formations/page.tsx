@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 
 export default async function FormationsRedirect({
   params,
@@ -6,5 +6,5 @@ export default async function FormationsRedirect({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  redirect(`/${locale}/solutions/formations`)
+  permanentRedirect(`/${locale}/solutions/formations`)
 }

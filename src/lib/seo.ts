@@ -86,7 +86,7 @@ export function buildPageMetadata({
   }
 
   if (noIndex) {
-    metadata.robots = { index: false, follow: false }
+    metadata.robots = { index: false, follow: true }
   }
 
   return metadata
