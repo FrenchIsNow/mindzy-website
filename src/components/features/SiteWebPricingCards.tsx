@@ -65,7 +65,7 @@ export function SiteWebPricingCards({ plansCopy, monthly, setup, cta, popular }:
               ))}
             </ul>
             <button
-              onClick={() => openContactModal(plan.id)}
+              onClick={() => openContactModal(`Site Web - ${planCopy.name} (${formatPrice(plan.price)})`)}
               className={cn(
                 'mt-8 block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:mt-10 cursor-pointer',
                 isPopular

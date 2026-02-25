@@ -24,6 +24,7 @@ const copy = {
     success: 'Message envoyé ! Nous vous recontacterons rapidement.',
     error: 'Une erreur est survenue. Veuillez réessayer.',
     close: 'Fermer',
+    selectedOffer: 'Offre sélectionnée :',
   },
   en: {
     title: 'Contact us',
@@ -43,6 +44,7 @@ const copy = {
     success: 'Message sent! We\'ll get back to you shortly.',
     error: 'Something went wrong. Please try again.',
     close: 'Close',
+    selectedOffer: 'Selected offer:',
   },
   es: {
     title: 'Contáctenos',
@@ -62,6 +64,7 @@ const copy = {
     success: '¡Mensaje enviado! Le contactaremos pronto.',
     error: 'Ha ocurrido un error. Inténtelo de nuevo.',
     close: 'Cerrar',
+    selectedOffer: 'Oferta seleccionada :',
   },
 }
 
@@ -166,6 +169,18 @@ function ContactFormModal({ locale, planId, onClose }: { locale: Locale; planId?
             <h3 className="text-2xl font-display font-semibold text-anthracite">{t.title}</h3>
             <p className="text-gray-500 text-sm mt-1">{t.subtitle}</p>
           </div>
+
+          {planId && (
+            <div className="mb-6 p-4 bg-violet-50 rounded-xl border border-violet-100 flex items-start gap-3">
+              <svg className="w-5 h-5 text-violet-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-violet-900">{t.selectedOffer}</p>
+                <p className="text-sm text-violet-700 mt-0.5 font-semibold">{planId}</p>
+              </div>
+            </div>
+          )}
 
           {status === 'success' ? (
             <div className="text-center py-8">

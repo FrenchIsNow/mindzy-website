@@ -1,4 +1,6 @@
-import Link from 'next/link'
+'use client'
+
+import { useContactModal } from '@/components/features/ContactFormModal'
 import type { Locale } from '@/lib/i18n'
 
 interface Tier {
@@ -27,6 +29,7 @@ const CheckIcon = () => (
 )
 
 export function FormationsPricingTiers({ locale, badge, title, subtitle, ctaLabel, tiers, variant = 'white' }: FormationsPricingTiersProps) {
+  const { open: openContactModal } = useContactModal()
   const bgClass = variant === 'gray' ? 'bg-[#FAFAFF]' : 'relative isolate bg-white'
 
   return (
@@ -71,17 +74,17 @@ export function FormationsPricingTiers({ locale, badge, title, subtitle, ctaLabe
                 </li>
               ))}
             </ul>
-            <Link
-              href={`/${locale}/diagnostic`}
+            <button
+              onClick={() => openContactModal(`${badge} - ${tier.name} (${tier.price})`)}
               className={[
                 tier.featured
                   ? 'bg-violet-600 text-white shadow-sm hover:bg-violet-500'
                   : 'text-violet-600 ring-1 ring-violet-200 hover:ring-violet-300',
-                'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:mt-10',
+                'mt-8 block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 sm:mt-10 cursor-pointer transition-all',
               ].join(' ')}
             >
               {ctaLabel}
-            </Link>
+            </button>
           </div>
         ))}
       </div>

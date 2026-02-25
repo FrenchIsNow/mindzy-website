@@ -1,6 +1,8 @@
+'use client'
+
 import Image from 'next/image'
-import Link from 'next/link'
 import { Button, ArrowIcon } from '@/components/ui/Button'
+import { useContactModal } from '@/components/features/ContactFormModal'
 import type { Locale } from '@/lib/i18n'
 
 interface FormationsPageHeroProps {
@@ -13,6 +15,8 @@ interface FormationsPageHeroProps {
 }
 
 export function FormationsPageHero({ locale, badge, title, titleHighlight, subtitle, cta }: FormationsPageHeroProps) {
+  const { open: openContactModal } = useContactModal()
+
   return (
     <div className="relative isolate bg-white">
       <svg
@@ -63,9 +67,14 @@ export function FormationsPageHero({ locale, badge, title, titleHighlight, subti
                 {subtitle}
               </p>
               <div className="mt-10 flex items-center gap-x-6">
-                <Link href={`/${locale}/diagnostic`}>
-                  <Button variant="primary" size="xl" icon={<ArrowIcon />}>{cta}</Button>
-                </Link>
+                <Button
+                  variant="primary"
+                  size="xl"
+                  icon={<ArrowIcon />}
+                  onClick={() => openContactModal('Hero - Formations')}
+                >
+                  {cta}
+                </Button>
               </div>
             </div>
             <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">

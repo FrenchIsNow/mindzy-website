@@ -1,4 +1,6 @@
-import Link from 'next/link'
+'use client'
+
+import { useContactModal } from '@/components/features/ContactFormModal'
 import type { Locale } from '@/lib/i18n'
 
 interface FormationsPricingIAProps {
@@ -32,6 +34,8 @@ export function FormationsPricingIA({
   includedLabel,
   features,
 }: FormationsPricingIAProps) {
+  const { open: openContactModal } = useContactModal()
+
   return (
     <section className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -69,12 +73,12 @@ export function FormationsPricingIA({
                   <span className="text-5xl font-semibold tracking-tight text-[#1E1B4B]">{price}</span>
                 </p>
                 <p className="mt-1 text-xs text-gray-400">{duration}</p>
-                <Link
-                  href={`/${locale}/diagnostic`}
-                  className="mt-10 block w-full rounded-md bg-violet-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-violet-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                <button
+                  onClick={() => openContactModal(`${badge} (${price})`)}
+                  className="mt-10 block w-full rounded-md bg-violet-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-violet-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 cursor-pointer transition-all"
                 >
                   {ctaLabel}
-                </Link>
+                </button>
               </div>
             </div>
           </div>
