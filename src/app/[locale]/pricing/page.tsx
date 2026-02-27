@@ -10,9 +10,9 @@ import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata, jsonLdService, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const pricingDescriptions: Record<string, string> = {
-  fr: 'Tarifs transparents pour la création de votre site web professionnel. À partir de 49€/mois, hébergement et support inclus. Sans engagement.',
-  en: 'Transparent pricing for your professional website creation. Starting at €49/month, hosting and support included. No commitment.',
-  es: 'Precios transparentes para la creación de tu sitio web profesional. Desde 49€/mes, alojamiento y soporte incluido. Sin compromiso.',
+  fr: 'Tarifs transparents pour la création de votre site web professionnel. À partir de 61€/mois TTC, hébergement et support inclus. Sans engagement.',
+  en: 'Transparent pricing for your professional website creation. Starting at €61/month incl. VAT, hosting and support included. No commitment.',
+  es: 'Precios transparentes para la creación de tu sitio web profesional. Desde 61€/mes IVA incl., alojamiento y soporte incluido. Sin compromiso.',
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -36,7 +36,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Fondations',
-          price: '190€',
+          price: '236€',
           duration: '3h · 2 sessions',
           description: 'Posez les bases d\'un profil qui attire et convertit vos prospects idéaux.',
           features: ['Optimisation avancée du profil', 'Positionnement différenciant', 'Ciblage précis de l\'audience', 'Structure de posts performants'],
@@ -44,7 +44,7 @@ const formationsPricing = {
         },
         {
           name: 'Acquisition & Prospection',
-          price: '290€',
+          price: '360€',
           duration: '4h · 2 sessions',
           description: 'Structurez un système qui génère des leads chaque semaine.',
           features: ['Méthodologie de prospection', 'Séquences de messages', 'LinkedIn Sales Navigator', 'Listes qualifiées', 'Routine d\'acquisition'],
@@ -52,7 +52,7 @@ const formationsPricing = {
         },
         {
           name: 'LinkedIn Mastery',
-          price: '490€',
+          price: '608€',
           duration: '8h · 4 sessions',
           description: 'Le système complet : profil, contenu, prospection et pipeline actif.',
           features: ['Pack Fondations + Acquisition inclus', 'Stratégie de contenu avancée', 'Plan d\'action 60 jours', 'Automatisation responsable', 'KPI & tracking'],
@@ -68,7 +68,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Lancer sa Présence',
-          price: '190€',
+          price: '236€',
           duration: '3h · 2 sessions',
           description: 'Comprenez les algorithmes et posez une stratégie claire pour attirer vos prospects.',
           features: ['Fonctionnement des algorithmes', 'Positionnement clair', 'Contenu qui attire des prospects', 'Plan de publication structuré'],
@@ -76,7 +76,7 @@ const formationsPricing = {
         },
         {
           name: 'Campagnes Rentables',
-          price: '340€',
+          price: '422€',
           duration: '4h · 2 sessions',
           description: 'Créez des campagnes Meta, TikTok et Google Ads optimisées qui génèrent des leads.',
           features: ['Configuration des comptes publicitaires', 'Installation pixel & tracking', 'Campagnes Meta, TikTok & Google Ads', 'Optimisation des résultats'],
@@ -84,7 +84,7 @@ const formationsPricing = {
         },
         {
           name: 'Acquisition Complète',
-          price: '590€',
+          price: '732€',
           duration: '8h · 4 sessions',
           description: 'Contenu + publicité + retargeting pour un flux régulier de prospects qualifiés.',
           features: ['Stratégie organique + publicité', 'Tunnel de conversion complet', 'Retargeting avancé', 'Structuration des audiences', 'Optimisation des budgets'],
@@ -96,7 +96,7 @@ const formationsPricing = {
       badge: 'Intelligence Artificielle',
       title: 'Stratégie & Transformation Business',
       description: 'Formation avancée orientée intégration concrète de l\'IA dans les processus métier. Transformation opérationnelle, pas simple découverte d\'outils.',
-      price: '690€',
+      price: '856€',
       duration: '8h · 4 sessions',
       priceLabel: 'Prix fixe · Live + ateliers pratiques',
       ctaLabel: 'Réserver ma place',
@@ -113,7 +113,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Foundations',
-          price: '€190',
+          price: '€236',
           duration: '3h · 2 sessions',
           description: 'Build a profile that attracts and converts your ideal prospects.',
           features: ['Advanced profile optimization', 'Differentiated positioning', 'Precise audience targeting', 'High-performing post structure'],
@@ -121,7 +121,7 @@ const formationsPricing = {
         },
         {
           name: 'Acquisition & Prospecting',
-          price: '€290',
+          price: '€360',
           duration: '4h · 2 sessions',
           description: 'Build a system that generates leads every week.',
           features: ['Prospecting methodology', 'Message sequences', 'LinkedIn Sales Navigator', 'Qualified lists', 'Acquisition routine'],
@@ -129,7 +129,7 @@ const formationsPricing = {
         },
         {
           name: 'LinkedIn Mastery',
-          price: '€490',
+          price: '€608',
           duration: '8h · 4 sessions',
           description: 'The complete system: profile, content, prospecting and active pipeline.',
           features: ['Foundations + Acquisition included', 'Advanced content strategy', '60-day action plan', 'Responsible automation', 'KPI & tracking'],
@@ -145,7 +145,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Launch your Presence',
-          price: '€190',
+          price: '€236',
           duration: '3h · 2 sessions',
           description: 'Understand algorithms and set a clear strategy to attract prospects.',
           features: ['How algorithms work', 'Clear positioning', 'Content that attracts prospects', 'Structured publication plan'],
@@ -153,7 +153,7 @@ const formationsPricing = {
         },
         {
           name: 'Profitable Campaigns',
-          price: '€340',
+          price: '€422',
           duration: '4h · 2 sessions',
           description: 'Create optimized Meta, TikTok and Google Ads campaigns that generate leads.',
           features: ['Ad accounts configuration', 'Pixel & tracking setup', 'Meta, TikTok & Google Ads campaigns', 'Results optimization'],
@@ -161,7 +161,7 @@ const formationsPricing = {
         },
         {
           name: 'Complete Acquisition',
-          price: '€590',
+          price: '€732',
           duration: '8h · 4 sessions',
           description: 'Content + advertising + retargeting for a steady flow of qualified leads.',
           features: ['Organic + paid strategy', 'Full conversion funnel', 'Advanced retargeting', 'Audience structuring', 'Budget optimization'],
@@ -173,7 +173,7 @@ const formationsPricing = {
       badge: 'Artificial Intelligence',
       title: 'Strategy & Business Transformation',
       description: 'Advanced training focused on concrete AI integration into business processes. Operational transformation, not just tool discovery.',
-      price: '€690',
+      price: '€856',
       duration: '8h · 4 sessions',
       priceLabel: 'Fixed price · Live + hands-on workshops',
       ctaLabel: 'Book my spot',
@@ -190,7 +190,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Fundamentos',
-          price: '190€',
+          price: '236€',
           duration: '3h · 2 sesiones',
           description: 'Construye un perfil que atrae y convierte a tus prospectos ideales.',
           features: ['Optimización avanzada del perfil', 'Posicionamiento diferenciador', 'Segmentación precisa', 'Estructura de posts eficaces'],
@@ -198,7 +198,7 @@ const formationsPricing = {
         },
         {
           name: 'Adquisición y Prospección',
-          price: '290€',
+          price: '360€',
           duration: '4h · 2 sesiones',
           description: 'Estructura un sistema que genera leads cada semana.',
           features: ['Metodología de prospección', 'Secuencias de mensajes', 'LinkedIn Sales Navigator', 'Listas cualificadas', 'Rutina de adquisición'],
@@ -206,7 +206,7 @@ const formationsPricing = {
         },
         {
           name: 'LinkedIn Mastery',
-          price: '490€',
+          price: '608€',
           duration: '8h · 4 sesiones',
           description: 'El sistema completo: perfil, contenido, prospección y pipeline activo.',
           features: ['Fundamentos + Adquisición incluidos', 'Estrategia de contenido avanzada', 'Plan de acción 60 días', 'Automatización responsable', 'KPI & tracking'],
@@ -222,7 +222,7 @@ const formationsPricing = {
       tiers: [
         {
           name: 'Lanzar tu Presencia',
-          price: '190€',
+          price: '236€',
           duration: '3h · 2 sesiones',
           description: 'Comprende los algoritmos y establece una estrategia clara para atraer prospectos.',
           features: ['Funcionamiento de algoritmos', 'Posicionamiento claro', 'Contenido que atrae prospectos', 'Plan de publicación estructurado'],
@@ -230,7 +230,7 @@ const formationsPricing = {
         },
         {
           name: 'Campañas Rentables',
-          price: '340€',
+          price: '422€',
           duration: '4h · 2 sesiones',
           description: 'Crea campañas Meta, TikTok y Google Ads optimizadas que generen leads.',
           features: ['Configuración de cuentas publicitarias', 'Instalación pixel & tracking', 'Campañas Meta, TikTok y Google Ads', 'Optimización de resultados'],
@@ -238,7 +238,7 @@ const formationsPricing = {
         },
         {
           name: 'Adquisición Completa',
-          price: '590€',
+          price: '732€',
           duration: '8h · 4 sesiones',
           description: 'Contenido + publicidad + retargeting para un flujo regular de prospectos cualificados.',
           features: ['Estrategia orgánica + publicidad', 'Embudo de conversión completo', 'Retargeting avanzado', 'Estructuración de audiencias', 'Optimización de presupuestos'],
@@ -250,7 +250,7 @@ const formationsPricing = {
       badge: 'Inteligencia Artificial',
       title: 'Estrategia y Transformación Business',
       description: 'Formación avanzada orientada a la integración concreta de la IA en los procesos de negocio. Transformación operativa, no simple descubrimiento de herramientas.',
-      price: '690€',
+      price: '856€',
       duration: '8h · 4 sesiones',
       priceLabel: 'Precio fijo · Live + talleres prácticos',
       ctaLabel: 'Reservar mi plaza',

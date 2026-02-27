@@ -25,7 +25,7 @@ const offers: MetaOffer[] = [
       en: 'Offer 1 -- Launch Your Presence',
       es: 'Oferta 1 -- Lanzar tu Presencia',
     },
-    price: 190,
+    price: 236,
     duration: {
       fr: '3h (2 sessions 1h30)',
       en: '3h (2 sessions 1h30)',
@@ -76,7 +76,7 @@ const offers: MetaOffer[] = [
       en: 'Offer 2 -- Profitable Campaigns',
       es: 'Oferta 2 -- Campañas Rentables',
     },
-    price: 340,
+    price: 422,
     duration: {
       fr: '4h (2 sessions 2h)',
       en: '4h (2 sessions 2h)',
@@ -125,7 +125,7 @@ const offers: MetaOffer[] = [
       en: 'Offer 3 -- Complete Acquisition System',
       es: 'Oferta 3 -- Sistema de Adquisición Completo',
     },
-    price: 590,
+    price: 732,
     duration: {
       fr: '8h (4 sessions 2h)',
       en: '8h (4 sessions 2h)',
@@ -174,7 +174,7 @@ const offers: MetaOffer[] = [
       en: 'Offer 4 -- Automated Lead Machine',
       es: 'Oferta 4 -- Máquina de Leads Automatizada',
     },
-    price: 890,
+    price: 1104,
     duration: {
       fr: '12h (6 sessions 2h)',
       en: '12h (6 sessions 2h)',

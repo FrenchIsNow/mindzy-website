@@ -15,9 +15,9 @@ export const config = {
 }
 
 export const plans: Plan[] = [
-  { id: 'basic', price: 49, setup: 300, pages: 1, articles: 0, booking: false, payments: false, products: 0, gmb: true },
-  { id: 'pro', price: 99, setup: 300, pages: 5, articles: 15, booking: true, payments: true, products: 0, gmb: true },
-  { id: 'ecommerce', price: 149, setup: 500, pages: 5, articles: 0, booking: false, payments: true, products: 20, gmb: true },
+  { id: 'basic', price: 61, setup: 372, pages: 1, articles: 0, booking: false, payments: false, products: 0, gmb: true },
+  { id: 'pro', price: 123, setup: 372, pages: 5, articles: 15, booking: true, payments: true, products: 0, gmb: true },
+  { id: 'ecommerce', price: 185, setup: 620, pages: 5, articles: 0, booking: false, payments: true, products: 20, gmb: true },
 ]
 
 export const professions = ['therapeute', 'avocat', 'consultant', 'boutique', 'coach-sportif', 'coach', 'freelance', 'fond-investissement', 'media', 'tatoueur', 'photographe', 'designer', 'restaurant', 'psychologue', 'artisan'] as const

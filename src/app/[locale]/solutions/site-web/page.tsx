@@ -60,7 +60,7 @@ const content = {
       title: 'Choisissez la formule',
       titleAccent: 'adaptée à vos besoins',
       subtitle: 'Des tarifs transparents et un accompagnement clé en main pour chaque entrepreneur.',
-      monthly: '/mois HT',
+      monthly: '/mois TTC',
       setup: 'Mise en place',
       cta: 'Choisir',
       popular: 'Populaire',
@@ -291,7 +291,7 @@ const content = {
       items: [
         {
           q: 'Combien coûte la création d\'un site web ?',
-          a: 'Nos sites démarrent à partir de 49€ HT par mois, avec un accompagnement clé en main. Le prix exact dépend de vos besoins et du niveau de personnalisation. Nous proposons un devis gratuit et transparent après un premier échange.',
+          a: 'Nos sites démarrent à partir de 61€ TTC par mois, avec un accompagnement clé en main. Le prix exact dépend de vos besoins et du niveau de personnalisation. Nous proposons un devis gratuit et transparent après un premier échange.',
         },
         {
           q: 'Combien de temps faut-il pour créer un site ?',
@@ -330,7 +330,7 @@ const content = {
       title: 'Choose the plan',
       titleAccent: 'that fits your needs',
       subtitle: 'Transparent pricing and turnkey support for every entrepreneur.',
-      monthly: '/mo excl. VAT',
+      monthly: '/mo incl. VAT',
       setup: 'Setup',
       cta: 'Get started',
       popular: 'Popular',
@@ -566,7 +566,7 @@ const content = {
       items: [
         {
           q: 'How much does a website cost?',
-          a: 'Our websites start from €49 excl. VAT per month, with full turnkey support. The exact price depends on your needs and level of customization. We offer a free and transparent quote after an initial discussion.',
+          a: 'Our websites start from €61 incl. VAT per month, with full turnkey support. The exact price depends on your needs and level of customization. We offer a free and transparent quote after an initial discussion.',
         },
         {
           q: 'How long does it take to create a website?',
@@ -605,7 +605,7 @@ const content = {
       title: 'Elige el plan',
       titleAccent: 'adaptado a tus necesidades',
       subtitle: 'Precios transparentes y acompañamiento llave en mano para cada emprendedor.',
-      monthly: '/mes sin IVA',
+      monthly: '/mes IVA incl.',
       setup: 'Configuración',
       cta: 'Empezar',
       popular: 'Popular',
@@ -840,7 +840,7 @@ const content = {
       items: [
         {
           q: '¿Cuánto cuesta crear un sitio web?',
-          a: 'Nuestros sitios comienzan desde 49€ sin IVA al mes, con acompañamiento llave en mano. El precio exacto depende de tus necesidades y nivel de personalización. Ofrecemos un presupuesto gratuito y transparente tras un primer intercambio.',
+          a: 'Nuestros sitios comienzan desde 61€ IVA incluido al mes, con acompañamiento llave en mano. El precio exacto depende de tus necesidades y nivel de personalización. Ofrecemos un presupuesto gratuito y transparente tras un primer intercambio.',
         },
         {
           q: '¿Cuánto tiempo se tarda en crear un sitio?',

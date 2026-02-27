@@ -116,7 +116,7 @@
   "pricing": {
     "title": "Transparent pricing",
     "subtitle": "Choose the plan that fits your needs",
-    "monthly": "/month excl. VAT",
+    "monthly": "/month incl. VAT",
     "setup": "Setup",
     "cta": "Choose",
     "popular": "Popular",

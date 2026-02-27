@@ -25,7 +25,7 @@ const packs: LinkedInPack[] = [
       en: 'Pack 1 -- LinkedIn Foundations',
       es: 'Pack 1 -- Fundamentos LinkedIn',
     },
-    price: 190,
+    price: 236,
     duration: {
       fr: '3 heures (2 sessions 1h30)',
       en: '3 hours (2 sessions 1h30)',
@@ -76,7 +76,7 @@ const packs: LinkedInPack[] = [
       en: 'Pack 2 -- Acquisition & Prospecting',
       es: 'Pack 2 -- Adquisición y Prospección',
     },
-    price: 290,
+    price: 360,
     duration: {
       fr: '4 heures (2 sessions 2h)',
       en: '4 hours (2 sessions 2h)',
@@ -130,7 +130,7 @@ const packs: LinkedInPack[] = [
       en: 'Pack 3 -- LinkedIn Acquisition Mastery',
       es: 'Pack 3 -- LinkedIn Acquisition Mastery',
     },
-    price: 490,
+    price: 608,
     duration: {
       fr: '8 heures (4 sessions 2h)',
       en: '8 hours (4 sessions 2h)',

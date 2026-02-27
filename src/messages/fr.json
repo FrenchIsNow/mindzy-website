@@ -116,7 +116,7 @@
   "pricing": {
     "title": "Des tarifs transparents",
     "subtitle": "Choisissez la formule adaptée à vos besoins",
-    "monthly": "/mois HT",
+    "monthly": "/mois TTC",
     "setup": "Setup",
     "cta": "Choisir",
     "popular": "Populaire",

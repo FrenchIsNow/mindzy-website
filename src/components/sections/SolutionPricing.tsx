@@ -8,8 +8,8 @@ const sectionCopy = {
     titleAccent: 'clés en main',
     titleEnd: ', adaptées à vos besoins',
     from: 'à partir de',
-    perMonth: 'HT par mois',
-    fixed: 'HT',
+    perMonth: 'TTC par mois',
+    fixed: 'TTC',
     cta: 'Découvrir',
   },
   en: {
@@ -17,8 +17,8 @@ const sectionCopy = {
     titleAccent: 'solutions',
     titleEnd: ', tailored to your needs',
     from: 'starting from',
-    perMonth: 'excl. VAT / month',
-    fixed: 'excl. VAT',
+    perMonth: 'incl. VAT / month',
+    fixed: 'incl. VAT',
     cta: 'Discover',
   },
   es: {
@@ -26,8 +26,8 @@ const sectionCopy = {
     titleAccent: 'llave en mano',
     titleEnd: ', adaptadas a tus necesidades',
     from: 'desde',
-    perMonth: 'sin IVA / mes',
-    fixed: 'sin IVA',
+    perMonth: 'IVA incl. / mes',
+    fixed: 'IVA incl.',
     cta: 'Descubrir',
   },
 }
@@ -35,7 +35,7 @@ const sectionCopy = {
 const solutions = [
   {
     title: { fr: 'Site web', en: 'Website', es: 'Sitio web' },
-    price: '49€',
+    price: '61€',
     priceType: 'monthly' as const,
     description: {
       fr: 'Boostez votre activité grâce à un site internet professionnel, optimisé SEO et pensé pour convertir.',
@@ -46,7 +46,7 @@ const solutions = [
   },
   {
     title: { fr: 'Branding', en: 'Branding', es: 'Branding' },
-    price: '79€',
+    price: '98€',
     priceType: 'fixed' as const,
     description: {
       fr: 'Logo, identité visuelle et charte graphique pour une image professionnelle et cohérente.',
@@ -57,7 +57,7 @@ const solutions = [
   },
   {
     title: { fr: 'Formations & Réseaux', en: 'Training & Social', es: 'Formación y Redes' },
-    price: '190€',
+    price: '236€',
     priceType: 'fixed' as const,
     description: {
       fr: 'Développez votre notoriété et gagnez en crédibilité pour attirer de nouveaux clients.',
@@ -68,7 +68,7 @@ const solutions = [
   },
   {
     title: { fr: 'Solution sur mesure', en: 'Custom solution', es: 'Solución a medida' },
-    price: '2000€',
+    price: '2480€',
     priceType: 'fixed' as const,
     description: {
       fr: 'Apps internes, mobile et agents IA. Des solutions techniques avancées pour automatiser et scaler.',

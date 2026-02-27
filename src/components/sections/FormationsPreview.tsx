@@ -11,7 +11,7 @@ const formations = [
       es: 'Sistema de adquisición completo',
     },
     detail: { fr: '3 packs', en: '3 packs', es: '3 packs' },
-    price: { fr: 'À partir de 190 €', en: 'From €190', es: 'Desde 190 €' },
+    price: { fr: 'À partir de 236 €', en: 'From €236', es: 'Desde 236 €' },
   },
   {
     title: { fr: 'Meta & TikTok', en: 'Meta & TikTok', es: 'Meta y TikTok' },
@@ -21,7 +21,7 @@ const formations = [
       es: 'Generar leads',
     },
     detail: { fr: '4 offres', en: '4 offers', es: '4 ofertas' },
-    price: { fr: 'À partir de 190 €', en: 'From €190', es: 'Desde 190 €' },
+    price: { fr: 'À partir de 236 €', en: 'From €236', es: 'Desde 236 €' },
   },
   {
     title: {
@@ -35,7 +35,7 @@ const formations = [
       es: 'Estrategia y transformación',
     },
     detail: { fr: '8h formation', en: '8h training', es: '8h formación' },
-    price: { fr: '690 €', en: '€690', es: '690 €' },
+    price: { fr: '856 €', en: '€856', es: '856 €' },
   },
   {
     title: { fr: 'Sur Mesure', en: 'Custom', es: 'A Medida' },

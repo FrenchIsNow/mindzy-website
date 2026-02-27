@@ -78,7 +78,7 @@ export function getMessageText(message: WhatsAppIncomingMessage): string | null 
 export async function processIncomingMessage(message: WhatsAppIncomingMessage): Promise<string> {
   const text = (getMessageText(message) ?? '').toLowerCase()
   if (text.includes('diagnostic') || text.includes('audit')) return 'Faites votre diagnostic : https://mindzy.me/fr/diagnostic'
-  if (text.includes('prix') || text.includes('tarif')) return 'Tarifs : https://mindzy.me/fr/pricing — à partir de 49€/mois HT.'
+  if (text.includes('prix') || text.includes('tarif')) return 'Tarifs : https://mindzy.me/fr/pricing — à partir de 61€/mois TTC.'
   if (text.includes('rdv') || text.includes('meeting')) return 'Réservez un créneau : https://calendar.app.google/7ccvgBKCiRJgLXKL7'
   if (text.includes('bonjour') || text.includes('hello')) return 'Bonjour ! Tapez "diagnostic", "prix" ou "rdv" pour en savoir plus.'
   return 'Merci pour votre message. Tapez "diagnostic", "prix" ou "rdv", ou visitez https://mindzy.me'

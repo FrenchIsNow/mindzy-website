@@ -75,7 +75,7 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
     pricing: {
       title: isFr ? 'Des tarifs transparents' : isEn ? 'Transparent pricing' : 'Precios transparentes',
       subtitle: isFr ? 'Choisissez la formule adaptée à vos besoins' : isEn ? 'Choose the plan that fits your needs' : 'Elige el plan que se adapte a tus necesidades',
-      monthly: isFr ? '/mois HT' : isEn ? '/month excl. VAT' : '/mes sin IVA',
+      monthly: isFr ? '/mois TTC' : isEn ? '/month incl. VAT' : '/mes IVA incl.',
       setup: 'Setup',
       cta: isFr ? 'Choisir' : isEn ? 'Choose' : 'Elegir',
       popular: isFr ? 'Populaire' : isEn ? 'Popular' : 'Popular',

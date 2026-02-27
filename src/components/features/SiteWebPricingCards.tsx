@@ -53,7 +53,7 @@ export function SiteWebPricingCards({ plansCopy, monthly, setup, cta, popular }:
               <span className="text-base text-gray-500">{monthly}</span>
             </p>
             <p className="mt-1 text-sm text-gray-400">
-              {setup} : {formatPrice(plan.setup)} HT
+              {setup} : {formatPrice(plan.setup)} TTC
             </p>
             <p className="mt-6 text-base/7 text-gray-600">{planCopy.description}</p>
             <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
