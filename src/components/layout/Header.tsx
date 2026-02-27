@@ -33,7 +33,9 @@ export function Header({ locale }: { locale: Locale }) {
       <div className="container-wide">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href={`/${locale}`} className="relative group">
+          <Link href={`/${locale}`} className="relative group flex items-center gap-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo_mindzy_violet.svg" alt="" width={28} height={24} className="flex-shrink-0" aria-hidden="true" />
             <span className="font-display text-2xl font-semibold text-anthracite tracking-tight">
               Mindzy
             </span>
