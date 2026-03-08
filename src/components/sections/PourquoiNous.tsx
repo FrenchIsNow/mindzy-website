@@ -43,7 +43,7 @@ const copy: Record<
         ],
       },
       {
-        title: 'Une expertise SEO intégrée',
+        title: 'Une expertise SEO & GEO intégrée',
         description:
           'La visibilité n\u2019est pas un ajout, elle fait partie du projet. Le référencement est pensé dès la conception pour assurer une base saine et durable.',
         checks: [
@@ -117,9 +117,9 @@ const copy: Record<
         ],
       },
       {
-        title: 'Built-in SEO expertise',
+        title: 'Built-in SEO & GEO expertise',
         description:
-          'Visibility is not an add-on \u2014 it is part of the project. SEO is considered from the design phase to ensure a healthy and lasting foundation.',
+          'Visibility is not an add-on \u2014 it is part of the project. SEO & GEO is considered from the design phase to ensure a healthy and lasting foundation.',
         checks: [
           'Clear and readable structure',
           'Content designed for search engines',
@@ -191,7 +191,7 @@ const copy: Record<
         ],
       },
       {
-        title: 'Experiencia SEO integrada',
+        title: 'Experiencia SEO & GEO integrada',
         description:
           'La visibilidad no es un añadido, forma parte del proyecto. El posicionamiento se piensa desde el diseño para asegurar una base sólida y duradera.',
         checks: [

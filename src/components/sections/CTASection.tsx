@@ -15,7 +15,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       subtitle: 'Échangeons sur votre besoin et construisons ensemble une solution adaptée à votre activité.',
       primaryCta: 'Démarrer maintenant',
       secondaryCta: 'Nos services',
-      features: ['Approche sur mesure', 'Accompagnement humain', 'Expertise SEO intégrée'],
+      features: ['Approche sur mesure', 'Accompagnement humain', 'Expertise SEO & GEO intégrée'],
     },
     en: {
       eyebrow: 'Ready to get started?',
@@ -23,7 +23,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       subtitle: 'Let\'s discuss your needs and build a solution tailored to your business together.',
       primaryCta: 'Get started now',
       secondaryCta: 'Our services',
-      features: ['Custom approach', 'Human support', 'Integrated SEO expertise'],
+      features: ['Custom approach', 'Human support', 'Integrated SEO & GEO expertise'],
     },
     es: {
       eyebrow: '¿Listo para empezar?',
@@ -31,7 +31,7 @@ export function CTASection({ locale, variant = 'default' }: CTASectionProps) {
       subtitle: 'Hablemos de tu necesidad y construyamos juntos una solución adaptada a tu actividad.',
       primaryCta: 'Empezar ahora',
       secondaryCta: 'Nuestros servicios',
-      features: ['Enfoque a medida', 'Acompañamiento humano', 'Experiencia SEO integrada'],
+      features: ['Enfoque a medida', 'Acompañamiento humano', 'Experiencia SEO & GEO integrada'],
     },
   }
 

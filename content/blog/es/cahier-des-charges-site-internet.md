@@ -225,7 +225,7 @@ Un sitio nunca esta "terminado".
 
 ---
 
-## La parte 2026 que muchos olvidan: SEO + visibilidad IA
+## La parte 2026 que muchos olvidan: SEO & GEO + visibilidad IA
 
 Si quieres ser encontrado en 2026, debes incluir en el pliego de condiciones:
 
@@ -249,7 +249,7 @@ Si quieres ser encontrado en 2026, debes incluir en el pliego de condiciones:
 - **Lista las funcionalidades por prioridad**: obligatorio, opcional, para despues
 - **Estructura la arquitectura del sitio**: paginas, contenidos, CTA
 - **Planifica calendario y presupuesto**: sin esto, el proyecto se descontrola
-- **No olvides el SEO y las IA**: son la clave de la visibilidad en 2026
+- **No olvides el SEO & GEO y las IA**: son la clave de la visibilidad en 2026
 
 ---
 

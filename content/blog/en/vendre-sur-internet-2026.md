@@ -77,9 +77,9 @@ In 2026, a website that sells must contain:
 
 ---
 
-## Step 3 — Optimize Your Visibility: SEO + Local Search + AI
+## Step 3 — Optimize Your Visibility: SEO & GEO + Local Search + AI
 
-SEO has not disappeared. It is even more important because it feeds:
+SEO & GEO has not disappeared. It is even more important because it feeds:
 
 - Google
 - Google Maps
@@ -245,7 +245,7 @@ These AI systems rely on your online presence: website, content, reviews, consis
 The complete chain:
 1. Clear offer
 2. Converting website
-3. SEO + Google Business + content
+3. SEO & GEO + Google Business + content
 4. Chosen acquisition channels
 5. Simple payment
 6. Follow-up emails
@@ -257,5 +257,5 @@ The complete chain:
 ## Further Reading
 
 - [What is an e-commerce site and how to create one that sells](/en/blog/site-ecommerce-guide)
-- [SEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
+- [SEO & GEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
 - [Google Business Profile for therapists](/en/blog/google-business-therapeutes)

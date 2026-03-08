@@ -117,7 +117,7 @@ Commande, stock, email de confirmation, suivi, livraison. Tout doit fonctionner 
 | 1 | Choisir la bonne technologie | Gestion catalogue et paiement |
 | 2 | Concevoir un design professionnel | Confiance et clarte |
 | 3 | Optimiser chaque page pour Google | Etre trouve |
-| 4 | Preparer le lancement | Reseaux, email, SEO |
+| 4 | Preparer le lancement | Reseaux, email, SEO & GEO |
 | 5 | Penser mobile en priorite | Fluidite smartphone |
 
 ---
@@ -162,5 +162,5 @@ Un site e-commerce ne fonctionne pas seul. Il faut l'alimenter avec :
 ## Pour aller plus loin
 
 - [Comment vendre sur Internet en 2026](/fr/blog/vendre-sur-internet-2026)
-- [SEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
+- [SEO & GEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
 - [Pourquoi passer par une agence web change tout](/fr/blog/agence-web-avantages)

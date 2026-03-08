@@ -163,11 +163,11 @@ Un site n'est jamais "fini". Dans le cahier des charges, indiquez :
 
 Ça évite les mauvaises surprises après la mise en ligne.
 
-## La partie 2026 que beaucoup oublient : SEO + visibilité IA
+## La partie 2026 que beaucoup oublient : SEO & GEO + visibilité IA
 
 Si vous voulez être trouvé en 2026, vous devez inclure dans le cahier des charges :
 
-- optimisation SEO dès la conception (structure, pages, vitesse)
+- optimisation SEO & GEO dès la conception (structure, pages, vitesse)
 - blog / FAQ pour répondre aux questions
 - données structurées (quand pertinent)
 - cohérence avec votre fiche Google Business si local

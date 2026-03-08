@@ -3,7 +3,7 @@ crée son site web : a partir de 49€
 1. Offre de Base et Offres sur Mesure
 Création de site web : À partir de 49€.
 Offre sur Mesure - Projets Stratégiques : Destinée aux projets ambitieux nécessitant une architecture digitale avancée, évolutive et axée sur la performance. Cela comprend notamment des Sites web sur mesure (corporate, premium, axés sur la conversion).
-Sites Professionnels : Mindzy crée des sites professionnels pour les entrepreneurs ambitieux, incluant la réservation en ligne, le SEO optimisé et un design sur-mesure.
+Sites Professionnels : Mindzy crée des sites professionnels pour les entrepreneurs ambitieux, incluant la réservation en ligne, le SEO & GEO optimisé et un design sur-mesure.
 2. Offre Spécifique pour Apporteurs d'Affaires (Offre PRO)
 Cette offre vise à transformer un site en un véritable outil d'acquisition de prospects :
 Tarif : 99€ HT/mois avec 300€ HT de frais d'installation.
@@ -16,7 +16,7 @@ Inclusions : Google Business, hébergement sécurisé, maintenance complète, sa
 3. Approche Générale des Projets Web
 L'approche de Mindzy est centrée sur le résultat et l'adaptabilité :
 Projets Utiles et Durables : Les projets sont conçus pour être clairs, fiables et pensés pour évoluer.
-Expertise SEO intégrée : Le référencement est intégré dès la conception (structure, contenus, performance) pour une visibilité durable.
+Expertise SEO & GEO intégrée : Le référencement est intégré dès la conception (structure, contenus, performance) pour une visibilité durable.
 Clé en main : L'agence gère le design, les textes, le SEO, la mise en ligne et la maintenance.
 Logique Stratégique : Un site est considéré comme un investissement (non une dépense) qui doit générer des contacts et du chiffre d'affaires, avec une priorité à la performance et à la cohérence.
 4. Autres Solutions Digitales

@@ -18,7 +18,7 @@
     "badge": "Agencia web de nueva generación",
     "title": "Tu sitio web premium",
     "titleHighlight": "en 2 semanas",
-    "subtitle": "Mindzy crea sitios profesionales para emprendedores ambiciosos. Reservas en línea, SEO optimizado, diseño a medida.",
+    "subtitle": "Mindzy crea sitios profesionales para emprendedores ambiciosos. Reservas en línea, SEO & GEO optimizado, diseño a medida.",
     "cta": "Empezar mi proyecto",
     "ctaSecondary": "Ver nuestros trabajos",
     "stats": {
@@ -94,7 +94,7 @@
       },
       {
         "key": "seo",
-        "title": "Experiencia SEO integrada",
+        "title": "Experiencia SEO & GEO integrada",
         "description": "La visibilidad no es un complemento, forma parte del proyecto. El posicionamiento se piensa desde el diseño para asegurar una base sana y duradera."
       },
       {
@@ -324,7 +324,7 @@
       },
       {
         "icon": "🔍",
-        "title": "Experiencia SEO integrada",
+        "title": "Experiencia SEO & GEO integrada",
         "description": "La visibilidad no es un complemento, forma parte del proyecto. El posicionamiento se piensa desde el diseño para asegurar una base sana y duradera.",
         "details": [
           "Estructura clara y legible",
@@ -427,7 +427,7 @@
           "✓ Premium"
         ],
         [
-          "SEO optimizado",
+          "SEO & GEO optimizado",
           "✓ (extra)",
           "? Variable",
           "✗ Básico",

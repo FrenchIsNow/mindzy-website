@@ -6,7 +6,7 @@
     </linearGradient>
   </defs>
   <rect width="800" height="450" fill="url(#bg12)"/>
-  <!-- SEO Text Big -->
+  <!-- SEO & GEO Text Big -->
   <text x="400" y="150" text-anchor="middle" font-family="system-ui" font-size="100" font-weight="bold" fill="#3b82f6" opacity="0.2">SEO</text>
   <!-- Search Bar -->
   <rect x="200" y="180" width="400" height="60" rx="30" fill="white" stroke="#e5e7eb" stroke-width="2"/>

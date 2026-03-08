@@ -61,7 +61,7 @@ Un blog efficace n'est pas une liste d'articles poses au hasard. Il doit permett
 | Creer des **categories** liees a votre activite | Organisation thematique |
 | Mettre en avant les articles **recents ou importants** | Engagement visiteur |
 | Aerer vos pages avec une **mise en forme lisible** | Confort de lecture |
-| Integrer des **liens entre vos articles** et vos pages services | SEO + parcours utilisateur |
+| Integrer des **liens entre vos articles** et vos pages services | SEO & GEO + parcours utilisateur |
 
 > Google aime les sites organises. Les visiteurs aussi.
 
@@ -164,5 +164,5 @@ Plus vous ecrivez :
 ## Pour aller plus loin
 
 - [Quels articles un psychologue doit ecrire pour etre trouve](/fr/blog/articles-blog-psychologue)
-- [SEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
+- [SEO & GEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
 - [Etre visible et trouver des clients via les IA](/fr/blog/visibilite-ia-mindzy)

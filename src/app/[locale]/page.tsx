@@ -20,7 +20,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 const homeMeta: Record<string, { title: string; description: string }> = {
   fr: {
     title: 'Mindzy | Solutions digitales sur mesure pour entrepreneurs',
-    description: 'Mindzy accompagne la création de projets digitaux sur mesure : sites web, applications, systèmes internes. Approche personnalisée, SEO intégré, accompagnement humain.',
+    description: 'Mindzy accompagne la création de projets digitaux sur mesure : sites web, applications, systèmes internes. Approche personnalisée, SEO & GEO intégré, accompagnement humain.',
   },
   en: {
     title: 'Mindzy | Custom Digital Solutions for Entrepreneurs',
@@ -28,7 +28,7 @@ const homeMeta: Record<string, { title: string; description: string }> = {
   },
   es: {
     title: 'Mindzy | Soluciones digitales a medida para emprendedores',
-    description: 'Mindzy acompaña la creación de proyectos digitales a medida: sitios web, aplicaciones, sistemas internos. Enfoque personalizado, SEO integrado, acompañamiento humano.',
+    description: 'Mindzy acompaña la creación de proyectos digitales a medida: sitios web, aplicaciones, sistemas internos. Enfoque personalizado, SEO & GEO integrado, acompañamiento humano.',
   },
 }
 

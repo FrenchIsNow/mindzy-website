@@ -89,7 +89,7 @@ Los sitios que tienen exito siempre tienen los mismos puntos fuertes:
 | **Los botones de cita son visibles en todas partes** | Conversion maxima |
 | **La informacion importante es accesible en 3 segundos** | Experiencia de usuario optima |
 | **El diseno inspira limpieza, modernidad y confianza** | Primera impresion exitosa |
-| **El sitio es rapido y perfectamente legible en movil** | Factor clave SEO |
+| **El sitio es rapido y perfectamente legible en movil** | Factor clave SEO & GEO |
 
 > **Son estos detalles los que marcan la diferencia.**
 

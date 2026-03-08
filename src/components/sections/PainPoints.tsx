@@ -7,7 +7,7 @@ const content = {
     title: 'Se rendre visible en ligne quand on est une TPE,',
     titleHighlight: 'ça relève du parcours du combattant.',
     subtitle:
-      'Vous excellez dans votre métier, mais le numérique reste un terrain miné. La majorité des petites entreprises partagent exactement les mêmes frustrations.',
+      "Vous excellez dans votre métier, mais le numérique reste un terrain miné. La majorité des entreprises partagent exactement les mêmes frustrations : manque de visibilité, difficulté à apparaître dans les résultats de recherche, et aujourd'hui difficulté à être recommandé par les intelligences artificielles.",
     mission: {
       title: 'Des prestataires traditionnels inadaptés à votre réalité',
       p1: 'Prix élevés, délais longs, suivi permanent — les agences et freelances généralistes ne comprennent pas les contraintes d\'une petite structure locale.',
@@ -16,7 +16,10 @@ const content = {
     painPoints: [
       {
         title: 'Le digital, un métier à part entière',
-        desc: 'Référencement, publicité en ligne, réseaux sociaux, maintenance de site… Autant de compétences spécialisées qui ne s\'improvisent pas entre deux rendez-vous clients.',
+        desc: [
+          "Référencement naturel, visibilité sur Google, présence sur les réseaux sociaux, structuration du contenu pour les moteurs de recherche et les intelligences artificielles… Autant de compétences spécialisées qui ne s'improvisent pas entre deux rendez-vous clients.",
+          "Aujourd'hui, être visible ne signifie plus seulement apparaître sur Google : il faut aussi structurer son contenu pour être compris et recommandé par les moteurs génératifs et les assistants IA.",
+        ],
       },
       {
         title: 'Multiplier les interlocuteurs, c\'est épuisant',
@@ -36,7 +39,7 @@ const content = {
     title: 'Getting visible online as a small business',
     titleHighlight: 'feels like an obstacle course.',
     subtitle:
-      'You excel at your craft, but the digital world remains a minefield. Most small businesses share exactly the same frustrations.',
+      "You excel at your craft, but the digital world remains a minefield. Most businesses share exactly the same frustrations: lack of visibility, difficulty appearing in search results, and today difficulty being recommended by the artificial intelligences used by internet users.",
     mission: {
       title: 'Traditional providers out of touch with your reality',
       p1: 'Sky-high rates, endless timelines and exhausting follow-ups — generalist agencies and freelancers don\'t grasp the constraints of a small local business. You deserve support designed for your scale, not a copy-paste enterprise solution.',
@@ -45,7 +48,10 @@ const content = {
     painPoints: [
       {
         title: 'Digital is a profession in its own right',
-        desc: 'SEO, online ads, social media, site maintenance… These are specialized skills that can\'t be improvised between client appointments.',
+        desc: [
+          "Natural referencing, visibility on Google, presence on social networks, structuring content for search engines and artificial intelligences… So many specialized skills that can't be improvised between client appointments.",
+          "Today, being visible no longer means only appearing on Google: you also need to structure your content to be understood and recommended by generative engines and AI assistants.",
+        ],
       },
       {
         title: 'Juggling multiple providers is draining',
@@ -65,7 +71,7 @@ const content = {
     title: 'Hacerse visible online siendo una pequeña empresa',
     titleHighlight: 'se siente como una carrera de obstáculos.',
     subtitle:
-      'Destacas en tu oficio, pero el mundo digital sigue siendo un campo minado. La mayoría de las pequeñas empresas comparten exactamente las mismas frustraciones.',
+      "Destacas en tu oficio, pero el mundo digital sigue siendo un campo minado. La mayoría de las empresas comparten exactamente las mismas frustraciones: falta de visibilidad, dificultad para aparecer en los resultados de búsqueda, y hoy dificultad para ser recomendado por las inteligencias artificiales que utilizan los internautas.",
     mission: {
       title: 'Proveedores tradicionales desconectados de tu realidad',
       p1: 'Precios desorbitados, plazos interminables y seguimiento agotador — las agencias y freelances generalistas no entienden las limitaciones de un pequeño negocio local. Mereces un acompañamiento pensado para tu escala, no una solución genérica de gran empresa.',
@@ -74,7 +80,10 @@ const content = {
     painPoints: [
       {
         title: 'Lo digital es una profesión en sí misma',
-        desc: 'SEO, publicidad online, redes sociales, mantenimiento web… Son competencias especializadas que no se improvisan entre citas con clientes.',
+        desc: [
+          "Referenciación natural, visibilidad en Google, presencia en redes sociales, estructuración del contenido para los motores de búsqueda y las inteligencias artificiales… Tantas competencias especializadas que no se improvisan entre citas con clientes.",
+          "Hoy, ser visible ya no significa solo aparecer en Google: también hay que estructurar el contenido para ser comprendido y recomendado por los motores generativos y los asistentes IA.",
+        ],
       },
       {
         title: 'Coordinar múltiples proveedores es agotador',
@@ -139,9 +148,17 @@ export function PainPoints({ locale }: { locale: Locale }) {
                     {point.title}
                   </h3>
                 </div>
-                <p className="text-base/7 text-gray-600 pl-8">
-                  {point.desc}
-                </p>
+                {Array.isArray(point.desc) ? (
+                  point.desc.map((paragraph, j) => (
+                    <p key={j} className={j > 0 ? 'mt-4 text-base/7 text-gray-600 pl-8' : 'text-base/7 text-gray-600 pl-8'}>
+                      {paragraph}
+                    </p>
+                  ))
+                ) : (
+                  <p className="text-base/7 text-gray-600 pl-8">
+                    {point.desc}
+                  </p>
+                )}
               </div>
             ))}
           </div>

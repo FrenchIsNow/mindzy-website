@@ -59,7 +59,7 @@ An agency will create a website designed to:
 
 | Goal | How |
 |------|-----|
-| Be found on Google | SEO built from the start |
+| Be found on Google | SEO & GEO built from the start |
 | Reassure within seconds | Professional design |
 | Guide the visitor | Strategic UX |
 | Trigger contact | Conversion optimization |
@@ -98,7 +98,7 @@ An agency works on:
 
 > Every detail is designed to convert a visitor into a client.
 
-### Reason 4 — SEO Is Built In from the Start
+### Reason 4 — SEO & GEO Is Built In from the Start
 
 Most DIY websites have a major problem: they are invisible on Google.
 
@@ -158,7 +158,7 @@ An agency costs more at creation but delivers a website that actually works for 
 - Agencies think "results," not just "website" — SEO, UX, conversion from the start
 - Time savings are massive: dozens of hours you can spend on your business
 - Design and UX cannot be improvised — every detail affects conversion
-- SEO built from day one means you are actually findable
+- SEO & GEO built from day one means you are actually findable
 - Websites need ongoing maintenance — agencies provide support
 - The higher investment pays off through visibility, leads, and revenue
 

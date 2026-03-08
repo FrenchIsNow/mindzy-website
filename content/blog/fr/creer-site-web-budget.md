@@ -51,7 +51,7 @@ Avec Wix, Squarespace ou WordPress.com, vous pouvez creer un site vous-meme.
 |-----------|---------------|
 | Cout minimal | Temps considerable |
 | Controle total | Resultat souvent amateur |
-| | SEO limite |
+| | SEO & GEO limite |
 | | Support limite |
 
 ---
@@ -79,7 +79,7 @@ Des agences comme Mindzy proposent des formules tout compris a prix maitrise.
 | Avantages | Inconvenients |
 |-----------|---------------|
 | Qualite professionnelle | Engagement mensuel |
-| SEO integre | |
+| SEO & GEO integre | |
 | Support continu | |
 | Budget previsible | |
 
@@ -103,7 +103,7 @@ Un site one page peut suffire pour demarrer. Vous pourrez evoluer vers un site m
 | Presentation des services | Fonctionnalites avancees |
 | Page de contact | Design tres elabore |
 | Version mobile parfaite | |
-| SEO de base | |
+| SEO & GEO de base | |
 
 ### Etape 4 — Choisissez un abonnement tout compris
 
@@ -132,7 +132,7 @@ Chez Mindzy, nous avons concu des formules qui permettent d'avoir :
 | Element | Inclus |
 |---------|--------|
 | Site professionnel | Qualite agence |
-| SEO optimise | Des le depart |
+| SEO & GEO optimise | Des le depart |
 | Support continu | Inclus |
 | Maintenance | Sans souci |
 
@@ -160,7 +160,7 @@ Verifiez ces points avant de demarrer :
 - Un petit budget ne signifie pas un site mediocre
 - 3 options : DIY (gratuit mais amateur), freelance (variable), agence accessible (qualite + support)
 - Reduisez les couts en preparant votre contenu et en commencant simple
-- Priorisez : accueil, services, contact, mobile, SEO de base
+- Priorisez : accueil, services, contact, mobile, SEO & GEO de base
 - Un abonnement tout compris lisse les couts
 - Le vrai critere : ce que le site rapporte, pas ce qu'il coute
 

@@ -77,9 +77,9 @@ En 2026, un sitio que vende debe contener:
 
 ---
 
-## Paso 3 — Optimizar tu visibilidad: SEO + busqueda local + IA
+## Paso 3 — Optimizar tu visibilidad: SEO & GEO + busqueda local + IA
 
-El SEO no ha desaparecido. Es **aun mas importante**, porque alimenta:
+El SEO & GEO no ha desaparecido. Es **aun mas importante**, porque alimenta:
 
 - Google
 - Google Maps
@@ -158,7 +158,7 @@ El contenido sirve para:
 
 | Funcion | Descripcion |
 |---------|-------------|
-| Ser encontrado en Google | SEO |
+| Ser encontrado en Google | SEO & GEO |
 | Generar confianza | Autoridad |
 | Convertir | Argumentos |
 | Alimentar redes sociales | Presencia |
@@ -238,7 +238,7 @@ Estas IA se basan en tu **presencia online**: sitio, contenidos, resenas, cohere
 
 - **Define tu oferta claramente**: antes de pensar en el sitio
 - **Tu sitio debe convertir**: no solo ser bonito
-- **SEO + Google Business + contenidos**: la base de la visibilidad
+- **SEO & GEO + Google Business + contenidos**: la base de la visibilidad
 - **Elige 2 canales maximo**: no te disperses
 - **Pago sencillo y que genere confianza**: elimina la friccion
 - **Email es clave**: captacion, automatizacion, seguimiento
@@ -250,5 +250,5 @@ Estas IA se basan en tu **presencia online**: sitio, contenidos, resenas, cohere
 ## Para saber mas
 
 - [Que es un sitio e-commerce y como crear uno que venda](/es/blog/site-ecommerce-guide)
-- [SEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
+- [SEO & GEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
 - [Ficha de Google Business para terapeutas](/es/blog/google-business-therapeutes)

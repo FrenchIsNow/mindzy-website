@@ -30,7 +30,7 @@ Le visiteur voit tout sans cliquer. Idéal pour mobile.
 
 **Chargement rapide**
 
-Une seule page = performance élevée, facteur clé pour le SEO et les IA.
+Une seule page = performance élevée, facteur clé pour le SEO & GEO et les IA.
 
 **Message clair et ciblé**
 
@@ -46,7 +46,7 @@ Le parcours est linéaire. Moins de distraction, plus d'action.
 
 Difficile de détailler plusieurs services, expertises ou produits.
 
-**Opportunités SEO réduites**
+**Opportunités SEO & GEO réduites**
 
 Une seule URL limite le nombre de mots-clés sur lesquels vous pouvez vous positionner.
 
@@ -69,7 +69,7 @@ Chaque page a un rôle précis.
 
 ### Les avantages d'un site multi-pages
 
-**Puissance SEO maximale**
+**Puissance SEO & GEO maximale**
 
 Chaque page peut cibler un mot-clé différent. Plus de pages = plus d'opportunités d'apparaître sur Google.
 
@@ -95,7 +95,7 @@ Il faut structurer, organiser, rédiger.
 
 La cohérence entre les pages est essentielle.
 
-## SEO et IA : le critère que personne ne prend en compte
+## SEO & GEO et IA : le critère que personne ne prend en compte
 
 Aujourd'hui, votre site doit être compréhensible pour :
 
@@ -157,7 +157,7 @@ Le choix entre site one page et site multi-pages détermine :
 
 ## Conclusion
 
-Un site one page est excellent pour la clarté et la conversion. Un site multi-pages est excellent pour la visibilité, le SEO et la compréhension par les IA. Le bon choix dépend de vos objectifs, de votre contenu et de votre ambition en ligne.
+Un site one page est excellent pour la clarté et la conversion. Un site multi-pages est excellent pour la visibilité, le SEO & GEO et la compréhension par les IA. Le bon choix dépend de vos objectifs, de votre contenu et de votre ambition en ligne.
 
 Ce qui compte, ce n'est pas le nombre de pages. C'est la capacité de votre site à être compris, trouvé et recommandé.
 

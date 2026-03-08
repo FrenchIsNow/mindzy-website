@@ -172,5 +172,5 @@ Cuanto mas escribes:
 ## Para saber mas
 
 - [Que articulos debe escribir un psicologo para ser encontrado](/es/blog/articles-blog-psychologue)
-- [SEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
+- [SEO & GEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
 - [Ser visible y encontrar clientes a traves de las IA](/es/blog/visibilite-ia-mindzy)

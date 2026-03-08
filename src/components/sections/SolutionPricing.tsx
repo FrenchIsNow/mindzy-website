@@ -38,9 +38,9 @@ const solutions = [
     price: '61€',
     priceType: 'monthly' as const,
     description: {
-      fr: 'Boostez votre activité grâce à un site internet professionnel, optimisé SEO et pensé pour convertir.',
-      en: 'Boost your business with a professional website, SEO optimized and designed to convert.',
-      es: 'Impulsa tu actividad con un sitio web profesional, optimizado SEO y diseñado para convertir.',
+      fr: 'Boostez votre activité grâce à un site internet professionnel, optimisé SEO & GEO pensé pour convertir.',
+      en: 'Boost your business with a professional website, SEO & GEO optimized, designed to convert.',
+      es: 'Impulsa tu actividad con un sitio web profesional, optimizado SEO & GEO, diseñado para convertir.',
     },
     href: '/solutions/site-web',
   },

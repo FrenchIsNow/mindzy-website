@@ -53,7 +53,7 @@ With Wix, Squarespace, or WordPress.com, you can create a website yourself.
 |------------|---------------|
 | Minimal cost | Considerable time investment |
 | Total control | Often amateur results |
-| | Limited SEO |
+| | Limited SEO & GEO |
 | | Limited support |
 
 ### Option 2 — Freelancer
@@ -77,7 +77,7 @@ Agencies like Mindzy offer all-inclusive plans at controlled prices.
 | Advantages | Disadvantages |
 |------------|---------------|
 | Professional quality | Monthly commitment |
-| Built-in SEO | |
+| Built-in SEO & GEO | |
 | Ongoing support | |
 | Predictable budget | |
 
@@ -110,7 +110,7 @@ A single page website may be enough to start. You can evolve to a multi-page sit
 | Presentation of your services | Advanced features |
 | Contact page | Elaborate design |
 | Perfect mobile version | |
-| Basic SEO | |
+| Basic SEO & GEO | |
 
 ### Step 4 — Choose an All-Inclusive Subscription
 
@@ -140,7 +140,7 @@ At Mindzy, we have designed plans that allow you to have:
 | Feature | Included |
 |---------|----------|
 | Professional website | Agency quality |
-| SEO optimized | From the start |
+| SEO & GEO optimized | From the start |
 | Ongoing support | Included |
 | Worry-free maintenance | Included |
 

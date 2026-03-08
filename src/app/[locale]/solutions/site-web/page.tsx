@@ -14,19 +14,19 @@ import { SiteWebPricingCards } from '@/components/features/SiteWebPricingCards'
 
 const meta: Record<string, { title: string; description: string }> = {
   fr: {
-    title: 'Mindzy | Création de site web professionnel - Design, SEO & Performance',
+    title: 'Mindzy | Création de site web professionnel - Design, SEO & GEO & Performance',
     description:
-      'Créez un site web professionnel, optimisé SEO et pensé pour convertir. Design sur mesure, performances maximales, support inclus. Devis gratuit.',
+      'Créez un site web professionnel, optimisé SEO & GEO pensé pour convertir. Design sur mesure, performances maximales, support inclus. Devis gratuit.',
   },
   en: {
-    title: 'Mindzy | Professional Website Creation - Design, SEO & Performance',
+    title: 'Mindzy | Professional Website Creation - Design, SEO & GEO & Performance',
     description:
-      'Create a professional website, SEO optimized and designed to convert. Custom design, maximum performance, support included. Free quote.',
+      'Create a professional website, SEO & GEO optimized designed to convert. Custom design, maximum performance, support included. Free quote.',
   },
   es: {
-    title: 'Mindzy | Creación de sitio web profesional - Diseño, SEO & Rendimiento',
+    title: 'Mindzy | Creación de sitio web profesional - Diseño, SEO & GEO & Rendimiento',
     description:
-      'Crea un sitio web profesional, optimizado para SEO y diseñado para convertir. Diseño a medida, rendimiento máximo, soporte incluido. Presupuesto gratuito.',
+      'Crea un sitio web profesional, optimizado para SEO & GEO diseñado para convertir. Diseño a medida, rendimiento máximo, soporte incluido. Presupuesto gratuito.',
   },
 }
 
@@ -51,7 +51,7 @@ const content = {
       badge: 'Création de site web',
       title: 'Un site qui travaille',
       titleAccent: 'pour vous',
-      subtitle: 'Sites professionnels pour entrepreneurs ambitieux. Design sur mesure, SEO intégré dès la conception, réservation en ligne et performances optimales.',
+      subtitle: 'Sites professionnels pour entrepreneurs ambitieux. Design sur mesure, SEO & GEO intégré dès la conception, réservation en ligne et performances optimales.',
       cta: 'Démarrer mon projet',
       ctaSecondary: 'Voir nos réalisations',
     },
@@ -115,7 +115,7 @@ const content = {
         },
         {
           icon: 'search',
-          title: 'SEO technique & éditorial',
+          title: 'SEO & GEO technique & éditorial',
           description: 'Structure sémantique, balises optimisées, maillage interne, sitemap, schema.org. Tout est pensé pour Google dès le départ.',
           highlight: 'Page 1 Google',
         },
@@ -182,7 +182,7 @@ const content = {
         {
           number: '04',
           title: 'Contenu & SEO',
-          description: 'Rédaction ou optimisation de vos contenus. Configuration SEO complète : balises, schema.org, sitemap, robots.txt.',
+          description: 'Rédaction ou optimisation de vos contenus. Configuration SEO & GEO complète : balises, schema.org, sitemap, robots.txt.',
         },
         {
           number: '05',
@@ -208,9 +208,9 @@ const content = {
           ],
         },
         {
-          title: 'SEO & performance',
+          title: 'SEO & GEO & performance',
           items: [
-            'Optimisation SEO on-page complète',
+            'Optimisation SEO & GEO on-page complète',
             'Score PageSpeed 90+',
             'SSL/HTTPS inclus',
             'Sitemap XML & robots.txt',
@@ -235,7 +235,7 @@ const content = {
       eyebrow: 'Planification',
       title: 'Une stratégie de contenu',
       titleAccent: 'qui convertit',
-      description: 'Avant de coder la moindre ligne, nous définissons ensemble votre positionnement, vos messages clés et l\'architecture de votre site. Cette étape garantit un site cohérent, optimisé SEO et aligné sur vos objectifs business.',
+      description: 'Avant de coder la moindre ligne, nous définissons ensemble votre positionnement, vos messages clés et l\'architecture de votre site. Cette étape garantit un site cohérent, optimisé SEO & GEO et aligné sur vos objectifs business.',
       items: [
         'Audit de votre marché & positionnement',
         'Définition de l\'arborescence du site',
@@ -252,7 +252,7 @@ const content = {
       headers: ['', 'Mindzy', 'Freelance', 'Agence classique', 'Template DIY'],
       rows: [
         { label: 'Design sur mesure', values: [true, 'Parfois', true, false] },
-        { label: 'SEO intégré', values: [true, 'Basique', 'En option', false] },
+        { label: 'SEO & GEO intégré', values: [true, 'Basique', 'En option', false] },
         { label: 'Score PageSpeed 90+', values: [true, 'Variable', 'Variable', false] },
         { label: 'Délai < 2 semaines', values: [true, 'Variable', false, true] },
         { label: 'Support continu inclus', values: [true, false, 'Payant', false] },
@@ -272,7 +272,7 @@ const content = {
           result: '+180% de visites en 3 mois',
         },
         {
-          quote: 'Le design est exactement ce que j\'imaginais, et le SEO fonctionne vraiment. Je suis en première page sur mes mots-clés.',
+          quote: 'Le design est exactement ce que j\'imaginais, et le SEO & GEO fonctionne vraiment. Je suis en première page sur mes mots-clés.',
           author: 'Pierre D.',
           role: 'Coach professionnel',
           result: 'Page 1 Google en 6 semaines',
@@ -298,7 +298,7 @@ const content = {
           a: 'En moyenne, un site vitrine est livré en 10 à 14 jours. Les projets plus complexes (e-commerce, multilingue) prennent 3 à 4 semaines. Nous nous engageons sur un calendrier précis dès le départ.',
         },
         {
-          q: 'Est-ce que le SEO est vraiment inclus ?',
+          q: 'Est-ce que le SEO & GEO est vraiment inclus ?',
           a: 'Oui, 100%. Chaque site est optimisé techniquement (structure, balises, vitesse, schema.org) et éditorialement (contenus, mots-clés, maillage). Ce n\'est pas un supplément, c\'est notre standard.',
         },
         {
@@ -321,7 +321,7 @@ const content = {
       badge: 'Website creation',
       title: 'A website that works',
       titleAccent: 'for you',
-      subtitle: 'Professional websites for ambitious entrepreneurs. Custom design, SEO built-in from day one, online booking and optimal performance.',
+      subtitle: 'Professional websites for ambitious entrepreneurs. Custom design, SEO & GEO built-in from day one, online booking and optimal performance.',
       cta: 'Start my project',
       ctaSecondary: 'View our work',
     },
@@ -343,7 +343,7 @@ const content = {
         pro: {
           name: 'Pro',
           description: 'Maximum visibility with SEO, booking & payments.',
-          features: ['5 pages', '15 SEO articles/month', 'Online booking', 'Online payments', 'Optimized Google Business', 'Premium hosting', 'SSL certificate'],
+          features: ['5 pages', '15 SEO & GEO articles/month', 'Online booking', 'Online payments', 'Optimized Google Business', 'Premium hosting', 'SSL certificate'],
         },
         ecommerce: {
           name: 'E-commerce',
@@ -455,7 +455,7 @@ const content = {
         {
           number: '04',
           title: 'Content & SEO',
-          description: 'Writing or optimizing your content. Complete SEO setup: tags, schema.org, sitemap, robots.txt.',
+          description: 'Writing or optimizing your content. Complete SEO & GEO setup: tags, schema.org, sitemap, robots.txt.',
           duration: '2-3 days',
         },
         {
@@ -483,9 +483,9 @@ const content = {
           ],
         },
         {
-          title: 'SEO & performance',
+          title: 'SEO & GEO & performance',
           items: [
-            'Complete on-page SEO optimization',
+            'Complete on-page SEO & GEO optimization',
             'PageSpeed score 90+',
             'SSL/HTTPS included',
             'XML sitemap & robots.txt',
@@ -514,7 +514,7 @@ const content = {
       items: [
         'Market audit & positioning',
         'Site architecture definition',
-        'SEO keyword strategy',
+        'SEO & GEO keyword strategy',
         'Persuasive content writing',
         'User journey planning',
         'Personalized editorial calendar',
@@ -547,7 +547,7 @@ const content = {
           result: '+180% visits in 3 months',
         },
         {
-          quote: 'The design is exactly what I imagined, and the SEO really works. I\'m on the first page for my keywords.',
+          quote: 'The design is exactly what I imagined, and the SEO & GEO really works. I\'m on the first page for my keywords.',
           author: 'Pierre D.',
           role: 'Professional coach',
           result: 'Google page 1 in 6 weeks',
@@ -573,7 +573,7 @@ const content = {
           a: 'On average, a showcase website is delivered in 10 to 14 days. More complex projects (e-commerce, multilingual) take 3 to 4 weeks. We commit to a precise timeline from the start.',
         },
         {
-          q: 'Is SEO really included?',
+          q: 'Is SEO & GEO really included?',
           a: 'Yes, 100%. Every site is technically optimized (structure, tags, speed, schema.org) and editorially (content, keywords, linking). It\'s not an add-on, it\'s our standard.',
         },
         {
@@ -596,7 +596,7 @@ const content = {
       badge: 'Creación de sitio web',
       title: 'Un sitio que trabaja',
       titleAccent: 'para ti',
-      subtitle: 'Sitios profesionales para emprendedores ambiciosos. Diseño a medida, SEO integrado desde la concepción, reserva online y rendimiento óptimo.',
+      subtitle: 'Sitios profesionales para emprendedores ambiciosos. Diseño a medida, SEO & GEO integrado desde la concepción, reserva online y rendimiento óptimo.',
       cta: 'Empezar mi proyecto',
       ctaSecondary: 'Ver realizaciones',
     },
@@ -660,7 +660,7 @@ const content = {
         },
         {
           icon: 'search',
-          title: 'SEO técnico y editorial',
+          title: 'SEO & GEO técnico y editorial',
           description: 'Estructura semántica, etiquetas optimizadas, enlazado interno, sitemap, schema.org. Todo pensado para Google desde el inicio.',
           highlight: 'Página 1 Google',
         },
@@ -730,7 +730,7 @@ const content = {
         {
           number: '04',
           title: 'Contenido y SEO',
-          description: 'Redacción u optimización de tus contenidos. Configuración SEO completa: etiquetas, schema.org, sitemap, robots.txt.',
+          description: 'Redacción u optimización de tus contenidos. Configuración SEO & GEO completa: etiquetas, schema.org, sitemap, robots.txt.',
           duration: '2-3 días',
         },
         {
@@ -758,9 +758,9 @@ const content = {
           ],
         },
         {
-          title: 'SEO y rendimiento',
+          title: 'SEO & GEO y rendimiento',
           items: [
-            'Optimización SEO on-page completa',
+            'Optimización SEO & GEO on-page completa',
             'Puntuación PageSpeed 90+',
             'SSL/HTTPS incluido',
             'Sitemap XML y robots.txt',
@@ -785,7 +785,7 @@ const content = {
       eyebrow: 'Planificación',
       title: 'Una estrategia de contenido',
       titleAccent: 'que convierte',
-      description: 'Antes de escribir una sola línea de código, definimos juntos tu posicionamiento, mensajes clave y la arquitectura de tu sitio. Este paso garantiza un sitio coherente, optimizado para SEO y alineado con tus objetivos de negocio.',
+      description: 'Antes de escribir una sola línea de código, definimos juntos tu posicionamiento, mensajes clave y la arquitectura de tu sitio. Este paso garantiza un sitio coherente, optimizado para SEO & GEO y alineado con tus objetivos de negocio.',
       items: [
         'Auditoría de mercado y posicionamiento',
         'Definición de la arquitectura del sitio',
@@ -802,7 +802,7 @@ const content = {
       headers: ['', 'Mindzy', 'Freelance', 'Agencia clásica', 'Plantilla DIY'],
       rows: [
         { label: 'Diseño a medida', values: [true, 'A veces', true, false] },
-        { label: 'SEO integrado', values: [true, 'Básico', 'Opcional', false] },
+        { label: 'SEO & GEO integrado', values: [true, 'Básico', 'Opcional', false] },
         { label: 'PageSpeed 90+', values: [true, 'Variable', 'Variable', false] },
         { label: 'Entrega < 2 semanas', values: [true, 'Variable', false, true] },
         { label: 'Soporte continuo incluido', values: [true, false, 'De pago', false] },
@@ -821,7 +821,7 @@ const content = {
           result: '+180% de visitas en 3 meses',
         },
         {
-          quote: 'El diseño es exactamente lo que imaginaba, y el SEO funciona de verdad. Estoy en primera página con mis palabras clave.',
+          quote: 'El diseño es exactamente lo que imaginaba, y el SEO & GEO funciona de verdad. Estoy en primera página con mis palabras clave.',
           author: 'Pierre D.',
           role: 'Coach profesional',
           result: 'Página 1 Google en 6 semanas',
@@ -847,7 +847,7 @@ const content = {
           a: 'De media, un sitio escaparate se entrega en 10 a 14 días. Los proyectos más complejos (e-commerce, multilingüe) tardan de 3 a 4 semanas. Nos comprometemos con un calendario preciso desde el inicio.',
         },
         {
-          q: '¿El SEO está realmente incluido?',
+          q: '¿El SEO & GEO está realmente incluido?',
           a: 'Sí, 100%. Cada sitio está optimizado técnicamente (estructura, etiquetas, velocidad, schema.org) y editorialmente (contenidos, palabras clave, enlazado). No es un suplemento, es nuestro estándar.',
         },
         {

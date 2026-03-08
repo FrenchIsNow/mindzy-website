@@ -70,7 +70,7 @@ It should allow for:
 | Create categories related to your business | Organized structure |
 | Highlight recent or important articles | Guide visitors |
 | Space out pages with readable formatting | Better UX |
-| Include links between articles and service pages | SEO boost |
+| Include links between articles and service pages | SEO & GEO boost |
 
 > Google loves organized websites. So do visitors.
 
@@ -108,7 +108,7 @@ You will already have about twenty topics.
 
 ---
 
-## 6. Optimizing Your SEO Through Articles
+## 6. Optimizing Your SEO & GEO Through Articles
 
 A well-written article for your readers is also an article that pleases Google.
 
@@ -171,7 +171,7 @@ The more you write:
 - Articles are read by Google, visitors, and AI systems
 - Focus on 5 article types: FAQs, problems, methods, misconceptions, broad topics
 - Collect ideas from real client questions and doubts
-- Follow simple SEO rules: clear titles, 600+ words, good structure, internal links
+- Follow simple SEO & GEO rules: clear titles, 600+ words, good structure, internal links
 - One article per month builds 12 entry points per year
 - Consistency beats perfection every time
 
@@ -180,5 +180,5 @@ The more you write:
 ## Further Reading
 
 - [What articles should a therapist write to be found](/en/blog/articles-blog-psychologue)
-- [SEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
+- [SEO & GEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
 - [Get visible and find clients through AI](/en/blog/visibilite-ia-mindzy)

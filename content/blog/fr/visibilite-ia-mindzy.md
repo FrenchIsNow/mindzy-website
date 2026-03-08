@@ -135,7 +135,7 @@ Mindzy ne conçoit pas uniquement des sites. **Mindzy conçoit des structures di
 
 | Objectif | Comment |
 |----------|---------|
-| Comprises par Google | SEO classique optimisé |
+| Comprises par Google | SEO & GEO classique optimisé |
 | Comprises par les IA | Structure sémantique claire |
 | Recommandables par les IA | Cohérence totale des informations |
 
@@ -195,6 +195,6 @@ Très peu d'entreprises ont compris que leur site devait être **lisible par les
 
 ## Pour aller plus loin
 
-- [SEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
+- [SEO & GEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
 - [Comment améliorer votre visibilité grâce aux articles de blog](/fr/blog/visibilite-articles-blog)
 - [Fiche Google Business pour thérapeutes](/fr/blog/google-business-therapeutes)

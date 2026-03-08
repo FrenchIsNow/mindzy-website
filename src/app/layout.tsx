@@ -4,7 +4,7 @@ import './globals.css'
 export const metadata: Metadata = {
   metadataBase: new URL('https://mindzy.me'),
   title: { default: 'Mindzy | Création de sites web professionnels pour entrepreneurs', template: '%s | Mindzy' },
-  description: 'Mindzy crée des sites web premium pour entrepreneurs et professionnels. Réservation en ligne, SEO optimisé, design sur-mesure. Livraison en 2 semaines.',
+  description: 'Mindzy crée des sites web premium pour entrepreneurs et professionnels. Réservation en ligne, SEO & GEO optimisé, design sur-mesure. Livraison en 2 semaines.',
   keywords: [
     'création site web', 'site professionnel', 'agence web', 'web design', 'SEO',
     'site vitrine', 'réservation en ligne', 'site entrepreneur', 'création site internet',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     url: 'https://mindzy.me',
     siteName: 'Mindzy',
     title: 'Mindzy | Sites web premium pour entrepreneurs',
-    description: 'Sites web élégants et performants pour entrepreneurs. Réservation en ligne, SEO optimisé, design sur-mesure.',
+    description: 'Sites web élégants et performants pour entrepreneurs. Réservation en ligne, SEO & GEO optimisé, design sur-mesure.',
   },
   twitter: {
     card: 'summary_large_image',

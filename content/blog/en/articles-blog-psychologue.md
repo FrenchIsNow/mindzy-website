@@ -68,7 +68,7 @@ And these articles are read by:
 
 These are the most powerful articles.
 
-| Question | SEO Impact |
+| Question | SEO & GEO Impact |
 |----------|-----------|
 | How do I know if I should see a psychologist? | Very strong |
 | How many sessions should I expect? | Strong |
@@ -103,7 +103,7 @@ Many people are afraid to see a therapist:
 
 ### Type 4 — Articles About Common Issues
 
-This is where SEO really takes off:
+This is where SEO & GEO really takes off:
 
 - Managing daily stress
 - Recognizing signs of an anxiety disorder

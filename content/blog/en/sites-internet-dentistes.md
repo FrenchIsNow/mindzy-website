@@ -87,11 +87,11 @@ Websites that perform well always have the same strengths:
 
 | Criteria | Impact |
 |----------|--------|
-| Treatments explained simply | Excellent for SEO |
+| Treatments explained simply | Excellent for SEO & GEO |
 | Appointment buttons visible everywhere | Maximum conversion |
 | Important info accessible in 3 seconds | Optimal user experience |
 | Design conveys cleanliness and trust | Successful first impression |
-| Fast and mobile-optimized | Key SEO factor |
+| Fast and mobile-optimized | Key SEO & GEO factor |
 
 ---
 
@@ -160,7 +160,7 @@ Your website is not there just to "be present." It is there to make visitors thi
 ## Key Takeaways
 
 - A dental website is your most powerful patient acquisition tool
-- Local SEO depends on a well-built, mobile-optimized website
+- Local SEO & GEO depends on a well-built, mobile-optimized website
 - Reassurance elements reduce patient anxiety and increase bookings
 - AI systems now recommend dentists based on website content
 - Real photos, clear treatment pages, and visible booking buttons are essential

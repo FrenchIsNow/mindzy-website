@@ -15,7 +15,7 @@ relatedPosts:
 
 # Site one page ou site multi-pages : quel choix pour etre visible sur Google et les IA
 
-> **En bref :** Le choix entre site one page et multi-pages n'est pas qu'esthetique, c'est strategique. Le one page convient aux offres simples et a la conversion rapide. Le multi-pages maximise votre visibilite SEO et votre comprehension par les IA. Vous pouvez commencer simple et evoluer.
+> **En bref :** Le choix entre site one page et multi-pages n'est pas qu'esthetique, c'est strategique. Le one page convient aux offres simples et a la conversion rapide. Le multi-pages maximise votre visibilite SEO & GEO et votre comprehension par les IA. Vous pouvez commencer simple et evoluer.
 
 Vous etes sur le point de creer votre site internet. Une question revient toujours : faut-il creer un site one page ou un site multi-pages ?
 
@@ -29,7 +29,7 @@ Ce choix influence votre visibilite sur Google, votre presence dans les reponses
 |--------|-----------------|
 | Visibilite Google | Nombre de pages indexees |
 | Visibilite IA | Quantite de signaux analyses |
-| Referencement SEO | Mots-cles cibles |
+| Referencement SEO & GEO | Mots-cles cibles |
 | Experience utilisateur | Parcours de navigation |
 | Taux de conversion | Chemin vers l'action |
 
@@ -53,7 +53,7 @@ Un site one page concentre tout le contenu sur une seule page longue, structuree
 | Limite | Impact |
 |--------|--------|
 | Contenu limite | Difficile de detailler plusieurs services |
-| Opportunites SEO reduites | Une seule URL = moins de mots-cles |
+| Opportunites SEO & GEO reduites | Une seule URL = moins de mots-cles |
 | Visibilite IA restreinte | Moins de pages = moins de signaux |
 
 ---
@@ -66,7 +66,7 @@ Un site multi-pages separe votre contenu en pages distinctes : Accueil, Services
 
 | Avantage | Description |
 |----------|-------------|
-| Puissance SEO maximale | Chaque page cible un mot-cle different |
+| Puissance SEO & GEO maximale | Chaque page cible un mot-cle different |
 | Meilleure comprehension IA | Structure claire par sujet |
 | Contenu riche et detaille | Vous pouvez tout expliquer |
 | Evolutif | Ajoutez des pages au fil du temps |
@@ -80,7 +80,7 @@ Un site multi-pages separe votre contenu en pages distinctes : Accueil, Services
 
 ---
 
-## SEO et IA : le critere que personne ne prend en compte
+## SEO & GEO et IA : le critere que personne ne prend en compte
 
 Aujourd'hui, votre site doit etre comprehensible pour Google, les visiteurs, et les intelligences artificielles.
 
@@ -115,7 +115,7 @@ Choisissez un site multi-pages si :
 | Critere | Situation |
 |---------|-----------|
 | Plusieurs services | Offre diversifiee |
-| Objectif SEO | Etre trouve sur plusieurs requetes |
+| Objectif SEO & GEO | Etre trouve sur plusieurs requetes |
 | Ambition IA | Apparaitre dans les reponses des IA |
 | Evolution prevue | Site amene a grandir |
 
@@ -143,7 +143,7 @@ Beaucoup d'activites commencent avec un site one page, puis evoluent vers un sit
 | Phase | Type de site | Objectif |
 |-------|--------------|----------|
 | Lancement | One page | Presence rapide |
-| Croissance | Multi-pages | Visibilite SEO |
+| Croissance | Multi-pages | Visibilite SEO & GEO |
 | Maturite | Multi-pages + blog | Autorite |
 
 ---
@@ -152,9 +152,9 @@ Beaucoup d'activites commencent avec un site one page, puis evoluent vers un sit
 
 | Critere | One page | Multi-pages |
 |---------|----------|-------------|
-| Ideal pour | Clarte et conversion | Visibilite et SEO |
+| Ideal pour | Clarte et conversion | Visibilite et SEO & GEO |
 | Complexite | Faible | Moyenne a elevee |
-| SEO | Limite | Puissant |
+| SEO & GEO | Limite | Puissant |
 | Comprehension IA | Basique | Avancee |
 | Evolution | Limitee | Facile |
 
@@ -173,5 +173,5 @@ Beaucoup d'activites commencent avec un site one page, puis evoluent vers un sit
 ## Pour aller plus loin
 
 - [Comment rediger le cahier des charges de votre site internet](/fr/blog/cahier-des-charges-site-internet)
-- [SEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
+- [SEO & GEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
 - [Pourquoi passer par une agence web change tout](/fr/blog/agence-web-avantages)

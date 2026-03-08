@@ -51,7 +51,7 @@ Con Wix, Squarespace o WordPress.com, puedes crear un sitio tu mismo.
 |----------|----------------|
 | Coste minimo | Tiempo considerable |
 | Control total | Resultado a menudo amateur |
-| | SEO limitado |
+| | SEO & GEO limitado |
 | | Soporte limitado |
 
 ### Opcion 2 — El freelance
@@ -75,7 +75,7 @@ Agencias como Mindzy proponen formulas todo incluido a precio controlado.
 | Ventajas | Inconvenientes |
 |----------|----------------|
 | Calidad profesional | Compromiso mensual |
-| SEO integrado | |
+| SEO & GEO integrado | |
 | Soporte continuo | |
 | Presupuesto previsible | |
 
@@ -107,7 +107,7 @@ Un sitio one page puede ser suficiente para empezar. Podras evolucionar hacia un
 | Presentacion de tus servicios | Funcionalidades avanzadas |
 | Pagina de contacto | Diseno muy elaborado |
 | Version movil perfecta | |
-| SEO basico | |
+| SEO & GEO basico | |
 
 ### Paso 4 — Elige una suscripcion todo incluido
 
@@ -138,7 +138,7 @@ En Mindzy, hemos disenado formulas que permiten tener:
 | Beneficio | Descripcion |
 |-----------|-------------|
 | **Sitio profesional** | Calidad agencia |
-| **SEO optimizado** | Desde el principio |
+| **SEO & GEO optimizado** | Desde el principio |
 | **Soporte continuo** | Incluido |
 | **Mantenimiento** | Sin preocupaciones |
 
@@ -167,7 +167,7 @@ Antes de lanzarte, verifica:
 - **3 opciones**: DIY (barato pero amateur), freelance (variable), agencia accesible (mejor relacion calidad-precio)
 - **Prepara tu contenido**: textos, fotos, logo - reduces costes significativamente
 - **Empieza simple**: one page, luego evoluciona
-- **Prioriza lo esencial**: inicio, servicios, contacto, movil, SEO basico
+- **Prioriza lo esencial**: inicio, servicios, contacto, movil, SEO & GEO basico
 - **Suscripcion todo incluido**: coste previsible y sin sorpresas
 - **No confundas precio y valor**: un sitio barato que no genera nada cuesta mas caro
 - **Elige el socio adecuado**: calidad profesional a precio controlado

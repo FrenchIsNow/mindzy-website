@@ -24,7 +24,7 @@ const sectionTitles: Record<Exclude<FAQCat, 'all'>, Record<Locale, string>> = {
   vision: { fr: 'Vision & utilité', en: 'Vision & purpose', es: 'Visión y utilidad' },
   positionnement: { fr: 'Positionnement & personnalisation', en: 'Positioning & customization', es: 'Posicionamiento y personalización' },
   technique: { fr: 'Technique & performance', en: 'Technical & performance', es: 'Técnica y rendimiento' },
-  seo: { fr: 'SEO & visibilité', en: 'SEO & visibility', es: 'SEO y visibilidad' },
+  seo: { fr: 'SEO & GEO & visibilité', en: 'SEO & GEO & visibility', es: 'SEO & GEO y visibilidad' },
   fonctionnalites: { fr: 'Fonctionnalités & usages', en: 'Features & usage', es: 'Funcionalidades y usos' },
   autonomie: { fr: 'Autonomie & contrôle', en: 'Autonomy & control', es: 'Autonomía y control' },
   accompagnement: { fr: 'Accompagnement & méthode', en: 'Support & methodology', es: 'Acompañamiento y método' },

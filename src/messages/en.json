@@ -94,8 +94,8 @@
       },
       {
         "key": "seo",
-        "title": "Built-in SEO expertise",
-        "description": "Visibility is not an add-on, it's part of the project. SEO is integrated from the design phase to ensure a healthy and lasting foundation."
+        "title": "Built-in SEO & GEO expertise",
+        "description": "Visibility is not an add-on, it's part of the project. SEO & GEO is integrated from the design phase to ensure a healthy and lasting foundation."
       },
       {
         "key": "durable",
@@ -141,7 +141,7 @@
     },
     "features": {
       "pages": "pages",
-      "articles": "SEO articles/month",
+      "articles": "SEO & GEO articles/month",
       "booking": "Online booking",
       "payments": "Online payments",
       "products": "products",
@@ -324,8 +324,8 @@
       },
       {
         "icon": "🔍",
-        "title": "Built-in SEO expertise",
-        "description": "Visibility is not an add-on, it's part of the project. SEO is integrated from the design phase to ensure a healthy and lasting foundation.",
+        "title": "Built-in SEO & GEO expertise",
+        "description": "Visibility is not an add-on, it's part of the project. SEO & GEO is integrated from the design phase to ensure a healthy and lasting foundation.",
         "details": [
           "Clear and readable structure",
           "Content designed for search engines",
@@ -427,7 +427,7 @@
           "✓ Premium"
         ],
         [
-          "SEO optimized",
+          "SEO & GEO optimized",
           "✓ (extra)",
           "? Variable",
           "✗ Basic",

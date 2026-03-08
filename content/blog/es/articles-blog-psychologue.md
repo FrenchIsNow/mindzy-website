@@ -68,7 +68,7 @@ Y estos articulos son leidos por:
 
 Son los articulos mas poderosos:
 
-| Pregunta | Impacto SEO |
+| Pregunta | Impacto SEO & GEO |
 |----------|-----------|
 | Como saber si debo consultar a un psicologo? | Muy alto |
 | Cuantas sesiones hay que prever? | Alto |

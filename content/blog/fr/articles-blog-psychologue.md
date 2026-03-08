@@ -45,7 +45,7 @@ Quand quelqu'un tape "comment savoir si je dois consulter un psychologue" ou "pe
 
 Ce sont les articles les plus puissants. Ils rassurent immediatement et generent enormement de recherches.
 
-| Question | Impact SEO |
+| Question | Impact SEO & GEO |
 |----------|-----------|
 | Comment savoir si je dois consulter un psychologue ? | Tres fort |
 | Combien de seances faut-il prevoir ? | Fort |

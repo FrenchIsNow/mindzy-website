@@ -127,7 +127,7 @@ Mindzy no solo disena sitios. **Mindzy disena estructuras digitales pensadas par
 
 | Objetivo | Descripcion |
 |----------|-------------|
-| Comprendidas por Google | SEO clasico |
+| Comprendidas por Google | SEO & GEO clasico |
 | Comprendidas por las IA | Estructura y semantica |
 | Recomendables por las IA | Coherencia y claridad |
 
@@ -216,6 +216,6 @@ La pregunta se convierte en:
 
 ## Para saber mas
 
-- [SEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
+- [SEO & GEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
 - [Como mejorar tu visibilidad gracias a los articulos de blog](/es/blog/visibilite-articles-blog)
 - [Ficha de Google Business para terapeutas](/es/blog/google-business-therapeutes)

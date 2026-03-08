@@ -15,7 +15,7 @@ relatedPosts:
 
 # Sitio one page o sitio multi-paginas: que elegir para ser visible en Google y las IA
 
-> **En resumen:** La eleccion entre sitio one page y multi-paginas no es de diseno, es estrategica. Un one page es ideal para claridad y conversion rapida. Un multi-paginas maximiza la visibilidad SEO y la comprension por las IA. La buena eleccion depende de tus objetivos y tu ambicion online.
+> **En resumen:** La eleccion entre sitio one page y multi-paginas no es de diseno, es estrategica. Un one page es ideal para claridad y conversion rapida. Un multi-paginas maximiza la visibilidad SEO & GEO y la comprension por las IA. La buena eleccion depende de tus objetivos y tu ambicion online.
 
 Elegir entre un sitio one page y un sitio multi-paginas no es solo una cuestion de diseno. Es una **eleccion estrategica** que impacta tu posicionamiento natural (SEO), tu visibilidad en Google, tu presencia en las respuestas de las inteligencias artificiales, y tu capacidad para convertir visitantes en clientes.
 
@@ -61,7 +61,7 @@ El visitante casi no hace clic. **Lee, entiende, actua.**
 | Limite | Impacto |
 |--------|--------|
 | **Contenido limitado** | Dificil detallar varios servicios |
-| **Oportunidades SEO reducidas** | Una sola URL = menos palabras clave |
+| **Oportunidades SEO & GEO reducidas** | Una sola URL = menos palabras clave |
 | **Visibilidad IA restringida** | Menos paginas = menos senales |
 
 ---
@@ -85,7 +85,7 @@ Un sitio multi-paginas **separa tu contenido**:
 
 | Ventaja | Descripcion |
 |----------|-------------|
-| **Potencia SEO maxima** | Cada pagina apunta a una palabra clave diferente |
+| **Potencia SEO & GEO maxima** | Cada pagina apunta a una palabra clave diferente |
 | **Mejor comprension por las IA** | Estructura clara por tema |
 | **Contenido rico y detallado** | Puedes explicar todo |
 | **Evolutivo** | Anade paginas con el tiempo |
@@ -99,7 +99,7 @@ Un sitio multi-paginas **separa tu contenido**:
 
 ---
 
-## 4. SEO e IA: el criterio que nadie tiene en cuenta
+## 4. SEO & GEO e IA: el criterio que nadie tiene en cuenta
 
 Hoy, tu sitio debe ser comprensible para:
 
@@ -193,12 +193,12 @@ La eleccion entre sitio one page y sitio multi-paginas determina:
 | Tipo | Ideal para |
 |------|------------|
 | **Sitio one page** | Claridad y conversion |
-| **Sitio multi-paginas** | Visibilidad, SEO y comprension por IA |
+| **Sitio multi-paginas** | Visibilidad, SEO & GEO y comprension por IA |
 
 ---
 
 ## Para ir mas lejos
 
 - [Como redactar el pliego de condiciones de tu sitio web](/es/blog/cahier-des-charges-site-internet)
-- [SEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
+- [SEO & GEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
 - [Por que trabajar con una agencia web lo cambia todo](/es/blog/agence-web-avantages)

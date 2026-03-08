@@ -33,7 +33,7 @@ This choice seems simple. In reality, it influences:
 |--------|--------|
 | Visibility on Google | Search rankings |
 | Visibility in AI | ChatGPT, Perplexity AI, Google Gemini |
-| Organic SEO | Long-term traffic |
+| Organic SEO & GEO | Long-term traffic |
 | User experience | How visitors navigate |
 | Conversion rate | How many take action |
 
@@ -61,7 +61,7 @@ The visitor barely clicks. They read, understand, and act.
 | Limitation | Impact |
 |------------|--------|
 | Limited content | Difficult to detail multiple services |
-| Reduced SEO opportunities | One URL equals fewer keywords |
+| Reduced SEO & GEO opportunities | One URL equals fewer keywords |
 | Restricted AI visibility | Fewer pages equals fewer signals |
 
 ---
@@ -85,7 +85,7 @@ Each page has a specific role.
 
 | Advantage | Description |
 |-----------|-------------|
-| Maximum SEO power | Each page targets a different keyword |
+| Maximum SEO & GEO power | Each page targets a different keyword |
 | Better understanding by AI | Clear structure by topic |
 | Rich, detailed content | You can explain everything |
 | Scalable | Add pages over time |
@@ -99,7 +99,7 @@ Each page has a specific role.
 
 ---
 
-## 4. SEO and AI: The Criterion Nobody Considers
+## 4. SEO & GEO and AI: The Criterion Nobody Considers
 
 Today, your website must be understandable for:
 
@@ -142,7 +142,7 @@ Choose a multi-page website if:
 | Criterion | Multi-Page Works |
 |-----------|------------------|
 | Multiple services or products | Yes |
-| Want to maximize SEO | Yes |
+| Want to maximize SEO & GEO | Yes |
 | Want to be found on multiple Google searches | Yes |
 | Want to appear in AI responses | Yes |
 | Want to grow your website over time | Yes |
@@ -202,5 +202,5 @@ The choice between single page and multi-page determines:
 ## Further Reading
 
 - [How to Write Your Website Specifications](/en/blog/cahier-des-charges-site-internet)
-- [SEO for Entrepreneurs: The Complete Guide](/en/blog/seo-entrepreneurs-guide)
+- [SEO & GEO for Entrepreneurs: The Complete Guide](/en/blog/seo-entrepreneurs-guide)
 - [Why Working with a Web Agency Changes Everything](/en/blog/agence-web-avantages)

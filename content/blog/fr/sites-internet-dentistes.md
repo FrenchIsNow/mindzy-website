@@ -95,7 +95,7 @@ Les sites qui performent ont toujours les mêmes points forts :
 | **Les boutons de prise de RDV sont visibles partout** | Conversion maximale |
 | **Les informations importantes sont accessibles en 3 secondes** | Expérience utilisateur optimale |
 | **Le design inspire propreté, modernité, confiance** | Première impression réussie |
-| **Le site est rapide et parfaitement lisible sur mobile** | Facteur clé SEO |
+| **Le site est rapide et parfaitement lisible sur mobile** | Facteur clé SEO & GEO |
 
 > **Ce sont ces détails qui font la différence.**
 

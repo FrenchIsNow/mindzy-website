@@ -53,7 +53,7 @@ Un particular o un freelance va a crear un sitio bonito.
 
 | Objetivo | Descripcion |
 |----------|-------------|
-| Ser **encontrado en Google** | SEO integrado |
+| Ser **encontrado en Google** | SEO & GEO integrado |
 | **Generar confianza** en segundos | Diseno profesional |
 | **Guiar** al visitante | UX optimizada |
 | **Provocar** la toma de contacto | CTA estrategicos |
@@ -73,7 +73,7 @@ Crear un sitio solo implica:
 | Estructurar las paginas | Planificacion |
 | Escribir los contenidos | Redaccion |
 | Gestionar el diseno | Ejecucion |
-| Configurar el posicionamiento | SEO |
+| Configurar el posicionamiento | SEO & GEO |
 | Gestionar los errores | Correccion |
 
 > **Eso representa decenas de horas.**
@@ -166,7 +166,7 @@ Una agencia cuesta mas en la creacion, pero permite tener un sitio que **trabaja
 - **Una agencia piensa "resultado"**: no solo "sitio bonito"
 - **El ahorro de tiempo es enorme**: tu te dedicas a tu actividad
 - **Diseno y UX son un oficio**: no se improvisan
-- **SEO integrado desde el principio**: para ser encontrable
+- **SEO & GEO integrado desde el principio**: para ser encontrable
 - **Un sitio necesita evolucion**: mantenimiento y mejora continua
 - **Es una inversion, no un gasto**: ROI a largo plazo
 

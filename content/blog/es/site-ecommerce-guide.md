@@ -181,7 +181,7 @@ Un sitio e-commerce no funciona solo. **Hay que alimentarlo con:**
 |-------|-----|
 | Redes sociales | Visibilidad y engagement |
 | Emails | Nurturing y conversion |
-| SEO | Trafico organico |
+| SEO & GEO | Trafico organico |
 | Publicidad | Aceleracion (cuando sea necesario) |
 
 ---
@@ -200,5 +200,5 @@ Un sitio e-commerce no funciona solo. **Hay que alimentarlo con:**
 ## Para ir mas lejos
 
 - [Como vender en Internet en 2026](/es/blog/vendre-sur-internet-2026)
-- [SEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
+- [SEO & GEO para emprendedores: la guia completa](/es/blog/seo-entrepreneurs-guide)
 - [Por que trabajar con una agencia web lo cambia todo](/es/blog/agence-web-avantages)

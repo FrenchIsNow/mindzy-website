@@ -108,7 +108,7 @@ const content = {
       titleAccent: 'convertissez',
       description: 'Votre solution digitale ne suffit pas sans une stratégie de diffusion efficace. Nous orchestrons la distribution de vos contenus sur tous les canaux pour maximiser votre visibilité et générer des résultats concrets.',
       items: [
-        { title: 'Stratégie multi-canal', description: 'Présence coordonnée sur les réseaux sociaux, email, SEO et publicité payante pour toucher votre audience où elle se trouve.' },
+        { title: 'Stratégie multi-canal', description: 'Présence coordonnée sur les réseaux sociaux, email, SEO & GEO et publicité payante pour toucher votre audience où elle se trouve.' },
         { title: 'Planification éditoriale', description: 'Calendrier de publication structuré, contenus adaptés à chaque plateforme et automatisation des publications.' },
         { title: 'Optimisation continue', description: 'Analyse des performances en temps réel, A/B testing et ajustement de la stratégie pour maximiser le ROI.' },
       ],
@@ -182,7 +182,7 @@ const content = {
       titleAccent: 'convert',
       description: 'Your digital solution isn\'t enough without an effective distribution strategy. We orchestrate content distribution across all channels to maximize your visibility and generate concrete results.',
       items: [
-        { title: 'Multi-channel strategy', description: 'Coordinated presence on social media, email, SEO and paid advertising to reach your audience wherever they are.' },
+        { title: 'Multi-channel strategy', description: 'Coordinated presence on social media, email, SEO & GEO and paid advertising to reach your audience wherever they are.' },
         { title: 'Editorial planning', description: 'Structured publishing calendar, content tailored to each platform and automated scheduling.' },
         { title: 'Continuous optimization', description: 'Real-time performance analysis, A/B testing and strategy adjustments to maximize ROI.' },
       ],
@@ -256,7 +256,7 @@ const content = {
       titleAccent: 'convierte',
       description: 'Tu solución digital no basta sin una estrategia de difusión eficaz. Orquestamos la distribución de tus contenidos en todos los canales para maximizar tu visibilidad y generar resultados concretos.',
       items: [
-        { title: 'Estrategia multicanal', description: 'Presencia coordinada en redes sociales, email, SEO y publicidad pagada para alcanzar a tu audiencia donde se encuentre.' },
+        { title: 'Estrategia multicanal', description: 'Presencia coordinada en redes sociales, email, SEO & GEO y publicidad pagada para alcanzar a tu audiencia donde se encuentre.' },
         { title: 'Planificación editorial', description: 'Calendario de publicación estructurado, contenidos adaptados a cada plataforma y automatización de publicaciones.' },
         { title: 'Optimización continua', description: 'Análisis de rendimiento en tiempo real, A/B testing y ajuste de la estrategia para maximizar el ROI.' },
       ],

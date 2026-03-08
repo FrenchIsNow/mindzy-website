@@ -40,9 +40,9 @@ En 2026, un site qui vend doit contenir :
 
 Le site doit être parfait sur mobile. Une majorité des achats et prises de contact se font sur smartphone.
 
-## 3. Optimiser votre visibilité : SEO + recherche locale + IA
+## 3. Optimiser votre visibilité : SEO & GEO + recherche locale + IA
 
-Le SEO n'a pas disparu. Il est encore plus important, car il alimente :
+Le SEO & GEO n'a pas disparu. Il est encore plus important, car il alimente :
 
 - Google
 - Google Maps
@@ -187,7 +187,7 @@ C'est construire une chaîne complète :
 
 - offre claire
 - site qui convertit
-- SEO + Google Business + contenus
+- SEO & GEO + Google Business + contenus
 - canaux d'acquisition choisis
 - paiement simple
 - email de relance

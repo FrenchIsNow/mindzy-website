@@ -131,7 +131,7 @@ Mindzy designs digital structures built to be:
 
 | Goal | How |
 |------|-----|
-| Understood by Google | SEO optimization |
+| Understood by Google | SEO & GEO optimization |
 | Understood by AI systems | Semantic structure |
 | Recommendable by AI systems | Consistency and clarity |
 
@@ -225,6 +225,6 @@ That is exactly Mindzy's mission.
 
 ## Further Reading
 
-- [SEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
+- [SEO & GEO for entrepreneurs: the complete guide](/en/blog/seo-entrepreneurs-guide)
 - [How to improve your visibility through blog articles](/en/blog/visibilite-articles-blog)
 - [Google Business Profile for therapists](/en/blog/google-business-therapeutes)

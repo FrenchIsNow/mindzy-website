@@ -202,7 +202,7 @@ Un site n'est jamais "fini".
 
 ---
 
-## La partie 2026 que beaucoup oublient : SEO + visibilité IA
+## La partie 2026 que beaucoup oublient : SEO & GEO + visibilité IA
 
 Si vous voulez être trouvé en 2026, vous devez inclure dans le cahier des charges :
 
@@ -223,7 +223,7 @@ Sinon vous aurez un site "propre" mais peu visible.
 - Un cahier des charges efficace n'est pas un document long — c'est un document clair, orienté business
 - Il doit définir l'objectif, la cible, les fonctionnalités, la structure, le budget et le calendrier
 - Le duo client + prestataire est la meilleure configuration pour le rédiger
-- N'oubliez pas la partie SEO et visibilité IA dès la conception
+- N'oubliez pas la partie SEO & GEO et visibilité IA dès la conception
 - Ce document est votre assurance qualité tout au long du projet
 
 ---
@@ -231,5 +231,5 @@ Sinon vous aurez un site "propre" mais peu visible.
 ## Pour aller plus loin
 
 - [Pourquoi passer par une agence web change tout](/fr/blog/agence-web-avantages)
-- [Site one page ou multi-pages : quel choix pour le SEO ?](/fr/blog/site-one-page-multi-pages)
+- [Site one page ou multi-pages : quel choix pour le SEO & GEO ?](/fr/blog/site-one-page-multi-pages)
 - [Comment vendre sur Internet en 2026](/fr/blog/vendre-sur-internet-2026)

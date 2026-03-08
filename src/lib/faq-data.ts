@@ -217,7 +217,7 @@ export const faqItemsV2: FAQItem[] = [
     },
   },
 
-  // ── 4. SEO & visibilité ──────────────────────────────────────────────
+  // ── 4. SEO & GEO & visibilité ──────────────────────────────────────────────
   {
     id: 'faq-16',
     category: 'seo',
@@ -241,18 +241,18 @@ export const faqItemsV2: FAQItem[] = [
       es: '¿El posicionamiento es automático?',
     },
     answer: {
-      fr: 'Non. Le SEO est un levier stratégique qui se travaille dans le temps. Nous posons des fondations solides et proposons des axes d\'amélioration.',
-      en: 'No. SEO is a strategic lever that requires ongoing effort. We lay solid foundations and propose areas for improvement.',
-      es: 'No. El SEO es una palanca estratégica que se trabaja con el tiempo. Establecemos bases sólidas y proponemos ejes de mejora.',
+      fr: 'Non. Le SEO & GEO est un levier stratégique qui se travaille dans le temps. Nous posons des fondations solides et proposons des axes d\'amélioration.',
+      en: 'No. SEO & GEO is a strategic lever that requires ongoing effort. We lay solid foundations and propose areas for improvement.',
+      es: 'No. El SEO & GEO es una palanca estratégica que se trabaja con el tiempo. Establecemos bases sólidas y proponemos ejes de mejora.',
     },
   },
   {
     id: 'faq-18',
     category: 'seo',
     question: {
-      fr: 'Travaillez-vous le SEO local ?',
+      fr: 'Travaillez-vous le SEO & GEO local ?',
       en: 'Do you work on local SEO?',
-      es: '¿Trabajan el SEO local?',
+      es: '¿Trabajan el SEO & GEO local?',
     },
     answer: {
       fr: 'Oui, particulièrement pour les activités géolocalisées où la visibilité locale est déterminante.',

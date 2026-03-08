@@ -79,9 +79,9 @@ En 2026, un site qui vend doit contenir :
 
 ---
 
-## Étape 3 — Optimiser votre visibilité : SEO + recherche locale + IA
+## Étape 3 — Optimiser votre visibilité : SEO & GEO + recherche locale + IA
 
-Le SEO n'a pas disparu. Il est **encore plus important**, car il alimente Google, Google Maps, et les IA qui recommandent des marques et des produits.
+Le SEO & GEO n'a pas disparu. Il est **encore plus important**, car il alimente Google, Google Maps, et les IA qui recommandent des marques et des produits.
 
 | Action | Impact |
 |--------|--------|
@@ -212,7 +212,7 @@ Ces IA s'appuient sur votre **présence en ligne** : site, contenus, avis, cohé
 ## Ce qu'il faut retenir
 
 - Vendre sur Internet en 2026, ce n'est pas "ouvrir un site" — c'est construire une chaîne complète
-- Les 9 piliers : offre claire, site qui convertit, SEO + Google Business, canaux choisis, paiement simple, email de relance, contenu utile, suivi des chiffres, service client solide
+- Les 9 piliers : offre claire, site qui convertit, SEO & GEO + Google Business, canaux choisis, paiement simple, email de relance, contenu utile, suivi des chiffres, service client solide
 - La visibilité IA devient un avantage concurrentiel majeur
 - Choisissez 2 canaux maximum au départ pour ne pas vous disperser
 - Mesurez tout pour comprendre ce qui fonctionne
@@ -222,5 +222,5 @@ Ces IA s'appuient sur votre **présence en ligne** : site, contenus, avis, cohé
 ## Pour aller plus loin
 
 - [Qu'est-ce qu'un site e-commerce et comment en créer un qui vend](/fr/blog/site-ecommerce-guide)
-- [SEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
+- [SEO & GEO pour entrepreneurs : le guide complet](/fr/blog/seo-entrepreneurs-guide)
 - [Fiche Google Business pour thérapeutes](/fr/blog/google-business-therapeutes)

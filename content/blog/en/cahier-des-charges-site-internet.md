@@ -204,11 +204,11 @@ This avoids unpleasant surprises after launch.
 
 ---
 
-## 6. The 2026 Element Many Forget: SEO + AI Visibility
+## 6. The 2026 Element Many Forget: SEO & GEO + AI Visibility
 
 If you want to be found in 2026, you must include in the brief:
 
-- SEO optimization from the design phase (structure, pages, speed)
+- SEO & GEO optimization from the design phase (structure, pages, speed)
 - Blog / FAQ to answer questions
 - Structured data (when relevant)
 - Consistency with your Google Business Profile if local
@@ -225,7 +225,7 @@ If you want to be found in 2026, you must include in the brief:
 - Write it as a duo: you + your service provider
 - Follow 7 steps: objectives, target, features, site map, design, timeline, maintenance
 - Indicate what is mandatory, optional, and for later
-- Include SEO and AI visibility requirements from the start
+- Include SEO & GEO and AI visibility requirements from the start
 - The format does not matter; clarity does
 
 ---

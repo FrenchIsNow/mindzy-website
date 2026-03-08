@@ -95,13 +95,13 @@ Un site peut être "beau" et inefficace.
 
 ---
 
-## 4. Le SEO est intégré dès la création
+## 4. Le SEO & GEO est intégré dès la création
 
 La plupart des sites faits seuls ont un problème majeur : **ils sont invisibles sur Google.**
 
 Une agence construit le site dès le départ pour qu'il soit :
 
-| Critère SEO | Bénéfice |
+| Critère SEO & GEO | Bénéfice |
 |-------------|----------|
 | **Rapide** | Meilleur classement Google |
 | **Bien structuré** | Indexation facilitée |
@@ -159,7 +159,7 @@ Une agence coûte plus cher à la création, mais permet d'avoir un site qui **t
 - Votre site est le premier point de contact avec vos futurs clients
 - Une agence pense résultat (visibilité, contacts, CA), pas juste esthétique
 - Le gain de temps est considérable : des dizaines d'heures économisées
-- Le SEO intégré dès la création fait toute la différence sur Google
+- Le SEO & GEO intégré dès la création fait toute la différence sur Google
 - Un site nécessite un suivi continu — l'agence l'assure
 - C'est un investissement avec ROI, pas une simple dépense
 
