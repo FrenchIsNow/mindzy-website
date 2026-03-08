@@ -37,7 +37,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <ContactModalProvider locale={locale as Locale}>
           <JsonLd data={jsonLdOrganization()} />
           <JsonLd data={jsonLdWebsite()} />
-          <JsonLd data={jsonLdLocalBusiness()} />
+          <JsonLd data={jsonLdLocalBusiness(locale)} />
           <Header locale={locale as Locale} />
           <main className="min-h-screen">{children}</main>
           <Footer locale={locale as Locale} />

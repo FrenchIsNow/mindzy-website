@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "visibilite-articles-blog"
   - "visibilite-ia-mindzy"
+modifiedDate: "2026-01-08"
+wordCount: 1620
+tags: [blog, psychologue, seo, articles, contenu]
+keywords: "articles psychologue, blog psychologue, seo psychothérapeute, visibilité psychologue"
 ---
 
 # Quels articles de blog un psychologue doit ABSOLUMENT ecrire pour etre trouve sur Google et les IA

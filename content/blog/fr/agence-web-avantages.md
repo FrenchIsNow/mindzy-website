@@ -11,6 +11,10 @@ relatedPosts:
   - "cahier-des-charges-site-internet"
   - "creer-site-web-budget"
   - "identite-visuelle-guide-2026"
+modifiedDate: "2026-01-18"
+wordCount: 1850
+tags: [agence-web, seo, design-web]
+keywords: "agence web avantages, pourquoi passer par une agence, création site web professionnel, seo geo, design web"
 ---
 
 # Création de site internet : pourquoi passer par une agence web change tout

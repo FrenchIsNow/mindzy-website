@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "visibilite-articles-blog"
   - "visibilite-ia-mindzy"
+modifiedDate: "2026-01-08"
+wordCount: 1203
+tags: [articulos de blog, psicologia, visibilidad google, seo, adquisicion de clientes]
+keywords: "articulos de blog para psicologos, visibilidad del terapeuta, posicionamiento psicologia, atraer pacientes online"
 ---
 
 # Que articulos de blog debe escribir ABSOLUTAMENTE un psicologo para ser encontrado en Google y las IA

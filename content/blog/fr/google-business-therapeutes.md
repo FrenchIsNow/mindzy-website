@@ -11,6 +11,10 @@ relatedPosts:
   - "articles-blog-psychologue"
   - "visibilite-ia-mindzy"
   - "sites-internet-dentistes"
+modifiedDate: "2026-01-10"
+wordCount: 1750
+tags: [google-business, fiche-google, therapeute, seo-local, visibilité]
+keywords: "fiche Google Business thérapeute, optimiser fiche Google, seo local thérapeute"
 ---
 
 # Fiche Google Business pour thérapeutes : le levier n°1 pour être trouvé et choisi

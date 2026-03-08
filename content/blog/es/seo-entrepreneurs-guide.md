@@ -11,6 +11,10 @@ relatedPosts:
   - "visibilite-ia-mindzy"
   - "visibilite-articles-blog"
   - "google-business-therapeutes"
+modifiedDate: "2026-01-01"
+wordCount: 1769
+tags: [seo, seo local, emprendedores, visibilidad google, busqueda organica]
+keywords: "SEO para emprendedores, estrategia SEO local, posicionamiento Google, busqueda organica"
 ---
 
 # SEO & GEO para emprendedores: la guia completa 2026

@@ -24,11 +24,16 @@ export function BlogContent({ content }: BlogContentProps) {
               </a>
             )
           },
-          h2: ({ children }) => (
-            <h2 id={typeof children === 'string' ? children.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '') : ''}>
-              {children}
-            </h2>
-          ),
+          h2: ({ children }) => {
+            const text = typeof children === 'string' ? children : ''
+            const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+            return <h2 id={id}>{children}</h2>
+          },
+          h3: ({ children }) => {
+            const text = typeof children === 'string' ? children : ''
+            const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+            return <h3 id={id}>{children}</h3>
+          },
           table: ({ children }) => (
             <div className="overflow-x-auto my-8">
               <table className="w-full border border-gray-200 rounded-lg overflow-hidden">

@@ -11,6 +11,10 @@ relatedPosts:
   - "visibilite-ia-mindzy"
   - "visibilite-articles-blog"
   - "google-business-therapeutes"
+modifiedDate: "2026-01-01"
+wordCount: 2380
+tags: [seo, geo, référencement, entrepreneurs, visibilité]
+keywords: "seo guide complet, référencement naturel, geo local, optimiser google"
 ---
 
 # SEO & GEO pour entrepreneurs : le guide complet 2026

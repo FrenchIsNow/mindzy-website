@@ -11,6 +11,10 @@ relatedPosts:
   - "cahier-des-charges-site-internet"
   - "seo-entrepreneurs-guide"
   - "agence-web-avantages"
+modifiedDate: "2026-01-03"
+wordCount: 1920
+tags: [one-page, multi-pages, seo, structure-site, design]
+keywords: "site one page ou multi-pages, single page application, structure site seo"
 ---
 
 # Site one page ou site multi-pages : quel choix pour etre visible sur Google et les IA

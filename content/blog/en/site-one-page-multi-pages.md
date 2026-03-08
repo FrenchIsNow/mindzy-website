@@ -11,6 +11,10 @@ relatedPosts:
   - "cahier-des-charges-site-internet"
   - "seo-entrepreneurs-guide"
   - "agence-web-avantages"
+modifiedDate: "2026-01-03"
+wordCount: 1523
+tags: [website strategy, single page, multi-page, seo, site structure]
+keywords: "single page vs multi-page website, website architecture, SEO for website structure, page strategy"
 ---
 
 # Single Page vs Multi-Page Website: Which Choice for Google and AI Visibility

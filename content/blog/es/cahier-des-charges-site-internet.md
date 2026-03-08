@@ -11,6 +11,10 @@ relatedPosts:
   - "agence-web-avantages"
   - "site-one-page-multi-pages"
   - "vendre-sur-internet-2026"
+modifiedDate: "2026-01-22"
+wordCount: 1778
+tags: [pliego condiciones, planificacion proyecto, especificaciones sitio, gestion proyecto, requisitos web]
+keywords: "pliego condiciones sitio web, requisitos sitio, especificaciones proyecto web, brief sitio"
 ---
 
 # Como redactar el pliego de condiciones de tu sitio web en 2026

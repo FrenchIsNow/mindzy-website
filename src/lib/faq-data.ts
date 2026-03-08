@@ -169,9 +169,9 @@ export const faqItemsV2: FAQItem[] = [
       es: '¿Cuál es la velocidad de carga promedio de sus sitios web?',
     },
     answer: {
-      fr: 'Nous optimisons systématiquement la performance, car elle impacte directement l\'expérience utilisateur, le référencement et la conversion.',
-      en: 'We systematically optimize performance because it directly impacts user experience, search rankings, and conversion rates.',
-      es: 'Optimizamos sistemáticamente el rendimiento, ya que impacta directamente en la experiencia del usuario, el posicionamiento y la conversión.',
+      fr: 'Nous optimisons systématiquement la performance, car elle impacte directement l\'expérience utilisateur, le SEO, le GEO (visibilité dans les IA) et la conversion.',
+      en: 'We systematically optimize performance because it directly impacts user experience, SEO, GEO (visibility in AI), and conversion.',
+      es: 'Optimizamos sistemáticamente el rendimiento, ya que impacta directamente en la experiencia del usuario, el SEO, el GEO (visibilidad en las IA) y la conversión.',
     },
   },
   {
@@ -222,23 +222,23 @@ export const faqItemsV2: FAQItem[] = [
     id: 'faq-16',
     category: 'seo',
     question: {
-      fr: 'Mon site sera-t-il bien référencé sur Google ?',
-      en: 'Will my website rank well on Google?',
-      es: '¿Estará bien posicionado mi sitio web en Google?',
+      fr: 'Mon site sera-t-il bien référencé sur Google et visible dans les IA ?',
+      en: 'Will my website rank well on Google and be visible in AI?',
+      es: '¿Estará bien posicionado mi sitio web en Google y visible en las IA?',
     },
     answer: {
-      fr: 'Il est conçu pour être compréhensible par Google et utile pour vos visiteurs. Le référencement commence par une structure saine.',
-      en: 'It is designed to be understandable by Google and useful for your visitors. Good search rankings start with a solid structure.',
-      es: 'Está diseñado para ser comprensible por Google y útil para sus visitantes. El posicionamiento comienza por una estructura sólida.',
+      fr: 'Il est conçu pour être compréhensible par Google et par les moteurs génératifs (ChatGPT, Perplexity, etc.). Le SEO et le GEO (visibilité dans les intelligences artificielles) commencent par une structure et un contenu sains.',
+      en: 'It is designed to be understandable by Google and by generative engines (ChatGPT, Perplexity, etc.). SEO and GEO (visibility in artificial intelligences) start with a solid structure and content.',
+      es: 'Está diseñado para ser comprensible por Google y por los motores generativos (ChatGPT, Perplexity, etc.). El SEO y el GEO (visibilidad en las inteligencias artificiales) comienzan por una estructura y un contenido sólidos.',
     },
   },
   {
     id: 'faq-17',
     category: 'seo',
     question: {
-      fr: 'Le référencement est-il automatique ?',
-      en: 'Is search engine optimization automatic?',
-      es: '¿El posicionamiento es automático?',
+      fr: 'Le SEO et le GEO sont-ils automatiques ?',
+      en: 'Is SEO and GEO optimization automatic?',
+      es: '¿El SEO y el GEO son automáticos?',
     },
     answer: {
       fr: 'Non. Le SEO & GEO est un levier stratégique qui se travaille dans le temps. Nous posons des fondations solides et proposons des axes d\'amélioration.',
@@ -251,13 +251,13 @@ export const faqItemsV2: FAQItem[] = [
     category: 'seo',
     question: {
       fr: 'Travaillez-vous le SEO & GEO local ?',
-      en: 'Do you work on local SEO?',
-      es: '¿Trabajan el SEO & GEO local?',
+      en: 'Do you work on local SEO & GEO?',
+      es: '¿Trabajan el SEO y GEO local?',
     },
     answer: {
-      fr: 'Oui, particulièrement pour les activités géolocalisées où la visibilité locale est déterminante.',
-      en: 'Yes, especially for location-based businesses where local visibility is decisive.',
-      es: 'Sí, especialmente para las actividades geolocalizadas donde la visibilidad local es determinante.',
+      fr: 'Oui, particulièrement pour les activités géolocalisées : visibilité locale sur Google et dans les réponses des assistants IA (GEO).',
+      en: 'Yes, especially for location-based businesses: local visibility on Google and in AI assistant answers (GEO).',
+      es: 'Sí, especialmente para actividades geolocalizadas: visibilidad local en Google y en las respuestas de los asistentes IA (GEO).',
     },
   },
   {
@@ -269,9 +269,9 @@ export const faqItemsV2: FAQItem[] = [
       es: '¿Está incluido Google Business?',
     },
     answer: {
-      fr: 'Oui, lorsque cela apporte un réel avantage en termes de visibilité et de crédibilité locale.',
-      en: 'Yes, when it provides a real advantage in terms of local visibility and credibility.',
-      es: 'Sí, cuando aporta una ventaja real en términos de visibilidad y credibilidad local.',
+      fr: 'Oui, lorsque cela apporte un réel avantage en visibilité locale (recherche Google et recommandations par les IA).',
+      en: 'Yes, when it provides a real advantage in local visibility (Google search and AI recommendations).',
+      es: 'Sí, cuando aporta una ventaja real en visibilidad local (búsqueda en Google y recomendaciones de las IA).',
     },
   },
   {

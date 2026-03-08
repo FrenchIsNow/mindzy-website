@@ -11,6 +11,10 @@ relatedPosts:
   - "agence-web-avantages"
   - "identite-visuelle-guide-2026"
   - "cahier-des-charges-site-internet"
+modifiedDate: "2025-12-15"
+wordCount: 1680
+tags: [budget, site-web, freelance, diy, agence]
+keywords: "créer site web pas cher, site professionnel budget, solutions abordables site web"
 ---
 
 # Creer un site web professionnel avec un petit budget

@@ -11,6 +11,10 @@ relatedPosts:
   - "creer-site-web-budget"
   - "agence-web-avantages"
   - "vendre-sur-internet-2026"
+modifiedDate: "2026-01-28"
+wordCount: 1645
+tags: [branding, visual identity, logo design, brand guidelines, color palette]
+keywords: "visual identity design, brand identity guidelines, logo design, branding strategy"
 ---
 
 # 5 Steps to Create a Professional Visual Identity That Sells in 2026

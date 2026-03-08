@@ -11,6 +11,10 @@ relatedPosts:
   - "creer-site-web-budget"
   - "agence-web-avantages"
   - "vendre-sur-internet-2026"
+modifiedDate: "2026-01-28"
+wordCount: 2100
+tags: [identité-visuelle, branding, logo, design, charte-graphique]
+keywords: "identité visuelle professionnelle, créer logo, charte graphique, branding entreprise"
 ---
 
 # 5 étapes pour créer une identité visuelle professionnelle en 2026

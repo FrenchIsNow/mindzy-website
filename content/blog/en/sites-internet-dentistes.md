@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "articles-blog-psychologue"
   - "agence-web-avantages"
+modifiedDate: "2026-01-12"
+wordCount: 1198
+tags: [dental, website design, patient acquisition, local seo, healthcare]
+keywords: "dental website design, attracting dental patients, dentist online presence, dental SEO"
 ---
 
 # Dental Website Examples That Actually Attract Patients

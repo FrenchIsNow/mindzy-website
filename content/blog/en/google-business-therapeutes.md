@@ -11,6 +11,10 @@ relatedPosts:
   - "articles-blog-psychologue"
   - "visibilite-ia-mindzy"
   - "sites-internet-dentistes"
+modifiedDate: "2026-01-10"
+wordCount: 1456
+tags: [google business, local seo, therapists, business profile, online visibility]
+keywords: "Google Business Profile for therapists, local SEO for therapists, Google Business optimization"
 ---
 
 # Google Business Profile for Therapists: The #1 Lever to Be Found and Chosen

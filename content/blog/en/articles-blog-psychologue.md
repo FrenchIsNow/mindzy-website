@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "visibilite-articles-blog"
   - "visibilite-ia-mindzy"
+modifiedDate: "2026-01-08"
+wordCount: 1247
+tags: [blog articles, psychology, google visibility, seo, client acquisition]
+keywords: "psychology blog articles, therapist visibility, psychology SEO, attracting therapy clients, online presence for therapists"
 ---
 
 # What Blog Articles Psychologists MUST Write to Be Found on Google and AI

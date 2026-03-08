@@ -11,6 +11,10 @@ relatedPosts:
   - "agence-web-avantages"
   - "identite-visuelle-guide-2026"
   - "cahier-des-charges-site-internet"
+modifiedDate: "2025-12-15"
+wordCount: 1356
+tags: [presupuesto, creacion sitio, diy, asequible, economico]
+keywords: "sitio web presupuesto bajo, crear sitio economico, soluciones baratas web, website affordable"
 ---
 
 # Crear un sitio web profesional con poco presupuesto

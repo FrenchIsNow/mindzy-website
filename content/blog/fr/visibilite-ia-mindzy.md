@@ -11,6 +11,10 @@ relatedPosts:
   - "seo-entrepreneurs-guide"
   - "visibilite-articles-blog"
   - "google-business-therapeutes"
+modifiedDate: "2026-01-15"
+wordCount: 2180
+tags: [ia, chatgpt, visibilité, recommendation-ia, seo]
+keywords: "visibilité ia chatgpt, etre recommandé par ia, recherche ia, mindzy"
 ---
 
 # Être visible et trouver des clients via les IA avec Mindzy

@@ -18,10 +18,10 @@ export function Footer({ locale }: { locale: Locale }) {
       { href: `/${locale}/pricing`, label: (t.links as any).pricing },
     ],
     resources: [
+      { href: `/${locale}/ebooks`, label: (t.links as any).ebooks },
       { href: `/${locale}/portfolio`, label: t.links.portfolio },
       { href: `/${locale}/blog`, label: t.links.blog },
       { href: `/${locale}/faq`, label: t.links.faq },
-      { href: `/${locale}/diagnostic`, label: (t.links as any).diagnostic },
     ],
     company: [
       { href: `/${locale}/pourquoi-nous`, label: (t.links as any).whyUs },

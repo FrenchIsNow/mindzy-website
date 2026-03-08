@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "articles-blog-psychologue"
   - "agence-web-avantages"
+modifiedDate: "2026-01-12"
+wordCount: 1580
+tags: [dentiste, site-professionnel, sante, patients, seo-local]
+keywords: "site dentiste, cabinet dentaire web, attirer patients dentiste"
 ---
 
 # Exemples de sites internet de dentistes qui attirent réellement des patients

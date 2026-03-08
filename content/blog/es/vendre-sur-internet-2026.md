@@ -11,6 +11,10 @@ relatedPosts:
   - "site-ecommerce-guide"
   - "seo-entrepreneurs-guide"
   - "google-business-therapeutes"
+modifiedDate: "2026-01-20"
+wordCount: 1856
+tags: [venta online, estrategia ecommerce, marketing digital, conversion, adquisicion clientes]
+keywords: "vender online 2026, estrategia venta internet, comercio electronico, guia ecommerce"
 ---
 
 # Como vender en Internet en 2026: la guia completa

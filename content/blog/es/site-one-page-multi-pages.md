@@ -11,6 +11,10 @@ relatedPosts:
   - "cahier-des-charges-site-internet"
   - "seo-entrepreneurs-guide"
   - "agence-web-avantages"
+modifiedDate: "2026-01-03"
+wordCount: 1467
+tags: [estrategia sitio web, one page, multi-paginas, seo, estructura sitio]
+keywords: "sitio one page vs multi-paginas, arquitectura sitio web, estrategia sitio, SEO estructura"
 ---
 
 # Sitio one page o sitio multi-paginas: que elegir para ser visible en Google y las IA

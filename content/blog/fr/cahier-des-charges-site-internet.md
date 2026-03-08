@@ -11,6 +11,10 @@ relatedPosts:
   - "agence-web-avantages"
   - "site-one-page-multi-pages"
   - "vendre-sur-internet-2026"
+modifiedDate: "2026-01-22"
+wordCount: 2340
+tags: [cahier-charges, projet-web, site-internet, planning]
+keywords: "cahier des charges site web, rédiger cahier charges, spécifications site internet, planification web"
 ---
 
 # Comment rédiger le cahier des charges de votre site internet en 2026

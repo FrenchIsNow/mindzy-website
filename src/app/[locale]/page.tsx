@@ -13,7 +13,7 @@ import { Testimonials } from '@/components/sections/Testimonials'
 import { CTASection } from '@/components/sections/CTASection'
 import { TechnologiesPartners } from '@/components/sections/TechnologiesPartners'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata, jsonLdAggregateRating, JsonLd } from '@/lib/seo'
+import { buildPageMetadata, jsonLdAggregateRating, jsonLdSpeakablePage, JsonLd } from '@/lib/seo'
 import { testimonials } from '@/lib/config'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 
@@ -41,6 +41,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
+  const speakableJsonLd = jsonLdSpeakablePage(`https://mindzy.me/${locale}`, [
+    'h1',
+    '.hero-description',
+    '.pain-points-title',
+    'h2',
+  ])
+
   const reviewsJsonLd = jsonLdAggregateRating(
     testimonials.map(t => ({
       name: t.name,
@@ -52,6 +59,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <JsonLd data={reviewsJsonLd} />
+      <JsonLd data={speakableJsonLd} />
       {/* Hero Section - Main value proposition */}
       <Hero locale={locale as Locale} />
      {/* Technologies & Partners - Scrolling logos */}

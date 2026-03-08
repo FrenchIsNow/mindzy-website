@@ -10,8 +10,12 @@ export interface BlogPostMeta {
   category: string
   author: string
   date: string
+  modifiedDate?: string
   image: string
   readingTime: number
+  wordCount?: number
+  tags?: string[]
+  keywords?: string
   relatedPosts?: string[]
 }
 
@@ -45,8 +49,12 @@ export function getBlogPosts(locale: Locale): BlogPostMeta[] {
       category: data.category || 'general',
       author: data.author || 'Mindzy',
       date: data.date || new Date().toISOString().split('T')[0],
+      modifiedDate: data.modifiedDate || data.date || undefined,
       image: data.image || '/images/blog/default.svg',
       readingTime: data.readingTime || 5,
+      wordCount: data.wordCount || undefined,
+      tags: data.tags || [],
+      keywords: data.keywords || '',
       relatedPosts: data.relatedPosts || [],
     } as BlogPostMeta
   })
@@ -75,20 +83,48 @@ export function getBlogPost(locale: Locale, slug: string): BlogPostFull | null {
     category: data.category || 'general',
     author: data.author || 'Mindzy',
     date: data.date || new Date().toISOString().split('T')[0],
+    modifiedDate: data.modifiedDate || data.date || undefined,
     image: data.image || '/images/blog/default.svg',
     readingTime: data.readingTime || 5,
+    wordCount: data.wordCount || undefined,
+    tags: data.tags || [],
+    keywords: data.keywords || '',
     relatedPosts: data.relatedPosts || [],
     content,
   }
 }
 
 /**
- * Get all unique categories
+ * Get all unique categories with post counts
  */
-export function getBlogCategories(locale: Locale): string[] {
+export function getBlogCategories(locale: Locale): { name: string; count: number }[] {
   const posts = getBlogPosts(locale)
-  const categories = [...new Set(posts.map(p => p.category))]
-  return categories.sort()
+  const counts: Record<string, number> = {}
+  for (const post of posts) {
+    counts[post.category] = (counts[post.category] || 0) + 1
+  }
+  return Object.entries(counts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => a.name.localeCompare(b.name))
+}
+
+/**
+ * Get posts filtered by category
+ */
+export function getBlogPostsByCategory(locale: Locale, category: string): BlogPostMeta[] {
+  return getBlogPosts(locale).filter(p => p.category === category)
+}
+
+/**
+ * Get all unique tags across all posts
+ */
+export function getBlogTags(locale: Locale): string[] {
+  const posts = getBlogPosts(locale)
+  const tags = new Set<string>()
+  for (const post of posts) {
+    for (const tag of post.tags || []) tags.add(tag)
+  }
+  return [...tags].sort()
 }
 
 /**

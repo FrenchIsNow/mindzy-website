@@ -11,6 +11,10 @@ relatedPosts:
   - "google-business-therapeutes"
   - "articles-blog-psychologue"
   - "agence-web-avantages"
+modifiedDate: "2026-01-12"
+wordCount: 1154
+tags: [dentista, diseno sitio, adquisicion pacientes, seo local, salud]
+keywords: "sitio web dentista, atraer pacientes dentales, posicionamiento dentista, presencia online clinica"
 ---
 
 # Ejemplos de sitios web de dentistas que realmente atraen pacientes

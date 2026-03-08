@@ -11,6 +11,10 @@ relatedPosts:
   - "vendre-sur-internet-2026"
   - "seo-entrepreneurs-guide"
   - "agence-web-avantages"
+modifiedDate: "2026-01-05"
+wordCount: 1820
+tags: [ecommerce, boutique-en-ligne, vente, site-marchand, conversion]
+keywords: "site ecommerce, boutique en ligne, vendre en ligne, site marchand"
 ---
 
 # Qu'est-ce qu'un site e-commerce et comment en creer un qui vend vraiment

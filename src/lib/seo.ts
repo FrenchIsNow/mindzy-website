@@ -116,24 +116,65 @@ export function jsonLdWebsite() {
     name: SITE_NAME,
     url: SITE_URL,
     inLanguage: ['fr', 'en', 'es'],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/fr/blog?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   }
 }
 
-export function jsonLdLocalBusiness() {
+const serviceAreaByLocale: Record<string, { name: string; sameAs: string }[]> = {
+  fr: [
+    { name: 'France', sameAs: 'https://www.wikidata.org/wiki/Q142' },
+    { name: 'Belgique', sameAs: 'https://www.wikidata.org/wiki/Q31' },
+    { name: 'Suisse', sameAs: 'https://www.wikidata.org/wiki/Q39' },
+    { name: 'Canada', sameAs: 'https://www.wikidata.org/wiki/Q16' },
+  ],
+  en: [
+    { name: 'United Kingdom', sameAs: 'https://www.wikidata.org/wiki/Q145' },
+    { name: 'Canada', sameAs: 'https://www.wikidata.org/wiki/Q16' },
+    { name: 'United States', sameAs: 'https://www.wikidata.org/wiki/Q30' },
+    { name: 'Australia', sameAs: 'https://www.wikidata.org/wiki/Q408' },
+  ],
+  es: [
+    { name: 'España', sameAs: 'https://www.wikidata.org/wiki/Q29' },
+    { name: 'México', sameAs: 'https://www.wikidata.org/wiki/Q96' },
+    { name: 'Argentina', sameAs: 'https://www.wikidata.org/wiki/Q414' },
+    { name: 'Colombia', sameAs: 'https://www.wikidata.org/wiki/Q739' },
+  ],
+}
+
+const descriptionByLocale: Record<string, string> = {
+  fr: 'Agence de création de sites web professionnels pour thérapeutes et entrepreneurs — SEO & GEO intégré, accompagnement humain.',
+  en: 'Professional website design agency for therapists and entrepreneurs — integrated SEO & GEO, personalized support.',
+  es: 'Agencia de creación de sitios web profesionales para terapeutas y emprendedores — SEO y GEO integrado, acompañamiento personalizado.',
+}
+
+export function jsonLdLocalBusiness(locale = 'fr') {
+  const areas = serviceAreaByLocale[locale] || serviceAreaByLocale.fr
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: SITE_NAME,
-    url: SITE_URL,
+    url: `${SITE_URL}/${locale}`,
     logo: `${SITE_URL}/logo.svg`,
-    description: 'Agence de création de sites web professionnels pour entrepreneurs',
+    image: `${SITE_URL}/og-image.png`,
+    description: descriptionByLocale[locale] || descriptionByLocale.fr,
     email: 'contact@mindzy.me',
     priceRange: '€€',
-    areaServed: {
-      '@type': 'GeoShape',
-      name: 'Europe',
-    },
+    currenciesAccepted: 'EUR',
+    paymentAccepted: 'Credit Card, Bank Transfer',
+    areaServed: areas.map(area => ({
+      '@type': 'Country',
+      name: area.name,
+      sameAs: area.sameAs,
+    })),
     knowsLanguage: ['fr', 'en', 'es'],
+    serviceType: ['Web Design', 'SEO', 'Branding', 'Web Development'],
   }
 }
 
@@ -145,9 +186,12 @@ interface BlogPostJsonLd {
   datePublished: string
   dateModified?: string
   author: string
+  wordCount?: number
+  keywords?: string
+  locale?: string
 }
 
-export function jsonLdBlogPosting({ title, description, url, image, datePublished, dateModified, author }: BlogPostJsonLd) {
+export function jsonLdBlogPosting({ title, description, url, image, datePublished, dateModified, author, wordCount, keywords, locale }: BlogPostJsonLd) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -157,6 +201,9 @@ export function jsonLdBlogPosting({ title, description, url, image, datePublishe
     image: image.startsWith('http') ? image : `${SITE_URL}${image}`,
     datePublished,
     dateModified: dateModified || datePublished,
+    inLanguage: locale || 'fr',
+    ...(wordCount && { wordCount }),
+    ...(keywords && { keywords }),
     author: {
       '@type': 'Organization',
       name: author || SITE_NAME,
@@ -169,6 +216,10 @@ export function jsonLdBlogPosting({ title, description, url, image, datePublishe
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.svg` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.post-excerpt', 'article p:first-of-type'],
+    },
   }
 }
 
@@ -273,6 +324,35 @@ export function jsonLdAggregateRating(reviews: ReviewItem[]) {
         bestRating: 5,
       },
     })),
+  }
+}
+
+export function jsonLdCollectionPage(url: string, name: string, description: string, items: { url: string; name: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    url,
+    name,
+    description,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: item.url,
+      name: item.name,
+    })),
+  }
+}
+
+export function jsonLdSpeakablePage(url: string, cssSelectors: string[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: cssSelectors,
+    },
   }
 }
 

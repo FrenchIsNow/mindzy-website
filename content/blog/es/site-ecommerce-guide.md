@@ -11,6 +11,10 @@ relatedPosts:
   - "vendre-sur-internet-2026"
   - "seo-entrepreneurs-guide"
   - "agence-web-avantages"
+modifiedDate: "2026-01-05"
+wordCount: 1398
+tags: [ecommerce, tienda online, diseno web, optimizacion conversion, ventas]
+keywords: "diseno tienda online, como crear ecommerce, vender en linea, plataforma ecommerce"
 ---
 
 # Que es un sitio e-commerce y como crear uno que realmente venda

@@ -3,7 +3,7 @@ import { FAQContent } from './FAQContent'
 import { getMessages } from '@/lib/getMessages'
 import { faqItems } from '@/lib/config'
 import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata, jsonLdFaqPage, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
+import { buildPageMetadata, jsonLdFaqPage, jsonLdBreadcrumb, jsonLdSpeakablePage, JsonLd } from '@/lib/seo'
 
 const faqDescriptions: Record<string, string> = {
   fr: 'Réponses à toutes vos questions sur la création de site web avec Mindzy. Tarifs, délais, fonctionnalités, support technique et plus.',
@@ -41,10 +41,13 @@ export default async function FAQPage({ params }: { params: Promise<{ locale: st
     { name: bc.faq, url: `https://mindzy.me/${locale}/faq` },
   ])
 
+  const speakableJsonLd = jsonLdSpeakablePage(`https://mindzy.me/${locale}/faq`, ['h1', '.faq-question', 'h2'])
+
   return (
     <>
       <JsonLd data={faqJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={speakableJsonLd} />
       <FAQContent locale={locale as Locale} />
     </>
   )

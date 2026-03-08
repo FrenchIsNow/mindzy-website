@@ -11,6 +11,10 @@ relatedPosts:
   - "seo-entrepreneurs-guide"
   - "visibilite-articles-blog"
   - "google-business-therapeutes"
+modifiedDate: "2026-01-15"
+wordCount: 1512
+tags: [visibilidad ia, inteligencia artificial, chatgpt, optimizacion sitio, seo semantico]
+keywords: "visibilidad IA, ChatGPT recomendaciones, optimizacion IA, sitios web y AI"
 ---
 
 # Ser visible y encontrar clientes a traves de las IA con Mindzy
