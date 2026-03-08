@@ -51,7 +51,7 @@ const content = {
       badge: 'Création de site web',
       title: 'Un site qui travaille',
       titleAccent: 'pour vous',
-      subtitle: 'Sites professionnels pour entrepreneurs ambitieux. Design sur mesure, SEO & GEO intégré dès la conception, réservation en ligne et performances optimales.',
+      subtitle: 'Sites professionnels pour entrepreneurs ambitieux. Design sur mesure, SEO intégré dès la conception et optimisation GEO , réservation en ligne et performances optimales.',
       cta: 'Démarrer mon projet',
       ctaSecondary: 'Voir nos réalisations',
     },
