@@ -148,7 +148,7 @@ Every product page should be findable.
 
 ### Step 4 — Prepare for Launch
 
-Social media, email, SEO, advertising.
+Social media, email, SEO & GEO, advertising.
 
 ### Step 5 — Think Mobile First
 
@@ -195,8 +195,8 @@ It needs to be fed with:
 - Mobile optimization is critical since most purchases happen on smartphones
 - Every product page is an SEO & GEO entry point for Google and AI
 - Key features include search, filters, reviews, and accessible customer service
-- Follow 5 steps: choose technology, design professionally, optimize for SEO, prepare launch, think mobile first
-- Promote continuously through social media, email, SEO, and advertising
+- Follow 5 steps: choose technology, design professionally, optimize for SEO & GEO, prepare launch, think mobile first
+- Promote continuously through social media, email, SEO & GEO, and advertising
 
 ---
 

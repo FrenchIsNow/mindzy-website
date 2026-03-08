@@ -9,9 +9,9 @@ import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 
 const blogDescriptions: Record<string, string> = {
-  fr: 'Conseils, guides et stratégies pour développer votre activité en ligne. SEO, marketing digital, création de site web et réservation en ligne pour entrepreneurs.',
-  en: 'Tips, guides and strategies to grow your business online. SEO, digital marketing, website creation and online booking tips for ambitious entrepreneurs.',
-  es: 'Consejos, guías y estrategias para desarrollar tu negocio en línea. SEO, marketing digital, creación de sitios web y reservas en línea para emprendedores.',
+  fr: 'Conseils, guides et stratégies pour développer votre activité en ligne. SEO & GEO, marketing digital, création de site web et réservation en ligne pour entrepreneurs.',
+  en: 'Tips, guides and strategies to grow your business online. SEO & GEO, digital marketing, website creation and online booking tips for ambitious entrepreneurs.',
+  es: 'Consejos, guías y estrategias para desarrollar tu negocio en línea. SEO & GEO, marketing digital, creación de sitios web y reservas en línea para emprendedores.',
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

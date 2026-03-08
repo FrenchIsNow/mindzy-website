@@ -193,7 +193,7 @@ Un sitio e-commerce no funciona solo. **Hay que alimentarlo con:**
 - **El movil es prioritario**: la mayoria de compras se hacen desde smartphone
 - **Cada producto es una puerta de entrada SEO**: optimiza cada ficha
 - **Las IA recomiendan productos**: si tu contenido es claro y estructurado
-- **Hay que alimentar el sitio**: redes, email, SEO, publicidad
+- **Hay que alimentar el sitio**: redes, email, SEO & GEO, publicidad
 
 ---
 

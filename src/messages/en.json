@@ -18,7 +18,7 @@
     "badge": "Next-gen web agency",
     "title": "Your premium website",
     "titleHighlight": "in 2 weeks",
-    "subtitle": "Mindzy creates professional websites for ambitious entrepreneurs. Online booking, optimized SEO, custom design.",
+    "subtitle": "Mindzy creates professional websites for ambitious entrepreneurs. Online booking, optimized SEO & GEO, custom design.",
     "cta": "Start my project",
     "ctaSecondary": "View our work",
     "stats": {
@@ -65,7 +65,7 @@
       },
       "turnkey": {
         "title": "Turnkey solution",
-        "description": "We handle everything: design, content, SEO, launch."
+        "description": "We handle everything: design, content, SEO & GEO, launch."
       },
       "results": {
         "title": "Guaranteed results",

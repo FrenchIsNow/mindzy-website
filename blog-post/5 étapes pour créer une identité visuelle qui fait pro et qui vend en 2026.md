@@ -70,4 +70,4 @@ Ce n'est pas un exercice artistique. C'est un outil stratégique de confiance, d
 
 Chez Mindzy, nous concevons des identités visuelles pensées pour la performance : logo, charte graphique, déclinaisons, templates réseaux sociaux et kits web prêts à l'emploi.
 
-Si vous le souhaitez, je peux aussi transformer cet article en landing page SEO, en offre commerciale clé en main ou en pack identité visuelle Mindzy prêt à vendre.
+Si vous le souhaitez, je peux aussi transformer cet article en landing page SEO & GEO, en offre commerciale clé en main ou en pack identité visuelle Mindzy prêt à vendre.

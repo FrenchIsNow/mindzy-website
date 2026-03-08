@@ -72,7 +72,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Visibilité maximale avec SEO, réservation et paiements.',
+          description: 'Visibilité maximale avec SEO & GEO, réservation et paiements.',
           features: ['5 pages', '15 articles SEO/mois', 'Réservation en ligne', 'Paiements en ligne', 'Google Business optimisé', 'Hébergement premium', 'Certificat SSL'],
         },
         ecommerce: {
@@ -89,7 +89,7 @@ const content = {
         {
           icon: 'eye-off',
           title: 'Introuvable sur Google',
-          description: '93% des parcours d\'achat commencent par une recherche en ligne. Sans SEO, vos clients potentiels ne vous trouvent jamais.',
+          description: '93% des parcours d\'achat commencent par une recherche en ligne. Sans SEO & GEO, vos clients potentiels ne vous trouvent jamais.',
         },
         {
           icon: 'clock',
@@ -342,7 +342,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Maximum visibility with SEO, booking & payments.',
+          description: 'Maximum visibility with SEO & GEO, booking & payments.',
           features: ['5 pages', '15 SEO & GEO articles/month', 'Online booking', 'Online payments', 'Optimized Google Business', 'Premium hosting', 'SSL certificate'],
         },
         ecommerce: {
@@ -359,7 +359,7 @@ const content = {
         {
           icon: 'eye-off',
           title: 'Unfindable on Google',
-          description: '93% of buying journeys start with an online search. Without SEO, your potential clients never find you.',
+          description: '93% of buying journeys start with an online search. Without SEO & GEO, your potential clients never find you.',
         },
         {
           icon: 'clock',
@@ -617,7 +617,7 @@ const content = {
         },
         pro: {
           name: 'Pro',
-          description: 'Máxima visibilidad con SEO, reservas y pagos.',
+          description: 'Máxima visibilidad con SEO & GEO, reservas y pagos.',
           features: ['5 páginas', '15 artículos SEO/mes', 'Reserva online', 'Pagos online', 'Google Business optimizado', 'Alojamiento premium', 'Certificado SSL'],
         },
         ecommerce: {
@@ -634,7 +634,7 @@ const content = {
         {
           icon: 'eye-off',
           title: 'Imposible de encontrar en Google',
-          description: 'El 93% de los procesos de compra comienzan con una búsqueda online. Sin SEO, tus clientes potenciales nunca te encuentran.',
+          description: 'El 93% de los procesos de compra comienzan con una búsqueda online. Sin SEO & GEO, tus clientes potenciales nunca te encuentran.',
         },
         {
           icon: 'clock',

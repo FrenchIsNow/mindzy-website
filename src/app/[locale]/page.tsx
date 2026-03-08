@@ -24,7 +24,7 @@ const homeMeta: Record<string, { title: string; description: string }> = {
   },
   en: {
     title: 'Mindzy | Custom Digital Solutions for Entrepreneurs',
-    description: 'Mindzy supports the creation of custom digital projects: websites, applications, internal systems. Personalized approach, integrated SEO, human support.',
+    description: 'Mindzy supports the creation of custom digital projects: websites, applications, internal systems. Personalized approach, integrated SEO & GEO, human support.',
   },
   es: {
     title: 'Mindzy | Soluciones digitales a medida para emprendedores',

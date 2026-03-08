@@ -33,7 +33,7 @@ You can get there, but you will pay for it with:
 - "Oh by the way, we also wanted..."
 - Budget overruns
 
-In 2026, this is even more true because a website is no longer just a showcase. It must handle SEO, mobile, conversion, sometimes automation, and sometimes e-commerce.
+In 2026, this is even more true because a website is no longer just a showcase. It must handle SEO & GEO, mobile, conversion, sometimes automation, and sometimes e-commerce.
 
 > All of this needs to be defined from the start.
 

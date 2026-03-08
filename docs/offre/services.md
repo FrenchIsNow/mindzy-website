@@ -17,7 +17,7 @@ Inclusions : Google Business, hébergement sécurisé, maintenance complète, sa
 L'approche de Mindzy est centrée sur le résultat et l'adaptabilité :
 Projets Utiles et Durables : Les projets sont conçus pour être clairs, fiables et pensés pour évoluer.
 Expertise SEO & GEO intégrée : Le référencement est intégré dès la conception (structure, contenus, performance) pour une visibilité durable.
-Clé en main : L'agence gère le design, les textes, le SEO, la mise en ligne et la maintenance.
+Clé en main : L'agence gère le design, les textes, le SEO & GEO, la mise en ligne et la maintenance.
 Logique Stratégique : Un site est considéré comme un investissement (non une dépense) qui doit générer des contacts et du chiffre d'affaires, avec une priorité à la performance et à la cohérence.
 4. Autres Solutions Digitales
 Mindzy propose également le développement d'infrastructures digitales sur mesure pour des projets stratégiques :

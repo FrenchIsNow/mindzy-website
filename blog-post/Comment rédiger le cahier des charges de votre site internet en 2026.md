@@ -10,7 +10,7 @@ Voici une méthode simple en 7 étapes pour écrire un cahier des charges clair,
 
 Créer un site sans cahier des charges, c'est comme lancer un chantier sans plan. Vous pouvez y arriver, mais vous allez payer en retards, en allers-retours, en "ah au fait on voulait aussi...", et en dépassement de budget.
 
-En 2026, c'est encore plus vrai, parce qu'un site n'est plus juste une vitrine. Il doit gérer du SEO, du mobile, de la conversion, parfois de l'automatisation, et parfois de la vente. Tout ça doit être cadré dès le début.
+En 2026, c'est encore plus vrai, parce qu'un site n'est plus juste une vitrine. Il doit gérer du SEO & GEO, du mobile, de la conversion, parfois de l'automatisation, et parfois de la vente. Tout ça doit être cadré dès le début.
 
 
 ## Qu'est-ce qu'un cahier des charges ?

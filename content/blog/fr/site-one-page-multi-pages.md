@@ -164,7 +164,7 @@ Beaucoup d'activites commencent avec un site one page, puis evoluent vers un sit
 
 - Le choix n'est pas design, il est strategique
 - One page = simplicite, conversion rapide, offre unique
-- Multi-pages = visibilite, SEO, comprehension IA
+- Multi-pages = visibilite, SEO & GEO, comprehension IA
 - Vous pouvez commencer simple et evoluer
 - Ce qui compte : etre compris, trouve et recommande
 

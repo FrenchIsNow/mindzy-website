@@ -152,7 +152,7 @@ Le contenu sert à être trouvé sur Google, rassurer, convertir, alimenter les 
 
 | Format | Usage |
 |--------|-------|
-| **Articles de blog** | SEO, questions fréquentes |
+| **Articles de blog** | SEO & GEO, questions fréquentes |
 | **Pages FAQ** | Objections, rassurance |
 | **Vidéos courtes** | Démonstration, preuve, coulisses |
 | **Guides pratiques** | Valeur ajoutée, capture email |

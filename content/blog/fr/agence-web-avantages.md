@@ -51,7 +51,7 @@ Un particulier ou un freelance va créer un site joli.
 
 | Objectif | Ce que ça implique |
 |----------|-------------------|
-| **Être trouvé sur Google** | Structure SEO, mots-clés, vitesse |
+| **Être trouvé sur Google** | Structure SEO & GEO, mots-clés, vitesse |
 | **Rassurer en quelques secondes** | Design pro, preuves sociales |
 | **Guider le visiteur** | Parcours UX optimisé |
 | **Provoquer la prise de contact** | CTA stratégiques, friction minimale |

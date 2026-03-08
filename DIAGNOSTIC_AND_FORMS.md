@@ -173,7 +173,7 @@ function recommendPlan(answers: Record<string, string>): Plan['id'] {
 2. `main-issue` - Main problem with your site?
    - Outdated design, Too slow, Not mobile-friendly, Invisible on Google, Low conversions
 3. `features-needed` - What features do you need?
-   - Modern design, Online booking, E-commerce, Blog & SEO, All
+   - Modern design, Online booking, E-commerce, Blog & SEO & GEO, All
 4. `urgency` - How urgent is the redesign?
    - Urgent ASAP, 1-3 months, 3-6 months, Just exploring
 5. `budget` - What budget?

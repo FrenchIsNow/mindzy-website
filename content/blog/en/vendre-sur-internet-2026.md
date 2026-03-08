@@ -235,7 +235,7 @@ These AI systems rely on your online presence: website, content, reviews, consis
 ## Key Takeaways
 
 - Selling online in 2026 requires a complete system, not just a website
-- Follow 9 steps: target, website, SEO, channels, payments, email, content, metrics, customer service
+- Follow 9 steps: target, website, SEO & GEO, channels, payments, email, content, metrics, customer service
 - Choose maximum 2 sales channels to start
 - Email remains one of the most profitable channels
 - Track metrics to understand what sells and cut the rest

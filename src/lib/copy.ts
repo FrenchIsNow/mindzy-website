@@ -45,7 +45,7 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
       badge: isFr ? 'Agence web nouvelle génération' : isEn ? 'Next-gen web agency' : 'Agencia web de nueva generación',
       title: isFr ? 'Votre site web premium' : isEn ? 'Your premium website' : 'Tu sitio web premium',
       titleHighlight: isFr ? 'en 2 semaines' : isEn ? 'in 2 weeks' : 'en 2 semanas',
-      subtitle: isFr ? 'Mindzy crée des solutions professionnels pour les entrepreneurs ambitieux. Réservation en ligne, SEO & GEO optimisé, design sur-mesure.' : isEn ? 'Mindzy creates professional websites for ambitious entrepreneurs. Online booking, optimized SEO, custom design.' : 'Mindzy crea sitios profesionales para emprendedores ambiciosos. Reservas en línea, SEO & GEO optimizado, diseño a medida.',
+      subtitle: isFr ? 'Mindzy crée des solutions professionnels pour les entrepreneurs ambitieux. Réservation en ligne, SEO & GEO optimisé, design sur-mesure.' : isEn ? 'Mindzy creates professional websites for ambitious entrepreneurs. Online booking, optimized SEO & GEO, custom design.' : 'Mindzy crea sitios profesionales para emprendedores ambiciosos. Reservas en línea, SEO & GEO optimizado, diseño a medida.',
       cta: isFr ? 'Démarrer mon projet' : isEn ? 'Start my project' : 'Empezar mi proyecto',
       ctaSecondary: isFr ? 'Voir nos réalisations' : isEn ? 'View our work' : 'Ver nuestros trabajos',
       stats: { clients: isFr ? 'Clients satisfaits' : isEn ? 'Happy clients' : 'Clientes satisfechos', satisfaction: isFr ? 'Taux de satisfaction' : isEn ? 'Satisfaction rate' : 'Tasa de satisfacción', support: isFr ? 'Support inclus' : isEn ? 'Support included' : 'Soporte incluido' },
@@ -66,7 +66,7 @@ function buildCopy(locale: 'fr' | 'en' | 'es'): CopyKeys {
       subtitle: isFr ? 'Ce qui nous différencie des agences traditionnelles' : isEn ? 'What sets us apart from traditional agencies' : 'Lo que nos diferencia de las agencias tradicionales',
       reasons: {
         specialized: { title: isFr ? 'Experts en conversion' : isEn ? 'Conversion experts' : 'Expertos en conversión', description: isFr ? 'Sites conçus pour convertir vos visiteurs en clients.' : isEn ? 'Sites designed to convert your visitors into clients.' : 'Sitios diseñados para convertir visitantes en clientes.' },
-        turnkey: { title: isFr ? 'Solution clé en main' : isEn ? 'Turnkey solution' : 'Solución llave en mano', description: isFr ? 'Nous gérons tout : design, textes, SEO, mise en ligne.' : isEn ? 'We handle everything: design, content, SEO, launch.' : 'Gestionamos todo: diseño, contenido, SEO, lanzamiento.' },
+        turnkey: { title: isFr ? 'Solution clé en main' : isEn ? 'Turnkey solution' : 'Solución llave en mano', description: isFr ? 'Nous gérons tout : design, textes, SEO & GEO, mise en ligne.' : isEn ? 'We handle everything: design, content, SEO & GEO, launch.' : 'Gestionamos todo: diseño, contenido, SEO & GEO, lanzamiento.' },
         results: { title: isFr ? 'Résultats garantis' : isEn ? 'Guaranteed results' : 'Resultados garantizados', description: isFr ? 'Nos clients voient leur activité décoller.' : isEn ? 'Our clients see their business take off.' : 'Nuestros clientes ven despegar su negocio.' },
         support: { title: isFr ? 'Support dédié' : isEn ? 'Dedicated support' : 'Soporte dedicado', description: isFr ? 'Une équipe disponible pour vous accompagner.' : isEn ? 'A team available to support you.' : 'Un equipo disponible para acompañarte.' },
       },
