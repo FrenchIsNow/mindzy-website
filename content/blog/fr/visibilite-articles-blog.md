@@ -1,20 +1,28 @@
 ---
-title: "Comment améliorer réellement votre visibilité grâce aux articles de blog"
-slug: "visibilite-articles-blog"
-excerpt: "Votre site présente votre activité. Votre blog la rend trouvable. Découvrez comment les articles attirent des clients qui ne vous connaissent pas encore."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-25"
-image: "/images/blog/blog-visibilite.svg"
+title: Comment améliorer réellement votre visibilité grâce aux articles de blog
+slug: visibilite-articles-blog
+excerpt: Votre site présente votre activité. Votre blog la rend trouvable. Découvrez
+  comment les articles attirent des clients qui ne vous connaissent pas encore.
+category: seo
+author: Mindzy
+date: '2026-01-25'
+image: /images/fr/blog/blog-visibilite.svg
 readingTime: 6
 relatedPosts:
-  - "articles-blog-psychologue"
-  - "seo-entrepreneurs-guide"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-25"
+- articles-blog-psychologue
+- seo-entrepreneurs-guide
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-25'
 wordCount: 1720
-tags: [blog, seo, contenu, visibilité, articles]
-keywords: "améliorer visibilité blog, articles seo, contenu marketing, référencement blog"
+tags:
+- blog
+- seo
+- contenu
+- visibilité
+- articles
+keywords: améliorer visibilité blog, articles seo, contenu marketing, référencement
+  blog
+lang: fr
 ---
 
 # Comment améliorer réellement votre visibilité grâce aux articles de blog

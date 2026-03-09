@@ -1,20 +1,27 @@
 ---
-title: "Qu'est-ce qu'un site e-commerce et comment en créer un qui vend vraiment"
-slug: "site-ecommerce-guide"
-excerpt: "Un site e-commerce est une boutique en ligne qui génère du chiffre d'affaires en continu. Découvrez les clés pour créer un site marchand qui convertit."
-category: "business"
-author: "Mindzy"
-date: "2026-01-05"
-image: "/images/blog/ecommerce.svg"
+title: Qu'est-ce qu'un site e-commerce et comment en créer un qui vend vraiment
+slug: site-ecommerce-guide
+excerpt: Un site e-commerce est une boutique en ligne qui génère du chiffre d'affaires
+  en continu. Découvrez les clés pour créer un site marchand qui convertit.
+category: business
+author: Mindzy
+date: '2026-01-05'
+image: /images/fr/blog/ecommerce.svg
 readingTime: 6
 relatedPosts:
-  - "vendre-sur-internet-2026"
-  - "seo-entrepreneurs-guide"
-  - "agence-web-avantages"
-modifiedDate: "2026-01-05"
+- vendre-sur-internet-2026
+- seo-entrepreneurs-guide
+- agence-web-avantages
+modifiedDate: '2026-01-05'
 wordCount: 1820
-tags: [ecommerce, boutique-en-ligne, vente, site-marchand, conversion]
-keywords: "site ecommerce, boutique en ligne, vendre en ligne, site marchand"
+tags:
+- ecommerce
+- boutique-en-ligne
+- vente
+- site-marchand
+- conversion
+keywords: site ecommerce, boutique en ligne, vendre en ligne, site marchand
+lang: fr
 ---
 
 # Qu'est-ce qu'un site e-commerce et comment en creer un qui vend vraiment

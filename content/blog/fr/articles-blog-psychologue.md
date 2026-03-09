@@ -1,20 +1,29 @@
 ---
-title: "Quels articles de blog un psychologue doit ABSOLUMENT écrire pour être trouvé sur Google et les IA"
-slug: "articles-blog-psychologue"
-excerpt: "Votre site ne suffit pas. Ce sont vos articles de blog qui vous rendent visible, crédible et choisi par des personnes qui ne vous connaissent pas encore."
-category: "sante"
-author: "Mindzy"
-date: "2026-01-08"
-image: "/images/blog/blog-psychologue.svg"
+title: Quels articles de blog un psychologue doit ABSOLUMENT écrire pour être trouvé
+  sur Google et les IA
+slug: articles-blog-psychologue
+excerpt: Votre site ne suffit pas. Ce sont vos articles de blog qui vous rendent visible,
+  crédible et choisi par des personnes qui ne vous connaissent pas encore.
+category: sante
+author: Mindzy
+date: '2026-01-08'
+image: /images/fr/blog/blog-psychologue.svg
 readingTime: 5
 relatedPosts:
-  - "google-business-therapeutes"
-  - "visibilite-articles-blog"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-08"
+- google-business-therapeutes
+- visibilite-articles-blog
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-08'
 wordCount: 1620
-tags: [blog, psychologue, seo, articles, contenu]
-keywords: "articles psychologue, blog psychologue, seo psychothérapeute, visibilité psychologue"
+tags:
+- blog
+- psychologue
+- seo
+- articles
+- contenu
+keywords: articles psychologue, blog psychologue, seo psychothérapeute, visibilité
+  psychologue
+lang: fr
 ---
 
 # Quels articles de blog un psychologue doit ABSOLUMENT ecrire pour etre trouve sur Google et les IA

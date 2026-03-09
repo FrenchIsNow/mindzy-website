@@ -1,20 +1,28 @@
 ---
-title: "SEO & GEO para emprendedores: la guia completa 2026"
-slug: "seo-entrepreneurs-guide"
-excerpt: "Aprende a optimizar tu sitio para Google y las IA para atraer mas clientes de forma natural, sin publicidad de pago."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-01"
-image: "/images/blog/seo-guide.svg"
+title: 'SEO & GEO para emprendedores: la guia completa 2026'
+slug: seo-entrepreneurs-guide
+excerpt: Aprende a optimizar tu sitio para Google y las IA para atraer mas clientes
+  de forma natural, sin publicidad de pago.
+category: seo
+author: Mindzy
+date: '2026-01-01'
+image: /images/es/blog/seo-guide.svg
 readingTime: 8
 relatedPosts:
-  - "visibilite-ia-mindzy"
-  - "visibilite-articles-blog"
-  - "google-business-therapeutes"
-modifiedDate: "2026-01-01"
+- visibilite-ia-mindzy
+- visibilite-articles-blog
+- google-business-therapeutes
+modifiedDate: '2026-01-01'
 wordCount: 1769
-tags: [seo, seo local, emprendedores, visibilidad google, busqueda organica]
-keywords: "SEO para emprendedores, estrategia SEO local, posicionamiento Google, busqueda organica"
+tags:
+- seo
+- seo local
+- emprendedores
+- visibilidad google
+- busqueda organica
+keywords: SEO para emprendedores, estrategia SEO local, posicionamiento Google, busqueda
+  organica
+lang: es
 ---
 
 # SEO & GEO para emprendedores: la guia completa 2026

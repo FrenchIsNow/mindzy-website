@@ -1,20 +1,28 @@
 ---
-title: "Creacion de sitio web: por que trabajar con una agencia web lo cambia todo"
-slug: "agence-web-avantages"
-excerpt: "Crear un sitio web solo es posible. Crear un sitio que atraiga clientes, mucho menos. Descubre por que una agencia web marca toda la diferencia."
-category: "business"
-author: "Mindzy"
-date: "2026-01-18"
-image: "/images/blog/agence-web.svg"
+title: 'Creacion de sitio web: por que trabajar con una agencia web lo cambia todo'
+slug: agence-web-avantages
+excerpt: Crear un sitio web solo es posible. Crear un sitio que atraiga clientes,
+  mucho menos. Descubre por que una agencia web marca toda la diferencia.
+category: business
+author: Mindzy
+date: '2026-01-18'
+image: /images/es/blog/agence-web.svg
 readingTime: 6
 relatedPosts:
-  - "cahier-des-charges-site-internet"
-  - "creer-site-web-budget"
-  - "identite-visuelle-guide-2026"
-modifiedDate: "2026-01-18"
+- cahier-des-charges-site-internet
+- creer-site-web-budget
+- identite-visuelle-guide-2026
+modifiedDate: '2026-01-18'
 wordCount: 1289
-tags: [agencia web, desarrollo sitio, diseno profesional, seo, crecimiento negocio]
-keywords: "agencia web profesional, beneficios agencia web, desarrollo web, servicios web design"
+tags:
+- agencia web
+- desarrollo sitio
+- diseno profesional
+- seo
+- crecimiento negocio
+keywords: agencia web profesional, beneficios agencia web, desarrollo web, servicios
+  web design
+lang: es
 ---
 
 # Creacion de sitio web: por que trabajar con una agencia web lo cambia todo

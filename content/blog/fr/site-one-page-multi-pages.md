@@ -1,20 +1,28 @@
 ---
-title: "Site one page ou site multi-pages : quel choix pour être visible sur Google et les IA"
-slug: "site-one-page-multi-pages"
-excerpt: "Choisir entre un site one page et un site multi-pages n'est pas qu'une question de design. C'est un choix stratégique qui impacte votre visibilité."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-03"
-image: "/images/blog/one-page-multi.svg"
+title: 'Site one page ou site multi-pages : quel choix pour être visible sur Google
+  et les IA'
+slug: site-one-page-multi-pages
+excerpt: Choisir entre un site one page et un site multi-pages n'est pas qu'une question
+  de design. C'est un choix stratégique qui impacte votre visibilité.
+category: seo
+author: Mindzy
+date: '2026-01-03'
+image: /images/fr/blog/one-page-multi.svg
 readingTime: 6
 relatedPosts:
-  - "cahier-des-charges-site-internet"
-  - "seo-entrepreneurs-guide"
-  - "agence-web-avantages"
-modifiedDate: "2026-01-03"
+- cahier-des-charges-site-internet
+- seo-entrepreneurs-guide
+- agence-web-avantages
+modifiedDate: '2026-01-03'
 wordCount: 1920
-tags: [one-page, multi-pages, seo, structure-site, design]
-keywords: "site one page ou multi-pages, single page application, structure site seo"
+tags:
+- one-page
+- multi-pages
+- seo
+- structure-site
+- design
+keywords: site one page ou multi-pages, single page application, structure site seo
+lang: fr
 ---
 
 # Site one page ou site multi-pages : quel choix pour etre visible sur Google et les IA

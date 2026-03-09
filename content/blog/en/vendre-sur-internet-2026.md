@@ -1,20 +1,28 @@
 ---
-title: "How to Sell Online in 2026: The Complete Guide"
-slug: "vendre-sur-internet-2026"
-excerpt: "In 2026, selling online is more than having a website. Here are the 9 steps to build a system that generates revenue continuously."
-category: "business"
-author: "Mindzy"
-date: "2026-01-20"
-image: "/images/blog/vendre-internet.svg"
+title: 'How to Sell Online in 2026: The Complete Guide'
+slug: vendre-sur-internet-2026
+excerpt: In 2026, selling online is more than having a website. Here are the 9 steps
+  to build a system that generates revenue continuously.
+category: business
+author: Mindzy
+date: '2026-01-20'
+image: /images/en/blog/vendre-internet.svg
 readingTime: 10
 relatedPosts:
-  - "site-ecommerce-guide"
-  - "seo-entrepreneurs-guide"
-  - "google-business-therapeutes"
-modifiedDate: "2026-01-20"
+- site-ecommerce-guide
+- seo-entrepreneurs-guide
+- google-business-therapeutes
+modifiedDate: '2026-01-20'
 wordCount: 1923
-tags: [online sales, ecommerce strategy, digital marketing, conversion, customer acquisition]
-keywords: "selling online in 2026, ecommerce strategy, online sales guide, digital business selling"
+tags:
+- online sales
+- ecommerce strategy
+- digital marketing
+- conversion
+- customer acquisition
+keywords: selling online in 2026, ecommerce strategy, online sales guide, digital
+  business selling
+lang: en
 ---
 
 # How to Sell Online in 2026: The Complete Guide

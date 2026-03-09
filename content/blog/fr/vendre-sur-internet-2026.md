@@ -1,20 +1,28 @@
 ---
-title: "Comment vendre sur Internet en 2026 : le guide complet"
-slug: "vendre-sur-internet-2026"
-excerpt: "En 2026, vendre en ligne ne se limite plus à avoir un site. Voici les 9 étapes pour construire un système qui génère du chiffre d'affaires en continu."
-category: "business"
-author: "Mindzy"
-date: "2026-01-20"
-image: "/images/blog/vendre-internet.svg"
+title: 'Comment vendre sur Internet en 2026 : le guide complet'
+slug: vendre-sur-internet-2026
+excerpt: En 2026, vendre en ligne ne se limite plus à avoir un site. Voici les 9 étapes
+  pour construire un système qui génère du chiffre d'affaires en continu.
+category: business
+author: Mindzy
+date: '2026-01-20'
+image: /images/fr/blog/vendre-internet.svg
 readingTime: 10
 relatedPosts:
-  - "site-ecommerce-guide"
-  - "seo-entrepreneurs-guide"
-  - "google-business-therapeutes"
-modifiedDate: "2026-01-20"
+- site-ecommerce-guide
+- seo-entrepreneurs-guide
+- google-business-therapeutes
+modifiedDate: '2026-01-20'
 wordCount: 2640
-tags: [vendre-en-ligne, ecommerce, business, conversion, stratégie]
-keywords: "vendre sur internet, commerce en ligne, stratégie vente en ligne, paiement en ligne"
+tags:
+- vendre-en-ligne
+- ecommerce
+- business
+- conversion
+- stratégie
+keywords: vendre sur internet, commerce en ligne, stratégie vente en ligne, paiement
+  en ligne
+lang: fr
 ---
 
 # Comment vendre sur Internet en 2026 : le guide complet

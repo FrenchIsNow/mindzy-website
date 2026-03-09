@@ -1,20 +1,28 @@
 ---
-title: "Como mejorar realmente tu visibilidad gracias a los articulos de blog"
-slug: "visibilite-articles-blog"
-excerpt: "Tu sitio web presenta tu actividad. Tu blog la hace encontrable. Descubre como los articulos atraen clientes que aun no te conocen."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-25"
-image: "/images/blog/blog-visibilite.svg"
+title: Como mejorar realmente tu visibilidad gracias a los articulos de blog
+slug: visibilite-articles-blog
+excerpt: Tu sitio web presenta tu actividad. Tu blog la hace encontrable. Descubre
+  como los articulos atraen clientes que aun no te conocen.
+category: seo
+author: Mindzy
+date: '2026-01-25'
+image: /images/es/blog/blog-visibilite.svg
 readingTime: 6
 relatedPosts:
-  - "articles-blog-psychologue"
-  - "seo-entrepreneurs-guide"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-25"
+- articles-blog-psychologue
+- seo-entrepreneurs-guide
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-25'
 wordCount: 1325
-tags: [blog, visibilidad, estrategia contenido, seo, trafico organico]
-keywords: "articulos de blog para visibilidad, marketing de contenidos, mejorar SEO blog, trafico organico"
+tags:
+- blog
+- visibilidad
+- estrategia contenido
+- seo
+- trafico organico
+keywords: articulos de blog para visibilidad, marketing de contenidos, mejorar SEO
+  blog, trafico organico
+lang: es
 ---
 
 # Como mejorar realmente tu visibilidad gracias a los articulos de blog

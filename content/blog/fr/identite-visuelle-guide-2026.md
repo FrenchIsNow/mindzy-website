@@ -1,20 +1,28 @@
 ---
-title: "5 étapes pour créer une identité visuelle qui fait pro et qui vend en 2026"
-slug: "identite-visuelle-guide-2026"
-excerpt: "Découvrez comment construire une identité visuelle solide qui rend votre marque reconnaissable et cohérente partout : site web, réseaux sociaux, documents."
-category: "branding"
-author: "Mindzy"
-date: "2026-01-28"
-image: "/images/blog/identite-visuelle.svg"
+title: 5 étapes pour créer une identité visuelle qui fait pro et qui vend en 2026
+slug: identite-visuelle-guide-2026
+excerpt: 'Découvrez comment construire une identité visuelle solide qui rend votre
+  marque reconnaissable et cohérente partout : site web, réseaux sociaux, documents.'
+category: branding
+author: Mindzy
+date: '2026-01-28'
+image: /images/fr/blog/identite-visuelle.svg
 readingTime: 7
 relatedPosts:
-  - "creer-site-web-budget"
-  - "agence-web-avantages"
-  - "vendre-sur-internet-2026"
-modifiedDate: "2026-01-28"
+- creer-site-web-budget
+- agence-web-avantages
+- vendre-sur-internet-2026
+modifiedDate: '2026-01-28'
 wordCount: 2100
-tags: [identité-visuelle, branding, logo, design, charte-graphique]
-keywords: "identité visuelle professionnelle, créer logo, charte graphique, branding entreprise"
+tags:
+- identité-visuelle
+- branding
+- logo
+- design
+- charte-graphique
+keywords: identité visuelle professionnelle, créer logo, charte graphique, branding
+  entreprise
+lang: fr
 ---
 
 # 5 étapes pour créer une identité visuelle professionnelle en 2026

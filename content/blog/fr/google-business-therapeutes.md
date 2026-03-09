@@ -1,20 +1,28 @@
 ---
-title: "Fiche Google Business pour thérapeutes : le levier n°1 pour être trouvé et choisi"
-slug: "google-business-therapeutes"
-excerpt: "Quand une personne cherche un thérapeute, elle commence par Google Maps. Votre fiche Google Business est donc votre premier point de contact."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-10"
-image: "/images/blog/google-business.svg"
+title: 'Fiche Google Business pour thérapeutes : le levier n°1 pour être trouvé et
+  choisi'
+slug: google-business-therapeutes
+excerpt: Quand une personne cherche un thérapeute, elle commence par Google Maps.
+  Votre fiche Google Business est donc votre premier point de contact.
+category: seo
+author: Mindzy
+date: '2026-01-10'
+image: /images/fr/blog/google-business.svg
 readingTime: 6
 relatedPosts:
-  - "articles-blog-psychologue"
-  - "visibilite-ia-mindzy"
-  - "sites-internet-dentistes"
-modifiedDate: "2026-01-10"
+- articles-blog-psychologue
+- visibilite-ia-mindzy
+- sites-internet-dentistes
+modifiedDate: '2026-01-10'
 wordCount: 1750
-tags: [google-business, fiche-google, therapeute, seo-local, visibilité]
-keywords: "fiche Google Business thérapeute, optimiser fiche Google, seo local thérapeute"
+tags:
+- google-business
+- fiche-google
+- therapeute
+- seo-local
+- visibilité
+keywords: fiche Google Business thérapeute, optimiser fiche Google, seo local thérapeute
+lang: fr
 ---
 
 # Fiche Google Business pour thérapeutes : le levier n°1 pour être trouvé et choisi

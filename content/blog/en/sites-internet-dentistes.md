@@ -1,20 +1,28 @@
 ---
-title: "Dental Website Examples That Actually Attract Patients"
-slug: "sites-internet-dentistes"
-excerpt: "A dental website isn't just a brochure. It's a tool for being found on Google, reassuring patients before their appointment, and making it easy to get in touch."
-category: "sante"
-author: "Mindzy"
-date: "2026-01-12"
-image: "/images/blog/site-dentiste.svg"
+title: Dental Website Examples That Actually Attract Patients
+slug: sites-internet-dentistes
+excerpt: A dental website isn't just a brochure. It's a tool for being found on Google,
+  reassuring patients before their appointment, and making it easy to get in touch.
+category: sante
+author: Mindzy
+date: '2026-01-12'
+image: /images/en/blog/site-dentiste.svg
 readingTime: 5
 relatedPosts:
-  - "google-business-therapeutes"
-  - "articles-blog-psychologue"
-  - "agence-web-avantages"
-modifiedDate: "2026-01-12"
+- google-business-therapeutes
+- articles-blog-psychologue
+- agence-web-avantages
+modifiedDate: '2026-01-12'
 wordCount: 1198
-tags: [dental, website design, patient acquisition, local seo, healthcare]
-keywords: "dental website design, attracting dental patients, dentist online presence, dental SEO"
+tags:
+- dental
+- website design
+- patient acquisition
+- local seo
+- healthcare
+keywords: dental website design, attracting dental patients, dentist online presence,
+  dental SEO
+lang: en
 ---
 
 # Dental Website Examples That Actually Attract Patients

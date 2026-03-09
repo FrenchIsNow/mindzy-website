@@ -1,20 +1,28 @@
 ---
-title: "Creating a Professional Website on a Small Budget"
-slug: "creer-site-web-budget"
-excerpt: "Discover solutions for having a professional quality website without breaking the bank. A tight budget doesn't mean mediocre quality."
-category: "business"
-author: "Mindzy"
-date: "2025-12-15"
-image: "/images/blog/budget-site.svg"
+title: Creating a Professional Website on a Small Budget
+slug: creer-site-web-budget
+excerpt: Discover solutions for having a professional quality website without breaking
+  the bank. A tight budget doesn't mean mediocre quality.
+category: business
+author: Mindzy
+date: '2025-12-15'
+image: /images/en/blog/budget-site.svg
 readingTime: 6
 relatedPosts:
-  - "agence-web-avantages"
-  - "identite-visuelle-guide-2026"
-  - "cahier-des-charges-site-internet"
-modifiedDate: "2025-12-15"
+- agence-web-avantages
+- identite-visuelle-guide-2026
+- cahier-des-charges-site-internet
+modifiedDate: '2025-12-15'
 wordCount: 1412
-tags: [budget, website creation, diy, affordable, cost-effective]
-keywords: "cheap website design, budget-friendly web design, affordable website options, DIY website builder"
+tags:
+- budget
+- website creation
+- diy
+- affordable
+- cost-effective
+keywords: cheap website design, budget-friendly web design, affordable website options,
+  DIY website builder
+lang: en
 ---
 
 # Creating a Professional Website on a Small Budget

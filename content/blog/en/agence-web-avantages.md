@@ -1,20 +1,28 @@
 ---
-title: "Website Creation: Why Working with a Web Agency Changes Everything"
-slug: "agence-web-avantages"
-excerpt: "Creating a website yourself is possible. Creating a website that brings in clients is much harder. Discover why a web agency makes all the difference."
-category: "business"
-author: "Mindzy"
-date: "2026-01-18"
-image: "/images/blog/agence-web.svg"
+title: 'Website Creation: Why Working with a Web Agency Changes Everything'
+slug: agence-web-avantages
+excerpt: Creating a website yourself is possible. Creating a website that brings in
+  clients is much harder. Discover why a web agency makes all the difference.
+category: business
+author: Mindzy
+date: '2026-01-18'
+image: /images/en/blog/agence-web.svg
 readingTime: 6
 relatedPosts:
-  - "cahier-des-charges-site-internet"
-  - "creer-site-web-budget"
-  - "identite-visuelle-guide-2026"
-modifiedDate: "2026-01-18"
+- cahier-des-charges-site-internet
+- creer-site-web-budget
+- identite-visuelle-guide-2026
+modifiedDate: '2026-01-18'
 wordCount: 1321
-tags: [web agency, website development, professional design, seo, business growth]
-keywords: "web agency benefits, professional website design, web development agency, SEO services"
+tags:
+- web agency
+- website development
+- professional design
+- seo
+- business growth
+keywords: web agency benefits, professional website design, web development agency,
+  SEO services
+lang: en
 ---
 
 # Website Creation: Why Working with a Web Agency Changes Everything

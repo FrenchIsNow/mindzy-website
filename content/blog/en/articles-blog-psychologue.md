@@ -1,20 +1,28 @@
 ---
-title: "What Blog Articles Psychologists MUST Write to Be Found on Google and AI"
-slug: "articles-blog-psychologue"
-excerpt: "Your website isn't enough. Your blog articles are what make you visible, credible, and chosen by people who don't know you yet."
-category: "sante"
-author: "Mindzy"
-date: "2026-01-08"
-image: "/images/blog/blog-psychologue.svg"
+title: What Blog Articles Psychologists MUST Write to Be Found on Google and AI
+slug: articles-blog-psychologue
+excerpt: Your website isn't enough. Your blog articles are what make you visible,
+  credible, and chosen by people who don't know you yet.
+category: sante
+author: Mindzy
+date: '2026-01-08'
+image: /images/en/blog/blog-psychologue.svg
 readingTime: 5
 relatedPosts:
-  - "google-business-therapeutes"
-  - "visibilite-articles-blog"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-08"
+- google-business-therapeutes
+- visibilite-articles-blog
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-08'
 wordCount: 1247
-tags: [blog articles, psychology, google visibility, seo, client acquisition]
-keywords: "psychology blog articles, therapist visibility, psychology SEO, attracting therapy clients, online presence for therapists"
+tags:
+- blog articles
+- psychology
+- google visibility
+- seo
+- client acquisition
+keywords: psychology blog articles, therapist visibility, psychology SEO, attracting
+  therapy clients, online presence for therapists
+lang: en
 ---
 
 # What Blog Articles Psychologists MUST Write to Be Found on Google and AI

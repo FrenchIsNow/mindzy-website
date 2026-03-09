@@ -1,20 +1,28 @@
 ---
-title: "Créer un site web professionnel avec un petit budget"
-slug: "creer-site-web-budget"
-excerpt: "Découvrez les solutions pour avoir un site de qualité professionnelle sans vous ruiner. Budget serré ne signifie pas qualité médiocre."
-category: "business"
-author: "Mindzy"
-date: "2025-12-15"
-image: "/images/blog/budget-site.svg"
+title: Créer un site web professionnel avec un petit budget
+slug: creer-site-web-budget
+excerpt: Découvrez les solutions pour avoir un site de qualité professionnelle sans
+  vous ruiner. Budget serré ne signifie pas qualité médiocre.
+category: business
+author: Mindzy
+date: '2025-12-15'
+image: /images/fr/blog/budget-site.svg
 readingTime: 6
 relatedPosts:
-  - "agence-web-avantages"
-  - "identite-visuelle-guide-2026"
-  - "cahier-des-charges-site-internet"
-modifiedDate: "2025-12-15"
+- agence-web-avantages
+- identite-visuelle-guide-2026
+- cahier-des-charges-site-internet
+modifiedDate: '2025-12-15'
 wordCount: 1680
-tags: [budget, site-web, freelance, diy, agence]
-keywords: "créer site web pas cher, site professionnel budget, solutions abordables site web"
+tags:
+- budget
+- site-web
+- freelance
+- diy
+- agence
+keywords: créer site web pas cher, site professionnel budget, solutions abordables
+  site web
+lang: fr
 ---
 
 # Creer un site web professionnel avec un petit budget

@@ -1,20 +1,28 @@
 ---
-title: "Crear un sitio web profesional con poco presupuesto"
-slug: "creer-site-web-budget"
-excerpt: "Descubre las soluciones para tener un sitio de calidad profesional sin arruinarte. Presupuesto ajustado no significa calidad mediocre."
-category: "business"
-author: "Mindzy"
-date: "2025-12-15"
-image: "/images/blog/budget-site.svg"
+title: Crear un sitio web profesional con poco presupuesto
+slug: creer-site-web-budget
+excerpt: Descubre las soluciones para tener un sitio de calidad profesional sin arruinarte.
+  Presupuesto ajustado no significa calidad mediocre.
+category: business
+author: Mindzy
+date: '2025-12-15'
+image: /images/es/blog/budget-site.svg
 readingTime: 6
 relatedPosts:
-  - "agence-web-avantages"
-  - "identite-visuelle-guide-2026"
-  - "cahier-des-charges-site-internet"
-modifiedDate: "2025-12-15"
+- agence-web-avantages
+- identite-visuelle-guide-2026
+- cahier-des-charges-site-internet
+modifiedDate: '2025-12-15'
 wordCount: 1356
-tags: [presupuesto, creacion sitio, diy, asequible, economico]
-keywords: "sitio web presupuesto bajo, crear sitio economico, soluciones baratas web, website affordable"
+tags:
+- presupuesto
+- creacion sitio
+- diy
+- asequible
+- economico
+keywords: sitio web presupuesto bajo, crear sitio economico, soluciones baratas web,
+  website affordable
+lang: es
 ---
 
 # Crear un sitio web profesional con poco presupuesto

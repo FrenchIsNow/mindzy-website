@@ -1,20 +1,28 @@
 ---
-title: "How to Genuinely Improve Your Visibility Through Blog Articles"
-slug: "visibilite-articles-blog"
-excerpt: "Your website presents your business. Your blog makes it findable. Discover how articles attract clients who don't know you yet."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-25"
-image: "/images/blog/blog-visibilite.svg"
+title: How to Genuinely Improve Your Visibility Through Blog Articles
+slug: visibilite-articles-blog
+excerpt: Your website presents your business. Your blog makes it findable. Discover
+  how articles attract clients who don't know you yet.
+category: seo
+author: Mindzy
+date: '2026-01-25'
+image: /images/en/blog/blog-visibilite.svg
 readingTime: 6
 relatedPosts:
-  - "articles-blog-psychologue"
-  - "seo-entrepreneurs-guide"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-25"
+- articles-blog-psychologue
+- seo-entrepreneurs-guide
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-25'
 wordCount: 1389
-tags: [blog, visibility, content strategy, seo, organic traffic]
-keywords: "blog articles for visibility, content marketing strategy, improving SEO with blog, organic traffic"
+tags:
+- blog
+- visibility
+- content strategy
+- seo
+- organic traffic
+keywords: blog articles for visibility, content marketing strategy, improving SEO
+  with blog, organic traffic
+lang: en
 ---
 
 # How to Genuinely Improve Your Visibility Through Blog Articles

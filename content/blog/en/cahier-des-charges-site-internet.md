@@ -1,20 +1,29 @@
 ---
-title: "How to Write a Website Brief in 2026"
-slug: "cahier-des-charges-site-internet"
-excerpt: "A website brief isn't an administrative document. It's the tool that prevents misunderstandings, locks in the budget, and ensures the final site matches your goals."
-category: "business"
-author: "Mindzy"
-date: "2026-01-22"
-image: "/images/blog/cahier-charges.svg"
+title: How to Write a Website Brief in 2026
+slug: cahier-des-charges-site-internet
+excerpt: A website brief isn't an administrative document. It's the tool that prevents
+  misunderstandings, locks in the budget, and ensures the final site matches your
+  goals.
+category: business
+author: Mindzy
+date: '2026-01-22'
+image: /images/en/blog/cahier-charges.svg
 readingTime: 8
 relatedPosts:
-  - "agence-web-avantages"
-  - "site-one-page-multi-pages"
-  - "vendre-sur-internet-2026"
-modifiedDate: "2026-01-22"
+- agence-web-avantages
+- site-one-page-multi-pages
+- vendre-sur-internet-2026
+modifiedDate: '2026-01-22'
 wordCount: 1834
-tags: [website brief, project planning, specifications, project management, website requirements]
-keywords: "website specifications document, project brief template, website requirements, site planning"
+tags:
+- website brief
+- project planning
+- specifications
+- project management
+- website requirements
+keywords: website specifications document, project brief template, website requirements,
+  site planning
+lang: en
 ---
 
 # How to Write a Website Brief in 2026

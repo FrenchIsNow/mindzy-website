@@ -1,20 +1,28 @@
 ---
-title: "Que es un sitio e-commerce y como crear uno que realmente venda"
-slug: "site-ecommerce-guide"
-excerpt: "Un sitio e-commerce es una tienda en linea que genera facturacion continuamente. Descubre las claves para crear un sitio de ventas que convierta."
-category: "business"
-author: "Mindzy"
-date: "2026-01-05"
-image: "/images/blog/ecommerce.svg"
+title: Que es un sitio e-commerce y como crear uno que realmente venda
+slug: site-ecommerce-guide
+excerpt: Un sitio e-commerce es una tienda en linea que genera facturacion continuamente.
+  Descubre las claves para crear un sitio de ventas que convierta.
+category: business
+author: Mindzy
+date: '2026-01-05'
+image: /images/es/blog/ecommerce.svg
 readingTime: 6
 relatedPosts:
-  - "vendre-sur-internet-2026"
-  - "seo-entrepreneurs-guide"
-  - "agence-web-avantages"
-modifiedDate: "2026-01-05"
+- vendre-sur-internet-2026
+- seo-entrepreneurs-guide
+- agence-web-avantages
+modifiedDate: '2026-01-05'
 wordCount: 1398
-tags: [ecommerce, tienda online, diseno web, optimizacion conversion, ventas]
-keywords: "diseno tienda online, como crear ecommerce, vender en linea, plataforma ecommerce"
+tags:
+- ecommerce
+- tienda online
+- diseno web
+- optimizacion conversion
+- ventas
+keywords: diseno tienda online, como crear ecommerce, vender en linea, plataforma
+  ecommerce
+lang: es
 ---
 
 # Que es un sitio e-commerce y como crear uno que realmente venda

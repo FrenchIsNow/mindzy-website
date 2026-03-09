@@ -1,20 +1,27 @@
 ---
-title: "Ser visible y encontrar clientes a traves de las IA con Mindzy"
-slug: "visibilite-ia-mindzy"
-excerpt: "Los usuarios ya no buscan unicamente en Google. Preguntan a las IA que profesional elegir. Descubre como aparecer en esas respuestas."
-category: "seo"
-author: "Mindzy"
-date: "2026-01-15"
-image: "/images/blog/visibilite-ia.svg"
+title: Ser visible y encontrar clientes a traves de las IA con Mindzy
+slug: visibilite-ia-mindzy
+excerpt: Los usuarios ya no buscan unicamente en Google. Preguntan a las IA que profesional
+  elegir. Descubre como aparecer en esas respuestas.
+category: seo
+author: Mindzy
+date: '2026-01-15'
+image: /images/es/blog/visibilite-ia.svg
 readingTime: 6
 relatedPosts:
-  - "seo-entrepreneurs-guide"
-  - "visibilite-articles-blog"
-  - "google-business-therapeutes"
-modifiedDate: "2026-01-15"
+- seo-entrepreneurs-guide
+- visibilite-articles-blog
+- google-business-therapeutes
+modifiedDate: '2026-01-15'
 wordCount: 1512
-tags: [visibilidad ia, inteligencia artificial, chatgpt, optimizacion sitio, seo semantico]
-keywords: "visibilidad IA, ChatGPT recomendaciones, optimizacion IA, sitios web y AI"
+tags:
+- visibilidad ia
+- inteligencia artificial
+- chatgpt
+- optimizacion sitio
+- seo semantico
+keywords: visibilidad IA, ChatGPT recomendaciones, optimizacion IA, sitios web y AI
+lang: es
 ---
 
 # Ser visible y encontrar clientes a traves de las IA con Mindzy

@@ -1,20 +1,29 @@
 ---
-title: "Que articulos de blog debe escribir ABSOLUTAMENTE un psicologo para ser encontrado en Google y las IA"
-slug: "articles-blog-psychologue"
-excerpt: "Tu sitio no es suficiente. Son tus articulos de blog los que te hacen visible, creible y elegido por personas que aun no te conocen."
-category: "sante"
-author: "Mindzy"
-date: "2026-01-08"
-image: "/images/blog/blog-psychologue.svg"
+title: Que articulos de blog debe escribir ABSOLUTAMENTE un psicologo para ser encontrado
+  en Google y las IA
+slug: articles-blog-psychologue
+excerpt: Tu sitio no es suficiente. Son tus articulos de blog los que te hacen visible,
+  creible y elegido por personas que aun no te conocen.
+category: sante
+author: Mindzy
+date: '2026-01-08'
+image: /images/es/blog/blog-psychologue.svg
 readingTime: 5
 relatedPosts:
-  - "google-business-therapeutes"
-  - "visibilite-articles-blog"
-  - "visibilite-ia-mindzy"
-modifiedDate: "2026-01-08"
+- google-business-therapeutes
+- visibilite-articles-blog
+- visibilite-ia-mindzy
+modifiedDate: '2026-01-08'
 wordCount: 1203
-tags: [articulos de blog, psicologia, visibilidad google, seo, adquisicion de clientes]
-keywords: "articulos de blog para psicologos, visibilidad del terapeuta, posicionamiento psicologia, atraer pacientes online"
+tags:
+- articulos de blog
+- psicologia
+- visibilidad google
+- seo
+- adquisicion de clientes
+keywords: articulos de blog para psicologos, visibilidad del terapeuta, posicionamiento
+  psicologia, atraer pacientes online
+lang: es
 ---
 
 # Que articulos de blog debe escribir ABSOLUTAMENTE un psicologo para ser encontrado en Google y las IA
