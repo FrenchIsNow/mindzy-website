@@ -1,8 +1,6 @@
 ---
 title: Comment sauvegarder son site WordPress automatiquement ?
-meta_description: 'Protégez votre site WordPress avec des sauvegardes automatiques.
-  UpdraftPlus, BlogVault, Jetpack : comparatif, configuration et bonnes pratiques
-  pour ne jamais perdre votre site.'
+meta_description: 'Protégez votre site WordPress avec des sauvegardes automatiques. UpdraftPlus, BlogVault, Jetpack : comparatif, configuration et bonnes pratiques pour ne jamais perdre votre site.'
 slug: sauvegarder-site-wordpress-automatiquement
 categorie: Création de site web
 sous_categorie: Sécurité
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/sauvegarder-site-wordpress-automatiquement/
 lang: fr
-excerpt: ''
+excerpt: 'Protégez votre site WordPress avec des sauvegardes automatiques. UpdraftPlus, BlogVault, Jetpack : comparatif, configuration et bonnes pratiques pour ne jamais perdre votre site.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/sauvegarder-site-wordpress-automatiquement.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 711
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment sauvegarder son site WordPress automatiquement ?

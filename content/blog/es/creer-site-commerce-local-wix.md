@@ -1,22 +1,21 @@
 ---
 title: Cómo crear tu web de comercio local con Wix
-meta_description: Wix te permite crear una web de negocio local profesional sin programar.
-  Guía paso a paso para construir y lanzar tu web de comercio local con Wix.
+meta_description: Wix te permite crear una web de negocio local profesional sin programar. Guía paso a paso para construir y lanzar tu web de comercio local con Wix.
 slug: creer-site-commerce-local-wix
 categorie: Comercio local
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-site-commerce-local-wix/
 image: /images/es/blog/creer-site-commerce-local-wix.jpg
 lang: es
-excerpt: ''
+excerpt: Wix te permite crear una web de negocio local profesional sin programar. Guía paso a paso para construir y lanzar tu web de comercio local con Wix.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 311
+tags: [comercio local, business]
+keywords: comercio local, business
 ---
 
 # Cómo crear tu web de comercio local con Wix

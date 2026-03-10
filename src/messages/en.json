@@ -582,29 +582,6 @@
     "startButton": "Get started",
     "meetingButton": "Book a call"
   },
-  "chatbot": {
-    "title": "Mindzy Assistant",
-    "subtitle": "How can I help you?",
-    "welcome": "Can I ask you 3 questions? 👋",
-    "quickReplies": {
-      "diagnostic": "🔍 Take diagnostic",
-      "meeting": "📅 Book meeting",
-      "whatsapp": "💬 Continue on WhatsApp"
-    },
-    "responses": {
-      "diagnostic": "Perfect! Our 60-second express diagnostic.",
-      "meeting": "Book a slot with our team.",
-      "whatsapp": "Click to continue on WhatsApp.",
-      "default": "I'm here to help!"
-    },
-    "buttons": {
-      "startDiagnostic": "Start diagnostic",
-      "bookMeeting": "Book a slot",
-      "continueWhatsApp": "Continue on WhatsApp",
-      "restart": "Start over"
-    },
-    "whatsappMessage": "Hello, I come from the Mindzy website."
-  },
   "common": {
     "learnMore": "Learn more",
     "getStarted": "Get started",

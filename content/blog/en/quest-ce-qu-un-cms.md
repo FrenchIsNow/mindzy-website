@@ -1,7 +1,6 @@
 ---
 title: What Is a CMS and Why Should You Use One?
-meta_description: A CMS (Content Management System) lets you manage your website without
-  coding. Discover what a CMS is, how it works, and which one suits your needs.
+meta_description: A CMS (Content Management System) lets you manage your website without coding. Discover what a CMS is, how it works, and which one suits your needs.
 slug: quest-ce-qu-un-cms
 categorie: Fundamentals
 sous_categorie: How websites work
@@ -12,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/quest-ce-qu-un-cms/
 image: /images/en/blog/quest-ce-qu-un-cms.jpg
 lang: en
-excerpt: ''
+excerpt: A CMS (Content Management System) lets you manage your website without coding. Discover what a CMS is, how it works, and which one suits your needs.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 480
+tags: [fundamentals, business]
+keywords: fundamentals, business
 ---
 
 # What Is a CMS and Why Should You Use One?

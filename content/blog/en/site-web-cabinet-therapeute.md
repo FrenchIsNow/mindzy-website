@@ -1,23 +1,21 @@
 ---
 title: How to Create a Professional Website for Your Therapy Practice
-meta_description: A well-designed therapy practice website builds trust and attracts
-  the right clients. Learn what to include, how to structure it, and how to make it
-  visible online.
+meta_description: A well-designed therapy practice website builds trust and attracts the right clients. Learn what to include, how to structure it, and how to make it visible online.
 slug: site-web-cabinet-therapeute
 categorie: Industries
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/site-web-cabinet-therapeute/
 image: /images/en/blog/site-web-cabinet-therapeute.jpg
 lang: en
-excerpt: ''
+excerpt: A well-designed therapy practice website builds trust and attracts the right clients. Learn what to include, how to structure it, and how to make it visible online.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 458
+tags: [industries, business]
+keywords: industries, business
 ---
 
 # How to Create a Professional Website for Your Therapy Practice

@@ -582,29 +582,6 @@
     "startButton": "Démarrer",
     "meetingButton": "Prendre un RDV"
   },
-  "chatbot": {
-    "title": "Assistant Mindzy",
-    "subtitle": "Comment puis-je vous aider ?",
-    "welcome": "Je peux te poser 3 questions ? 👋",
-    "quickReplies": {
-      "diagnostic": "🔍 Faire un diagnostic",
-      "meeting": "📅 Prendre rendez-vous",
-      "whatsapp": "💬 Continuer sur WhatsApp"
-    },
-    "responses": {
-      "diagnostic": "Parfait ! Notre diagnostic express en 60 secondes.",
-      "meeting": "Réservez un créneau avec notre équipe.",
-      "whatsapp": "Cliquez pour continuer sur WhatsApp.",
-      "default": "Je suis là pour vous aider !"
-    },
-    "buttons": {
-      "startDiagnostic": "Commencer le diagnostic",
-      "bookMeeting": "Réserver un créneau",
-      "continueWhatsApp": "Continuer sur WhatsApp",
-      "restart": "Recommencer"
-    },
-    "whatsappMessage": "Bonjour, je viens du site Mindzy."
-  },
   "common": {
     "learnMore": "En savoir plus",
     "getStarted": "Commencer",

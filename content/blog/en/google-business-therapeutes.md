@@ -1,8 +1,7 @@
 ---
 title: 'Google Business Profile for Therapists: The #1 Lever to Be Found and Chosen'
 slug: google-business-therapeutes
-excerpt: When someone searches for a therapist, they start with Google Maps. Your
-  Google Business profile is therefore your first point of contact.
+excerpt: When someone searches for a therapist, they start with Google Maps. Your Google Business profile is therefore your first point of contact.
 category: seo
 author: Mindzy
 date: '2026-01-10'
@@ -13,15 +12,9 @@ relatedPosts:
 - visibilite-ia-mindzy
 - sites-internet-dentistes
 modifiedDate: '2026-01-10'
-wordCount: 1456
-tags:
-- google business
-- local seo
-- therapists
-- business profile
-- online visibility
-keywords: Google Business Profile for therapists, local SEO for therapists, Google
-  Business optimization
+wordCount: 761
+tags: [google business, local seo, therapists, business profile, online visibility]
+keywords: google business, local seo, therapists, business profile, online visibility
 lang: en
 ---
 

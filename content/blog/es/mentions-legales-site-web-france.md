@@ -1,23 +1,21 @@
 ---
 title: Menciones legales obligatorias en tu sitio web en Francia
-meta_description: La ley francesa exige menciones legales específicas en toda web
-  profesional. Descubre qué debe incluir la página de menciones legales para cumplir
-  con la LCEN.
+meta_description: La ley francesa exige menciones legales específicas en toda web profesional. Descubre qué debe incluir la página de menciones legales para cumplir con la LCEN.
 slug: mentions-legales-site-web-france
 categorie: Requisitos legales
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/mentions-legales-site-web-france/
 image: /images/es/blog/mentions-legales-site-web-france.jpg
 lang: es
-excerpt: ''
+excerpt: La ley francesa exige menciones legales específicas en toda web profesional. Descubre qué debe incluir la página de menciones legales para cumplir con la LCEN.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 321
+tags: [requisitos legales, business]
+keywords: requisitos legales, business
 ---
 
 # Menciones legales obligatorias en tu sitio web en Francia

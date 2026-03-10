@@ -1,7 +1,6 @@
 ---
 title: 'WordPress or Wix: Which One Should You Choose?'
-meta_description: 'WordPress vs Wix: a clear, honest comparison to help you choose
-  the right platform for your website in 2026. Pros, cons, costs, and our recommendation.'
+meta_description: 'WordPress vs Wix: a clear, honest comparison to help you choose the right platform for your website in 2026. Pros, cons, costs, and our recommendation.'
 slug: wordpress-ou-wix-que-choisir
 categorie: Platform Choice
 sous_categorie: Platform comparison
@@ -12,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/wordpress-ou-wix-que-choisir/
 image: /images/en/blog/wordpress-ou-wix-que-choisir.jpg
 lang: en
-excerpt: ''
+excerpt: 'WordPress vs Wix: a clear, honest comparison to help you choose the right platform for your website in 2026. Pros, cons, costs, and our recommendation.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 505
+tags: [platform choice, business]
+keywords: platform choice, business
 ---
 
 # WordPress or Wix: Which One Should You Choose?

@@ -1,7 +1,6 @@
 ---
 title: Comment créer un site web pour son commerce local ? Guide + SEO & GEO Local
-meta_description: Créez un site web efficace pour votre commerce local avec les bonnes
-  pratiques SEO local et GEO. Soyez trouvé sur Google Maps, Google AI et ChatGPT Search.
+meta_description: Créez un site web efficace pour votre commerce local avec les bonnes pratiques SEO local et GEO. Soyez trouvé sur Google Maps, Google AI et ChatGPT Search.
 slug: creer-site-web-commerce-local
 categorie: Création de site web
 sous_categorie: Commerce spécifique
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/creer-site-web-commerce-local/
 lang: fr
-excerpt: ''
+excerpt: Créez un site web efficace pour votre commerce local avec les bonnes pratiques SEO local et GEO. Soyez trouvé sur Google Maps, Google AI et ChatGPT Search.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-site-web-commerce-local-geo.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 700
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer un site web pour son commerce local ? Guide complet SEO & GEO Local

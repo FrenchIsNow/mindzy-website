@@ -6,16 +6,14 @@ import { buildPageMetadata, jsonLdBreadcrumb, jsonLdCollectionPage, JsonLd } fro
 import type { Locale } from '@/lib/i18n'
 import { ebooks } from '@/lib/ebooks'
 
-const pageMeta: Record<string, { title: string; description: string; eyebrow: string; subtitle: string; downloadLabel: string; pagesLabel: string; freeLabel: string; chaptersLabel: string }> = {
+const pageMeta: Record<string, { title: string; description: string; eyebrow: string; subtitle: string; downloadLabel: string; freeLabel: string }> = {
   fr: {
     title: 'Ressources & Guides gratuits — Mindzy',
     description: 'Téléchargez nos guides gratuits pour développer votre présence digitale, maîtriser le SEO et attirer plus de clients.',
     eyebrow: 'Ressources gratuites',
     subtitle: 'Des guides pratiques, créés par l\'équipe Mindzy sur la base de 150+ projets, pour vous aider à développer votre activité en ligne.',
     downloadLabel: 'Télécharger gratuitement',
-    pagesLabel: 'pages',
     freeLabel: 'Gratuit',
-    chaptersLabel: 'chapitres',
   },
   en: {
     title: 'Free Resources & Guides — Mindzy',
@@ -23,9 +21,7 @@ const pageMeta: Record<string, { title: string; description: string; eyebrow: st
     eyebrow: 'Free resources',
     subtitle: 'Practical guides, created by the Mindzy team based on 150+ projects, to help you grow your online business.',
     downloadLabel: 'Download for free',
-    pagesLabel: 'pages',
     freeLabel: 'Free',
-    chaptersLabel: 'chapters',
   },
   es: {
     title: 'Recursos y Guías gratuitas — Mindzy',
@@ -33,9 +29,7 @@ const pageMeta: Record<string, { title: string; description: string; eyebrow: st
     eyebrow: 'Recursos gratuitos',
     subtitle: 'Guías prácticas, creadas por el equipo de Mindzy basadas en 150+ proyectos, para ayudarte a desarrollar tu negocio online.',
     downloadLabel: 'Descargar gratis',
-    pagesLabel: 'páginas',
     freeLabel: 'Gratis',
-    chaptersLabel: 'capítulos',
   },
 }
 
@@ -116,7 +110,6 @@ export default async function EbooksPage({ params }: { params: Promise<{ locale:
                         {meta.freeLabel}
                       </span>
                     )}
-                    <span className="text-xs text-gray-400 ml-auto">{ebook.pages} {meta.pagesLabel} · {chapters.length} {meta.chaptersLabel}</span>
                   </div>
 
                   {/* Title */}

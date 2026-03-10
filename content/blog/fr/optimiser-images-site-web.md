@@ -1,8 +1,6 @@
 ---
 title: Comment optimiser les images de son site web pour le SEO et la vitesse ?
-meta_description: 'Images web : format WebP, compression, balises alt, lazy loading...
-  Optimisez vos images pour améliorer la vitesse de votre site et votre référencement
-  Google.'
+meta_description: 'Images web : format WebP, compression, balises alt, lazy loading... Optimisez vos images pour améliorer la vitesse de votre site et votre référencement Google.'
 slug: optimiser-images-site-web
 categorie: Création de site web
 sous_categorie: Mobile & performance
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/optimiser-images-site-web/
 lang: fr
-excerpt: ''
+excerpt: 'Images web : format WebP, compression, balises alt, lazy loading... Optimisez vos images pour améliorer la vitesse de votre site et votre référencement Google.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/optimiser-images-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 752
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment optimiser les images de son site web pour le SEO et la vitesse ?

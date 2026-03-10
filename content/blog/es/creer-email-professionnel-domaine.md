@@ -1,22 +1,21 @@
 ---
 title: Cómo crear un email profesional con tu nombre de dominio
-meta_description: Un email profesional (tu@tunegocio.com) genera credibilidad y confianza.
-  Aprende a configurarlo rápidamente con Google Workspace o Microsoft 365.
+meta_description: Un email profesional (tu@tunegocio.com) genera credibilidad y confianza. Aprende a configurarlo rápidamente con Google Workspace o Microsoft 365.
 slug: creer-email-professionnel-domaine
 categorie: Email profesional
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-email-professionnel-domaine/
 image: /images/es/blog/creer-email-professionnel-domaine.jpg
 lang: es
-excerpt: ''
+excerpt: Un email profesional (tu@tunegocio.com) genera credibilidad y confianza. Aprende a configurarlo rápidamente con Google Workspace o Microsoft 365.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 374
+tags: [email profesional, business]
+keywords: email profesional, business
 ---
 
 # Cómo crear un email profesional con tu nombre de dominio

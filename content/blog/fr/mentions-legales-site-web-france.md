@@ -1,8 +1,6 @@
 ---
 title: Quelles mentions légales obligatoires pour un site web en France ?
-meta_description: 'Mentions légales obligatoires pour votre site web en France : que
-  doit contenir la page, qui est concerné, quelles sanctions en cas d''oubli ? Guide
-  complet et modèle.'
+meta_description: 'Mentions légales obligatoires pour votre site web en France : que doit contenir la page, qui est concerné, quelles sanctions en cas d''oubli ? Guide complet et modèle.'
 slug: mentions-legales-site-web-france
 categorie: Création de site web
 sous_categorie: Obligations légales
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/mentions-legales-site-web-france/
 lang: fr
-excerpt: ''
+excerpt: 'Mentions légales obligatoires pour votre site web en France : que doit contenir la page, qui est concerné, quelles sanctions en cas d''oubli ? Guide complet et modèle.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/mentions-legales-site-web-france.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 598
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Quelles mentions légales obligatoires pour un site web en France ?

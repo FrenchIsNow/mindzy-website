@@ -1,22 +1,21 @@
 ---
 title: How to Create a Website Without Any Coding Knowledge
-meta_description: You don't need to code to build a professional website. Discover
-  the best no-code tools and step-by-step methods to launch your site in 2026.
+meta_description: You don't need to code to build a professional website. Discover the best no-code tools and step-by-step methods to launch your site in 2026.
 slug: creer-site-web-sans-coder
 categorie: No-code
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-site-web-sans-coder/
 image: /images/en/blog/creer-site-web-sans-coder.jpg
 lang: en
-excerpt: ''
+excerpt: You don't need to code to build a professional website. Discover the best no-code tools and step-by-step methods to launch your site in 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 488
+tags: [code, business]
+keywords: code, business
 ---
 
 # How to Create a Website Without Any Coding Knowledge

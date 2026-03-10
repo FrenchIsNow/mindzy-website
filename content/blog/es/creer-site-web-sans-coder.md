@@ -1,22 +1,21 @@
 ---
 title: Cómo crear un sitio web sin saber programar
-meta_description: No necesitas saber programar para tener una web profesional. Descubre
-  las mejores herramientas sin código y los pasos para lanzar tu sitio en 2026.
+meta_description: No necesitas saber programar para tener una web profesional. Descubre las mejores herramientas sin código y los pasos para lanzar tu sitio en 2026.
 slug: creer-site-web-sans-coder
 categorie: Sin código
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-site-web-sans-coder/
 image: /images/es/blog/creer-site-web-sans-coder.jpg
 lang: es
-excerpt: ''
+excerpt: No necesitas saber programar para tener una web profesional. Descubre las mejores herramientas sin código y los pasos para lanzar tu sitio en 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 359
+tags: [sin código, business]
+keywords: sin código, business
 ---
 
 # Cómo crear un sitio web sin saber programar

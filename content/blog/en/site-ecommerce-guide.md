@@ -1,8 +1,7 @@
 ---
 title: What Is an E-commerce Website and How to Create One That Actually Sells
 slug: site-ecommerce-guide
-excerpt: An e-commerce website is an online store that generates revenue around the
-  clock. Discover the keys to creating an online store that converts.
+excerpt: An e-commerce website is an online store that generates revenue around the clock. Discover the keys to creating an online store that converts.
 category: business
 author: Mindzy
 date: '2026-01-05'
@@ -13,15 +12,9 @@ relatedPosts:
 - seo-entrepreneurs-guide
 - agence-web-avantages
 modifiedDate: '2026-01-05'
-wordCount: 1456
-tags:
-- ecommerce
-- online store
-- website design
-- conversion optimization
-- sales
-keywords: ecommerce website, online store design, selling online, ecommerce platform,
-  conversion rate optimization
+wordCount: 718
+tags: [ecommerce, online store, website design, conversion optimization, sales]
+keywords: ecommerce, online store, website design, conversion optimization, sales
 lang: en
 ---
 

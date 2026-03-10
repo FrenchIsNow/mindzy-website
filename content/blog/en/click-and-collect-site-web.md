@@ -1,22 +1,21 @@
 ---
 title: How to Set Up Click & Collect on Your Website
-meta_description: Click & collect lets customers order online and collect in store.
-  Learn how to set it up on your website and boost your local sales in 2026.
+meta_description: Click & collect lets customers order online and collect in store. Learn how to set it up on your website and boost your local sales in 2026.
 slug: click-and-collect-site-web
 categorie: Local E-commerce
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/click-and-collect-site-web/
 image: /images/en/blog/click-and-collect-site-web.jpg
 lang: en
-excerpt: ''
+excerpt: Click & collect lets customers order online and collect in store. Learn how to set it up on your website and boost your local sales in 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 451
+tags: [local e, commerce, business]
+keywords: local e, commerce, business
 ---
 
 # How to Set Up Click & Collect on Your Website

@@ -1,23 +1,21 @@
 ---
 title: Cómo crear una web para tu negocio local (Guía GEO)
-meta_description: Una web es la herramienta más potente de tu negocio local. Aprende
-  a crear un sitio que atraiga clientes locales y aparezca en la búsqueda local con
-  IA.
+meta_description: Una web es la herramienta más potente de tu negocio local. Aprende a crear un sitio que atraiga clientes locales y aparezca en la búsqueda local con IA.
 slug: creer-site-web-commerce-local-geo
 categorie: Comercio local / GEO
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-site-web-commerce-local-geo/
 image: /images/es/blog/creer-site-web-commerce-local-geo.jpg
 lang: es
-excerpt: ''
+excerpt: Una web es la herramienta más potente de tu negocio local. Aprende a crear un sitio que atraiga clientes locales y aparezca en la búsqueda local con IA.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 318
+tags: [comercio local, geo, business]
+keywords: comercio local, geo, business
 ---
 
 # Cómo crear una web para tu negocio local (Guía GEO)

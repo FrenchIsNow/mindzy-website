@@ -1,22 +1,21 @@
 ---
 title: How to Automatically Backup Your WordPress Site
-meta_description: A WordPress backup is your safety net against hacks, updates gone
-  wrong, and server failures. Learn how to set up automatic daily backups in minutes.
+meta_description: A WordPress backup is your safety net against hacks, updates gone wrong, and server failures. Learn how to set up automatic daily backups in minutes.
 slug: sauvegarder-site-wordpress-automatiquement
 categorie: Maintenance
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/sauvegarder-site-wordpress-automatiquement/
 image: /images/en/blog/sauvegarder-site-wordpress-automatiquement.jpg
 lang: en
-excerpt: ''
+excerpt: A WordPress backup is your safety net against hacks, updates gone wrong, and server failures. Learn how to set up automatic daily backups in minutes.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 469
+tags: [maintenance, business]
+keywords: maintenance, business
 ---
 
 # How to Automatically Backup Your WordPress Site

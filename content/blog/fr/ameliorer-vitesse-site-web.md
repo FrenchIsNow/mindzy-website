@@ -1,7 +1,6 @@
 ---
 title: Comment améliorer la vitesse de chargement de mon site web ?
-meta_description: Site web lent ? Découvrez 10 actions concrètes pour accélérer votre
-  site WordPress ou Wix et améliorer votre SEO. Guide pratique pour TPE et commerces.
+meta_description: Site web lent ? Découvrez 10 actions concrètes pour accélérer votre site WordPress ou Wix et améliorer votre SEO. Guide pratique pour TPE et commerces.
 slug: ameliorer-vitesse-site-web
 categorie: Création de site web
 sous_categorie: Mobile & performance
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/ameliorer-vitesse-site-web/
 lang: fr
-excerpt: ''
+excerpt: Site web lent ? Découvrez 10 actions concrètes pour accélérer votre site WordPress ou Wix et améliorer votre SEO. Guide pratique pour TPE et commerces.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/ameliorer-vitesse-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 623
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment améliorer la vitesse de chargement de mon site web ?

@@ -1,8 +1,6 @@
 ---
 title: Comment sécuriser mon site web ? Guide complet pour TPE et indépendants
-meta_description: 'Protégez votre site web des hackers avec ce guide pratique : SSL,
-  sauvegardes, mots de passe, plugins de sécurité. Essentiel pour tout professionnel
-  en ligne.'
+meta_description: 'Protégez votre site web des hackers avec ce guide pratique : SSL, sauvegardes, mots de passe, plugins de sécurité. Essentiel pour tout professionnel en ligne.'
 slug: securiser-son-site-web
 categorie: Création de site web
 sous_categorie: Sécurité
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/securiser-son-site-web/
 lang: fr
-excerpt: ''
+excerpt: 'Protégez votre site web des hackers avec ce guide pratique : SSL, sauvegardes, mots de passe, plugins de sécurité. Essentiel pour tout professionnel en ligne.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/securiser-son-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 688
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment sécuriser mon site web ? Guide complet pour TPE et indépendants

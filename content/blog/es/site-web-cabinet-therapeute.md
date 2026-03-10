@@ -1,23 +1,21 @@
 ---
 title: Cómo crear la web profesional de tu consulta terapéutica
-meta_description: Una web bien diseñada para tu consulta de terapia genera confianza
-  y atrae a los clientes adecuados. Descubre qué incluir, cómo estructurarla y cómo
-  hacerla visible.
+meta_description: Una web bien diseñada para tu consulta de terapia genera confianza y atrae a los clientes adecuados. Descubre qué incluir, cómo estructurarla y cómo hacerla visible.
 slug: site-web-cabinet-therapeute
 categorie: Sectores
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/site-web-cabinet-therapeute/
 image: /images/es/blog/site-web-cabinet-therapeute.jpg
 lang: es
-excerpt: ''
+excerpt: Una web bien diseñada para tu consulta de terapia genera confianza y atrae a los clientes adecuados. Descubre qué incluir, cómo estructurarla y cómo hacerla visible.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 341
+tags: [sectores, business]
+keywords: sectores, business
 ---
 
 # Cómo crear la web profesional de tu consulta terapéutica

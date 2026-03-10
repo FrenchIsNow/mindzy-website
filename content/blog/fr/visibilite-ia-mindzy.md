@@ -1,8 +1,7 @@
 ---
 title: Être visible et trouver des clients via les IA avec Mindzy
 slug: visibilite-ia-mindzy
-excerpt: Les internautes ne cherchent plus uniquement sur Google. Ils demandent aux
-  IA quel professionnel choisir. Découvrez comment apparaître dans ces réponses.
+excerpt: Les internautes ne cherchent plus uniquement sur Google. Ils demandent aux IA quel professionnel choisir. Découvrez comment apparaître dans ces réponses.
 category: seo
 author: Mindzy
 date: '2026-01-15'
@@ -13,14 +12,9 @@ relatedPosts:
 - visibilite-articles-blog
 - google-business-therapeutes
 modifiedDate: '2026-01-15'
-wordCount: 2180
-tags:
-- ia
-- chatgpt
-- visibilité
-- recommendation-ia
-- seo
-keywords: visibilité ia chatgpt, etre recommandé par ia, recherche ia, mindzy
+wordCount: 986
+tags: [ia, chatgpt, visibilité, recommendation-ia, seo]
+keywords: ia, chatgpt, visibilité, recommendation ia, seo
 lang: fr
 ---
 

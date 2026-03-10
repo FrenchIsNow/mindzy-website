@@ -1,7 +1,6 @@
 ---
 title: Comment créer un formulaire de contact efficace sur son site web ?
-meta_description: 'Créez un formulaire de contact qui génère des leads : champs, design,
-  RGPD, anti-spam, notifications. Guide complet pour WordPress et tous les CMS.'
+meta_description: 'Créez un formulaire de contact qui génère des leads : champs, design, RGPD, anti-spam, notifications. Guide complet pour WordPress et tous les CMS.'
 slug: creer-formulaire-contact-efficace
 categorie: Création de site web
 sous_categorie: Conception
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/creer-formulaire-contact-efficace/
 lang: fr
-excerpt: ''
+excerpt: 'Créez un formulaire de contact qui génère des leads : champs, design, RGPD, anti-spam, notifications. Guide complet pour WordPress et tous les CMS.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-formulaire-contact-efficace.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 607
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer un formulaire de contact efficace sur son site web ?

@@ -1,9 +1,6 @@
 ---
-title: Comment afficher ses avis Google sur son site web ? (et booster son SEO local
-  & GEO)
-meta_description: Intégrez vos avis Google sur votre site web facilement. Découvrez
-  aussi comment ces avis renforcent votre SEO local et votre visibilité dans les IA
-  comme ChatGPT.
+title: Comment afficher ses avis Google sur son site web ? (et booster son SEO local & GEO)
+meta_description: Intégrez vos avis Google sur votre site web facilement. Découvrez aussi comment ces avis renforcent votre SEO local et votre visibilité dans les IA comme ChatGPT.
 slug: afficher-avis-google-site-web
 categorie: Création de site web
 sous_categorie: Intégrations
@@ -13,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/afficher-avis-google-site-web/
 lang: fr
-excerpt: ''
+excerpt: Intégrez vos avis Google sur votre site web facilement. Découvrez aussi comment ces avis renforcent votre SEO local et votre visibilité dans les IA comme ChatGPT.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/afficher-avis-google-site-web-geo.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 592
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment afficher ses avis Google sur son site web ? (et booster votre SEO local & GEO)

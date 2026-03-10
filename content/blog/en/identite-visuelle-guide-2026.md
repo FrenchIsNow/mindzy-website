@@ -3,7 +3,7 @@ title: 5 Steps to Create a Professional Visual Identity That Sells in 2026
 slug: identite-visuelle-guide-2026
 excerpt: 'Learn how to build a solid visual identity that makes your brand recognizable
   and consistent everywhere: website, social media, documents.'
-category: branding
+category: business
 author: Mindzy
 date: '2026-01-28'
 image: /images/en/blog/identite-visuelle.svg
@@ -13,15 +13,14 @@ relatedPosts:
 - agence-web-avantages
 - vendre-sur-internet-2026
 modifiedDate: '2026-01-28'
-wordCount: 1645
+wordCount: 861
 tags:
 - branding
 - visual identity
 - logo design
 - brand guidelines
 - color palette
-keywords: visual identity design, brand identity guidelines, logo design, branding
-  strategy
+keywords: branding, visual identity, logo design, brand guidelines, color palette
 lang: en
 ---
 

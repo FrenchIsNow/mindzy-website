@@ -1,7 +1,6 @@
 ---
 title: Comment créer un site web professionnel sans coder ?
-meta_description: Créez votre site web professionnel sans aucune compétence technique
-  grâce aux meilleurs outils no-code. Comparatif, étapes et conseils pour réussir.
+meta_description: Créez votre site web professionnel sans aucune compétence technique grâce aux meilleurs outils no-code. Comparatif, étapes et conseils pour réussir.
 slug: creer-site-web-sans-coder
 categorie: Création de site web
 sous_categorie: Conception
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/creer-site-web-sans-coder/
 lang: fr
-excerpt: ''
+excerpt: Créez votre site web professionnel sans aucune compétence technique grâce aux meilleurs outils no-code. Comparatif, étapes et conseils pour réussir.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-site-web-sans-coder.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 577
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer un site web professionnel sans coder ?

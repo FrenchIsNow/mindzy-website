@@ -86,18 +86,6 @@ export interface DiagnosticResult {
 }
 
 
-export interface ChatMessage {
-  id: string
-  text: string
-  sender: 'user' | 'bot'
-}
-
-export interface ChatState {
-  messages: ChatMessage[]
-  step: 'initial' | 'diagnostic' | 'meeting' | 'whatsapp' | 'completed'
-  isTyping: boolean
-}
-
 export interface WhatsAppInteractive {
   type: 'button' | 'list'
   header?: { type: 'text'; text: string }

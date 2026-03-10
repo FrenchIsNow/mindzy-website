@@ -1,8 +1,7 @@
 ---
 title: Get Visible and Find Clients Through AI with Mindzy
 slug: visibilite-ia-mindzy
-excerpt: Users no longer search only on Google. They ask AI which professional to
-  choose. Discover how to appear in these responses.
+excerpt: Users no longer search only on Google. They ask AI which professional to choose. Discover how to appear in these responses.
 category: seo
 author: Mindzy
 date: '2026-01-15'
@@ -13,15 +12,9 @@ relatedPosts:
 - visibilite-articles-blog
 - google-business-therapeutes
 modifiedDate: '2026-01-15'
-wordCount: 1567
-tags:
-- ai visibility
-- artificial intelligence
-- chatgpt
-- website optimization
-- semantic seo
-keywords: AI visibility for business, ChatGPT recommendations, AI search optimization,
-  semantic web design
+wordCount: 916
+tags: [ai visibility, artificial intelligence, chatgpt, website optimization, semantic seo]
+keywords: ai visibility, artificial intelligence, chatgpt, website optimization, semantic seo
 lang: en
 ---
 

@@ -1,23 +1,21 @@
 ---
 title: ¿Qué es un CMS y por qué deberías usar uno?
-meta_description: Un CMS (gestor de contenidos) te permite gestionar tu sitio web
-  sin programar. Descubre qué es un CMS, cómo funciona y cuál es el más adecuado para
-  ti.
+meta_description: Un CMS (gestor de contenidos) te permite gestionar tu sitio web sin programar. Descubre qué es un CMS, cómo funciona y cuál es el más adecuado para ti.
 slug: quest-ce-qu-un-cms
 categorie: Fundamentos
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/quest-ce-qu-un-cms/
 image: /images/es/blog/quest-ce-qu-un-cms.jpg
 lang: es
-excerpt: ''
+excerpt: Un CMS (gestor de contenidos) te permite gestionar tu sitio web sin programar. Descubre qué es un CMS, cómo funciona y cuál es el más adecuado para ti.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 416
+tags: [fundamentos, business]
+keywords: fundamentos, business
 ---
 
 # ¿Qué es un CMS y por qué deberías usar uno?

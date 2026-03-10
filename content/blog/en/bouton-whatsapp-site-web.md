@@ -1,22 +1,21 @@
 ---
 title: How to Add a WhatsApp Button to Your Website
-meta_description: A WhatsApp button on your website lets customers contact you instantly.
-  Learn how to add one in minutes and the best practices to maximise conversions.
+meta_description: A WhatsApp button on your website lets customers contact you instantly. Learn how to add one in minutes and the best practices to maximise conversions.
 slug: bouton-whatsapp-site-web
 categorie: Integrations
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/bouton-whatsapp-site-web/
 image: /images/en/blog/bouton-whatsapp-site-web.jpg
 lang: en
-excerpt: ''
+excerpt: A WhatsApp button on your website lets customers contact you instantly. Learn how to add one in minutes and the best practices to maximise conversions.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 385
+tags: [integrations, business]
+keywords: integrations, business
 ---
 
 # How to Add a WhatsApp Button to Your Website

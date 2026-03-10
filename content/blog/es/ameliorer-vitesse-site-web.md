@@ -1,22 +1,21 @@
 ---
 title: 'Cómo mejorar la velocidad de tu sitio web: guía práctica'
-meta_description: Un sitio lento pierde visitantes y posicionamiento. Aprende las
-  técnicas más eficaces para acelerar tu web y mejorar tus Core Web Vitals en 2026.
+meta_description: Un sitio lento pierde visitantes y posicionamiento. Aprende las técnicas más eficaces para acelerar tu web y mejorar tus Core Web Vitals en 2026.
 slug: ameliorer-vitesse-site-web
 categorie: Rendimiento
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/ameliorer-vitesse-site-web/
 image: /images/es/blog/ameliorer-vitesse-site-web.jpg
 lang: es
-excerpt: ''
+excerpt: Un sitio lento pierde visitantes y posicionamiento. Aprende las técnicas más eficaces para acelerar tu web y mejorar tus Core Web Vitals en 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 403
+tags: [rendimiento, business]
+keywords: rendimiento, business
 ---
 
 # Cómo mejorar la velocidad de tu sitio web: guía práctica

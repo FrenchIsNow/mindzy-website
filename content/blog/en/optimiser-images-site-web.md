@@ -1,22 +1,21 @@
 ---
 title: How to Optimize Website Images for Speed and SEO
-meta_description: 'Unoptimised images are the #1 cause of slow websites. Learn how
-  to compress, resize, and format your images for maximum performance and SEO impact.'
+meta_description: 'Unoptimised images are the #1 cause of slow websites. Learn how to compress, resize, and format your images for maximum performance and SEO impact.'
 slug: optimiser-images-site-web
 categorie: Performance
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/optimiser-images-site-web/
 image: /images/en/blog/optimiser-images-site-web.jpg
 lang: en
-excerpt: ''
+excerpt: 'Unoptimised images are the #1 cause of slow websites. Learn how to compress, resize, and format your images for maximum performance and SEO impact.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 507
+tags: [performance, business]
+keywords: performance, business
 ---
 
 # How to Optimize Website Images for Speed and SEO

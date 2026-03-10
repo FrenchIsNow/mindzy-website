@@ -1,8 +1,6 @@
 ---
 title: Comment intégrer Stripe ou PayPal sur son site web ?
-meta_description: Acceptez les paiements en ligne sur votre site avec Stripe ou PayPal.
-  Guide d'intégration complet pour WordPress, WooCommerce et sites HTML. Comparatif
-  et conseils.
+meta_description: Acceptez les paiements en ligne sur votre site avec Stripe ou PayPal. Guide d'intégration complet pour WordPress, WooCommerce et sites HTML. Comparatif et conseils.
 slug: integrer-stripe-paypal-site-web
 categorie: Création de site web
 sous_categorie: Intégrations
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/integrer-stripe-paypal-site-web/
 lang: fr
-excerpt: ''
+excerpt: Acceptez les paiements en ligne sur votre site avec Stripe ou PayPal. Guide d'intégration complet pour WordPress, WooCommerce et sites HTML. Comparatif et conseils.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/integrer-stripe-paypal-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 675
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment intégrer Stripe ou PayPal sur son site web ?

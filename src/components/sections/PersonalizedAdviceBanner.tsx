@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
+import { config } from '@/lib/config'
 
 interface PersonalizedAdviceBannerProps {
   locale: Locale
@@ -65,7 +66,9 @@ export function PersonalizedAdviceBanner({ locale }: PersonalizedAdviceBannerPro
 
             <div className="md:flex-shrink-0">
               <Link
-                href={`https://calendar.app.google/7ccvgBKCiRJgLXKL7`}
+                href={config.CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="py-3.5 px-6 rounded-full font-extrabold leading-5 inline-flex items-center justify-center text-sm sm:text-base transition-all duration-300 text-violet-600 bg-white border-2 border-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
               >
                 <CalendarIcon />

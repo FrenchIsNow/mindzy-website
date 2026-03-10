@@ -1,23 +1,21 @@
 ---
 title: Cómo implementar click & collect en tu sitio web
-meta_description: El click & collect combina la comodidad de comprar online con la
-  inmediatez de recoger en tienda. Aprende a implementarlo en tu web y aumentar tus
-  ventas locales.
+meta_description: El click & collect combina la comodidad de comprar online con la inmediatez de recoger en tienda. Aprende a implementarlo en tu web y aumentar tus ventas locales.
 slug: click-and-collect-site-web
 categorie: E-commerce local
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/click-and-collect-site-web/
 image: /images/es/blog/click-and-collect-site-web.jpg
 lang: es
-excerpt: ''
+excerpt: El click & collect combina la comodidad de comprar online con la inmediatez de recoger en tienda. Aprende a implementarlo en tu web y aumentar tus ventas locales.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 327
+tags: [commerce local, business]
+keywords: commerce local, business
 ---
 
 # Cómo implementar click & collect en tu sitio web

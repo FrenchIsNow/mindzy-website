@@ -1,7 +1,6 @@
 ---
 title: Comment créer une page d'accueil qui convertit ?
-meta_description: 7 éléments indispensables pour une page d'accueil efficace qui transforme
-  vos visiteurs en clients. Guide pratique pour TPE, commerces et thérapeutes.
+meta_description: 7 éléments indispensables pour une page d'accueil efficace qui transforme vos visiteurs en clients. Guide pratique pour TPE, commerces et thérapeutes.
 slug: page-accueil-qui-convertit
 categorie: Création de site web
 sous_categorie: Conception
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/page-accueil-qui-convertit/
 lang: fr
-excerpt: ''
+excerpt: 7 éléments indispensables pour une page d'accueil efficace qui transforme vos visiteurs en clients. Guide pratique pour TPE, commerces et thérapeutes.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/page-accueil-qui-convertit.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 587
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer une page d'accueil qui convertit ?

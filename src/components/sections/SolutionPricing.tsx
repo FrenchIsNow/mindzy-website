@@ -45,17 +45,6 @@ const solutions = [
     href: '/solutions/site-web',
   },
   {
-    title: { fr: 'Branding', en: 'Branding', es: 'Branding' },
-    price: '98€',
-    priceType: 'fixed' as const,
-    description: {
-      fr: 'Logo, identité visuelle et charte graphique pour une image professionnelle et cohérente.',
-      en: 'Logo, visual identity and brand guidelines for a professional and cohesive image.',
-      es: 'Logo, identidad visual y guía de marca para una imagen profesional y coherente.',
-    },
-    href: '/solutions/branding',
-  },
-  {
     title: { fr: 'Formations & Réseaux', en: 'Training & Social', es: 'Formación y Redes' },
     price: '236€',
     priceType: 'fixed' as const,

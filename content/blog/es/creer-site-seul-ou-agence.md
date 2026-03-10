@@ -1,22 +1,21 @@
 ---
 title: ¿Crear tu sitio web solo o contratar una agencia digital?
-meta_description: ¿Hacer tu web tú mismo o trabajar con una agencia? Comparativa honesta
-  de costes, tiempo, calidad y resultados para ayudarte a tomar la mejor decisión.
+meta_description: ¿Hacer tu web tú mismo o trabajar con una agencia? Comparativa honesta de costes, tiempo, calidad y resultados para ayudarte a tomar la mejor decisión.
 slug: creer-site-seul-ou-agence
 categorie: Creación web
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-site-seul-ou-agence/
 image: /images/es/blog/creer-site-seul-ou-agence.jpg
 lang: es
-excerpt: ''
+excerpt: ¿Hacer tu web tú mismo o trabajar con una agencia? Comparativa honesta de costes, tiempo, calidad y resultados para ayudarte a tomar la mejor decisión.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 535
+tags: [creación web, business]
+keywords: creación web, business
 ---
 
 # ¿Crear tu sitio web solo o contratar una agencia digital?

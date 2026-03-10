@@ -1,23 +1,21 @@
 ---
 title: When and How to Redesign an Outdated Website
-meta_description: Is your website outdated? Discover the 8 warning signs that it's
-  time for a redesign, and how to approach the project to maximise ROI and avoid common
-  mistakes.
+meta_description: Is your website outdated? Discover the 8 warning signs that it's time for a redesign, and how to approach the project to maximise ROI and avoid common mistakes.
 slug: refaire-site-web-obsolete
 categorie: Website Redesign
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/refaire-site-web-obsolete/
 image: /images/en/blog/refaire-site-web-obsolete.jpg
 lang: en
-excerpt: ''
+excerpt: Is your website outdated? Discover the 8 warning signs that it's time for a redesign, and how to approach the project to maximise ROI and avoid common mistakes.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 444
+tags: [website redesign, business]
+keywords: website redesign, business
 ---
 
 # When and How to Redesign an Outdated Website

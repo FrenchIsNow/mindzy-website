@@ -1,7 +1,6 @@
 ---
 title: Comment refaire un site web obsolète ? Guide étape par étape
-meta_description: 'Votre site web vieillit mal ? Découvrez quand et comment le refondre
-  : audit, migration, SEO préservé, budget et délais. Conseils d''experts Mindzy.'
+meta_description: 'Votre site web vieillit mal ? Découvrez quand et comment le refondre : audit, migration, SEO préservé, budget et délais. Conseils d''experts Mindzy.'
 slug: refaire-site-web-obsolete
 categorie: Création de site web
 sous_categorie: Refonte & maintenance
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/refaire-site-web-obsolete/
 lang: fr
-excerpt: ''
+excerpt: 'Votre site web vieillit mal ? Découvrez quand et comment le refondre : audit, migration, SEO préservé, budget et délais. Conseils d''experts Mindzy.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/refaire-site-web-obsolete.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 732
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment refaire un site web obsolète ?

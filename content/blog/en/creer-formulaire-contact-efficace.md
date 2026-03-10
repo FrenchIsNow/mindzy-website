@@ -1,23 +1,21 @@
 ---
 title: How to Create an Effective Contact Form That Generates Leads
-meta_description: A poorly designed contact form loses leads. Learn how to create
-  a high-converting contact form with the right fields, design, and configuration
-  for your website.
+meta_description: A poorly designed contact form loses leads. Learn how to create a high-converting contact form with the right fields, design, and configuration for your website.
 slug: creer-formulaire-contact-efficace
 categorie: Conversion
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-formulaire-contact-efficace/
 image: /images/en/blog/creer-formulaire-contact-efficace.jpg
 lang: en
-excerpt: ''
+excerpt: A poorly designed contact form loses leads. Learn how to create a high-converting contact form with the right fields, design, and configuration for your website.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 571
+tags: [conversion, business]
+keywords: conversion, business
 ---
 
 # How to Create an Effective Contact Form That Generates Leads

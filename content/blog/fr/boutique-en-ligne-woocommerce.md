@@ -1,7 +1,6 @@
 ---
 title: Comment créer une boutique en ligne avec WooCommerce ? Guide pas à pas
-meta_description: 'Créez votre boutique en ligne avec WooCommerce sur WordPress. Configuration,
-  paiement, livraison, SEO e-commerce : le guide complet pour les débutants.'
+meta_description: 'Créez votre boutique en ligne avec WooCommerce sur WordPress. Configuration, paiement, livraison, SEO e-commerce : le guide complet pour les débutants.'
 slug: boutique-en-ligne-woocommerce
 categorie: Création de site web
 sous_categorie: E-commerce
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/boutique-en-ligne-woocommerce/
 lang: fr
-excerpt: ''
+excerpt: 'Créez votre boutique en ligne avec WooCommerce sur WordPress. Configuration, paiement, livraison, SEO e-commerce : le guide complet pour les débutants.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/boutique-en-ligne-woocommerce.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 612
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer une boutique en ligne avec WooCommerce ? Guide complet

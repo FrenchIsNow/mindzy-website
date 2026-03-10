@@ -1,23 +1,21 @@
 ---
 title: 'RGPD: las obligaciones legales de tu sitio web en Francia'
-meta_description: '¿Tienes un sitio web en Francia? Descubre las 7 obligaciones clave
-  del RGPD: consentimiento de cookies, política de privacidad, derechos de los usuarios
-  y cómo cumplir.'
+meta_description: '¿Tienes un sitio web en Francia? Descubre las 7 obligaciones clave del RGPD: consentimiento de cookies, política de privacidad, derechos de los usuarios y cómo cumplir.'
 slug: rgpd-site-web-france
 categorie: Requisitos legales
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/rgpd-site-web-france/
 image: /images/es/blog/rgpd-site-web-france.jpg
 lang: es
-excerpt: ''
+excerpt: '¿Tienes un sitio web en Francia? Descubre las 7 obligaciones clave del RGPD: consentimiento de cookies, política de privacidad, derechos de los usuarios y cómo cumplir.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 386
+tags: [requisitos legales, business]
+keywords: requisitos legales, business
 ---
 
 # RGPD: las obligaciones legales de tu sitio web en Francia

@@ -9,7 +9,6 @@ const staticPages = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
   { path: '/solutions/site-web', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' as const },
-  { path: '/solutions/branding', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/solutions/formations', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/solutions/sur-mesure', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/portfolio', priority: 0.8, changeFrequency: 'weekly' as const },

@@ -1,7 +1,6 @@
 ---
 title: Est-ce qu'un site web est vraiment utile pour un thérapeute ?
-meta_description: 'Site web pour thérapeute : est-ce indispensable en 2026 ? Acquisition
-  de nouveaux patients, crédibilité, prise de RDV en ligne. La réponse complète ici.'
+meta_description: 'Site web pour thérapeute : est-ce indispensable en 2026 ? Acquisition de nouveaux patients, crédibilité, prise de RDV en ligne. La réponse complète ici.'
 slug: site-web-utile-therapeute
 categorie: Création de site web
 sous_categorie: Thérapeute spécifique
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/site-web-utile-therapeute/
 lang: fr
-excerpt: ''
+excerpt: 'Site web pour thérapeute : est-ce indispensable en 2026 ? Acquisition de nouveaux patients, crédibilité, prise de RDV en ligne. La réponse complète ici.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/site-web-utile-therapeute.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 617
+tags: [est, création de site web, business]
+keywords: est, création de site web, business
 ---
 
 # Est-ce qu'un site web est vraiment utile pour un thérapeute ?

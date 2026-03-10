@@ -1,22 +1,21 @@
 ---
 title: Cómo optimizar las imágenes de tu sitio web para velocidad y SEO
-meta_description: Las imágenes sin optimizar son la causa nº1 de sitios lentos. Aprende
-  a comprimir, redimensionar y formatear tus imágenes para máximo rendimiento y SEO.
+meta_description: Las imágenes sin optimizar son la causa nº1 de sitios lentos. Aprende a comprimir, redimensionar y formatear tus imágenes para máximo rendimiento y SEO.
 slug: optimiser-images-site-web
 categorie: Rendimiento
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/optimiser-images-site-web/
 image: /images/es/blog/optimiser-images-site-web.jpg
 lang: es
-excerpt: ''
+excerpt: Las imágenes sin optimizar son la causa nº1 de sitios lentos. Aprende a comprimir, redimensionar y formatear tus imágenes para máximo rendimiento y SEO.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 373
+tags: [rendimiento, business]
+keywords: rendimiento, business
 ---
 
 # Cómo optimizar las imágenes de tu sitio web para velocidad y SEO

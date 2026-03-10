@@ -1,7 +1,6 @@
 ---
 title: Build Your Website Alone or Hire a Digital Agency?
-meta_description: Should you build your website yourself or hire a digital agency?
-  Compare costs, time, results, and find out which option suits your business best.
+meta_description: Should you build your website yourself or hire a digital agency? Compare costs, time, results, and find out which option suits your business best.
 slug: creer-site-seul-ou-agence
 categorie: Website Creation
 sous_categorie: Cost & Budget
@@ -12,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-site-seul-ou-agence/
 image: /images/en/blog/creer-site-seul-ou-agence.jpg
 lang: en
-excerpt: ''
+excerpt: Should you build your website yourself or hire a digital agency? Compare costs, time, results, and find out which option suits your business best.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 557
+tags: [website creation, business]
+keywords: website creation, business
 ---
 
 # Build Your Website Alone or Hire a Digital Agency?

@@ -3,7 +3,7 @@ title: 5 pasos para crear una identidad visual profesional que vende en 2026
 slug: identite-visuelle-guide-2026
 excerpt: 'Descubre como construir una identidad visual solida que haga tu marca reconocible
   y coherente en todas partes: sitio web, redes sociales, documentos.'
-category: branding
+category: business
 author: Mindzy
 date: '2026-01-28'
 image: /images/es/blog/identite-visuelle.svg
@@ -13,14 +13,14 @@ relatedPosts:
 - agence-web-avantages
 - vendre-sur-internet-2026
 modifiedDate: '2026-01-28'
-wordCount: 1589
+wordCount: 837
 tags:
 - marca
 - identidad visual
 - diseno logo
 - manual marca
 - paleta colores
-keywords: identidad visual, diseno marca, guia marca, logo profesional, sistema visual
+keywords: marca, identidad visual, diseno logo, manual marca, paleta colores
 lang: es
 ---
 

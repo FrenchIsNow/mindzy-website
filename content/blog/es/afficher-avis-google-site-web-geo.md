@@ -9,15 +9,19 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/afficher-avis-google-site-web-geo/
 image: /images/es/blog/afficher-avis-google-site-web-geo.jpg
 lang: es
-excerpt: ''
-category: business
+excerpt: Mostrar reseñas de Google en tu web aumenta la confianza, las conversiones
+  y el SEO local. Aprende cómo integrarlas y por qué son clave para el GEO en 2026.
+category: seo
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 380
+tags:
+- seo local
+- geo
+- business
+keywords: seo local, geo, business
 ---
 
 # Cómo mostrar las reseñas de Google en tu sitio web (y por qué importa para el GEO)

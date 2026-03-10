@@ -1,7 +1,6 @@
 ---
 title: 'How to Improve Your Website Speed: A Practical Guide'
-meta_description: A slow website loses visitors and rankings. Learn the most effective
-  techniques to speed up your site and improve your Core Web Vitals scores in 2026.
+meta_description: A slow website loses visitors and rankings. Learn the most effective techniques to speed up your site and improve your Core Web Vitals scores in 2026.
 slug: ameliorer-vitesse-site-web
 categorie: Performance
 sous_categorie: Technical optimisation
@@ -12,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/ameliorer-vitesse-site-web/
 image: /images/en/blog/ameliorer-vitesse-site-web.jpg
 lang: en
-excerpt: ''
+excerpt: A slow website loses visitors and rankings. Learn the most effective techniques to speed up your site and improve your Core Web Vitals scores in 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 480
+tags: [website-speed, core-web-vitals, performance, page-load-time, optimization]
+keywords: website speed optimization, core web vitals, site performance, page load time
 ---
 
 # How to Improve Your Website Speed: A Practical Guide

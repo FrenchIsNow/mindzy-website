@@ -1,23 +1,21 @@
 ---
 title: Required Legal Notices for Your Website in France
-meta_description: French law requires specific legal notices on every professional
-  website. Discover what mentions légales must include to be compliant with the LCEN
-  regulation.
+meta_description: French law requires specific legal notices on every professional website. Discover what mentions légales must include to be compliant with the LCEN regulation.
 slug: mentions-legales-site-web-france
 categorie: Legal Requirements
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/mentions-legales-site-web-france/
 image: /images/en/blog/mentions-legales-site-web-france.jpg
 lang: en
-excerpt: ''
+excerpt: French law requires specific legal notices on every professional website. Discover what mentions légales must include to be compliant with the LCEN regulation.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 421
+tags: [legal requirements, business]
+keywords: legal requirements, business
 ---
 
 # Required Legal Notices for Your Website in France

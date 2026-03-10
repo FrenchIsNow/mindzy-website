@@ -1,8 +1,6 @@
 ---
 title: Qu'est-ce qu'un nom de domaine et comment bien le choisir ?
-meta_description: 'Tout savoir sur les noms de domaine : .fr ou .com, choisir le bon
-  nom, éviter les pièges, enregistrer et protéger son domaine. Guide complet pour
-  les débutants.'
+meta_description: 'Tout savoir sur les noms de domaine : .fr ou .com, choisir le bon nom, éviter les pièges, enregistrer et protéger son domaine. Guide complet pour les débutants.'
 slug: choisir-nom-de-domaine
 categorie: Création de site web
 sous_categorie: Fonctionnement
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/choisir-nom-de-domaine/
 lang: fr
-excerpt: ''
+excerpt: 'Tout savoir sur les noms de domaine : .fr ou .com, choisir le bon nom, éviter les pièges, enregistrer et protéger son domaine. Guide complet pour les débutants.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/choisir-nom-de-domaine.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 607
+tags: [quest, création de site web, business]
+keywords: quest, création de site web, business
 ---
 
 # Qu'est-ce qu'un nom de domaine et comment bien le choisir ?

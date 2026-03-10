@@ -1,8 +1,6 @@
 ---
 title: 'Shopify vs WooCommerce : lequel choisir pour débuter en e-commerce ?'
-meta_description: Shopify ou WooCommerce pour votre première boutique en ligne ? Comparatif
-  honnête sur les coûts, la facilité, le SEO et les fonctionnalités. Faites le bon
-  choix.
+meta_description: Shopify ou WooCommerce pour votre première boutique en ligne ? Comparatif honnête sur les coûts, la facilité, le SEO et les fonctionnalités. Faites le bon choix.
 slug: shopify-vs-woocommerce-debutant
 categorie: Création de site web
 sous_categorie: Choix de plateforme
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/shopify-vs-woocommerce-debutant/
 lang: fr
-excerpt: ''
+excerpt: Shopify ou WooCommerce pour votre première boutique en ligne ? Comparatif honnête sur les coûts, la facilité, le SEO et les fonctionnalités. Faites le bon choix.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/shopify-vs-woocommerce-debutant.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 580
+tags: ['commerce ?', création de site web, business]
+keywords: commerce ?, création de site web, business
 ---
 
 # Shopify vs WooCommerce : lequel choisir pour débuter en e-commerce ?

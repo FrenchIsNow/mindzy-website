@@ -1,9 +1,7 @@
 ---
 title: Como redactar el pliego de condiciones de tu sitio web en 2026
 slug: cahier-des-charges-site-internet
-excerpt: Un pliego de condiciones no es un documento administrativo. Es la herramienta
-  que evita malentendidos, fija el presupuesto y garantiza que el sitio final corresponda
-  a tus objetivos.
+excerpt: Un pliego de condiciones no es un documento administrativo. Es la herramienta que evita malentendidos, fija el presupuesto y garantiza que el sitio final corresponda a tus objetivos.
 category: business
 author: Mindzy
 date: '2026-01-22'
@@ -14,15 +12,9 @@ relatedPosts:
 - site-one-page-multi-pages
 - vendre-sur-internet-2026
 modifiedDate: '2026-01-22'
-wordCount: 1778
-tags:
-- pliego condiciones
-- planificacion proyecto
-- especificaciones sitio
-- gestion proyecto
-- requisitos web
-keywords: pliego condiciones sitio web, requisitos sitio, especificaciones proyecto
-  web, brief sitio
+wordCount: 1175
+tags: [pliego condiciones, planificacion proyecto, especificaciones sitio, gestion proyecto, requisitos web]
+keywords: pliego condiciones, planificacion proyecto, especificaciones sitio, gestion proyecto, requisitos web
 lang: es
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Qu'est-ce qu'un CMS et comment ça fonctionne ?
-meta_description: 'CMS : définition simple, exemples concrets et conseils pour choisir
-  le bon système de gestion de contenu pour votre site web. Guide complet pour les
-  débutants.'
+meta_description: 'CMS : définition simple, exemples concrets et conseils pour choisir le bon système de gestion de contenu pour votre site web. Guide complet pour les débutants.'
 slug: quest-ce-qu-un-cms
 categorie: Création de site web
 sous_categorie: Fonctionnement
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/quest-ce-qu-un-cms/
 lang: fr
-excerpt: ''
+excerpt: 'CMS : définition simple, exemples concrets et conseils pour choisir le bon système de gestion de contenu pour votre site web. Guide complet pour les débutants.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/quest-ce-qu-un-cms.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 528
+tags: [quest, création de site web, business]
+keywords: quest, création de site web, business
 ---
 
 # Qu'est-ce qu'un CMS et comment ça fonctionne ?

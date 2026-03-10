@@ -1,23 +1,21 @@
 ---
 title: Cómo crear una tienda online con WooCommerce
-meta_description: WooCommerce es la plataforma e-commerce más popular del mundo. Aprende
-  a configurar tu tienda online paso a paso, desde la instalación hasta la primera
-  venta.
+meta_description: WooCommerce es la plataforma e-commerce más popular del mundo. Aprende a configurar tu tienda online paso a paso, desde la instalación hasta la primera venta.
 slug: boutique-en-ligne-woocommerce
 categorie: E-commerce
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/boutique-en-ligne-woocommerce/
 image: /images/es/blog/boutique-en-ligne-woocommerce.jpg
 lang: es
-excerpt: ''
+excerpt: WooCommerce es la plataforma e-commerce más popular del mundo. Aprende a configurar tu tienda online paso a paso, desde la instalación hasta la primera venta.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 269
+tags: [commerce, business]
+keywords: commerce, business
 ---
 
 # Cómo crear una tienda online con WooCommerce

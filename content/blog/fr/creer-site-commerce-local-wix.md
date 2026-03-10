@@ -1,8 +1,6 @@
 ---
 title: 'Jimdo ou Wix : lequel choisir pour un petit commerce ?'
-meta_description: 'Jimdo ou Wix pour votre site de commerce local ? Comparatif complet
-  : prix, design, SEO, e-commerce, support. Quel constructeur convient à votre boutique
-  ?'
+meta_description: 'Jimdo ou Wix pour votre site de commerce local ? Comparatif complet : prix, design, SEO, e-commerce, support. Quel constructeur convient à votre boutique ?'
 slug: jimdo-ou-wix-petit-commerce
 categorie: Création de site web
 sous_categorie: Choix de plateforme
@@ -12,16 +10,16 @@ priorite_seo: Moyenne
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/jimdo-ou-wix-petit-commerce/
 lang: fr
-excerpt: ''
+excerpt: 'Jimdo ou Wix pour votre site de commerce local ? Comparatif complet : prix, design, SEO, e-commerce, support. Quel constructeur convient à votre boutique ?'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-site-commerce-local-wix.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 629
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Jimdo ou Wix : lequel choisir pour un petit commerce ?

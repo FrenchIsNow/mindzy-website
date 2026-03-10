@@ -1,8 +1,6 @@
 ---
 title: Comment créer un site web pour mon cabinet de thérapeute ?
-meta_description: 'Créez un site web professionnel pour votre cabinet de thérapeute
-  : structure idéale, contenu, prise de RDV en ligne, SEO local. Guide complet par
-  Mindzy.'
+meta_description: 'Créez un site web professionnel pour votre cabinet de thérapeute : structure idéale, contenu, prise de RDV en ligne, SEO local. Guide complet par Mindzy.'
 slug: site-web-cabinet-therapeute
 categorie: Création de site web
 sous_categorie: Thérapeute spécifique
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/site-web-cabinet-therapeute/
 lang: fr
-excerpt: ''
+excerpt: 'Créez un site web professionnel pour votre cabinet de thérapeute : structure idéale, contenu, prise de RDV en ligne, SEO local. Guide complet par Mindzy.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/site-web-cabinet-therapeute.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 691
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer un site web pour mon cabinet de thérapeute ?

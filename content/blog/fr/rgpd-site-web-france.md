@@ -1,7 +1,6 @@
 ---
 title: Qu'est-ce que le RGPD et comment le respecter sur mon site web ?
-meta_description: 'RGPD et site web : obligations légales, cookies, politique de confidentialité,
-  formulaires. Guide pratique pour mettre votre site en conformité en France.'
+meta_description: 'RGPD et site web : obligations légales, cookies, politique de confidentialité, formulaires. Guide pratique pour mettre votre site en conformité en France.'
 slug: rgpd-site-web-france
 categorie: Création de site web
 sous_categorie: Obligations légales
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/rgpd-site-web-france/
 lang: fr
-excerpt: ''
+excerpt: 'RGPD et site web : obligations légales, cookies, politique de confidentialité, formulaires. Guide pratique pour mettre votre site en conformité en France.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/rgpd-site-web-france.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 616
+tags: [quest, création de site web, business]
+keywords: quest, création de site web, business
 ---
 
 # Qu'est-ce que le RGPD et comment le respecter sur mon site web ?

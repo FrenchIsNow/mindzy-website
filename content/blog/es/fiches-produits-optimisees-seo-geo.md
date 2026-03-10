@@ -9,15 +9,19 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/fiches-produits-optimisees-seo-geo/
 image: /images/es/blog/fiches-produits-optimisees-seo-geo.jpg
 lang: es
-excerpt: ''
-category: business
+excerpt: Aprende a escribir fichas de producto que posicionen en Google, conviertan
+  visitantes en compradores y aparezcan en los resultados de búsqueda con IA en 2026.
+category: seo
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 305
+tags:
+- commerce
+- geo
+- business
+keywords: commerce, geo, business
 ---
 
 # Fichas de producto optimizadas SEO y GEO: la guía completa

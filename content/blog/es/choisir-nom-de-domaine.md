@@ -1,23 +1,21 @@
 ---
 title: 'Cómo elegir tu nombre de dominio: la guía completa'
-meta_description: Tu dominio es tu dirección digital para siempre. Aprende a elegir
-  un nombre de dominio memorable y fácil de posicionar que represente perfectamente
-  tu marca.
+meta_description: Tu dominio es tu dirección digital para siempre. Aprende a elegir un nombre de dominio memorable y fácil de posicionar que represente perfectamente tu marca.
 slug: choisir-nom-de-domaine
 categorie: Fundamentos
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/choisir-nom-de-domaine/
 image: /images/es/blog/choisir-nom-de-domaine.jpg
 lang: es
-excerpt: ''
+excerpt: Tu dominio es tu dirección digital para siempre. Aprende a elegir un nombre de dominio memorable y fácil de posicionar que represente perfectamente tu marca.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 310
+tags: [fundamentos, business]
+keywords: fundamentos, business
 ---
 
 # Cómo elegir tu nombre de dominio: la guía completa

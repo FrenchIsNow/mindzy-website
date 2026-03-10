@@ -1,22 +1,21 @@
 ---
 title: Cómo crear una página de inicio que convierta visitantes en clientes
-meta_description: Tu página de inicio es la más visitada de tu web. Aprende cómo estructurarla
-  para captar la atención, generar confianza y convertir visitas en clientes.
+meta_description: Tu página de inicio es la más visitada de tu web. Aprende cómo estructurarla para captar la atención, generar confianza y convertir visitas en clientes.
 slug: page-accueil-qui-convertit
 categorie: Diseño web
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/page-accueil-qui-convertit/
 image: /images/es/blog/page-accueil-qui-convertit.jpg
 lang: es
-excerpt: ''
+excerpt: Tu página de inicio es la más visitada de tu web. Aprende cómo estructurarla para captar la atención, generar confianza y convertir visitas en clientes.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 402
+tags: [diseño web, business]
+keywords: diseño web, business
 ---
 
 # Cómo crear una página de inicio que convierta visitantes en clientes

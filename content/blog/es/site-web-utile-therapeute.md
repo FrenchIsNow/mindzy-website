@@ -1,22 +1,21 @@
 ---
 title: Por qué un sitio web es esencial para terapeutas y profesionales de la salud
-meta_description: Como terapeuta, tu web es tu primera consulta. Descubre por qué
-  una web profesional genera confianza, atrae clientes y hace crecer tu consulta.
+meta_description: Como terapeuta, tu web es tu primera consulta. Descubre por qué una web profesional genera confianza, atrae clientes y hace crecer tu consulta.
 slug: site-web-utile-therapeute
 categorie: Sectores
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/site-web-utile-therapeute/
 image: /images/es/blog/site-web-utile-therapeute.jpg
 lang: es
-excerpt: ''
+excerpt: Como terapeuta, tu web es tu primera consulta. Descubre por qué una web profesional genera confianza, atrae clientes y hace crecer tu consulta.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 263
+tags: [sectores, business]
+keywords: sectores, business
 ---
 
 # Por qué un sitio web es esencial para terapeutas y profesionales de la salud

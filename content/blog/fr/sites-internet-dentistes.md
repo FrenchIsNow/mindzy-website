@@ -1,8 +1,7 @@
 ---
 title: Exemples de sites internet de dentistes qui attirent réellement des patients
 slug: sites-internet-dentistes
-excerpt: Un site de dentiste n'est pas une vitrine. C'est un outil pour être trouvé
-  sur Google, rassurer avant le rendez-vous, et simplifier la prise de contact.
+excerpt: Un site de dentiste n'est pas une vitrine. C'est un outil pour être trouvé sur Google, rassurer avant le rendez-vous, et simplifier la prise de contact.
 category: sante
 author: Mindzy
 date: '2026-01-12'
@@ -13,14 +12,9 @@ relatedPosts:
 - articles-blog-psychologue
 - agence-web-avantages
 modifiedDate: '2026-01-12'
-wordCount: 1580
-tags:
-- dentiste
-- site-professionnel
-- sante
-- patients
-- seo-local
-keywords: site dentiste, cabinet dentaire web, attirer patients dentiste
+wordCount: 790
+tags: [dentiste, site-professionnel, sante, patients, seo-local]
+keywords: dentiste, site professionnel, sante, patients, seo local
 lang: fr
 ---
 

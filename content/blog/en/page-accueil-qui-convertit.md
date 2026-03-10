@@ -1,7 +1,6 @@
 ---
 title: How to Create a Homepage That Converts Visitors into Clients
-meta_description: Your homepage is your most visited page. Learn how to structure
-  it to capture attention, build trust, and convert visitors into paying customers.
+meta_description: Your homepage is your most visited page. Learn how to structure it to capture attention, build trust, and convert visitors into paying customers.
 slug: page-accueil-qui-convertit
 categorie: Web Design
 sous_categorie: Conversion optimisation
@@ -12,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/page-accueil-qui-convertit/
 image: /images/en/blog/page-accueil-qui-convertit.jpg
 lang: en
-excerpt: ''
+excerpt: Your homepage is your most visited page. Learn how to structure it to capture attention, build trust, and convert visitors into paying customers.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 542
+tags: [web design, business]
+keywords: web design, business
 ---
 
 # How to Create a Homepage That Converts Visitors into Clients

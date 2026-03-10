@@ -12,15 +12,19 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/core-web-vitals-google-geo/
 image: /images/en/blog/core-web-vitals-google-geo.jpg
 lang: en
-excerpt: ''
-category: business
+excerpt: Core Web Vitals directly affect your Google ranking and AI Overview visibility.
+  Learn what LCP, INP, and CLS are, and how to improve them in 2026.
+category: seo
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 564
+tags:
+- seo
+- geo
+- business
+keywords: seo, geo, business
 ---
 
 # Core Web Vitals and Google AI Overview: What You Need to Know

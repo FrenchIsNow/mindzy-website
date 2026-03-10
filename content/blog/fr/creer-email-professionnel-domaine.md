@@ -1,8 +1,6 @@
 ---
 title: Comment créer une adresse email professionnelle avec son nom de domaine ?
-meta_description: 'Créez votre email professionnel contact@votreentreprise.fr : chez
-  OVH, Google Workspace, Zoho Mail. Guide complet, comparatif et configuration pas
-  à pas.'
+meta_description: 'Créez votre email professionnel contact@votreentreprise.fr : chez OVH, Google Workspace, Zoho Mail. Guide complet, comparatif et configuration pas à pas.'
 slug: creer-email-professionnel-domaine
 categorie: Création de site web
 sous_categorie: Intégrations
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/creer-email-professionnel-domaine/
 lang: fr
-excerpt: ''
+excerpt: 'Créez votre email professionnel contact@votreentreprise.fr : chez OVH, Google Workspace, Zoho Mail. Guide complet, comparatif et configuration pas à pas.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-email-professionnel-domaine.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 607
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer une adresse email professionnelle avec son nom de domaine ?

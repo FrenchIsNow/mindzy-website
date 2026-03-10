@@ -1,8 +1,7 @@
 ---
 title: 'Single Page vs Multi-Page Website: Which Choice for Google and AI Visibility'
 slug: site-one-page-multi-pages
-excerpt: Choosing between a single page and multi-page website isn't just a design
-  question. It's a strategic choice that impacts your visibility.
+excerpt: Choosing between a single page and multi-page website isn't just a design question. It's a strategic choice that impacts your visibility.
 category: seo
 author: Mindzy
 date: '2026-01-03'
@@ -13,15 +12,9 @@ relatedPosts:
 - seo-entrepreneurs-guide
 - agence-web-avantages
 modifiedDate: '2026-01-03'
-wordCount: 1523
-tags:
-- website strategy
-- single page
-- multi-page
-- seo
-- site structure
-keywords: single page vs multi-page website, website architecture, SEO for website
-  structure, page strategy
+wordCount: 826
+tags: [website strategy, single page, multi-page, seo, site structure]
+keywords: website strategy, single page, multi page, seo, site structure
 lang: en
 ---
 

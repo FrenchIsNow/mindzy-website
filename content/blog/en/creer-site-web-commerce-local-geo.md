@@ -1,23 +1,21 @@
 ---
 title: How to Create a Website for Your Local Business (GEO Guide)
-meta_description: A website is your local business's most powerful tool. Learn how
-  to create a site that attracts local customers and gets found in AI-powered local
-  search.
+meta_description: A website is your local business's most powerful tool. Learn how to create a site that attracts local customers and gets found in AI-powered local search.
 slug: creer-site-web-commerce-local-geo
 categorie: Local Commerce / GEO
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-site-web-commerce-local-geo/
 image: /images/en/blog/creer-site-web-commerce-local-geo.jpg
 lang: en
-excerpt: ''
+excerpt: A website is your local business's most powerful tool. Learn how to create a site that attracts local customers and gets found in AI-powered local search.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 426
+tags: [local commerce, geo, business]
+keywords: local commerce, geo, business
 ---
 
 # How to Create a Website for Your Local Business (GEO Guide)

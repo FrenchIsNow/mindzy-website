@@ -4,7 +4,7 @@ title: Que articulos de blog debe escribir ABSOLUTAMENTE un psicologo para ser e
 slug: articles-blog-psychologue
 excerpt: Tu sitio no es suficiente. Son tus articulos de blog los que te hacen visible,
   creible y elegido por personas que aun no te conocen.
-category: sante
+category: seo
 author: Mindzy
 date: '2026-01-08'
 image: /images/es/blog/blog-psychologue.svg
@@ -14,15 +14,14 @@ relatedPosts:
 - visibilite-articles-blog
 - visibilite-ia-mindzy
 modifiedDate: '2026-01-08'
-wordCount: 1203
+wordCount: 802
 tags:
 - articulos de blog
 - psicologia
 - visibilidad google
 - seo
 - adquisicion de clientes
-keywords: articulos de blog para psicologos, visibilidad del terapeuta, posicionamiento
-  psicologia, atraer pacientes online
+keywords: articulos de blog, psicologia, visibilidad google, seo, adquisicion de clientes
 lang: es
 ---
 

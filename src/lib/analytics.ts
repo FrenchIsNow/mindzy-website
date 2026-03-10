@@ -65,23 +65,6 @@ export const analytics = {
       }),
   },
 
-  chatbot: {
-    open: () =>
-      event('chatbot_open', { event_category: 'engagement' }),
-    close: () =>
-      event('chatbot_close', { event_category: 'engagement' }),
-    quickReply: (replyType: string) =>
-      event('chatbot_quick_reply', {
-        event_category: 'engagement',
-        reply_type: replyType,
-      }),
-    ctaClick: (ctaType: string) =>
-      event('chatbot_cta_click', {
-        event_category: 'conversion',
-        cta_type: ctaType,
-      }),
-  },
-
   pricing: {
     viewPlans: () =>
       event('view_pricing', { event_category: 'engagement' }),

@@ -1,23 +1,21 @@
 ---
 title: Cómo hacer copias de seguridad automáticas de tu sitio WordPress
-meta_description: Una copia de seguridad de WordPress es tu red de seguridad contra
-  hackeos y actualizaciones fallidas. Aprende a configurar copias de seguridad diarias
-  automáticas.
+meta_description: Una copia de seguridad de WordPress es tu red de seguridad contra hackeos y actualizaciones fallidas. Aprende a configurar copias de seguridad diarias automáticas.
 slug: sauvegarder-site-wordpress-automatiquement
 categorie: Mantenimiento
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/sauvegarder-site-wordpress-automatiquement/
 image: /images/es/blog/sauvegarder-site-wordpress-automatiquement.jpg
 lang: es
-excerpt: ''
+excerpt: Una copia de seguridad de WordPress es tu red de seguridad contra hackeos y actualizaciones fallidas. Aprende a configurar copias de seguridad diarias automáticas.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 330
+tags: [mantenimiento, business]
+keywords: mantenimiento, business
 ---
 
 # Cómo hacer copias de seguridad automáticas de tu sitio WordPress

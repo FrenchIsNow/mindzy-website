@@ -67,7 +67,7 @@ export const ebooks: Ebook[] = [
     publishedDate: '2026-01-01',
     downloadCount: 847,
     free: true,
-    ctaLink: 'https://calendar.app.google/7ccvgBKCiRJgLXKL7',
+    ctaLink: 'https://calendar.app.google/JyUKfZ6xMRxKySfM9',
     chapters: {
       fr: [
         { num: '01', title: 'Les fondamentaux du digital en 2026' },

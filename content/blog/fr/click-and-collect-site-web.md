@@ -1,8 +1,6 @@
 ---
 title: Comment proposer le click-and-collect sur son site web ?
-meta_description: 'Mettez en place le click-and-collect sur votre site web : solutions
-  techniques, intégrations WooCommerce et Shopify, configuration et conseils pour
-  les commerces locaux.'
+meta_description: 'Mettez en place le click-and-collect sur votre site web : solutions techniques, intégrations WooCommerce et Shopify, configuration et conseils pour les commerces locaux.'
 slug: click-and-collect-site-web
 categorie: Création de site web
 sous_categorie: E-commerce
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/click-and-collect-site-web/
 lang: fr
-excerpt: ''
+excerpt: 'Mettez en place le click-and-collect sur votre site web : solutions techniques, intégrations WooCommerce et Shopify, configuration et conseils pour les commerces locaux.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/click-and-collect-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 690
+tags: [comment proposer le click, and, 'collect sur son site web ?', création de site web, business]
+keywords: comment proposer le click, and, collect sur son site web ?, création de site web, business
 ---
 
 # Comment proposer le click-and-collect sur son site web ?

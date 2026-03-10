@@ -29,8 +29,7 @@ src/components/
 ├── ui/         # Atomic components (Button, Card, Badge, Input, Accordion)
 ├── layout/     # Header, Footer, Navigation, LanguageSwitcher, StickyCTA
 ├── sections/   # Full-width page sections (Hero, Testimonials, PricingTable)
-├── features/   # Interactive components (DiagnosticQuiz, OnboardingWizard, BeforeAfterSlider)
-└── Chatbot.tsx # AI chatbot (client component)
+└── features/   # Interactive components (DiagnosticQuiz, OnboardingWizard, BeforeAfterSlider)
 ```
 
 ### Centralized Configuration
@@ -41,12 +40,20 @@ src/components/
 - Diagnostic quiz questions with scoring
 - Onboarding wizard steps
 
+### GEO / llms.txt
+- `public/llms.txt` is served at `https://mindzy.me/llms.txt` for Generative Engine Optimization (GEO). It gives AI crawlers and LLMs a concise description of Mindzy, main URLs, services, and contact. Update it when adding major pages or changing positioning.
+
+### Ebooks / PDF resources
+- Ebook data in `src/lib/ebooks.ts` (slug, title, chapters, etc.).
+- PDF files go in **`public/ebooks/`** with filename **`{slug}.pdf`** (e.g. `lancer-presence-digitale-2026.pdf`). See `public/ebooks/README.md`.
+- After the download form is submitted, the PDF is triggered for download and the user is redirected to the booking URL (Calendly).
+
 ### API Routes
 - `/api/whatsapp/send` - POST endpoint for WhatsApp messages
 - `/api/whatsapp/webhook` - Webhook handler for incoming messages
 
 ### Type Definitions
-All data models in `src/lib/types.ts`: Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, ChatMessage/ChatState, etc.
+All data models in `src/lib/types.ts`: Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQuestion, OnboardingStep, etc.
 
 ## Styling
 

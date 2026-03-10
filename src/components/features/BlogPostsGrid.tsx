@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,6 +13,7 @@ interface BlogPostsGridProps {
   readTimeLabel: string
   readMoreLabel: string
   noPostsLabel: string
+  loadMoreLabel: string
 }
 
 const categoryColors: Record<string, 'default' | 'primary' | 'success' | 'violet'> = {
@@ -27,22 +29,14 @@ function BlogCardFeatured({ post, locale, readTimeLabel, readMoreLabel }: { post
     <Link href={`/${locale}/blog/${post.slug}`} className="block group">
       <article className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-gray-200 hover:-translate-y-0.5 cursor-pointer">
         {/* Image */}
-        <div className="aspect-[16/10] lg:aspect-auto bg-gray-50 overflow-hidden relative">
-          {post.image.endsWith('.svg') ? (
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              priority
-            />
-          ) : (
-            <div className="w-full h-full min-h-[240px] flex items-center justify-center bg-gradient-to-br from-violet-50 to-cream-50">
-              <svg className="w-16 h-16 text-violet/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </div>
-          )}
+        <div className="aspect-[16/10] lg:aspect-auto bg-gray-50 overflow-hidden relative pl-6">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            priority
+          />
         </div>
 
         {/* Content */}
@@ -87,21 +81,13 @@ function BlogCard({ post, locale, readTimeLabel, readMoreLabel }: { post: BlogPo
     <Link href={`/${locale}/blog/${post.slug}`} className="block group h-full">
       <article className="h-full bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-gray-200 hover:-translate-y-1 cursor-pointer flex flex-col">
         {/* Image */}
-        <div className="aspect-[16/10] bg-gray-50 overflow-hidden relative shrink-0">
-          {post.image.endsWith('.svg') ? (
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-50 to-cream-50">
-              <svg className="w-12 h-12 text-violet/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </div>
-          )}
+        <div className="aspect-[16/10] bg-gray-50 overflow-hidden relative shrink-0 pl-6">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
         </div>
 
         {/* Content */}
@@ -141,11 +127,20 @@ function BlogCard({ post, locale, readTimeLabel, readMoreLabel }: { post: BlogPo
   )
 }
 
-export function BlogPostsGrid({ posts, locale, readTimeLabel, readMoreLabel, noPostsLabel }: BlogPostsGridProps) {
+const INITIAL_VISIBLE = 7
+const LOAD_MORE_STEP = 6
+
+export function BlogPostsGrid({ posts, locale, readTimeLabel, readMoreLabel, noPostsLabel, loadMoreLabel }: BlogPostsGridProps) {
   const searchParams = useSearchParams()
   const activeCategory = searchParams.get('category') || ''
 
   const filtered = activeCategory ? posts.filter(p => p.category === activeCategory) : posts
+
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE)
+
+  useEffect(() => {
+    setVisibleCount(INITIAL_VISIBLE)
+  }, [activeCategory])
 
   if (filtered.length === 0) {
     return (
@@ -158,7 +153,9 @@ export function BlogPostsGrid({ posts, locale, readTimeLabel, readMoreLabel, noP
     )
   }
 
-  const [featured, ...rest] = filtered
+  const [featured, ...restAll] = filtered
+  const rest = restAll.slice(0, Math.max(0, visibleCount - 1))
+  const hasMore = restAll.length > rest.length
 
   return (
     <div className="space-y-8">
@@ -174,17 +171,30 @@ export function BlogPostsGrid({ posts, locale, readTimeLabel, readMoreLabel, noP
 
       {/* Remaining posts — 3-column grid */}
       {rest.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rest.map((post) => (
-            <BlogCard
-              key={post.slug}
-              post={post}
-              locale={locale}
-              readTimeLabel={readTimeLabel}
-              readMoreLabel={readMoreLabel}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {rest.map((post) => (
+              <BlogCard
+                key={post.slug}
+                post={post}
+                locale={locale}
+                readTimeLabel={readTimeLabel}
+                readMoreLabel={readMoreLabel}
+              />
+            ))}
+          </div>
+          {hasMore && (
+            <div className="flex justify-center pt-4">
+              <button
+                type="button"
+                className="inline-flex items-center px-5 py-2.5 rounded-full border border-gray-200 bg-white text-sm font-medium text-anthracite hover:border-violet hover:text-violet shadow-sm transition-colors"
+                onClick={() => setVisibleCount(current => Math.min(current + LOAD_MORE_STEP, filtered.length))}
+              >
+                {loadMoreLabel}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   )

@@ -1,22 +1,21 @@
 ---
 title: 'How to Choose Your Domain Name: The Complete Guide'
-meta_description: Your domain name is your digital address for life. Learn how to
-  choose a memorable, SEO-friendly domain name that represents your brand perfectly.
+meta_description: Your domain name is your digital address for life. Learn how to choose a memorable, SEO-friendly domain name that represents your brand perfectly.
 slug: choisir-nom-de-domaine
 categorie: Fundamentals
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/choisir-nom-de-domaine/
 image: /images/en/blog/choisir-nom-de-domaine.jpg
 lang: en
-excerpt: ''
+excerpt: Your domain name is your digital address for life. Learn how to choose a memorable, SEO-friendly domain name that represents your brand perfectly.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 448
+tags: [fundamentals, business]
+keywords: fundamentals, business
 ---
 
 # How to Choose Your Domain Name: The Complete Guide

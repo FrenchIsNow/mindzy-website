@@ -4,7 +4,8 @@ import type { Plan, PortfolioItem, Testimonial, BlogPost, FAQItem, DiagnosticQue
 export const config = {
   SITE_URL: 'https://mindzy.me',
   CONTACT_EMAIL: 'contact@mindzy.me',
-  CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendar.app.google/7ccvgBKCiRJgLXKL7',
+  CALENDLY_URL: process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendar.app.google/JyUKfZ6xMRxKySfM9',
+  BOOKING_EMBED_URL: process.env.NEXT_PUBLIC_BOOKING_EMBED_URL || 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2laBQvi6tIsvFkKp5rF5QCJNaxvwjsx2dItPX37RafhTldHbxmigUDMwIWbKqy6JKhl5ybU1df?gv=true',
   CONTRACT_URL: '/contract',
   WHATSAPP_PHONE_NUMBER: '+41XXXXXXXXX',
   WHATSAPP_PHONE_ID: 'XXXXXXXXXX',

@@ -1,9 +1,6 @@
 ---
-title: Comment créer des fiches produits optimisées pour le SEO et les IA en 2026
-  ?
-meta_description: 'Rédigez des fiches produits qui vendent ET qui se positionnent
-  sur Google et les IA. Structure, mots-clés, images, Schema.org : le guide complet
-  SEO & GEO e-commerce.'
+title: Comment créer des fiches produits optimisées pour le SEO et les IA en 2026 ?
+meta_description: 'Rédigez des fiches produits qui vendent ET qui se positionnent sur Google et les IA. Structure, mots-clés, images, Schema.org : le guide complet SEO & GEO e-commerce.'
 slug: fiches-produits-optimisees-seo
 categorie: Création de site web
 sous_categorie: E-commerce
@@ -13,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/fiches-produits-optimisees-seo/
 lang: fr
-excerpt: ''
+excerpt: 'Rédigez des fiches produits qui vendent ET qui se positionnent sur Google et les IA. Structure, mots-clés, images, Schema.org : le guide complet SEO & GEO e-commerce.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/fiches-produits-optimisees-seo-geo.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 704
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment créer des fiches produits optimisées pour le SEO et les IA en 2026 ?

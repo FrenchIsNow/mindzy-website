@@ -1,9 +1,7 @@
 ---
-title: 'Ficha Google Business para terapeutas: la palanca n.1 para ser encontrado
-  y elegido'
+title: 'Ficha Google Business para terapeutas: la palanca n.1 para ser encontrado y elegido'
 slug: google-business-therapeutes
-excerpt: Cuando una persona busca un terapeuta, empieza por Google Maps. Tu ficha
-  Google Business es tu primer punto de contacto.
+excerpt: Cuando una persona busca un terapeuta, empieza por Google Maps. Tu ficha Google Business es tu primer punto de contacto.
 category: seo
 author: Mindzy
 date: '2026-01-10'
@@ -14,14 +12,9 @@ relatedPosts:
 - visibilite-ia-mindzy
 - sites-internet-dentistes
 modifiedDate: '2026-01-10'
-wordCount: 1398
-tags:
-- google business
-- seo local
-- terapeutas
-- perfil empresa
-- visibilidad online
-keywords: ficha Google Business terapeuta, optimizar Google Business, seo local terapeutas
+wordCount: 741
+tags: [google business, seo local, terapeutas, perfil empresa, visibilidad online]
+keywords: google business, seo local, terapeutas, perfil empresa, visibilidad online
 lang: es
 ---
 

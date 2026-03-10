@@ -1,23 +1,21 @@
 ---
 title: 'Shopify vs WooCommerce: ¿qué plataforma e-commerce elegir?'
-meta_description: 'Shopify vs WooCommerce: comparativa completa y honesta para principiantes
-  y empresas en crecimiento. Descubre qué plataforma se adapta a tu presupuesto y
-  objetivos.'
+meta_description: 'Shopify vs WooCommerce: comparativa completa y honesta para principiantes y empresas en crecimiento. Descubre qué plataforma se adapta a tu presupuesto y objetivos.'
 slug: shopify-vs-woocommerce-debutant
 categorie: E-commerce
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/shopify-vs-woocommerce-debutant/
 image: /images/es/blog/shopify-vs-woocommerce-debutant.jpg
 lang: es
-excerpt: ''
+excerpt: 'Shopify vs WooCommerce: comparativa completa y honesta para principiantes y empresas en crecimiento. Descubre qué plataforma se adapta a tu presupuesto y objetivos.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 274
+tags: ['shopify vs woocommerce: ¿qué plataforma e', 'commerce elegir?', commerce, business]
+keywords: 'shopify vs woocommerce: ¿qué plataforma e, commerce elegir?, commerce, business'
 ---
 
 # Shopify vs WooCommerce: ¿qué plataforma e-commerce elegir?

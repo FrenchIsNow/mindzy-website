@@ -1,23 +1,21 @@
 ---
 title: How to Create a Local Commerce Website with Wix
-meta_description: Wix lets you create a professional local business website without
-  coding. Step-by-step guide to building and launching your local commerce site with
-  Wix.
+meta_description: Wix lets you create a professional local business website without coding. Step-by-step guide to building and launching your local commerce site with Wix.
 slug: creer-site-commerce-local-wix
 categorie: Local Commerce
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-site-commerce-local-wix/
 image: /images/en/blog/creer-site-commerce-local-wix.jpg
 lang: en
-excerpt: ''
+excerpt: Wix lets you create a professional local business website without coding. Step-by-step guide to building and launching your local commerce site with Wix.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 433
+tags: [local-commerce, wix, ecommerce, local-business, website]
+keywords: local commerce website, wix ecommerce, local business website, local online store
 ---
 
 # How to Create a Local Commerce Website with Wix

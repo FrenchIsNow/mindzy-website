@@ -1,8 +1,7 @@
 ---
 title: 'SEO & GEO for Entrepreneurs: The Complete 2026 Guide'
 slug: seo-entrepreneurs-guide
-excerpt: Learn how to optimize your website for Google and AI to attract more customers
-  naturally, without paid advertising.
+excerpt: Learn how to optimize your website for Google and AI to attract more customers naturally, without paid advertising.
 category: seo
 author: Mindzy
 date: '2026-01-01'
@@ -13,15 +12,9 @@ relatedPosts:
 - visibilite-articles-blog
 - google-business-therapeutes
 modifiedDate: '2026-01-01'
-wordCount: 1834
-tags:
-- seo
-- local seo
-- entrepreneurs
-- google visibility
-- organic search
-keywords: SEO for entrepreneurs, local SEO strategy, Google ranking, search engine
-  optimization guide
+wordCount: 689
+tags: [seo, local seo, entrepreneurs, google visibility, organic search]
+keywords: seo, local seo, entrepreneurs, google visibility, organic search
 lang: en
 ---
 

@@ -1,22 +1,21 @@
 ---
 title: How to Create an Online Store with WooCommerce
-meta_description: WooCommerce is the world's most popular e-commerce platform. Learn
-  how to set up your online store step by step, from installation to first sale.
+meta_description: WooCommerce is the world's most popular e-commerce platform. Learn how to set up your online store step by step, from installation to first sale.
 slug: boutique-en-ligne-woocommerce
 categorie: E-commerce
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/boutique-en-ligne-woocommerce/
 image: /images/en/blog/boutique-en-ligne-woocommerce.jpg
 lang: en
-excerpt: ''
+excerpt: WooCommerce is the world's most popular e-commerce platform. Learn how to set up your online store step by step, from installation to first sale.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 446
+tags: [commerce, business]
+keywords: commerce, business
 ---
 
 # How to Create an Online Store with WooCommerce

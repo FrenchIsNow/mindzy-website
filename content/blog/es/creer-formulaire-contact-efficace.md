@@ -1,23 +1,21 @@
 ---
 title: Cómo crear un formulario de contacto eficaz que genere leads
-meta_description: Un formulario de contacto mal diseñado pierde leads. Aprende a crear
-  uno de alta conversión con los campos correctos, diseño y configuración para tu
-  web.
+meta_description: Un formulario de contacto mal diseñado pierde leads. Aprende a crear uno de alta conversión con los campos correctos, diseño y configuración para tu web.
 slug: creer-formulaire-contact-efficace
 categorie: Conversión
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/creer-formulaire-contact-efficace/
 image: /images/es/blog/creer-formulaire-contact-efficace.jpg
 lang: es
-excerpt: ''
+excerpt: Un formulario de contacto mal diseñado pierde leads. Aprende a crear uno de alta conversión con los campos correctos, diseño y configuración para tu web.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 506
+tags: [conversión, business]
+keywords: conversión, business
 ---
 
 # Cómo crear un formulario de contacto eficaz que genere leads

@@ -29,6 +29,8 @@ interface EbookDownloadFormProps {
     successCta: string
     nameError: string
     emailError: string
+    phoneError: string
+    companyError: string
   }
 }
 
@@ -43,6 +45,8 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
   const [company, setCompany] = useState('')
   const [nameErr, setNameErr] = useState(false)
   const [emailErr, setEmailErr] = useState(false)
+  const [phoneErr, setPhoneErr] = useState(false)
+  const [companyErr, setCompanyErr] = useState(false)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
@@ -50,12 +54,15 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
     e.preventDefault()
     const validName = !!name.trim()
     const validEmail = isValidEmail(email.trim())
+    const validPhone = !!phone.trim()
+    const validCompany = !!company.trim()
     setNameErr(!validName)
     setEmailErr(!validEmail)
-    if (!validName || !validEmail) return
+    setPhoneErr(!validPhone)
+    setCompanyErr(!validCompany)
+    if (!validName || !validEmail || !validPhone || !validCompany) return
 
     setLoading(true)
-    // Submit to leads API
     try {
       await fetch('/api/leads', {
         method: 'POST',
@@ -64,7 +71,7 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
           profileType: 'ebook',
           fullName: name.trim(),
           email: email.trim(),
-          phone: phone.trim() || 'N/A',
+          phone: phone.trim(),
           message: `Téléchargement ebook: ${slug}`,
           sheetName: 'EBOOK_DOWNLOADS',
           locale,
@@ -78,6 +85,15 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
     }
     setLoading(false)
     setSuccess(true)
+    const pdfUrl = `/ebooks/${slug}.pdf`
+    const link = document.createElement('a')
+    link.href = pdfUrl
+    link.download = `${slug}.pdf`
+    link.target = '_blank'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    if (ctaLink) setTimeout(() => { window.location.href = ctaLink }, 800)
   }
 
   if (success) {
@@ -156,31 +172,33 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
 
         {/* Phone */}
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1.5">
-            {labels.phoneLabel} <span className="text-gray-400 font-normal">(optionnel)</span>
-          </label>
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">{labels.phoneLabel} *</label>
           <input
             type="tel"
             value={phone}
-            onChange={e => setPhone(e.target.value)}
+            onChange={e => { setPhone(e.target.value); if (phoneErr) setPhoneErr(false) }}
             placeholder={labels.phonePlaceholder}
             autoComplete="tel"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-anthracite placeholder-gray-300 bg-white outline-none transition-all duration-200 focus:ring-2 focus:ring-violet/20 focus:border-violet"
+            className={`w-full px-4 py-3 rounded-xl border text-sm text-anthracite placeholder-gray-300 bg-white outline-none transition-all duration-200 focus:ring-2 focus:ring-violet/20 focus:border-violet ${
+              phoneErr ? 'border-rose-300 bg-rose-50/30' : 'border-gray-200'
+            }`}
           />
+          {phoneErr && <p className="text-xs text-rose-500 mt-1">{labels.phoneError}</p>}
         </div>
 
         {/* Company */}
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1.5">
-            {labels.companyLabel} <span className="text-gray-400 font-normal">(optionnel)</span>
-          </label>
+          <label className="block text-xs font-medium text-gray-600 mb-1.5">{labels.companyLabel} *</label>
           <input
             type="text"
             value={company}
-            onChange={e => setCompany(e.target.value)}
+            onChange={e => { setCompany(e.target.value); if (companyErr) setCompanyErr(false) }}
             placeholder={labels.companyPlaceholder}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-anthracite placeholder-gray-300 bg-white outline-none transition-all duration-200 focus:ring-2 focus:ring-violet/20 focus:border-violet"
+            className={`w-full px-4 py-3 rounded-xl border text-sm text-anthracite placeholder-gray-300 bg-white outline-none transition-all duration-200 focus:ring-2 focus:ring-violet/20 focus:border-violet ${
+              companyErr ? 'border-rose-300 bg-rose-50/30' : 'border-gray-200'
+            }`}
           />
+          {companyErr && <p className="text-xs text-rose-500 mt-1">{labels.companyError}</p>}
         </div>
 
         {/* Submit */}

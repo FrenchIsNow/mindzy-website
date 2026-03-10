@@ -8,15 +8,19 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/fiches-produits-optimisees-seo-geo/
 image: /images/en/blog/fiches-produits-optimisees-seo-geo.jpg
 lang: en
-excerpt: ''
-category: business
+excerpt: Learn how to write product pages that rank on Google, convert visitors into
+  buyers, and appear in AI-powered search results. Practical techniques for 2026.
+category: seo
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 449
+tags:
+- commerce
+- geo
+- business
+keywords: commerce, geo, business
 ---
 
 # SEO & GEO Optimised Product Pages: The Complete Guide

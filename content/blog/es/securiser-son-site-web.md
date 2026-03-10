@@ -1,22 +1,21 @@
 ---
 title: 'Cómo proteger tu sitio web: pasos esenciales para 2026'
-meta_description: La seguridad web no es opcional. Descubre los pasos esenciales para
-  proteger tu sitio de hackers, malware y filtraciones de datos en 2026.
+meta_description: La seguridad web no es opcional. Descubre los pasos esenciales para proteger tu sitio de hackers, malware y filtraciones de datos en 2026.
 slug: securiser-son-site-web
 categorie: Seguridad
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/securiser-son-site-web/
 image: /images/es/blog/securiser-son-site-web.jpg
 lang: es
-excerpt: ''
+excerpt: La seguridad web no es opcional. Descubre los pasos esenciales para proteger tu sitio de hackers, malware y filtraciones de datos en 2026.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 381
+tags: [seguridad, business]
+keywords: seguridad, business
 ---
 
 # Cómo proteger tu sitio web: pasos esenciales para 2026

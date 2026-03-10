@@ -1,23 +1,21 @@
 ---
 title: Cuándo y cómo rediseñar un sitio web obsoleto
-meta_description: ¿Tu web está desactualizada? Descubre las 8 señales de que es hora
-  de un rediseño y cómo abordar el proyecto para maximizar el ROI y evitar errores
-  comunes.
+meta_description: ¿Tu web está desactualizada? Descubre las 8 señales de que es hora de un rediseño y cómo abordar el proyecto para maximizar el ROI y evitar errores comunes.
 slug: refaire-site-web-obsolete
 categorie: Rediseño web
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/es/blog/refaire-site-web-obsolete/
 image: /images/es/blog/refaire-site-web-obsolete.jpg
 lang: es
-excerpt: ''
+excerpt: ¿Tu web está desactualizada? Descubre las 8 señales de que es hora de un rediseño y cómo abordar el proyecto para maximizar el ROI y evitar errores comunes.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 361
+tags: [rediseño web, business]
+keywords: rediseño web, business
 ---
 
 # Cuándo y cómo rediseñar un sitio web obsoleto

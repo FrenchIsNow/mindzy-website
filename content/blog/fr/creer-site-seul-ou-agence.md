@@ -1,7 +1,6 @@
 ---
 title: Vaut-il mieux créer son site soi-même ou passer par une agence ?
-meta_description: Créer son site seul ou déléguer à une agence web ? On compare les
-  deux options pour les TPE et commerces locaux en France. Faites le bon choix.
+meta_description: Créer son site seul ou déléguer à une agence web ? On compare les deux options pour les TPE et commerces locaux en France. Faites le bon choix.
 slug: creer-site-seul-ou-agence
 categorie: Création de site web
 sous_categorie: Coût & budget
@@ -11,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/creer-site-seul-ou-agence/
 lang: fr
-excerpt: ''
+excerpt: Créer son site seul ou déléguer à une agence web ? On compare les deux options pour les TPE et commerces locaux en France. Faites le bon choix.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/creer-site-seul-ou-agence.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 596
+tags: [vaut, il mieux créer son site soi, création de site web, business]
+keywords: vaut, il mieux créer son site soi, création de site web, business
 ---
 
 # Vaut-il mieux créer son site soi-même ou passer par une agence web ?

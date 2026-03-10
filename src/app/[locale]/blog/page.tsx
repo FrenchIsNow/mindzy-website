@@ -19,6 +19,11 @@ const noPostsLabels: Record<string, string> = {
   en: 'No articles in this category.',
   es: 'No hay artículos en esta categoría.',
 }
+const loadMoreLabels: Record<string, string> = {
+  fr: 'Voir plus d’articles',
+  en: 'Load more articles',
+  es: 'Ver más artículos',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -85,6 +90,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             readTimeLabel={t.readTime}
             readMoreLabel={t.readMore}
             noPostsLabel={noPostsLabels[locale] || noPostsLabels.fr}
+            loadMoreLabel={loadMoreLabels[locale] || loadMoreLabels.fr}
           />
         </Suspense>
       </div>

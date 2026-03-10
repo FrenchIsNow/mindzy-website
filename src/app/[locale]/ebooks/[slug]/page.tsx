@@ -6,6 +6,8 @@ import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n'
 import { getEbook, getAllEbookSlugs } from '@/lib/ebooks'
 import { EbookDownloadForm } from '@/components/features/EbookDownloadForm'
+import { CalendlyLink } from '@/components/ui/CalendlyLink'
+import { config } from '@/lib/config'
 
 export function generateStaticParams() {
   return getAllEbookSlugs().map(slug => ({ slug }))
@@ -21,8 +23,6 @@ const categoryColors: Record<string, 'default' | 'primary' | 'success' | 'violet
 const pageMeta: Record<string, {
   backLabel: string
   freeLabel: string
-  pagesLabel: string
-  chaptersLabel: string
   downloadLabel: string
   contentsLabel: string
   featuresLabel: string
@@ -49,15 +49,17 @@ const pageMeta: Record<string, {
   successCta: string
   nameError: string
   emailError: string
+  phoneError: string
+  companyError: string
   downloadsLabel: string
   publishedLabel: string
   whatYouLearnLabel: string
+  bookCtaLabel: string
+  bookSectionTitle: string
 }> = {
   fr: {
     backLabel: '← Tous les guides',
     freeLabel: 'Gratuit',
-    pagesLabel: 'pages',
-    chaptersLabel: 'chapitres',
     downloadLabel: 'Télécharger gratuitement',
     contentsLabel: 'Au programme',
     featuresLabel: 'Ce que contient ce guide',
@@ -84,15 +86,17 @@ const pageMeta: Record<string, {
     successCta: 'Prendre rendez-vous',
     nameError: 'Votre nom est requis',
     emailError: 'Entrez un email valide',
+    phoneError: 'Le téléphone est requis',
+    companyError: 'Le cabinet ou l\'entreprise est requis',
     downloadsLabel: 'téléchargements',
     publishedLabel: 'Publié le',
     whatYouLearnLabel: 'Ce que vous allez apprendre',
+    bookCtaLabel: 'Prendre un rendez-vous',
+    bookSectionTitle: 'Réserver un créneau',
   },
   en: {
     backLabel: '← All guides',
     freeLabel: 'Free',
-    pagesLabel: 'pages',
-    chaptersLabel: 'chapters',
     downloadLabel: 'Download for free',
     contentsLabel: 'In this guide',
     featuresLabel: 'What this guide contains',
@@ -119,15 +123,17 @@ const pageMeta: Record<string, {
     successCta: 'Book a call',
     nameError: 'Your name is required',
     emailError: 'Enter a valid email',
+    phoneError: 'Phone is required',
+    companyError: 'Practice or company is required',
     downloadsLabel: 'downloads',
     publishedLabel: 'Published on',
     whatYouLearnLabel: 'What you will learn',
+    bookCtaLabel: 'Book a call',
+    bookSectionTitle: 'Book a slot',
   },
   es: {
     backLabel: '← Todas las guías',
     freeLabel: 'Gratis',
-    pagesLabel: 'páginas',
-    chaptersLabel: 'capítulos',
     downloadLabel: 'Descargar gratis',
     contentsLabel: 'En esta guía',
     featuresLabel: 'Qué contiene esta guía',
@@ -154,9 +160,13 @@ const pageMeta: Record<string, {
     successCta: 'Reservar una llamada',
     nameError: 'Tu nombre es obligatorio',
     emailError: 'Introduce un email válido',
+    phoneError: 'El teléfono es obligatorio',
+    companyError: 'La consulta o empresa es obligatoria',
     downloadsLabel: 'descargas',
     publishedLabel: 'Publicado el',
     whatYouLearnLabel: 'Lo que aprenderás',
+    bookCtaLabel: 'Reservar una cita',
+    bookSectionTitle: 'Reservar un hueco',
   },
 }
 
@@ -182,12 +192,9 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
   const l = locale as Locale
   const meta = pageMeta[locale] || pageMeta.fr
   const title = ebook.title[l] || ebook.title.fr
-  const subtitle = ebook.subtitle[l] || ebook.subtitle.fr
   const excerpt = ebook.excerpt[l] || ebook.excerpt.fr
-  const chapters = ebook.chapters[l] || ebook.chapters.fr
-  const features = ebook.features[l] || ebook.features.fr
-  const stats = ebook.stats[l] || ebook.stats.fr
   const testimonial = ebook.testimonial[l] || ebook.testimonial.fr
+  const features = ebook.features[l] || ebook.features.fr
 
   const breadcrumbJsonLd = jsonLdBreadcrumb([
     { name: locale === 'fr' ? 'Accueil' : locale === 'es' ? 'Inicio' : 'Home', url: `https://mindzy.me/${locale}` },
@@ -231,42 +238,21 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
                   {meta.freeLabel}
                 </span>
               )}
-              <span className="text-xs text-gray-400">{ebook.pages} {meta.pagesLabel} · {chapters.length} {meta.chaptersLabel}</span>
             </div>
 
-            {/* Title */}
             <h1 className="font-display text-4xl lg:text-5xl font-bold text-anthracite tracking-tight leading-[1.1] mb-5 text-balance">
               {title}
             </h1>
 
             <p className="body-large text-gray-500 mb-8 text-pretty max-w-xl">{excerpt}</p>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                  <div className="font-display text-2xl font-bold text-violet mb-0.5">{stat.value}</div>
-                  <div className="text-xs text-gray-500">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Chapter list */}
-            <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">{meta.contentsLabel}</p>
-              <ul className="space-y-3">
-                {chapters.map((ch) => (
-                  <li key={ch.num} className="flex items-center gap-4 group/item">
-                    <span className="font-mono text-[11px] font-bold text-violet/50 w-8 shrink-0 text-right">{ch.num}</span>
-                    <div className="flex-1 flex items-center gap-3 py-2.5 px-4 rounded-xl bg-white border border-gray-100 group-hover/item:border-violet/20 group-hover/item:bg-violet/[0.02] transition-all duration-200">
-                      <span className="text-sm text-anthracite font-medium flex-1">{ch.title}</span>
-                      <svg className="w-3.5 h-3.5 text-sage-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            {/* Ebook image */}
+            <div className="mb-10 max-w-sm">
+              <img
+                src={ebook.image}
+                alt={title}
+                className="w-full h-auto rounded-2xl border border-gray-100 shadow-md object-cover"
+              />
             </div>
 
             {/* Testimonial */}
@@ -293,7 +279,7 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
               <EbookDownloadForm
                 slug={slug}
                 locale={locale}
-                ctaLink={ebook.ctaLink}
+                ctaLink={ebook.ctaLink || config.CALENDLY_URL}
                 labels={{
                   badge: meta.badgeLabel,
                   title: meta.formTitle,
@@ -316,6 +302,8 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
                   successCta: meta.successCta,
                   nameError: meta.nameError,
                   emailError: meta.emailError,
+                  phoneError: meta.phoneError,
+                  companyError: meta.companyError,
                 }}
               />
             </div>
@@ -336,38 +324,51 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
         <div className="divider mb-20" />
       </div>
 
-      {/* Features grid */}
-      <div className="container-wide">
-        <div className="text-center mb-14">
-          <p className="eyebrow mb-3">{meta.whatYouLearnLabel}</p>
-          <h2 className="heading-2 text-anthracite text-balance">{meta.featuresLabel}</h2>
-        </div>
-
+      {/* What you will learn / Features */}
+      <div className="container-wide mb-20">
+        <h2 className="heading-2 text-anthracite text-balance mb-2">{meta.whatYouLearnLabel}</h2>
+        <p className="text-gray-500 mb-10">{meta.featuresLabel}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feat) => (
+          {features.map((f) => (
             <div
-              key={feat.num}
+              key={f.num}
               className="group bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg hover:border-violet/20 hover:-translate-y-0.5 transition-all duration-300"
             >
-              {/* Top row */}
               <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-bold tracking-widest text-violet/60 uppercase">{feat.label}</span>
-                <span className="font-mono text-xs text-gray-300">{feat.num}</span>
+                <span className="text-[10px] font-bold tracking-widest text-violet/60 uppercase">{f.label}</span>
+                <span className="font-mono text-xs text-gray-300">{f.num}</span>
               </div>
-
-              {/* Icon accent */}
-              <div className="w-10 h-10 rounded-xl bg-violet/8 flex items-center justify-center mb-4 group-hover:bg-violet/12 transition-colors duration-200">
+              <div className="w-10 h-10 rounded-xl bg-violet/10 flex items-center justify-center mb-4 group-hover:bg-violet/20 transition-colors duration-200">
                 <svg className="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
               </div>
-
-              <h3 className="font-display text-base font-semibold text-anthracite leading-snug mb-2 group-hover:text-violet transition-colors duration-200">
-                {feat.title}
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{feat.desc}</p>
+              <h3 className="font-display text-base font-semibold text-anthracite leading-snug mb-2 group-hover:text-violet transition-colors duration-200">{f.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="container-wide">
+        <div className="divider mb-20" />
+      </div>
+
+      {/* Booking: CTA + embedded agenda */}
+      <div className="container-wide">
+        <div className="text-center mb-10">
+          <h2 className="heading-2 text-anthracite text-balance mb-4">{meta.bookSectionTitle}</h2>
+          <CalendlyLink
+            href={config.CALENDLY_URL}
+            trackSource="ebook_detail"
+            className="inline-flex items-center gap-2.5 px-8 py-4 bg-violet text-white font-bold text-sm rounded-full hover:bg-violet-600 transition-colors duration-200"
+          >
+            {meta.bookCtaLabel}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </CalendlyLink>
         </div>
       </div>
 

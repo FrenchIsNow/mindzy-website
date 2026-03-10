@@ -19,7 +19,6 @@ const solutionRoutes = [
   { key: 'siteWeb' as const, href: '/solutions/site-web', icon: GlobeIcon },
   { key: 'surMesure' as const, href: '/solutions/sur-mesure', icon: WrenchIcon },
   { key: 'formations' as const, href: '/solutions/formations', icon: GraduationCapIcon },
-  { key: 'branding' as const, href: '/solutions/branding', icon: PaletteIcon },
 ]
 
 export function Navigation({ locale, className, mobile, onNavigate }: NavigationProps) {

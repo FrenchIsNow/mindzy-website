@@ -1,8 +1,7 @@
 ---
 title: 'Como vender en Internet en 2026: la guia completa'
 slug: vendre-sur-internet-2026
-excerpt: En 2026, vender online ya no se limita a tener un sitio web. Aqui tienes
-  los 9 pasos para construir un sistema que genera facturacion de forma continua.
+excerpt: En 2026, vender online ya no se limita a tener un sitio web. Aqui tienes los 9 pasos para construir un sistema que genera facturacion de forma continua.
 category: business
 author: Mindzy
 date: '2026-01-20'
@@ -13,15 +12,9 @@ relatedPosts:
 - seo-entrepreneurs-guide
 - google-business-therapeutes
 modifiedDate: '2026-01-20'
-wordCount: 1856
-tags:
-- venta online
-- estrategia ecommerce
-- marketing digital
-- conversion
-- adquisicion clientes
-keywords: vender online 2026, estrategia venta internet, comercio electronico, guia
-  ecommerce
+wordCount: 1028
+tags: [venta online, estrategia ecommerce, marketing digital, conversion, adquisicion clientes]
+keywords: venta online, estrategia ecommerce, marketing digital, conversion, adquisicion clientes
 lang: es
 ---
 

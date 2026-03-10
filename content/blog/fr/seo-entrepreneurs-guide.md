@@ -1,8 +1,7 @@
 ---
 title: 'SEO & GEO pour entrepreneurs : le guide complet 2026'
 slug: seo-entrepreneurs-guide
-excerpt: Apprenez à optimiser votre site pour Google et les IA afin d'attirer plus
-  de clients naturellement, sans publicité payante.
+excerpt: Apprenez à optimiser votre site pour Google et les IA afin d'attirer plus de clients naturellement, sans publicité payante.
 category: seo
 author: Mindzy
 date: '2026-01-01'
@@ -13,14 +12,9 @@ relatedPosts:
 - visibilite-articles-blog
 - google-business-therapeutes
 modifiedDate: '2026-01-01'
-wordCount: 2380
-tags:
-- seo
-- geo
-- référencement
-- entrepreneurs
-- visibilité
-keywords: seo guide complet, référencement naturel, geo local, optimiser google
+wordCount: 656
+tags: [seo, geo, référencement, entrepreneurs, visibilité]
+keywords: seo, geo, référencement, entrepreneurs, visibilité
 lang: fr
 ---
 

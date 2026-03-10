@@ -1,22 +1,21 @@
 ---
 title: How to Create a Professional Email Address with Your Domain Name
-meta_description: A professional email address (you@yourbusiness.com) builds credibility
-  and trust. Learn how to set one up quickly with Google Workspace or Microsoft 365.
+meta_description: A professional email address (you@yourbusiness.com) builds credibility and trust. Learn how to set one up quickly with Google Workspace or Microsoft 365.
 slug: creer-email-professionnel-domaine
 categorie: Professional Email
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/creer-email-professionnel-domaine/
 image: /images/en/blog/creer-email-professionnel-domaine.jpg
 lang: en
-excerpt: ''
+excerpt: A professional email address (you@yourbusiness.com) builds credibility and trust. Learn how to set one up quickly with Google Workspace or Microsoft 365.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 506
+tags: [professional email, business]
+keywords: professional email, business
 ---
 
 # How to Create a Professional Email Address with Your Domain Name

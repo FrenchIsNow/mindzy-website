@@ -14,7 +14,6 @@ export function Footer({ locale }: { locale: Locale }) {
       { href: `/${locale}/solutions/site-web`, label: (t.links as any).siteWeb },
       { href: `/${locale}/solutions/sur-mesure`, label: (t.links as any).surMesure },
       { href: `/${locale}/solutions/formations`, label: (t.links as any).formations },
-      { href: `/${locale}/solutions/branding`, label: (t.links as any).branding },
       { href: `/${locale}/pricing`, label: (t.links as any).pricing },
     ],
     resources: [

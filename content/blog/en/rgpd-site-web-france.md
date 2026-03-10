@@ -1,8 +1,6 @@
 ---
 title: 'GDPR: Your Website''s Legal Obligations in France'
-meta_description: 'Operating a website in France means complying with GDPR. Discover
-  the 7 key obligations: cookie consent, privacy policy, data rights, and how to stay
-  compliant.'
+meta_description: 'Operating a website in France means complying with GDPR. Discover the 7 key obligations: cookie consent, privacy policy, data rights, and how to stay compliant.'
 slug: rgpd-site-web-france
 categorie: Legal Requirements
 sous_categorie: Privacy and compliance
@@ -13,15 +11,15 @@ date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/rgpd-site-web-france/
 image: /images/en/blog/rgpd-site-web-france.jpg
 lang: en
-excerpt: ''
+excerpt: 'Operating a website in France means complying with GDPR. Discover the 7 key obligations: cookie consent, privacy policy, data rights, and how to stay compliant.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 513
+tags: [legal requirements, business]
+keywords: legal requirements, business
 ---
 
 # GDPR: Your Website's Legal Obligations in France

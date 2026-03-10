@@ -1,8 +1,6 @@
 ---
 title: Qu'est-ce que le Core Web Vitals de Google et comment l'optimiser en 2026 ?
-meta_description: 'Core Web Vitals : LCP, FID, CLS expliqués simplement. Découvrez
-  pourquoi ces métriques sont cruciales pour votre SEO et votre visibilité dans les
-  IA comme ChatGPT.'
+meta_description: 'Core Web Vitals : LCP, FID, CLS expliqués simplement. Découvrez pourquoi ces métriques sont cruciales pour votre SEO et votre visibilité dans les IA comme ChatGPT.'
 slug: core-web-vitals-google
 categorie: Création de site web
 sous_categorie: Mobile & performance
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/core-web-vitals-google/
 lang: fr
-excerpt: ''
+excerpt: 'Core Web Vitals : LCP, FID, CLS expliqués simplement. Découvrez pourquoi ces métriques sont cruciales pour votre SEO et votre visibilité dans les IA comme ChatGPT.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/core-web-vitals-google-geo.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 639
+tags: [quest, création de site web, business]
+keywords: quest, création de site web, business
 ---
 
 # Qu'est-ce que le Core Web Vitals de Google et comment l'optimiser en 2026 ?

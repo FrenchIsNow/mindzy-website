@@ -1,8 +1,7 @@
 ---
 title: Ejemplos de sitios web de dentistas que realmente atraen pacientes
 slug: sites-internet-dentistes
-excerpt: Un sitio web de dentista no es un escaparate. Es una herramienta para ser
-  encontrado en Google, generar confianza antes de la cita y facilitar el contacto.
+excerpt: Un sitio web de dentista no es un escaparate. Es una herramienta para ser encontrado en Google, generar confianza antes de la cita y facilitar el contacto.
 category: sante
 author: Mindzy
 date: '2026-01-12'
@@ -13,15 +12,9 @@ relatedPosts:
 - articles-blog-psychologue
 - agence-web-avantages
 modifiedDate: '2026-01-12'
-wordCount: 1154
-tags:
-- dentista
-- diseno sitio
-- adquisicion pacientes
-- seo local
-- salud
-keywords: sitio web dentista, atraer pacientes dentales, posicionamiento dentista,
-  presencia online clinica
+wordCount: 696
+tags: [dentista, diseno sitio, adquisicion pacientes, seo local, salud]
+keywords: dentista, diseno sitio, adquisicion pacientes, seo local, salud
 lang: es
 ---
 

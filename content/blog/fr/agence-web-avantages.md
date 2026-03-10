@@ -1,8 +1,7 @@
 ---
 title: 'Création de site internet : pourquoi passer par une agence web change tout'
 slug: agence-web-avantages
-excerpt: Créer un site seul est possible. Créer un site qui apporte des clients, beaucoup
-  moins. Découvrez pourquoi une agence web fait toute la différence.
+excerpt: Créer un site seul est possible. Créer un site qui apporte des clients, beaucoup moins. Découvrez pourquoi une agence web fait toute la différence.
 category: business
 author: Mindzy
 date: '2026-01-18'
@@ -13,13 +12,9 @@ relatedPosts:
 - creer-site-web-budget
 - identite-visuelle-guide-2026
 modifiedDate: '2026-01-18'
-wordCount: 1850
-tags:
-- agence-web
-- seo
-- design-web
-keywords: agence web avantages, pourquoi passer par une agence, création site web
-  professionnel, seo geo, design web
+wordCount: 759
+tags: [agence-web, seo, design-web]
+keywords: agence web, seo, design web
 lang: fr
 ---
 

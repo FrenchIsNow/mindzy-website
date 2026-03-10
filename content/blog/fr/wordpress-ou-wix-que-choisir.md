@@ -1,8 +1,6 @@
 ---
 title: 'WordPress ou Wix : que choisir pour mon site web ?'
-meta_description: 'WordPress ou Wix pour créer votre site ? Comparatif complet pour
-  TPE, commerces et thérapeutes. Fonctionnalités, prix, SEO, facilité : tout pour
-  décider.'
+meta_description: 'WordPress ou Wix pour créer votre site ? Comparatif complet pour TPE, commerces et thérapeutes. Fonctionnalités, prix, SEO, facilité : tout pour décider.'
 slug: wordpress-ou-wix-que-choisir
 categorie: Création de site web
 sous_categorie: Choix de plateforme
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/wordpress-ou-wix-que-choisir/
 lang: fr
-excerpt: ''
+excerpt: 'WordPress ou Wix pour créer votre site ? Comparatif complet pour TPE, commerces et thérapeutes. Fonctionnalités, prix, SEO, facilité : tout pour décider.'
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/wordpress-ou-wix-que-choisir.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 558
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # WordPress ou Wix : que choisir pour mon site web ?

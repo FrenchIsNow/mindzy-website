@@ -4,7 +4,7 @@ title: Quels articles de blog un psychologue doit ABSOLUMENT écrire pour être 
 slug: articles-blog-psychologue
 excerpt: Votre site ne suffit pas. Ce sont vos articles de blog qui vous rendent visible,
   crédible et choisi par des personnes qui ne vous connaissent pas encore.
-category: sante
+category: seo
 author: Mindzy
 date: '2026-01-08'
 image: /images/fr/blog/blog-psychologue.svg
@@ -14,15 +14,14 @@ relatedPosts:
 - visibilite-articles-blog
 - visibilite-ia-mindzy
 modifiedDate: '2026-01-08'
-wordCount: 1620
+wordCount: 707
 tags:
 - blog
 - psychologue
 - seo
 - articles
 - contenu
-keywords: articles psychologue, blog psychologue, seo psychothérapeute, visibilité
-  psychologue
+keywords: blog, psychologue, seo, articles, contenu
 lang: fr
 ---
 

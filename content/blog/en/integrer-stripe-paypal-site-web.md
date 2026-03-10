@@ -1,22 +1,21 @@
 ---
 title: How to Integrate Stripe and PayPal on Your Website
-meta_description: Stripe and PayPal are the two most trusted online payment solutions.
-  Learn how to integrate them on your website and choose the right one for your business.
+meta_description: Stripe and PayPal are the two most trusted online payment solutions. Learn how to integrate them on your website and choose the right one for your business.
 slug: integrer-stripe-paypal-site-web
 categorie: Online Payment
 date_publication: '2026-03-09'
 url_article: https://mindzy.me/en/blog/integrer-stripe-paypal-site-web/
 image: /images/en/blog/integrer-stripe-paypal-site-web.jpg
 lang: en
-excerpt: ''
+excerpt: Stripe and PayPal are the two most trusted online payment solutions. Learn how to integrate them on your website and choose the right one for your business.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-09'
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-09'
+wordCount: 408
+tags: [online payment, business]
+keywords: online payment, business
 ---
 
 # How to Integrate Stripe and PayPal on Your Website

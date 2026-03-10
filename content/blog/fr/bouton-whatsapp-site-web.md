@@ -1,8 +1,6 @@
 ---
 title: Comment afficher un bouton WhatsApp sur son site web ? (Guide 2026)
-meta_description: Ajoutez un bouton WhatsApp sur votre site web pour convertir plus
-  de visiteurs. Méthodes simples pour WordPress, Wix et HTML. Configuration et meilleures
-  pratiques.
+meta_description: Ajoutez un bouton WhatsApp sur votre site web pour convertir plus de visiteurs. Méthodes simples pour WordPress, Wix et HTML. Configuration et meilleures pratiques.
 slug: bouton-whatsapp-site-web
 categorie: Création de site web
 sous_categorie: Intégrations
@@ -12,16 +10,16 @@ priorite_seo: Haute
 date_publication: '2026-03-08'
 url_article: https://mindzy.me/blog/bouton-whatsapp-site-web/
 lang: fr
-excerpt: ''
+excerpt: Ajoutez un bouton WhatsApp sur votre site web pour convertir plus de visiteurs. Méthodes simples pour WordPress, Wix et HTML. Configuration et meilleures pratiques.
 category: business
 author: Mindzy
-date: ''
+date: '2026-03-08'
 image: /images/fr/blog/bouton-whatsapp-site-web.jpg
 readingTime: 5
-modifiedDate: ''
-wordCount: 0
-tags: []
-keywords: ''
+modifiedDate: '2026-03-08'
+wordCount: 544
+tags: [création de site web, business]
+keywords: création de site web, business
 ---
 
 # Comment afficher un bouton WhatsApp sur son site web ?
