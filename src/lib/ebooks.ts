@@ -23,6 +23,27 @@ export interface EbookTestimonial {
   role: string
 }
 
+export interface EbookCardOverride {
+  badgeLabel?: Partial<Record<Locale, string>>
+  freeLabel?: Partial<Record<Locale, string>>
+  title?: Partial<Record<Locale, string>>
+  hook?: Partial<Record<Locale, string>>
+  description?: Partial<Record<Locale, string>>
+  bullets?: Partial<Record<Locale, string[]>>
+  ctaLabel?: Partial<Record<Locale, string>>
+}
+
+export interface EbookDetailOverride {
+  title?: Partial<Record<Locale, string>>
+  excerpt?: Partial<Record<Locale, string>>
+  featureIntro?: Partial<Record<Locale, string>>
+  features?: Partial<Record<Locale, EbookFeature[]>>
+  testimonial?: Partial<Record<Locale, EbookTestimonial>>
+  bottomCtaTitle?: Partial<Record<Locale, string>>
+  bottomCtaBody?: Partial<Record<Locale, string>>
+  bottomCtaButtonLabel?: Partial<Record<Locale, string>>
+}
+
 export interface Ebook {
   slug: string
   title: Record<Locale, string>
@@ -40,9 +61,13 @@ export interface Ebook {
   testimonial: Record<Locale, EbookTestimonial>
   ctaLink?: string
   free: boolean
+  pdfByLocale?: Partial<Record<Locale, string>>
+  cardOverride?: EbookCardOverride
+  detailOverride?: EbookDetailOverride
 }
 
 export const ebooks: Ebook[] = [
+  // ─── FR: Lancer sa présence digitale ─────────────────────────────────────────
   {
     slug: 'lancer-presence-digitale-2026',
     title: {
@@ -63,10 +88,11 @@ export const ebooks: Ebook[] = [
     pages: 39,
     category: 'marketing',
     tags: ['digital', 'seo', 'stratégie', 'branding'],
-    image: '/images/blog/seo-guide.svg',
+    image: '/images/ebooks/launch-digital-presence-2026.webp',
     publishedDate: '2026-01-01',
     downloadCount: 847,
     free: true,
+    pdfByLocale: { fr: 'lancer-presence-digitale-2026-fr.pdf', en: 'launch-digital-presence-2026-en.pdf', es: 'launch-digital-presence-2026-en.pdf' },
     ctaLink: 'https://calendar.app.google/JyUKfZ6xMRxKySfM9',
     chapters: {
       fr: [
@@ -76,31 +102,34 @@ export const ebooks: Ebook[] = [
         { num: '04', title: 'Votre site web : vitrine ou machine à vendre ?' },
         { num: '05', title: 'Maîtriser les réseaux sociaux' },
         { num: '06', title: 'Acquérir vos premiers clients en ligne' },
-        { num: '07', title: 'Mesurer et piloter vos KPI' },
+        { num: '07', title: 'Mesurer, analyser et piloter les KPI' },
         { num: '08', title: 'Automatisation et intelligence artificielle' },
-        { num: '09', title: 'Plan 90 jours + Lexique complet' },
+        { num: '09', title: 'Votre plan d\'action 90 jours' },
+        { num: '10', title: 'Lexique du digital — De A à Z' },
       ],
       en: [
         { num: '01', title: 'Digital fundamentals in 2026' },
-        { num: '02', title: 'Understanding your target audience' },
+        { num: '02', title: 'Understanding your target audience & persona' },
         { num: '03', title: 'Branding and visual identity' },
         { num: '04', title: 'Your website: showcase or sales machine?' },
         { num: '05', title: 'Mastering social media' },
         { num: '06', title: 'Acquiring your first online clients' },
-        { num: '07', title: 'Measuring and tracking your KPIs' },
+        { num: '07', title: 'Measuring, analyzing and tracking KPIs' },
         { num: '08', title: 'Automation and artificial intelligence' },
-        { num: '09', title: '90-day plan + Complete glossary' },
+        { num: '09', title: 'Your 90-day action plan' },
+        { num: '10', title: 'Digital glossary — A to Z' },
       ],
       es: [
         { num: '01', title: 'Fundamentos digitales en 2026' },
-        { num: '02', title: 'Entender tu público objetivo' },
+        { num: '02', title: 'Entender tu público objetivo y crear tu persona' },
         { num: '03', title: 'Branding e identidad visual' },
         { num: '04', title: 'Tu sitio web: ¿escaparate o máquina de ventas?' },
         { num: '05', title: 'Dominar las redes sociales' },
         { num: '06', title: 'Conseguir tus primeros clientes online' },
-        { num: '07', title: 'Medir y gestionar tus KPI' },
+        { num: '07', title: 'Medir, analizar y gestionar los KPI' },
         { num: '08', title: 'Automatización e inteligencia artificial' },
-        { num: '09', title: 'Plan 90 días + Glosario completo' },
+        { num: '09', title: 'Tu plan de acción de 90 días' },
+        { num: '10', title: 'Glosario digital — De A a Z' },
       ],
     },
     features: {
@@ -134,19 +163,19 @@ export const ebooks: Ebook[] = [
         { value: '150+', label: 'projets livrés' },
         { value: '4.9/5', label: 'satisfaction client' },
         { value: '39', label: 'pages actionnables' },
-        { value: '847', label: 'téléchargements' },
+        { value: '24/7', label: 'support inclus' },
       ],
       en: [
         { value: '150+', label: 'projects delivered' },
         { value: '4.9/5', label: 'client satisfaction' },
         { value: '39', label: 'actionable pages' },
-        { value: '847', label: 'downloads' },
+        { value: '24/7', label: 'support included' },
       ],
       es: [
         { value: '150+', label: 'proyectos entregados' },
         { value: '4.9/5', label: 'satisfacción cliente' },
         { value: '39', label: 'páginas accionables' },
-        { value: '847', label: 'descargas' },
+        { value: '24/7', label: 'soporte incluido' },
       ],
     },
     testimonial: {
@@ -167,123 +196,145 @@ export const ebooks: Ebook[] = [
       },
     },
   },
+
+  // ─── FR: Comprendre le GEO en 2026 (guide d'introduction) ────────────────────
   {
-    slug: 'seo-geo-therapeutes-guide',
+    slug: 'seo-geo-expert-guide',
     title: {
-      fr: 'SEO & GEO pour thérapeutes et praticiens',
-      en: 'SEO & GEO for Therapists and Practitioners',
-      es: 'SEO & GEO para terapeutas y profesionales',
+      fr: 'Comprendre le GEO en 2026',
+      en: 'Understanding GEO in 2026',
+      es: 'Entender el GEO en 2026',
     },
     subtitle: {
-      fr: '28 pages. 8 chapitres. Attirer des clients sans publicité payante.',
-      en: '28 pages. 8 chapters. Attract clients without paid advertising.',
-      es: '28 páginas. 8 capítulos. Atraer clientes sin publicidad pagada.',
+      fr: '9 pages. 5 chapitres. Les fondamentaux pour être cité par ChatGPT, Perplexity et Gemini.',
+      en: '9 pages. 5 chapters. The fundamentals to get cited by ChatGPT, Perplexity and Gemini.',
+      es: '9 páginas. 5 capítulos. Los fundamentos para ser citado por ChatGPT, Perplexity y Gemini.',
     },
     excerpt: {
-      fr: 'Guide pratique pour optimiser votre présence sur Google et les IA. Spécialement conçu pour les thérapeutes, psychologues, coachs et praticiens de santé.',
-      en: 'Practical guide to optimize your presence on Google and AI engines. Specially designed for therapists, psychologists, coaches and health practitioners.',
-      es: 'Guía práctica para optimizar tu presencia en Google y motores de IA. Especialmente diseñada para terapeutas, psicólogos, coaches y profesionales de salud.',
+      fr: 'Guide d\'introduction au Generative Engine Optimization (GEO). Comprenez pourquoi et comment apparaître dans les réponses de ChatGPT, Perplexity, Google AI Overviews et Gemini — et agissez dès aujourd\'hui.',
+      en: 'An introduction to Generative Engine Optimization (GEO). Understand why and how to appear in ChatGPT, Perplexity, Google AI Overviews and Gemini responses — and act today.',
+      es: 'Introducción al Generative Engine Optimization (GEO). Entiende por qué y cómo aparecer en las respuestas de ChatGPT, Perplexity, Google AI Overviews y Gemini — y actúa hoy.',
     },
-    pages: 28,
-    category: 'seo',
-    tags: ['seo', 'geo', 'thérapeutes', 'visibilité'],
-    image: '/images/blog/seo-guide.svg',
+    pages: 9,
+    category: 'geo',
+    tags: ['geo', 'ia', 'chatgpt', 'seo', 'visibilité'],
+    image: '/images/ebooks/understanding-geo-2026.webp',
     publishedDate: '2026-02-01',
     downloadCount: 412,
     free: true,
+    pdfByLocale: { fr: 'seo-geo-expert-guide-fr.pdf', en: 'understanding-geo-2026-en.pdf', es: 'understanding-geo-2026-en.pdf' },
+    ctaLink: 'https://calendar.app.google/JyUKfZ6xMRxKySfM9',
     chapters: {
       fr: [
-        { num: '01', title: 'Comprendre le SEO en 2026' },
-        { num: '02', title: 'Les mots-clés de vos patients' },
-        { num: '03', title: 'Optimiser votre fiche Google Business' },
-        { num: '04', title: 'Rédiger des pages qui classent' },
-        { num: '05', title: 'Le SEO technique pour non-développeurs' },
-        { num: '06', title: 'Être cité par les IA (GEO)' },
-        { num: '07', title: 'Mesurer vos résultats' },
-        { num: '08', title: 'Plan d\'action 60 jours' },
+        { num: 'Intro', title: 'La révolution silencieuse de la recherche' },
+        { num: '01', title: 'Comprendre le GEO — Définitions et fondements' },
+        { num: '02', title: 'Les 7 piliers du GEO — Le Framework RACE' },
+        { num: '03', title: 'Où et comment publier — Les sources citées par les LLM' },
+        { num: '04', title: 'Checklist de démarrage — Les premiers pas' },
+        { num: '05', title: 'Pourquoi agir maintenant — La fenêtre d\'opportunité' },
       ],
       en: [
-        { num: '01', title: 'Understanding SEO in 2026' },
-        { num: '02', title: 'Your patients\' keywords' },
-        { num: '03', title: 'Optimizing your Google Business profile' },
-        { num: '04', title: 'Writing pages that rank' },
-        { num: '05', title: 'Technical SEO for non-developers' },
-        { num: '06', title: 'Being cited by AI engines (GEO)' },
-        { num: '07', title: 'Measuring your results' },
-        { num: '08', title: '60-day action plan' },
+        { num: 'Intro', title: 'The silent revolution of search' },
+        { num: '01', title: 'Understanding GEO — Definitions and foundations' },
+        { num: '02', title: 'The 7 pillars of GEO — The RACE Framework' },
+        { num: '03', title: 'Where and how to publish — Sources cited by LLMs' },
+        { num: '04', title: 'Getting started checklist — First steps' },
+        { num: '05', title: 'Why act now — The opportunity window is closing' },
       ],
       es: [
-        { num: '01', title: 'Entender el SEO en 2026' },
-        { num: '02', title: 'Las palabras clave de tus pacientes' },
-        { num: '03', title: 'Optimizar tu ficha de Google Business' },
-        { num: '04', title: 'Escribir páginas que posicionan' },
-        { num: '05', title: 'SEO técnico para no desarrolladores' },
-        { num: '06', title: 'Ser citado por los motores de IA (GEO)' },
-        { num: '07', title: 'Medir tus resultados' },
-        { num: '08', title: 'Plan de acción 60 días' },
+        { num: 'Intro', title: 'La revolución silenciosa de la búsqueda' },
+        { num: '01', title: 'Entender el GEO — Definiciones y fundamentos' },
+        { num: '02', title: 'Los 7 pilares del GEO — El Framework RACE' },
+        { num: '03', title: 'Dónde y cómo publicar — Las fuentes citadas por los LLM' },
+        { num: '04', title: 'Checklist de inicio — Los primeros pasos' },
+        { num: '05', title: 'Por qué actuar ahora — La ventana de oportunidad' },
       ],
     },
     features: {
       fr: [
-        { num: '01', label: 'SEO LOCAL', title: 'Dominer les recherches locales', desc: 'Techniques pour apparaître en premier quand vos patients cherchent un praticien dans leur ville.' },
-        { num: '02', label: 'GOOGLE', title: 'Fiche Google Business optimisée', desc: 'Guide complet pour créer et optimiser votre fiche Google — photos, avis, catégories, posts.' },
-        { num: '03', label: 'CONTENU', title: 'Rédiger pour vos patients', desc: 'Comment écrire des pages et articles qui répondent aux vraies questions de vos futurs patients.' },
-        { num: '04', label: 'GEO', title: 'Être recommandé par les IA', desc: 'Les techniques pour être cité par ChatGPT, Perplexity et Google AI quand quelqu\'un cherche votre spécialité.' },
-        { num: '05', label: 'TECHNIQUE', title: 'Checklist technique sans code', desc: 'Vitesse, mobile, HTTPS, balisage — tout ce qu\'il faut vérifier sans être développeur.' },
-        { num: '06', label: 'MESURE', title: 'Tableau de bord Search Console', desc: 'Comment lire vos données GSC et prendre les bonnes décisions chaque mois.' },
+        { num: '01', label: 'E-E-A-T', title: 'Autorité et expertise de source', desc: 'Contenu signé par un expert reconnu, cité par des sources autoritaires. Les LLM mesurent votre crédibilité — E-E-A-T n\'est plus optionnel en 2026.' },
+        { num: '02', label: 'STRUCTURE', title: 'Structurer pour être extrait', desc: 'Sous-titres interrogatifs, paragraphes courts (60-100 mots), listes structurées — chaque bloc de contenu doit être extractible de façon autonome par les LLM.' },
+        { num: '03', label: 'SCHEMA', title: 'Schema Markup — parler directement aux IA', desc: 'FAQPage, HowTo, Article, Organization — ces schemas augmentent la citabilité de façon mesurable (+22 % en médiane). Le langage direct des systèmes IA.' },
+        { num: '04', label: 'RACE', title: 'Le Framework RACE expliqué', desc: 'Retrievability, Authoritativeness, Citability, Extractability — les 4 dimensions qui maximisent votre visibilité dans les réponses générées par l\'IA.' },
+        { num: '05', label: 'SOURCES', title: 'Pyramide des sources citées par les LLM', desc: 'De Wikipedia à votre blog — comprendre les 5 niveaux d\'impact et identifier exactement où vous devez être présent pour être cité.' },
+        { num: '06', label: 'CHECKLIST', title: '18 actions à fort impact à lancer', desc: 'Audit technique immédiat, actions contenu J1-J30, mise en place du suivi GEO — une checklist priorisée pour démarrer même avec un budget limité.' },
       ],
       en: [
-        { num: '01', label: 'LOCAL SEO', title: 'Dominate local searches', desc: 'Techniques to appear first when your patients search for a practitioner in their city.' },
-        { num: '02', label: 'GOOGLE', title: 'Optimized Google Business profile', desc: 'Complete guide to create and optimize your Google profile — photos, reviews, categories, posts.' },
-        { num: '03', label: 'CONTENT', title: 'Writing for your patients', desc: 'How to write pages and articles that answer the real questions of your future patients.' },
-        { num: '04', label: 'GEO', title: 'Being recommended by AI', desc: 'Techniques to be cited by ChatGPT, Perplexity and Google AI when someone searches for your specialty.' },
-        { num: '05', label: 'TECHNICAL', title: 'No-code technical checklist', desc: 'Speed, mobile, HTTPS, markup — everything to check without being a developer.' },
-        { num: '06', label: 'METRICS', title: 'Search Console dashboard', desc: 'How to read your GSC data and make the right decisions every month.' },
+        { num: '01', label: 'E-E-A-T', title: 'Authority and source expertise', desc: 'Content signed by a recognized expert, cited by authoritative sources. LLMs measure your credibility — E-E-A-T is no longer optional in 2026.' },
+        { num: '02', label: 'STRUCTURE', title: 'Structure to be extracted', desc: 'Interrogative subheadings, short paragraphs (60-100 words), structured lists — each content block must be extractable independently by LLMs.' },
+        { num: '03', label: 'SCHEMA', title: 'Schema Markup — speak directly to AI', desc: 'FAQPage, HowTo, Article, Organization — these schemas increase citability measurably (+22% median). The direct language of AI systems.' },
+        { num: '04', label: 'RACE', title: 'The RACE Framework explained', desc: 'Retrievability, Authoritativeness, Citability, Extractability — the 4 dimensions that maximize your visibility in AI-generated responses.' },
+        { num: '05', label: 'SOURCES', title: 'The LLM citation source pyramid', desc: 'From Wikipedia to your blog — understand the 5 impact levels and identify exactly where you need to be present to get cited.' },
+        { num: '06', label: 'CHECKLIST', title: '18 high-impact actions to launch', desc: 'Immediate technical audit, content actions D1-D30, GEO tracking setup — a prioritized checklist to start even with a limited budget.' },
       ],
       es: [
-        { num: '01', label: 'SEO LOCAL', title: 'Dominar las búsquedas locales', desc: 'Técnicas para aparecer primero cuando tus pacientes buscan un profesional en su ciudad.' },
-        { num: '02', label: 'GOOGLE', title: 'Ficha de Google Business optimizada', desc: 'Guía completa para crear y optimizar tu ficha de Google — fotos, reseñas, categorías, posts.' },
-        { num: '03', label: 'CONTENIDO', title: 'Escribir para tus pacientes', desc: 'Cómo escribir páginas y artículos que respondan las preguntas reales de tus futuros pacientes.' },
-        { num: '04', label: 'GEO', title: 'Ser recomendado por la IA', desc: 'Técnicas para ser citado por ChatGPT, Perplexity y Google AI cuando alguien busca tu especialidad.' },
-        { num: '05', label: 'TÉCNICO', title: 'Checklist técnica sin código', desc: 'Velocidad, móvil, HTTPS, marcado — todo lo que hay que verificar sin ser desarrollador.' },
-        { num: '06', label: 'MÉTRICAS', title: 'Panel de Search Console', desc: 'Cómo leer tus datos de GSC y tomar las decisiones correctas cada mes.' },
+        { num: '01', label: 'E-E-A-T', title: 'Autoridad y experiencia de fuente', desc: 'Contenido firmado por un experto reconocido, citado por fuentes autoritativas. Los LLM miden tu credibilidad — E-E-A-T ya no es opcional en 2026.' },
+        { num: '02', label: 'ESTRUCTURA', title: 'Estructurar para ser extraído', desc: 'Subtítulos interrogativos, párrafos cortos (60-100 palabras), listas estructuradas — cada bloque de contenido debe ser extraíble de forma autónoma.' },
+        { num: '03', label: 'SCHEMA', title: 'Schema Markup — hablar directamente a las IA', desc: 'FAQPage, HowTo, Article, Organization — estos schemas aumentan la citabilidad de forma medible (+22% en mediana). El idioma directo de los sistemas IA.' },
+        { num: '04', label: 'RACE', title: 'El Framework RACE explicado', desc: 'Retrievability, Authoritativeness, Citability, Extractability — las 4 dimensiones que maximizan tu visibilidad en las respuestas generadas por IA.' },
+        { num: '05', label: 'FUENTES', title: 'Pirámide de fuentes citadas por los LLM', desc: 'De Wikipedia a tu blog — comprender los 5 niveles de impacto e identificar exactamente dónde debes estar presente para ser citado.' },
+        { num: '06', label: 'CHECKLIST', title: '18 acciones de alto impacto', desc: 'Auditoría técnica inmediata, acciones de contenido D1-D30, configuración del seguimiento GEO — una checklist priorizada para empezar incluso con presupuesto limitado.' },
       ],
     },
     stats: {
       fr: [
-        { value: '28', label: 'pages pratiques' },
-        { value: '8', label: 'chapitres' },
-        { value: '60j', label: 'plan d\'action' },
-        { value: '412', label: 'téléchargements' },
+        { value: '900M', label: 'utilisateurs hebdo ChatGPT' },
+        { value: '+527%', label: 'trafic IA en 5 mois' },
+        { value: '~60%', label: 'recherches sans clic' },
+        { value: '89%', label: 'acheteurs B2B utilisent l\'IA' },
       ],
       en: [
-        { value: '28', label: 'practical pages' },
-        { value: '8', label: 'chapters' },
-        { value: '60d', label: 'action plan' },
-        { value: '412', label: 'downloads' },
+        { value: '900M', label: 'weekly ChatGPT users' },
+        { value: '+527%', label: 'AI traffic in 5 months' },
+        { value: '~60%', label: 'zero-click searches' },
+        { value: '89%', label: 'B2B buyers use AI' },
       ],
       es: [
-        { value: '28', label: 'páginas prácticas' },
-        { value: '8', label: 'capítulos' },
-        { value: '60d', label: 'plan de acción' },
-        { value: '412', label: 'descargas' },
+        { value: '900M', label: 'usuarios semanales ChatGPT' },
+        { value: '+527%', label: 'tráfico IA en 5 meses' },
+        { value: '~60%', label: 'búsquedas sin clic' },
+        { value: '89%', label: 'compradores B2B usan IA' },
       ],
     },
     testimonial: {
       fr: {
-        quote: '« Grâce à ce guide, ma fiche Google est passée de 3 à 47 avis et j\'ai doublé mes consultations en 4 mois. Tout est expliqué simplement. »',
+        quote: '« Grâce à ce guide, j\'ai compris comment structurer mon contenu pour être cité par ChatGPT. En 8 semaines, mon cabinet apparaît dans les réponses IA pour 60 % de mes requêtes cibles. »',
         author: 'Marie-Laure B.',
         role: 'Psychologue, Bordeaux',
       },
       en: {
-        quote: '"Thanks to this guide, my Google profile went from 3 to 47 reviews and I doubled my consultations in 4 months. Everything is explained simply."',
+        quote: '"Thanks to this guide, I understood how to structure my content to be cited by ChatGPT. Within 8 weeks, my practice appears in AI responses for 60% of my target queries."',
         author: 'Marie-Laure B.',
         role: 'Psychologist, Bordeaux',
       },
       es: {
-        quote: '"Gracias a esta guía, mi ficha de Google pasó de 3 a 47 reseñas y dupliqué mis consultas en 4 meses. Todo está explicado de forma sencilla."',
+        quote: '"Gracias a esta guía, entendí cómo estructurar mi contenido para ser citado por ChatGPT. En 8 semanas, mi consulta aparece en respuestas IA para el 60% de mis consultas objetivo."',
         author: 'Marie-Laure B.',
         role: 'Psicóloga, Bordeaux',
+      },
+    },
+    cardOverride: {
+      badgeLabel: { en: 'GEO' },
+      freeLabel: { en: 'FREE' },
+      title: { en: 'Understanding GEO in 2026' },
+      hook: { en: 'Why ChatGPT may never mention your business — and how to fix it.' },
+      description: {
+        en: 'GEO (Generative Engine Optimization) is the new discipline that determines whether AI engines recommend you or your competitors. This intro guide covers the fundamentals.',
+      },
+      bullets: {
+        en: [
+          'GEO vs SEO — the key differences',
+          'The 7 pillars and RACE framework',
+          'Where LLMs find their sources',
+          '18-action starter checklist',
+        ],
+      },
+      ctaLabel: { en: 'Get the free guide' },
+    },
+    detailOverride: {
+      title: { en: 'Understanding GEO in 2026' },
+      excerpt: {
+        en: 'GEO (Generative Engine Optimization) is the new discipline that determines whether AI engines recommend you or your competitors. Learn the fundamentals — and act now while the window is open.',
       },
     },
   },

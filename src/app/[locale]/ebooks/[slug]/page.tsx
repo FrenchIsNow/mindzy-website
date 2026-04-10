@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n'
 import { getEbook, getAllEbookSlugs } from '@/lib/ebooks'
 import { EbookDownloadForm } from '@/components/features/EbookDownloadForm'
-import { CalendlyLink } from '@/components/ui/CalendlyLink'
 import { config } from '@/lib/config'
 
 export function generateStaticParams() {
@@ -54,11 +54,9 @@ const pageMeta: Record<string, {
   downloadsLabel: string
   publishedLabel: string
   whatYouLearnLabel: string
-  bookCtaLabel: string
-  bookSectionTitle: string
 }> = {
   fr: {
-    backLabel: '← Tous les guides',
+    backLabel: 'Tous les guides',
     freeLabel: 'Gratuit',
     downloadLabel: 'Télécharger gratuitement',
     contentsLabel: 'Au programme',
@@ -91,11 +89,9 @@ const pageMeta: Record<string, {
     downloadsLabel: 'téléchargements',
     publishedLabel: 'Publié le',
     whatYouLearnLabel: 'Ce que vous allez apprendre',
-    bookCtaLabel: 'Prendre un rendez-vous',
-    bookSectionTitle: 'Réserver un créneau',
   },
   en: {
-    backLabel: '← All guides',
+    backLabel: 'All guides',
     freeLabel: 'Free',
     downloadLabel: 'Download for free',
     contentsLabel: 'In this guide',
@@ -128,11 +124,9 @@ const pageMeta: Record<string, {
     downloadsLabel: 'downloads',
     publishedLabel: 'Published on',
     whatYouLearnLabel: 'What you will learn',
-    bookCtaLabel: 'Book a call',
-    bookSectionTitle: 'Book a slot',
   },
   es: {
-    backLabel: '← Todas las guías',
+    backLabel: 'Todas las guías',
     freeLabel: 'Gratis',
     downloadLabel: 'Descargar gratis',
     contentsLabel: 'En esta guía',
@@ -165,8 +159,6 @@ const pageMeta: Record<string, {
     downloadsLabel: 'descargas',
     publishedLabel: 'Publicado el',
     whatYouLearnLabel: 'Lo que aprenderás',
-    bookCtaLabel: 'Reservar una cita',
-    bookSectionTitle: 'Reservar un hueco',
   },
 }
 
@@ -191,10 +183,31 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
 
   const l = locale as Locale
   const meta = pageMeta[locale] || pageMeta.fr
-  const title = ebook.title[l] || ebook.title.fr
-  const excerpt = ebook.excerpt[l] || ebook.excerpt.fr
-  const testimonial = ebook.testimonial[l] || ebook.testimonial.fr
-  const features = ebook.features[l] || ebook.features.fr
+  const detailOverride = ebook.detailOverride
+  const title = detailOverride?.title?.[l] || ebook.title[l] || ebook.title.fr
+  const excerpt = detailOverride?.excerpt?.[l] || ebook.excerpt[l] || ebook.excerpt.fr
+  const testimonial = detailOverride?.testimonial?.[l] || ebook.testimonial[l] || ebook.testimonial.fr
+  const features = detailOverride?.features?.[l] || ebook.features[l] || ebook.features.fr
+  const featureIntro = detailOverride?.featureIntro?.[l] || meta.featuresLabel
+  const defaultBottomTitle = locale === 'fr'
+    ? 'Prêt à passer à l\'étape suivante ?'
+    : locale === 'es'
+      ? '¿Listo para dar el siguiente paso?'
+      : 'Ready to take the next step?'
+  const defaultBottomBody = locale === 'fr'
+    ? 'Appliquez ce guide avec l\'accompagnement de l\'équipe Mindzy. Réservez un appel découverte gratuit.'
+    : locale === 'es'
+      ? 'Aplica esta guía con el acompañamiento del equipo Mindzy. Reserva una llamada de descubrimiento gratuita.'
+      : 'Apply this guide with the Mindzy team. Book a free discovery call.'
+  const defaultBottomButtonLabel = locale === 'fr'
+    ? 'Réserver un appel gratuit'
+    : locale === 'es'
+      ? 'Reservar una llamada gratuita'
+      : 'Book a free call'
+  const bottomCtaTitle = detailOverride?.bottomCtaTitle?.[l] || defaultBottomTitle
+  const bottomCtaBody = detailOverride?.bottomCtaBody?.[l] || defaultBottomBody
+  const bottomCtaButtonLabel = detailOverride?.bottomCtaButtonLabel?.[l] || defaultBottomButtonLabel
+  const pdfPath = `/ebooks/${ebook.pdfByLocale?.[l] ?? `${slug}-fr.pdf`}`
 
   const breadcrumbJsonLd = jsonLdBreadcrumb([
     { name: locale === 'fr' ? 'Accueil' : locale === 'es' ? 'Inicio' : 'Home', url: `https://mindzy.me/${locale}` },
@@ -247,11 +260,14 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
             <p className="body-large text-gray-500 mb-8 text-pretty max-w-xl">{excerpt}</p>
 
             {/* Ebook image */}
-            <div className="mb-10 max-w-sm">
-              <img
+            <div className="mb-10">
+              <Image
                 src={ebook.image}
                 alt={title}
+                width={2368}
+                height={1792}
                 className="w-full h-auto rounded-2xl border border-gray-100 shadow-md object-cover"
+                priority
               />
             </div>
 
@@ -279,6 +295,7 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
               <EbookDownloadForm
                 slug={slug}
                 locale={locale}
+                pdfPath={pdfPath}
                 ctaLink={ebook.ctaLink || config.CALENDLY_URL}
                 labels={{
                   badge: meta.badgeLabel,
@@ -327,7 +344,7 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
       {/* What you will learn / Features */}
       <div className="container-wide mb-20">
         <h2 className="heading-2 text-anthracite text-balance mb-2">{meta.whatYouLearnLabel}</h2>
-        <p className="text-gray-500 mb-10">{meta.featuresLabel}</p>
+        <p className="text-gray-500 mb-10">{featureIntro}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f) => (
             <div
@@ -355,23 +372,6 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
         <div className="divider mb-20" />
       </div>
 
-      {/* Booking: CTA + embedded agenda */}
-      <div className="container-wide">
-        <div className="text-center mb-10">
-          <h2 className="heading-2 text-anthracite text-balance mb-4">{meta.bookSectionTitle}</h2>
-          <CalendlyLink
-            href={config.CALENDLY_URL}
-            trackSource="ebook_detail"
-            className="inline-flex items-center gap-2.5 px-8 py-4 bg-violet text-white font-bold text-sm rounded-full hover:bg-violet-600 transition-colors duration-200"
-          >
-            {meta.bookCtaLabel}
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </CalendlyLink>
-        </div>
-      </div>
-
       {/* Bottom CTA */}
       <div className="container-wide mt-24">
         <div className="bg-gradient-to-br from-anthracite via-anthracite to-violet/80 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
@@ -384,14 +384,10 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
           <div className="relative">
             <p className="text-violet-300 text-sm font-semibold tracking-widest uppercase mb-4">Mindzy</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 text-balance">
-              {locale === 'fr' ? 'Prêt à passer à l\'étape suivante ?' : locale === 'es' ? '¿Listo para dar el siguiente paso?' : 'Ready to take the next step?'}
+              {bottomCtaTitle}
             </h2>
             <p className="text-gray-300 text-base mb-8 max-w-xl mx-auto">
-              {locale === 'fr'
-                ? 'Appliquez ce guide avec l\'accompagnement de l\'équipe Mindzy. Réservez un appel découverte gratuit.'
-                : locale === 'es'
-                ? 'Aplica esta guía con el acompañamiento del equipo Mindzy. Reserva una llamada de descubrimiento gratuita.'
-                : 'Apply this guide with the Mindzy team. Book a free discovery call.'}
+              {bottomCtaBody}
             </p>
             <Link
               href={ebook.ctaLink || `/${locale}/diagnostic`}
@@ -399,7 +395,7 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
               rel={ebook.ctaLink ? 'noopener noreferrer' : undefined}
               className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-anthracite font-bold text-sm rounded-full hover:bg-violet-50 transition-colors duration-200 cursor-pointer"
             >
-              {locale === 'fr' ? 'Réserver un appel gratuit' : locale === 'es' ? 'Reservar una llamada gratuita' : 'Book a free call'}
+              {bottomCtaButtonLabel}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

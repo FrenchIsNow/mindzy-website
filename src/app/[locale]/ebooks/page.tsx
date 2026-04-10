@@ -87,9 +87,24 @@ export default async function EbooksPage({ params }: { params: Promise<{ locale:
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {ebooks.map((ebook) => {
-            const title = ebook.title[locale as Locale] || ebook.title.fr
-            const excerpt = ebook.excerpt[locale as Locale] || ebook.excerpt.fr
-            const chapters = ebook.chapters[locale as Locale] || ebook.chapters.fr
+            const localeKey = locale as Locale
+            const title = ebook.title[localeKey] || ebook.title.fr
+            const excerpt = ebook.excerpt[localeKey] || ebook.excerpt.fr
+            const chapters = ebook.chapters[localeKey] || ebook.chapters.fr
+            const cardOverride = ebook.cardOverride
+            const badgeLabel = cardOverride?.badgeLabel?.[localeKey] || ebook.category
+            const freeLabel = cardOverride?.freeLabel?.[localeKey] || meta.freeLabel
+            const cardTitle = cardOverride?.title?.[localeKey] || title
+            const cardHook = cardOverride?.hook?.[localeKey]
+            const cardDescription = cardOverride?.description?.[localeKey] || excerpt
+            const cardBullets = cardOverride?.bullets?.[localeKey]
+            const chapterPreview = cardBullets
+              ? cardBullets.map((bullet, index) => ({
+                num: String(index + 1).padStart(2, '0'),
+                title: bullet,
+              }))
+              : chapters.slice(0, 4)
+            const ctaLabel = cardOverride?.ctaLabel?.[localeKey] || meta.downloadLabel
 
             return (
               <article key={ebook.slug} className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all duration-300 hover:-translate-y-1 flex flex-col">
@@ -100,28 +115,35 @@ export default async function EbooksPage({ params }: { params: Promise<{ locale:
                   {/* Meta row */}
                   <div className="flex items-center gap-3 mb-5">
                     <Badge variant={categoryColors[ebook.category] || 'default'} size="sm" className="capitalize">
-                      {ebook.category}
+                      {badgeLabel}
                     </Badge>
                     {ebook.free && (
                       <span className="inline-flex items-center gap-1 text-xs font-semibold text-sage-700 bg-sage-50 border border-sage-100 px-2.5 py-1 rounded-full">
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                         </svg>
-                        {meta.freeLabel}
+                        {freeLabel}
                       </span>
                     )}
                   </div>
 
                   {/* Title */}
                   <h2 className="font-display text-2xl font-semibold text-anthracite tracking-tight leading-snug mb-3 group-hover:text-violet transition-colors duration-200">
-                    {title}
+                    {cardTitle}
                   </h2>
 
-                  <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">{excerpt}</p>
+                  {cardHook && (
+                    <p className="text-anthracite text-sm font-medium leading-relaxed mb-3">
+                      {cardHook}
+                    </p>
+                  )}
+                  <p className={`text-gray-500 text-sm leading-relaxed mb-6 ${cardHook ? '' : 'line-clamp-3'}`}>
+                    {cardDescription}
+                  </p>
 
                   {/* Chapter preview */}
                   <ul className="space-y-2 mb-8">
-                    {chapters.slice(0, 4).map((ch) => (
+                    {chapterPreview.map((ch) => (
                       <li key={ch.num} className="flex items-center gap-3 text-sm">
                         <span className="font-mono text-[11px] font-bold text-violet/60 w-6 shrink-0">{ch.num}</span>
                         <span className="text-gray-600 truncate">{ch.title}</span>
@@ -130,7 +152,7 @@ export default async function EbooksPage({ params }: { params: Promise<{ locale:
                         </svg>
                       </li>
                     ))}
-                    {chapters.length > 4 && (
+                    {!cardBullets && chapters.length > 4 && (
                       <li className="text-xs text-gray-400 pl-9">+{chapters.length - 4} {locale === 'fr' ? 'chapitres supplémentaires' : locale === 'es' ? 'capítulos más' : 'more chapters'}</li>
                     )}
                   </ul>
@@ -156,7 +178,7 @@ export default async function EbooksPage({ params }: { params: Promise<{ locale:
                     href={`/${locale}/ebooks/${ebook.slug}`}
                     className="mt-auto w-full py-3.5 bg-anthracite text-white font-semibold text-sm rounded-xl text-center transition-all duration-200 hover:bg-violet hover:shadow-lg hover:shadow-violet/20 flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    {meta.downloadLabel}
+                    {ctaLabel}
                     <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
