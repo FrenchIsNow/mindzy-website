@@ -6,6 +6,7 @@ import Link from 'next/link'
 interface EbookDownloadFormProps {
   slug: string
   locale: string
+  pdfPath?: string
   ctaLink?: string
   labels: {
     badge: string
@@ -38,7 +39,7 @@ function isValidEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
 }
 
-export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownloadFormProps) {
+export function EbookDownloadForm({ slug, locale, pdfPath, ctaLink, labels }: EbookDownloadFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -85,10 +86,10 @@ export function EbookDownloadForm({ slug, locale, ctaLink, labels }: EbookDownlo
     }
     setLoading(false)
     setSuccess(true)
-    const pdfUrl = `/ebooks/${slug}.pdf`
+    const pdfUrl = pdfPath ?? `/ebooks/${slug}-fr.pdf`
     const link = document.createElement('a')
     link.href = pdfUrl
-    link.download = `${slug}.pdf`
+    link.download = pdfUrl.split('/').pop() ?? `${slug}.pdf`
     link.target = '_blank'
     document.body.appendChild(link)
     link.click()
