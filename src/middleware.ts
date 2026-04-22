@@ -17,6 +17,9 @@ export function middleware(request: NextRequest) {
   if (pathnameHasLocale) return NextResponse.next()
   if (pathname.startsWith('/api/') || pathname.startsWith('/_next/') || pathname.includes('.') || pathname === '/favicon.ico')
     return NextResponse.next()
+  // Profile pages — no locale redirect
+  if (pathname === '/cocotier' || pathname === '/martel')
+    return NextResponse.next()
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)
