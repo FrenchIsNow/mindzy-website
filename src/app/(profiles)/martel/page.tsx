@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 // ── Replace placeholders with real values ──────────────────────────────────
 const LINKS = {
-  whatsapp: 'https://wa.me/33XXXXXXXXXX',
-  linkedin: 'https://linkedin.com/in/william-martel',
-  wechat_id: 'william_martel',
+  whatsapp: 'https://wa.me/33682765387',
+  linkedin: 'https://www.linkedin.com/in/williamartel/',
+  wechat_id: 'Mr_Denze',
 }
 // ──────────────────────────────────────────────────────────────────────────
 
@@ -18,11 +18,10 @@ export default function MartelPage() {
   return (
     <ProfileCard
       name="William Martel"
-      role="Co-Founder"
+      title="CFO & Co-Founder"
+      subtitle="Fund Advisor"
       company="Mindzy"
       initials="WM"
-      gradientFrom="#6D28D9"
-      gradientTo="#8B5CF6"
       links={[
         { platform: 'whatsapp', label: 'WhatsApp', href: LINKS.whatsapp, icon: 'whatsapp', color: '#25D366' },
         { platform: 'linkedin', label: 'LinkedIn', href: LINKS.linkedin, icon: 'linkedin', color: '#0A66C2' },

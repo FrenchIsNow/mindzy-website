@@ -8,5 +8,10 @@ build
 *.pem
 .env
 .env*.local
+.env*.prod
+.env*.
+
 .vercel
 *.tsbuildinfo
+
+

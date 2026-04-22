@@ -10,11 +10,10 @@ type LinkItem = {
 
 interface ProfileCardProps {
   name: string
-  role: string
+  title: string        // e.g. "CEO & Co-Founder"
+  subtitle: string     // e.g. "AI Expert"
   company: string
   initials: string
-  gradientFrom: string
-  gradientTo: string
   links: LinkItem[]
 }
 
@@ -29,7 +28,6 @@ function PlatformIcon({ icon }: { icon: LinkItem['icon'] }) {
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
     </svg>
   )
-  // wechat
   return (
     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
       <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.328.328 0 00.186-.065l1.755-1.025a.868.868 0 01.421-.111c.113 0 .226.017.334.048a6.37 6.37 0 001.928.3c.23 0 .455-.014.678-.039-.229-.661-.351-1.362-.351-2.09 0-3.747 3.56-6.787 7.952-6.787.276 0 .548.017.815.048C15.636 4.685 12.432 2.188 8.69 2.188zm-2.49 3.309c.546 0 .99.444.99.99a.99.99 0 01-.99.99.99.99 0 01-.99-.99c0-.546.443-.99.99-.99zm4.962 0c.547 0 .99.444.99.99a.99.99 0 01-.99.99.99.99 0 01-.99-.99c0-.546.444-.99.99-.99zM15.07 9.178c-3.735 0-6.762 2.666-6.762 5.954 0 3.286 3.027 5.952 6.762 5.952.724 0 1.42-.1 2.072-.282a.768.768 0 01.368.043l1.496.875a.28.28 0 00.158.054.252.252 0 00.25-.252c0-.062-.025-.12-.04-.181l-.334-1.262a.508.508 0 01.183-.568C20.573 18.42 21.83 16.78 21.83 14.9c-.001-3.288-3.028-5.722-6.76-5.722zm-2.34 2.872c.468 0 .846.38.846.846a.846.846 0 01-.846.846.847.847 0 01-.847-.846c0-.467.38-.846.847-.846zm4.666 0c.467 0 .846.38.846.846a.846.846 0 01-.846.846.847.847 0 01-.847-.846c0-.467.38-.846.847-.846z"/>
@@ -37,77 +35,84 @@ function PlatformIcon({ icon }: { icon: LinkItem['icon'] }) {
   )
 }
 
-export function ProfileCard({
-  name, role, company, initials, gradientFrom, gradientTo, links,
-}: ProfileCardProps) {
-
+export function ProfileCard({ name, title, subtitle, company, initials, links }: ProfileCardProps) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
-      style={{ background: 'linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 50%, #0f0f1a 100%)' }}>
-
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
+      style={{ background: '#1A1A2E' }}
+    >
       {/* Glow blobs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[10%] w-[500px] h-[500px] rounded-full opacity-10 blur-3xl"
-          style={{ background: gradientFrom }} />
-        <div className="absolute bottom-[-10%] right-[5%] w-[400px] h-[400px] rounded-full opacity-10 blur-3xl"
-          style={{ background: gradientTo }} />
+        <div className="absolute top-[-10%] left-[20%] w-[420px] h-[420px] rounded-full opacity-[0.07] blur-3xl" style={{ background: '#7C3AED' }} />
+        <div className="absolute bottom-[-5%] right-[10%] w-[320px] h-[320px] rounded-full opacity-[0.06] blur-3xl" style={{ background: '#A78BFA' }} />
       </div>
 
-      <div className="relative w-full max-w-sm mx-auto flex flex-col gap-4">
+      <div className="relative w-full max-w-sm mx-auto flex flex-col gap-3">
 
         {/* Header card */}
-        <div className="rounded-3xl overflow-hidden text-center"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(20px)' }}>
-          {/* Gradient strip */}
-          <div className="h-20" style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }} />
+        <div className="rounded-3xl overflow-hidden text-center" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(124,58,237,0.25)' }}>
+          {/* Violet gradient strip */}
+          <div className="h-20" style={{ background: 'linear-gradient(135deg, #7C3AED, #A78BFA)' }} />
           {/* Avatar */}
           <div className="-mt-10 flex justify-center mb-4">
-            <div className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-2xl ring-4 ring-[#0f0f1a]"
-              style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}>
+            <div
+              className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-2xl"
+              style={{ background: 'linear-gradient(135deg, #7C3AED, #5B21B6)', border: '4px solid #1A1A2E' }}
+            >
               {initials}
             </div>
           </div>
           <div className="px-6 pb-6">
             <h1 className="text-xl font-bold text-white mb-1">{name}</h1>
-            <p className="text-sm font-medium" style={{ color: gradientFrom }}>{role}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{company}</p>
+            <p className="text-sm font-semibold" style={{ color: '#A78BFA' }}>{title}</p>
+            <p className="text-xs mt-1 font-medium" style={{ color: 'rgba(167,139,250,0.6)' }}>{subtitle}</p>
+            <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.3)' }}>{company}</p>
           </div>
         </div>
 
         {/* Links */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
           {links.map((link) => (
             <a
               key={link.platform}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 px-5 py-4 rounded-2xl font-medium text-sm text-white transition-all duration-200 active:scale-95 hover:opacity-90"
-              style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(10px)',
-              }}
+              className="flex items-center gap-4 px-5 py-3.5 rounded-2xl text-sm text-white transition-all duration-200 active:scale-95"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(124,58,237,0.2)' }}
             >
-              <span className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-white"
-                style={{ background: link.color }}>
+              <span
+                className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-white"
+                style={{ background: link.color }}
+              >
                 <PlatformIcon icon={link.icon} />
               </span>
-              <span className="flex-1 text-left">{link.label}</span>
-              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="flex-1 text-left font-medium">{link.label}</span>
+              <svg className="w-4 h-4" style={{ color: 'rgba(167,139,250,0.5)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </a>
           ))}
         </div>
 
-        {/* Mindzy branding */}
-        <div className="text-center pt-2">
-          <Link href="https://mindzy.me" target="_blank" className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-gray-300 transition-colors">
-            <span>Propulsé par</span>
-            <span className="font-semibold text-gray-300">Mindzy</span>
-          </Link>
-        </div>
+        {/* Mindzy CTA button */}
+        <Link
+          href="https://mindzy.me"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all duration-200 active:scale-95 hover:opacity-90"
+          style={{ background: 'linear-gradient(135deg, #7C3AED, #5B21B6)', border: '1px solid rgba(124,58,237,0.4)' }}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+          Découvrir Mindzy
+        </Link>
+
+        {/* Branding */}
+        <p className="text-center text-[11px] pt-1" style={{ color: 'rgba(255,255,255,0.2)' }}>
+          mindzy.me
+        </p>
       </div>
     </div>
   )

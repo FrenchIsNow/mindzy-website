@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
         destination: '/:locale/diagnostic',
         permanent: true,
       },
+      {
+        source: '/:locale(fr|en|es)/ebooks/seo-geo-therapeutes-guide',
+        destination: '/:locale/ebooks/seo-geo-expert-guide',
+        permanent: true,
+      },
+      {
+        source: '/ebooks/seo-geo-therapeutes-guide.pdf',
+        destination: '/ebooks/seo-geo-expert-guide.pdf',
+        permanent: true,
+      },
     ]
   },
   async headers() {

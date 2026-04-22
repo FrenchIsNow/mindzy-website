@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 // ── Replace placeholders with real values ──────────────────────────────────
 const LINKS = {
-  whatsapp: 'https://wa.me/33XXXXXXXXXX',
-  linkedin: 'https://linkedin.com/in/romuald-cocotier',
-  wechat_id: 'romuald_cocotier',
+  whatsapp: 'https://wa.me/33767546794',
+  linkedin: 'https://www.linkedin.com/in/r-cocotier/',
+  wechat_id: 'Mr_cocotier',
 }
 // ──────────────────────────────────────────────────────────────────────────
 
@@ -18,15 +18,14 @@ export default function CocotierPage() {
   return (
     <ProfileCard
       name="Romuald Cocotier"
-      role="Founder & AI Expert"
+      title="CEO & Co-Founder"
+      subtitle="AI Expert"
       company="Mindzy"
       initials="RC"
-      gradientFrom="#7C3AED"
-      gradientTo="#4F46E5"
       links={[
         { platform: 'whatsapp', label: 'WhatsApp', href: LINKS.whatsapp, icon: 'whatsapp', color: '#25D366' },
         { platform: 'linkedin', label: 'LinkedIn', href: LINKS.linkedin, icon: 'linkedin', color: '#0A66C2' },
-        { platform: 'wechat', label: `WeChat: ${LINKS.wechat_id}`, href: `weixin://dl/chat?${LINKS.wechat_id}`, icon: 'wechat', color: '#07C160' },
+        { platform: 'wechat', label: `WeChat`, href: `weixin://dl/chat?${LINKS.wechat_id}`, icon: 'wechat', color: '#07C160' },
       ]}
     />
   )
