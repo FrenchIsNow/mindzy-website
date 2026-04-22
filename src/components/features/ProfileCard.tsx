@@ -42,6 +42,11 @@ function PlatformIcon({ icon }: { icon: LinkItem['icon'] }) {
 export function ProfileCard({
   name, role, company, initials, gradientFrom, gradientTo, links, qrSvg, pageUrl,
 }: ProfileCardProps) {
+  // Make QR SVG responsive — strip fixed width/height, keep viewBox
+  const responsiveQr = qrSvg
+    .replace(/width="\d+"/, 'width="100%"')
+    .replace(/height="\d+"/, 'height="100%"')
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
       style={{ background: 'linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 50%, #0f0f1a 100%)' }}>
@@ -103,13 +108,13 @@ export function ProfileCard({
         </div>
 
         {/* QR Code card */}
-        <div className="rounded-3xl p-6 text-center flex flex-col items-center gap-3"
+        <div className="rounded-3xl p-6 text-center flex flex-col items-center gap-4"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
           <p className="text-xs font-semibold tracking-widest uppercase text-gray-400">Scanner pour partager</p>
           <div
-            className="w-[180px] h-[180px] rounded-2xl overflow-hidden p-2"
-            style={{ background: '#f5f0ff' }}
-            dangerouslySetInnerHTML={{ __html: qrSvg }}
+            className="rounded-2xl p-3"
+            style={{ background: '#f5f0ff', width: 220, height: 220 }}
+            dangerouslySetInnerHTML={{ __html: responsiveQr }}
           />
           <p className="text-[11px] text-gray-500 break-all">{pageUrl}</p>
         </div>
