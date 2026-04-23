@@ -64,16 +64,33 @@ export function getBlogPosts(locale: Locale): BlogPostMeta[] {
 }
 
 /**
- * Get a single blog post by slug
+ * Get a single blog post by slug.
+ * First tries an exact filename match ({slug}.md), then falls back to scanning
+ * frontmatter slugs — needed when the filename and the slug: field differ.
  */
 export function getBlogPost(locale: Locale, slug: string): BlogPostFull | null {
-  const filePath = path.join(BLOG_DIR, locale, `${slug}.md`)
+  const dir = path.join(BLOG_DIR, locale)
 
-  if (!fs.existsSync(filePath)) {
-    return null
+  // Fast path: filename matches slug exactly
+  const directPath = path.join(dir, `${slug}.md`)
+  let resolvedPath = fs.existsSync(directPath) ? directPath : null
+
+  // Slow path: scan all files for a matching frontmatter slug
+  if (!resolvedPath && fs.existsSync(dir)) {
+    for (const filename of fs.readdirSync(dir).filter(f => f.endsWith('.md'))) {
+      const fp = path.join(dir, filename)
+      const raw = fs.readFileSync(fp, 'utf-8')
+      const { data } = matter(raw)
+      if ((data.slug || filename.replace('.md', '')) === slug) {
+        resolvedPath = fp
+        break
+      }
+    }
   }
 
-  const fileContent = fs.readFileSync(filePath, 'utf-8')
+  if (!resolvedPath) return null
+
+  const fileContent = fs.readFileSync(resolvedPath, 'utf-8')
   const { data, content } = matter(fileContent)
 
   return {
