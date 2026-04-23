@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { getMessages } from '@/lib/getMessages'
-import { getBlogPost, getAllPostSlugs, getRelatedPosts } from '@/lib/blog'
+import { getRelatedPosts } from '@/lib/blog'
+import { getPublicBlogPost, getAllPublicBlogSlugs } from '@/lib/blog-resolver'
 import type { Locale } from '@/lib/i18n'
 import { BlogContent } from '@/components/features/BlogContent'
 import { TableOfContents, ReadingProgress } from '@/components/features/TableOfContents'
@@ -13,8 +14,11 @@ import { ShareButtons } from '@/components/features/ShareButtons'
 import { buildPageMetadata, jsonLdBlogPosting, jsonLdBreadcrumb, jsonLdFaqPage, JsonLd } from '@/lib/seo'
 
 export async function generateStaticParams() {
-  return getAllPostSlugs()
+  return getAllPublicBlogSlugs()
 }
+
+// Allow slugs unknown at build time (newly-published DB articles) to render on demand.
+export const dynamicParams = true
 
 /** Extract FAQ Q&A pairs from markdown content (## FAQ heading followed by ### Q / answer blocks) */
 function extractFaqPairs(content: string): { question: string; answer: string }[] {
@@ -39,7 +43,7 @@ function extractFaqPairs(content: string): { question: string; answer: string }[
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params
-  const post = getBlogPost(locale as Locale, slug)
+  const post = await getPublicBlogPost(locale as Locale, slug)
   if (!post) return { title: 'Article' }
   return buildPageMetadata({
     locale: locale as Locale,
@@ -67,7 +71,7 @@ const copiedLabels: Record<string, string> = { fr: 'Copie !', en: 'Copied!', es:
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params
-  const post = getBlogPost(locale as Locale, slug)
+  const post = await getPublicBlogPost(locale as Locale, slug)
   if (!post) notFound()
 
   const t = getMessages(locale as Locale).blog

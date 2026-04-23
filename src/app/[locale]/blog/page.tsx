@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { getMessages } from '@/lib/getMessages'
-import { getBlogPosts, getBlogCategories } from '@/lib/blog'
+import { getBlogCategories } from '@/lib/blog'
+import { getAllPublicBlogPosts } from '@/lib/blog-resolver'
 import type { Locale } from '@/lib/i18n'
 import { buildPageMetadata, jsonLdBreadcrumb, jsonLdCollectionPage, JsonLd } from '@/lib/seo'
 import { BlogCategoryFilter } from '@/components/features/BlogCategoryFilter'
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = getMessages(locale as Locale).blog
-  const posts = getBlogPosts(locale as Locale)
+  const posts = await getAllPublicBlogPosts(locale as Locale)
   const categories = getBlogCategories(locale as Locale)
 
   const collectionJsonLd = jsonLdCollectionPage(

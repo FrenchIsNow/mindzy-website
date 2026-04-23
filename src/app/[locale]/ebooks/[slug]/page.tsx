@@ -5,8 +5,7 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n'
-import { getEbook, getAllEbookSlugs } from '@/lib/ebooks'
-import { resolvePublicEbook, getAllResolvedEbookSlugs } from '@/lib/ebook-resolver'
+import { resolvePublicEbook, getAllResolvedEbookSlugs, resolveEbookPricing } from '@/lib/ebook-resolver'
 import { EbookDownloadForm } from '@/components/features/EbookDownloadForm'
 import { config } from '@/lib/config'
 
@@ -14,6 +13,9 @@ export async function generateStaticParams() {
   const slugs = await getAllResolvedEbookSlugs()
   return slugs.map(slug => ({ slug }))
 }
+
+// Allow slugs unknown at build time (newly-created DB ebooks) to render on demand.
+export const dynamicParams = true
 
 const categoryColors: Record<string, 'default' | 'primary' | 'success' | 'violet'> = {
   seo: 'primary',
@@ -183,6 +185,8 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
   const ebook = await resolvePublicEbook(slug) as (Awaited<ReturnType<typeof resolvePublicEbook>> & { _dbPdfUrl?: string }) | null
   if (!ebook) notFound()
 
+  const pricing = await resolveEbookPricing(slug, { staticFree: ebook.free })
+
   const l = locale as Locale
   const meta = pageMeta[locale] || pageMeta.fr
   const detailOverride = ebook.detailOverride
@@ -246,14 +250,23 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
               <Badge variant={categoryColors[ebook.category] || 'default'} className="capitalize">
                 {ebook.category}
               </Badge>
-              {ebook.free && (
+              {pricing.isFree ? (
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-sage-700 bg-sage-50 border border-sage-100 px-3 py-1 rounded-full">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                   {meta.freeLabel}
                 </span>
-              )}
+              ) : pricing.priceCents ? (
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-violet bg-violet/5 border border-violet/20 px-3 py-1 rounded-full">
+                  {pricing.originalPriceCents && pricing.originalPriceCents > pricing.priceCents && (
+                    <span className="text-gray-400 line-through">
+                      {(pricing.originalPriceCents / 100).toFixed(0)} {pricing.currency.toUpperCase()}
+                    </span>
+                  )}
+                  <span>{(pricing.priceCents / 100).toFixed(0)} {pricing.currency.toUpperCase()}</span>
+                </span>
+              ) : null}
             </div>
 
             <h1 className="font-display text-4xl lg:text-5xl font-bold text-anthracite tracking-tight leading-[1.1] mb-5 text-balance">

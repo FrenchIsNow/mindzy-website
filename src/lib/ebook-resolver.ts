@@ -1,5 +1,6 @@
 import { getEbook, type Ebook, type EbookChapter, type EbookFeature, type EbookStat, type EbookTestimonial } from './ebooks'
-import { listEbookContentForSlug, listDbOnlyEbookSlugs, type EbookContent } from './db'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { listEbookContentForSlug, listDbOnlyEbookSlugs, getCatalogEntry, type EbookContent, type CatalogEntry } from './db'
 import type { Locale } from './i18n'
 
 const LOCALES: Locale[] = ['fr', 'en', 'es']
@@ -78,10 +79,46 @@ export async function resolvePublicEbook(slug: string): Promise<Ebook | null> {
   } as Ebook & { _dbPdfUrl?: string }
 }
 
+/**
+ * Resolves pricing for an ebook. DB catalog wins over the static `.free` flag.
+ * Returns effective price (post-promo if code matches), original price for strikethrough,
+ * and an is_free flag so templates can render the correct badge.
+ */
+export async function resolveEbookPricing(slug: string, opts?: { staticFree?: boolean }) {
+  let entry: CatalogEntry | null = null
+  if (process.env.DATABASE_URL) {
+    try {
+      entry = await getCatalogEntry(slug)
+    } catch {
+      entry = null
+    }
+  }
+  const isFree = entry ? entry.is_free : (opts?.staticFree ?? true)
+  return {
+    isFree,
+    priceCents: entry?.price_cents ?? null,
+    originalPriceCents: entry?.original_price_cents ?? null,
+    currency: entry?.currency ?? 'eur',
+    promoCode: entry?.promo_code ?? null,
+    promoDiscountPct: entry?.promo_discount_pct ?? null,
+    promoExpiresAt: entry?.promo_expires_at ?? null,
+    hasUpsell: entry?.has_upsell ?? false,
+    upsellSlug: entry?.upsell_slug ?? null,
+    upsellPriceCents: entry?.upsell_price_cents ?? null,
+    stripePriceId: entry?.stripe_price_id ?? null,
+  }
+}
+
 export async function getAllResolvedEbookSlugs(): Promise<string[]> {
-  const staticSlugs = getEbook('') ? [] : []  // placeholder to keep import used
-  void staticSlugs
-  const dbOnly = await listDbOnlyEbookSlugs()
   const fromStatic = (await import('./ebooks')).getAllEbookSlugs()
-  return Array.from(new Set([...fromStatic, ...dbOnly]))
+  // Build-time safety: if DATABASE_URL isn't set or the DB is unreachable,
+  // fall back to static slugs only. DB-only ebooks will render on first visit
+  // thanks to `dynamicParams = true` on the page.
+  if (!process.env.DATABASE_URL) return fromStatic
+  try {
+    const dbOnly = await listDbOnlyEbookSlugs()
+    return Array.from(new Set([...fromStatic, ...dbOnly]))
+  } catch {
+    return fromStatic
+  }
 }
