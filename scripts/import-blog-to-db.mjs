@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Import all existing Mindzy blog posts (content/blog/fr/*.md) into the
- * blog_articles DB table under the "mindzy" dashboard client.
+ * Import all existing Mindzy blog posts (content/blog/{locale}/*.md) into the
+ * blog_articles DB table under the "mindzy" dashboard client for all locales (fr, en, es).
  *
  * Usage:  node scripts/import-blog-to-db.mjs
  * Requires DATABASE_URL in .env.local
@@ -107,10 +107,7 @@ function mdToHtml(md) {
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
-const BLOG_DIR = path.join(ROOT, 'content/blog/fr')
-const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'))
-
-console.log(`\n📚  Found ${files.length} blog posts in content/blog/fr/\n`)
+const LOCALES = ['fr', 'en', 'es']
 
 // Get the mindzy client id
 const clients = await sql`SELECT id FROM dashboard_clients WHERE slug = 'mindzy' LIMIT 1`
@@ -121,65 +118,96 @@ if (!clients.length) {
 const clientId = clients[0].id
 console.log(`✅  Mindzy client id: ${clientId}\n`)
 
-// Get existing slugs to avoid duplicates
-const existing = await sql`SELECT slug FROM blog_articles WHERE client_id = ${clientId}`
-const existingSlugs = new Set(existing.map(r => r.slug))
-console.log(`ℹ️   Already in DB: ${existingSlugs.size} articles\n`)
+// Get existing (slug, locale) pairs to avoid duplicates
+const existing = await sql`SELECT slug, locale FROM blog_articles WHERE client_id = ${clientId}`
+const existingPairs = new Set(existing.map(r => `${r.slug}|${r.locale}`))
+console.log(`ℹ️   Already in DB: ${existingPairs.size} article-locale pairs\n`)
 
-let inserted = 0
-let skipped = 0
-let errors = 0
+let totalInserted = 0
+let totalSkipped = 0
+let totalErrors = 0
 
-for (const filename of files) {
-  const filePath = path.join(BLOG_DIR, filename)
-  const raw = fs.readFileSync(filePath, 'utf-8')
-  const { data, content } = parseFrontmatter(raw)
+for (const locale of LOCALES) {
+  const BLOG_DIR = path.join(ROOT, `content/blog/${locale}`)
 
-  const slug = data.slug || filename.replace('.md', '')
-
-  if (existingSlugs.has(slug)) {
-    console.log(`⏭️   Skip (already in DB): ${slug}`)
-    skipped++
+  if (!fs.existsSync(BLOG_DIR)) {
+    console.log(`⏭️   Skipped locale: content/blog/${locale}/ does not exist`)
     continue
   }
 
-  const title = data.title || slug
-  const excerpt = data.excerpt || data.meta_description || null
-  const category = data.category || data.categorie || null
-  const coverImageUrl = data.image || null
-  const coverAlt = data.title || null
-  const readingTime = data.readingTime ? parseInt(data.readingTime) : null
-  const keywords = data.keywords ? [data.keywords] : []
-  const publishedAt = data.date || data.date_publication || null
+  const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'))
+  console.log(`\n📚  Processing locale "${locale}": ${files.length} blog posts\n`)
 
-  const contentHtml = mdToHtml(content)
+  let inserted = 0
+  let skipped = 0
+  let errors = 0
 
-  try {
-    await sql`
-      INSERT INTO blog_articles (
-        client_id, title, slug, excerpt, content_html,
-        cover_image_url, cover_alt, keywords, category,
-        reading_time, locale, status, published_at
-      ) VALUES (
-        ${clientId}, ${title}, ${slug}, ${excerpt}, ${contentHtml},
-        ${coverImageUrl}, ${coverAlt}, ${keywords}, ${category},
-        ${readingTime}, 'fr', 'published', ${publishedAt}
-      )
-    `
-    console.log(`✅  Inserted: ${slug}`)
-    inserted++
-  } catch (err) {
-    console.error(`❌  Error inserting ${slug}:`, err.message)
-    errors++
+  for (const filename of files) {
+    const filePath = path.join(BLOG_DIR, filename)
+    const raw = fs.readFileSync(filePath, 'utf-8')
+    const { data, content } = parseFrontmatter(raw)
+
+    const canonicalSlug = filename.replace('.md', '')
+    const slug = data.slug || canonicalSlug
+    const pair = `${slug}|${locale}`
+
+    if (existingPairs.has(pair)) {
+      console.log(`⏭️   Skip (already in DB): ${locale}/${slug}`)
+      skipped++
+      continue
+    }
+
+    const title = data.title || slug
+    const excerpt = data.excerpt || data.meta_description || null
+    const category = data.category || data.categorie || null
+    const coverImageUrl = data.image || null
+    const coverAlt = data.title || null
+    const readingTime = data.readingTime ? parseInt(data.readingTime) : null
+    const keywords = data.keywords ? [data.keywords] : []
+    const publishedAt = data.date || data.date_publication || null
+
+    const contentHtml = mdToHtml(content)
+
+    try {
+      await sql`
+        INSERT INTO blog_articles (
+          client_id, title, slug, canonical_slug, excerpt, content_html,
+          cover_image_url, cover_alt, keywords, category,
+          reading_time, locale, status, published_at
+        ) VALUES (
+          ${clientId}, ${title}, ${slug}, ${canonicalSlug}, ${excerpt}, ${contentHtml},
+          ${coverImageUrl}, ${coverAlt}, ${keywords}, ${category},
+          ${readingTime}, ${locale}, 'published', ${publishedAt}
+        )
+      `
+      console.log(`✅  Inserted: ${locale}/${slug}`)
+      inserted++
+    } catch (err) {
+      console.error(`❌  Error inserting ${locale}/${slug}:`, err.message)
+      errors++
+    }
   }
-}
 
-console.log(`
+  console.log(`
 ────────────────────────────────
+Locale: ${locale}
 ✅  Inserted : ${inserted}
 ⏭️   Skipped  : ${skipped}
 ❌  Errors   : ${errors}
-Total files  : ${files.length}
 ────────────────────────────────
 `)
-process.exit(errors > 0 ? 1 : 0)
+
+  totalInserted += inserted
+  totalSkipped += skipped
+  totalErrors += errors
+}
+
+console.log(`
+════════════════════════════════
+TOTAL SUMMARY (all locales)
+✅  Inserted : ${totalInserted}
+⏭️   Skipped  : ${totalSkipped}
+❌  Errors   : ${totalErrors}
+════════════════════════════════
+`)
+process.exit(totalErrors > 0 ? 1 : 0)

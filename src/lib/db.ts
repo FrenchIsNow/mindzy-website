@@ -107,7 +107,600 @@ export async function initDB() {
       AND price_cents IS NULL
   `
 
+  // ─── Dashboard: clients (multi-tenant blog review) ──────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS dashboard_clients (
+      id              SERIAL PRIMARY KEY,
+      slug            TEXT UNIQUE NOT NULL,
+      name            TEXT NOT NULL,
+      email           TEXT,
+      domain          TEXT,
+      personality     TEXT,
+      target_audience TEXT,
+      site_url        TEXT,
+      locale          TEXT NOT NULL DEFAULT 'fr',
+      persona_prompt  TEXT,
+      frequency       TEXT NOT NULL DEFAULT 'monthly',
+      posts_per_cycle INTEGER NOT NULL DEFAULT 4,
+      ingest_url      TEXT,
+      ingest_token    TEXT,
+      password_hash   TEXT NOT NULL,
+      active          BOOLEAN NOT NULL DEFAULT TRUE,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS blog_ideas (
+      id            SERIAL PRIMARY KEY,
+      client_id     INTEGER NOT NULL REFERENCES dashboard_clients(id) ON DELETE CASCADE,
+      question      TEXT NOT NULL,
+      category      TEXT,
+      subcategory   TEXT,
+      target        TEXT,
+      content_type  TEXT,
+      seo_priority  TEXT,
+      locale        TEXT,
+      status        TEXT NOT NULL DEFAULT 'idea',
+      scheduled_for DATE,
+      created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_ideas_client ON blog_ideas(client_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_ideas_status ON blog_ideas(status)`
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS blog_articles (
+      id              SERIAL PRIMARY KEY,
+      client_id       INTEGER NOT NULL REFERENCES dashboard_clients(id) ON DELETE CASCADE,
+      idea_id         INTEGER REFERENCES blog_ideas(id) ON DELETE SET NULL,
+      title           TEXT NOT NULL,
+      slug            TEXT NOT NULL,
+      excerpt         TEXT,
+      content_html    TEXT NOT NULL DEFAULT '',
+      cover_image_url TEXT,
+      cover_alt       TEXT,
+      keywords        TEXT[],
+      category        TEXT,
+      reading_time    INTEGER,
+      locale          TEXT NOT NULL DEFAULT 'fr',
+      status          TEXT NOT NULL DEFAULT 'pending_review',
+      client_notes    TEXT,
+      drive_md_url    TEXT,
+      drive_image_url TEXT,
+      sheet_row_id    TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      published_at    TIMESTAMPTZ
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_articles_client ON blog_articles(client_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_articles_status ON blog_articles(status)`
+  // canonical_slug was added via migration; ensure it exists for fresh deployments too
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS canonical_slug TEXT`
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_articles_canonical ON blog_articles(canonical_slug)`
+
+  // ─── Services / products catalog (used as upsells) ──────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS services (
+      id                SERIAL PRIMARY KEY,
+      slug              TEXT UNIQUE NOT NULL,
+      name              TEXT NOT NULL,
+      description       TEXT,
+      price_cents       INTEGER NOT NULL DEFAULT 0,
+      currency          TEXT NOT NULL DEFAULT 'eur',
+      url               TEXT,
+      is_active         BOOLEAN NOT NULL DEFAULT TRUE,
+      stripe_product_id TEXT,
+      stripe_price_id   TEXT,
+      created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`ALTER TABLE services ADD COLUMN IF NOT EXISTS stripe_product_id TEXT`
+  await sql`ALTER TABLE services ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_product_id TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`
+
+  // Seed the GEO audit service — referenced by the seo-geo-expert-guide ebook as upsell.
+  await sql`
+    INSERT INTO services (slug, name, description, price_cents, currency)
+    SELECT 'geo-audit', 'Audit GEO personnalisé',
+           'Audit complet de votre visibilité sur les IA génératives (ChatGPT, Perplexity, Claude). Recommandations actionnables pour devenir la source citée dans votre domaine.',
+           9700, 'eur'
+    WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'geo-audit')
+  `
+
+  // Self-blog: Mindzy's own articles are managed as a special "mindzy" client.
+  // Seed on first init so the admin always sees "Mon blog" in the sidebar.
+  // Password is a random string; admin manages this via the Paramètres tab.
+  await sql`
+    INSERT INTO dashboard_clients (slug, name, email, locale, frequency, posts_per_cycle, password_hash)
+    SELECT 'mindzy', 'Mindzy (mon blog)', 'self@mindzy.me', 'fr', 'weekly', 1,
+      'scrypt$0000000000000000000000000000000000000000000000000000000000000000$0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+    WHERE NOT EXISTS (SELECT 1 FROM dashboard_clients WHERE slug = 'mindzy')
+  `
+
   _initialized = true
+}
+
+// ─── Dashboard: clients ──────────────────────────────────────────────────────
+
+export interface DashboardClient {
+  id: number
+  slug: string
+  name: string
+  email: string | null
+  domain: string | null
+  personality: string | null
+  target_audience: string | null
+  site_url: string | null
+  locale: string
+  persona_prompt: string | null
+  frequency: string
+  posts_per_cycle: number
+  ingest_url: string | null
+  ingest_token: string | null
+  password_hash: string
+  active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export async function createDashboardClient(data: {
+  slug: string
+  name: string
+  email?: string
+  domain?: string
+  personality?: string
+  targetAudience?: string
+  siteUrl?: string
+  locale?: string
+  personaPrompt?: string
+  frequency?: string
+  postsPerCycle?: number
+  ingestUrl?: string
+  ingestToken?: string
+  passwordHash: string
+}): Promise<DashboardClient> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO dashboard_clients (
+      slug, name, email, domain, personality, target_audience,
+      site_url, locale, persona_prompt, frequency, posts_per_cycle,
+      ingest_url, ingest_token, password_hash
+    ) VALUES (
+      ${data.slug}, ${data.name}, ${data.email ?? null}, ${data.domain ?? null},
+      ${data.personality ?? null}, ${data.targetAudience ?? null},
+      ${data.siteUrl ?? null}, ${data.locale ?? 'fr'}, ${data.personaPrompt ?? null},
+      ${data.frequency ?? 'monthly'}, ${data.postsPerCycle ?? 4},
+      ${data.ingestUrl ?? null}, ${data.ingestToken ?? null}, ${data.passwordHash}
+    )
+    RETURNING *
+  `
+  return rows[0] as DashboardClient
+}
+
+export async function listDashboardClients(): Promise<DashboardClient[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM dashboard_clients ORDER BY created_at DESC`
+  return rows as DashboardClient[]
+}
+
+export async function getDashboardClientBySlug(slug: string): Promise<DashboardClient | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM dashboard_clients WHERE slug = ${slug} LIMIT 1`
+  return (rows[0] as DashboardClient) ?? null
+}
+
+export async function getDashboardClientByEmail(email: string): Promise<DashboardClient | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM dashboard_clients WHERE LOWER(email) = LOWER(${email}) LIMIT 1`
+  return (rows[0] as DashboardClient) ?? null
+}
+
+export async function getDashboardClientById(id: number): Promise<DashboardClient | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM dashboard_clients WHERE id = ${id} LIMIT 1`
+  return (rows[0] as DashboardClient) ?? null
+}
+
+export async function updateDashboardClient(
+  id: number,
+  data: Partial<Omit<DashboardClient, 'id' | 'created_at' | 'updated_at'>>,
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE dashboard_clients SET
+      name            = COALESCE(${data.name ?? null}, name),
+      email           = COALESCE(${data.email ?? null}, email),
+      domain          = COALESCE(${data.domain ?? null}, domain),
+      personality     = COALESCE(${data.personality ?? null}, personality),
+      target_audience = COALESCE(${data.target_audience ?? null}, target_audience),
+      site_url        = COALESCE(${data.site_url ?? null}, site_url),
+      locale          = COALESCE(${data.locale ?? null}, locale),
+      persona_prompt  = COALESCE(${data.persona_prompt ?? null}, persona_prompt),
+      frequency       = COALESCE(${data.frequency ?? null}, frequency),
+      posts_per_cycle = COALESCE(${data.posts_per_cycle ?? null}, posts_per_cycle),
+      ingest_url      = COALESCE(${data.ingest_url ?? null}, ingest_url),
+      ingest_token    = COALESCE(${data.ingest_token ?? null}, ingest_token),
+      password_hash   = COALESCE(${data.password_hash ?? null}, password_hash),
+      active          = COALESCE(${data.active ?? null}, active),
+      updated_at      = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteDashboardClient(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM dashboard_clients WHERE id = ${id}`
+}
+
+// ─── Dashboard: blog ideas ───────────────────────────────────────────────────
+
+export interface BlogIdea {
+  id: number
+  client_id: number
+  question: string
+  category: string | null
+  subcategory: string | null
+  target: string | null
+  content_type: string | null
+  seo_priority: string | null
+  locale: string | null
+  status: string
+  scheduled_for: string | null
+  created_at: string
+}
+
+export async function createBlogIdea(data: {
+  clientId: number
+  question: string
+  category?: string
+  subcategory?: string
+  target?: string
+  contentType?: string
+  seoPriority?: string
+  locale?: string
+}): Promise<BlogIdea> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO blog_ideas (
+      client_id, question, category, subcategory, target,
+      content_type, seo_priority, locale
+    ) VALUES (
+      ${data.clientId}, ${data.question}, ${data.category ?? null},
+      ${data.subcategory ?? null}, ${data.target ?? null},
+      ${data.contentType ?? null}, ${data.seoPriority ?? null}, ${data.locale ?? null}
+    )
+    RETURNING *
+  `
+  return rows[0] as BlogIdea
+}
+
+export async function bulkInsertBlogIdeas(
+  clientId: number,
+  ideas: Array<{
+    question: string
+    category?: string
+    subcategory?: string
+    target?: string
+    contentType?: string
+    seoPriority?: string
+    locale?: string
+  }>,
+): Promise<number> {
+  if (ideas.length === 0) return 0
+  await initDB()
+  const sql = getSql()
+  let count = 0
+  for (const idea of ideas) {
+    await sql`
+      INSERT INTO blog_ideas (
+        client_id, question, category, subcategory, target,
+        content_type, seo_priority, locale
+      ) VALUES (
+        ${clientId}, ${idea.question}, ${idea.category ?? null},
+        ${idea.subcategory ?? null}, ${idea.target ?? null},
+        ${idea.contentType ?? null}, ${idea.seoPriority ?? null}, ${idea.locale ?? null}
+      )
+    `
+    count++
+  }
+  return count
+}
+
+export async function listBlogIdeas(clientId: number): Promise<BlogIdea[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT * FROM blog_ideas WHERE client_id = ${clientId} ORDER BY created_at ASC
+  `
+  return rows as BlogIdea[]
+}
+
+export async function getBlogIdea(id: number): Promise<BlogIdea | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM blog_ideas WHERE id = ${id} LIMIT 1`
+  return (rows[0] as BlogIdea) ?? null
+}
+
+export async function updateBlogIdea(
+  id: number,
+  data: Partial<Omit<BlogIdea, 'id' | 'client_id' | 'created_at'>>,
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE blog_ideas SET
+      question     = COALESCE(${data.question ?? null}, question),
+      category     = COALESCE(${data.category ?? null}, category),
+      subcategory  = COALESCE(${data.subcategory ?? null}, subcategory),
+      target       = COALESCE(${data.target ?? null}, target),
+      content_type = COALESCE(${data.content_type ?? null}, content_type),
+      seo_priority = COALESCE(${data.seo_priority ?? null}, seo_priority),
+      locale       = COALESCE(${data.locale ?? null}, locale),
+      status       = COALESCE(${data.status ?? null}, status)
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteBlogIdea(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM blog_ideas WHERE id = ${id}`
+}
+
+// ─── Dashboard: blog articles ────────────────────────────────────────────────
+
+export interface BlogArticle {
+  id: number
+  client_id: number
+  idea_id: number | null
+  title: string
+  slug: string
+  canonical_slug: string | null
+  excerpt: string | null
+  content_html: string
+  cover_image_url: string | null
+  cover_alt: string | null
+  keywords: string[] | null
+  category: string | null
+  reading_time: number | null
+  locale: string
+  status: string
+  client_notes: string | null
+  drive_md_url: string | null
+  drive_image_url: string | null
+  sheet_row_id: string | null
+  created_at: string
+  updated_at: string
+  published_at: string | null
+}
+
+export async function createBlogArticle(data: {
+  clientId: number
+  ideaId?: number | null
+  title: string
+  slug: string
+  canonicalSlug?: string
+  excerpt?: string
+  contentHtml?: string
+  coverImageUrl?: string
+  coverAlt?: string
+  keywords?: string[]
+  category?: string
+  readingTime?: number
+  locale?: string
+  status?: string
+  driveMdUrl?: string
+  driveImageUrl?: string
+  sheetRowId?: string
+}): Promise<BlogArticle> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO blog_articles (
+      client_id, idea_id, title, slug, canonical_slug, excerpt, content_html,
+      cover_image_url, cover_alt, keywords, category, reading_time,
+      locale, status, drive_md_url, drive_image_url, sheet_row_id
+    ) VALUES (
+      ${data.clientId}, ${data.ideaId ?? null}, ${data.title}, ${data.slug},
+      ${data.canonicalSlug ?? null}, ${data.excerpt ?? null}, ${data.contentHtml ?? ''},
+      ${data.coverImageUrl ?? null}, ${data.coverAlt ?? null},
+      ${data.keywords ?? null}, ${data.category ?? null}, ${data.readingTime ?? null},
+      ${data.locale ?? 'fr'}, ${data.status ?? 'pending_review'},
+      ${data.driveMdUrl ?? null}, ${data.driveImageUrl ?? null}, ${data.sheetRowId ?? null}
+    )
+    RETURNING *
+  `
+  return rows[0] as BlogArticle
+}
+
+export async function getArticleTranslations(canonicalSlug: string, clientId: number): Promise<BlogArticle[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT * FROM blog_articles
+    WHERE canonical_slug = ${canonicalSlug} AND client_id = ${clientId}
+    ORDER BY CASE locale WHEN 'fr' THEN 1 WHEN 'en' THEN 2 WHEN 'es' THEN 3 ELSE 4 END
+  `
+  return rows as BlogArticle[]
+}
+
+export async function listBlogArticlesForClient(clientId: number): Promise<BlogArticle[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT * FROM blog_articles WHERE client_id = ${clientId} ORDER BY created_at DESC
+  `
+  return rows as BlogArticle[]
+}
+
+export async function getBlogArticle(id: number): Promise<BlogArticle | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM blog_articles WHERE id = ${id} LIMIT 1`
+  return (rows[0] as BlogArticle) ?? null
+}
+
+export async function updateBlogArticle(
+  id: number,
+  data: Partial<Omit<BlogArticle, 'id' | 'client_id' | 'created_at' | 'updated_at'>>,
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE blog_articles SET
+      title           = COALESCE(${data.title ?? null}, title),
+      slug            = COALESCE(${data.slug ?? null}, slug),
+      excerpt         = COALESCE(${data.excerpt ?? null}, excerpt),
+      content_html    = COALESCE(${data.content_html ?? null}, content_html),
+      cover_image_url = COALESCE(${data.cover_image_url ?? null}, cover_image_url),
+      cover_alt       = COALESCE(${data.cover_alt ?? null}, cover_alt),
+      keywords        = COALESCE(${data.keywords ?? null}, keywords),
+      category        = COALESCE(${data.category ?? null}, category),
+      reading_time    = COALESCE(${data.reading_time ?? null}, reading_time),
+      locale          = COALESCE(${data.locale ?? null}, locale),
+      status          = COALESCE(${data.status ?? null}, status),
+      client_notes    = COALESCE(${data.client_notes ?? null}, client_notes),
+      published_at    = COALESCE(${data.published_at ?? null}, published_at),
+      updated_at      = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteBlogArticle(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM blog_articles WHERE id = ${id}`
+}
+
+// ─── Services / products ─────────────────────────────────────────────────────
+
+export interface Service {
+  id: number
+  slug: string
+  name: string
+  description: string | null
+  price_cents: number
+  currency: string
+  url: string | null
+  is_active: boolean
+  stripe_product_id: string | null
+  stripe_price_id: string | null
+  created_at: string
+  updated_at: string
+}
+
+export async function updateServiceStripeIds(
+  id: number,
+  ids: { productId: string; priceId: string },
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE services
+    SET stripe_product_id = ${ids.productId}, stripe_price_id = ${ids.priceId}, updated_at = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function updateCatalogStripeIds(
+  slug: string,
+  ids: { productId: string; priceId: string },
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE ebook_catalog
+    SET stripe_product_id = ${ids.productId}, stripe_price_id = ${ids.priceId}, updated_at = NOW()
+    WHERE slug = ${slug}
+  `
+}
+
+export async function listServices(activeOnly = false): Promise<Service[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = activeOnly
+    ? await sql`SELECT * FROM services WHERE is_active = TRUE ORDER BY name ASC`
+    : await sql`SELECT * FROM services ORDER BY name ASC`
+  return rows as Service[]
+}
+
+export async function getServiceBySlug(slug: string): Promise<Service | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM services WHERE slug = ${slug} LIMIT 1`
+  return (rows[0] as Service) ?? null
+}
+
+export async function createService(data: {
+  slug: string
+  name: string
+  description?: string
+  priceCents: number
+  currency?: string
+  url?: string
+}): Promise<Service> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO services (slug, name, description, price_cents, currency, url)
+    VALUES (${data.slug}, ${data.name}, ${data.description ?? null}, ${data.priceCents},
+            ${data.currency ?? 'eur'}, ${data.url ?? null})
+    RETURNING *
+  `
+  return rows[0] as Service
+}
+
+export async function updateService(
+  id: number,
+  data: Partial<Omit<Service, 'id' | 'created_at' | 'updated_at'>>,
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE services SET
+      name         = COALESCE(${data.name ?? null}, name),
+      description  = COALESCE(${data.description ?? null}, description),
+      price_cents  = COALESCE(${data.price_cents ?? null}, price_cents),
+      currency     = COALESCE(${data.currency ?? null}, currency),
+      url          = COALESCE(${data.url ?? null}, url),
+      is_active    = COALESCE(${data.is_active ?? null}, is_active),
+      updated_at   = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteService(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM services WHERE id = ${id}`
+}
+
+export async function countArticlesForClient(clientId: number): Promise<{ total: number; pending: number; approved: number; published: number }> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT
+      COUNT(*)::int AS total,
+      COUNT(*) FILTER (WHERE status = 'pending_review')::int AS pending,
+      COUNT(*) FILTER (WHERE status = 'approved')::int AS approved,
+      COUNT(*) FILTER (WHERE status = 'published')::int AS published
+    FROM blog_articles WHERE client_id = ${clientId}
+  `
+  return rows[0] as { total: number; pending: number; approved: number; published: number }
 }
 
 // ─── Audit requests ───────────────────────────────────────────────────────────
@@ -241,6 +834,8 @@ export interface CatalogEntry {
   has_upsell: boolean
   upsell_price_cents: number | null
   upsell_slug: string | null
+  stripe_product_id?: string | null
+  stripe_price_id?: string | null
 }
 
 export async function getCatalogEntry(slug: string): Promise<CatalogEntry | null> {
