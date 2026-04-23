@@ -1,0 +1,9 @@
+.dashboard-root,
+.dashboard-root * {
+  font-family: var(--font-dashboard), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+.dashboard-root {
+  background: #f8fafc;
+}

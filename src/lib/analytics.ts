@@ -47,15 +47,6 @@ export const analytics = {
       }),
   },
 
-  whatsapp: {
-    click: (source: string) =>
-      event('whatsapp_click', {
-        event_category: 'conversion',
-        click_source: source,
-        outbound: true,
-      }),
-  },
-
   calendly: {
     click: (source: string) =>
       event('calendly_click', {

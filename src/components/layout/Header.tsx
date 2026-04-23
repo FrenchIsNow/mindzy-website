@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { Navigation } from './Navigation'
 import { Button, ArrowIcon } from '@/components/ui/Button'
@@ -13,7 +14,10 @@ import { analytics } from '@/lib/analytics'
 export function Header({ locale }: { locale: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
   const t = getMessages(locale).nav
+
+  if (pathname?.includes('/funnel/')) return null
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)

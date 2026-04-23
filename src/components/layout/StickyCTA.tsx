@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Button, ArrowIcon } from '@/components/ui/Button'
 import { getMessages } from '@/lib/getMessages'
 import { config } from '@/lib/config'
@@ -11,7 +12,9 @@ import { analytics } from '@/lib/analytics'
 
 export function StickyCTA({ locale }: { locale: Locale }) {
   const [visible, setVisible] = useState(false)
+  const pathname = usePathname()
   const t = getMessages(locale).stickyCta
+  if (pathname?.includes('/funnel/')) return null
 
   useEffect(() => {
     const handleScroll = () => setVisible(window.scrollY > 400)

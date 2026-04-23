@@ -20,6 +20,9 @@ export function middleware(request: NextRequest) {
   // Profile pages — no locale redirect
   if (pathname === '/cocotier' || pathname === '/martel')
     return NextResponse.next()
+  // Dashboard — no locale redirect (hidden admin area)
+  if (pathname === '/dashboard' || pathname.startsWith('/dashboard/'))
+    return NextResponse.next()
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)

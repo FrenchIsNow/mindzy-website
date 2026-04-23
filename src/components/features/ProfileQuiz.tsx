@@ -193,7 +193,7 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
                 placeholder={locale === 'fr' ? 'Précisez votre besoin...' : locale === 'en' ? 'Describe your need...' : 'Describa su necesidad...'}
               />
               <div className="flex gap-3 pt-4">
-                <Button type="button" variant="ghost" size="lg" onClick={handleBack} className="flex-1">← {ct.back}</Button>
+                <Button type="button" variant="ghost" size="lg" onClick={handleBack} className="flex-1">{ct.back}</Button>
                 <Button
                   type="submit"
                   variant="primary"
@@ -231,7 +231,7 @@ export function ProfileQuiz({ locale, profileType }: { locale: Locale; profileTy
             </div>
             {step > 0 && (
               <div className="mt-8 text-center">
-                <Button variant="ghost" size="sm" onClick={handleBack}>← {ct.back}</Button>
+                <Button variant="ghost" size="sm" onClick={handleBack}>{ct.back}</Button>
               </div>
             )}
           </CardContent>

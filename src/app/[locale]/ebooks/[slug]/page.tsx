@@ -6,11 +6,13 @@ import { Badge } from '@/components/ui/Badge'
 import { buildPageMetadata, jsonLdBreadcrumb, JsonLd } from '@/lib/seo'
 import type { Locale } from '@/lib/i18n'
 import { getEbook, getAllEbookSlugs } from '@/lib/ebooks'
+import { resolvePublicEbook, getAllResolvedEbookSlugs } from '@/lib/ebook-resolver'
 import { EbookDownloadForm } from '@/components/features/EbookDownloadForm'
 import { config } from '@/lib/config'
 
-export function generateStaticParams() {
-  return getAllEbookSlugs().map(slug => ({ slug }))
+export async function generateStaticParams() {
+  const slugs = await getAllResolvedEbookSlugs()
+  return slugs.map(slug => ({ slug }))
 }
 
 const categoryColors: Record<string, 'default' | 'primary' | 'success' | 'violet'> = {
@@ -164,7 +166,7 @@ const pageMeta: Record<string, {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params
-  const ebook = getEbook(slug)
+  const ebook = await resolvePublicEbook(slug)
   if (!ebook) return { title: 'Guide' }
   const title = ebook.title[locale as Locale] || ebook.title.fr
   const description = ebook.excerpt[locale as Locale] || ebook.excerpt.fr
@@ -178,7 +180,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function EbookDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params
-  const ebook = getEbook(slug)
+  const ebook = await resolvePublicEbook(slug) as (Awaited<ReturnType<typeof resolvePublicEbook>> & { _dbPdfUrl?: string }) | null
   if (!ebook) notFound()
 
   const l = locale as Locale
@@ -207,7 +209,8 @@ export default async function EbookDetailPage({ params }: { params: Promise<{ lo
   const bottomCtaTitle = detailOverride?.bottomCtaTitle?.[l] || defaultBottomTitle
   const bottomCtaBody = detailOverride?.bottomCtaBody?.[l] || defaultBottomBody
   const bottomCtaButtonLabel = detailOverride?.bottomCtaButtonLabel?.[l] || defaultBottomButtonLabel
-  const pdfPath = `/ebooks/${ebook.pdfByLocale?.[l] ?? `${slug}-fr.pdf`}`
+  // DB-only ebooks store the direct Blob URL in _dbPdfUrl; static ebooks use the local /ebooks/ path.
+  const pdfPath = ebook._dbPdfUrl ?? `/ebooks/${ebook.pdfByLocale?.[l] ?? `${slug}-fr.pdf`}`
 
   const breadcrumbJsonLd = jsonLdBreadcrumb([
     { name: locale === 'fr' ? 'Accueil' : locale === 'es' ? 'Inicio' : 'Home', url: `https://mindzy.me/${locale}` },

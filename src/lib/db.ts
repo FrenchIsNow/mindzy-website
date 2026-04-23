@@ -212,6 +212,34 @@ export async function initDB() {
     WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'geo-audit')
   `
 
+  // ─── Ebook content (editable landing-page copy, multi-locale) ──────────────
+  // Keyed by (slug, locale). Stores the fields that back `/[locale]/ebooks/[slug]`.
+  // Also holds the PDF + cover URLs (Vercel Blob) for ebooks created from the dashboard.
+  await sql`
+    CREATE TABLE IF NOT EXISTS ebook_content (
+      id              SERIAL PRIMARY KEY,
+      slug            TEXT NOT NULL,
+      locale          TEXT NOT NULL,
+      title           TEXT,
+      subtitle        TEXT,
+      excerpt         TEXT,
+      category        TEXT,
+      tags            TEXT[],
+      image_url       TEXT,
+      pdf_url         TEXT,
+      pages           INTEGER,
+      reading_time    INTEGER,
+      chapters        JSONB,              -- [{num, title}]
+      features        JSONB,              -- [{num, label, title, desc}]
+      stats           JSONB,              -- [{value, label}]
+      testimonial     JSONB,              -- {quote, author, role}
+      is_db_only      BOOLEAN NOT NULL DEFAULT FALSE, -- true when no static fallback exists
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (slug, locale)
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_ebook_content_slug ON ebook_content(slug)`
+
   // Self-blog: Mindzy's own articles are managed as a special "mindzy" client.
   // Seed on first init so the admin always sees "Mon blog" in the sidebar.
   // Password is a random string; admin manages this via the Paramètres tab.
@@ -891,6 +919,120 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       upsell_slug          = EXCLUDED.upsell_slug,
       updated_at           = NOW()
   `
+}
+
+// ─── Ebook content (editable landing-page copy per locale) ──────────────────
+
+export interface EbookChapter { num: string; title: string }
+export interface EbookFeature { num: string; label: string; title: string; desc: string }
+export interface EbookStat { value: string; label: string }
+export interface EbookTestimonial { quote: string; author: string; role: string }
+
+export interface EbookContent {
+  id: number
+  slug: string
+  locale: string
+  title: string | null
+  subtitle: string | null
+  excerpt: string | null
+  category: string | null
+  tags: string[] | null
+  image_url: string | null
+  pdf_url: string | null
+  pages: number | null
+  reading_time: number | null
+  chapters: EbookChapter[] | null
+  features: EbookFeature[] | null
+  stats: EbookStat[] | null
+  testimonial: EbookTestimonial | null
+  is_db_only: boolean
+  updated_at: string
+}
+
+export async function getEbookContent(slug: string, locale: string): Promise<EbookContent | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT * FROM ebook_content WHERE slug = ${slug} AND locale = ${locale} LIMIT 1
+  `
+  return (rows[0] as EbookContent) ?? null
+}
+
+export async function listEbookContentForSlug(slug: string): Promise<EbookContent[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM ebook_content WHERE slug = ${slug}`
+  return rows as EbookContent[]
+}
+
+export async function listDbOnlyEbookSlugs(): Promise<string[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT DISTINCT slug FROM ebook_content WHERE is_db_only = TRUE`
+  return (rows as Array<{ slug: string }>).map(r => r.slug)
+}
+
+export async function upsertEbookContent(data: {
+  slug: string
+  locale: string
+  title?: string | null
+  subtitle?: string | null
+  excerpt?: string | null
+  category?: string | null
+  tags?: string[] | null
+  imageUrl?: string | null
+  pdfUrl?: string | null
+  pages?: number | null
+  readingTime?: number | null
+  chapters?: EbookChapter[] | null
+  features?: EbookFeature[] | null
+  stats?: EbookStat[] | null
+  testimonial?: EbookTestimonial | null
+  isDbOnly?: boolean
+}): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    INSERT INTO ebook_content (
+      slug, locale, title, subtitle, excerpt, category, tags,
+      image_url, pdf_url, pages, reading_time,
+      chapters, features, stats, testimonial, is_db_only, updated_at
+    ) VALUES (
+      ${data.slug}, ${data.locale},
+      ${data.title ?? null}, ${data.subtitle ?? null}, ${data.excerpt ?? null},
+      ${data.category ?? null}, ${data.tags ?? null},
+      ${data.imageUrl ?? null}, ${data.pdfUrl ?? null},
+      ${data.pages ?? null}, ${data.readingTime ?? null},
+      ${data.chapters ? JSON.stringify(data.chapters) : null}::jsonb,
+      ${data.features ? JSON.stringify(data.features) : null}::jsonb,
+      ${data.stats ? JSON.stringify(data.stats) : null}::jsonb,
+      ${data.testimonial ? JSON.stringify(data.testimonial) : null}::jsonb,
+      ${data.isDbOnly ?? false},
+      NOW()
+    )
+    ON CONFLICT (slug, locale) DO UPDATE SET
+      title        = EXCLUDED.title,
+      subtitle     = EXCLUDED.subtitle,
+      excerpt      = EXCLUDED.excerpt,
+      category     = EXCLUDED.category,
+      tags         = EXCLUDED.tags,
+      image_url    = EXCLUDED.image_url,
+      pdf_url      = EXCLUDED.pdf_url,
+      pages        = EXCLUDED.pages,
+      reading_time = EXCLUDED.reading_time,
+      chapters     = EXCLUDED.chapters,
+      features     = EXCLUDED.features,
+      stats        = EXCLUDED.stats,
+      testimonial  = EXCLUDED.testimonial,
+      is_db_only   = EXCLUDED.is_db_only,
+      updated_at   = NOW()
+  `
+}
+
+export async function deleteEbookContent(slug: string): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM ebook_content WHERE slug = ${slug}`
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

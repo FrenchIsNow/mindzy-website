@@ -95,7 +95,7 @@ export default async function BlogCategoryPage({ params }: { params: Promise<{ l
       <div className="container-wide">
         <div className="mb-6">
           <Link href={`/${locale}/blog`}>
-            <Button variant="ghost" size="sm">← {getMessages(locale as Locale).common.back}</Button>
+            <Button variant="ghost" size="sm">{getMessages(locale as Locale).common.back}</Button>
           </Link>
         </div>
         <div className="text-center mb-12">

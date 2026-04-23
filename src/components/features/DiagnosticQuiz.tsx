@@ -367,7 +367,7 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
                   onClick={handleBack}
                   className="flex-1"
                 >
-                  ← {t.back}
+                  {t.back}
                 </Button>
                 <Button
                   type="submit"
@@ -494,7 +494,7 @@ export function DiagnosticQuiz({ locale }: { locale: Locale }) {
             )}
             {step > 0 && (
               <Button variant="ghost" size="sm" onClick={handleBack}>
-                ← {t.back}
+                {t.back}
               </Button>
             )}
           </div>
