@@ -18,7 +18,7 @@ export function proxy(request: NextRequest) {
   if (pathname.startsWith('/api/') || pathname.startsWith('/_next/') || pathname.includes('.') || pathname === '/favicon.ico')
     return NextResponse.next()
   // Profile pages — no locale redirect
-  if (pathname === '/cocotier' || pathname === '/martel')
+  if (pathname === '/cocotier' || pathname === '/martel' || pathname.startsWith('/p/'))
     return NextResponse.next()
   // Dashboard — no locale redirect (hidden admin area)
   if (pathname === '/dashboard' || pathname.startsWith('/dashboard/'))

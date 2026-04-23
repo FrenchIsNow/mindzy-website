@@ -212,6 +212,51 @@ export async function initDB() {
     WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'geo-audit')
   `
 
+  // ─── Profiles (linktree-style founder / team cards) ────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS profiles (
+      id          SERIAL PRIMARY KEY,
+      slug        TEXT UNIQUE NOT NULL,
+      name        TEXT NOT NULL,
+      title       TEXT,
+      subtitle    TEXT,
+      company     TEXT,
+      initials    TEXT,
+      links       JSONB NOT NULL DEFAULT '[]'::jsonb,
+      is_active   BOOLEAN NOT NULL DEFAULT TRUE,
+      seo_title   TEXT,
+      seo_desc    TEXT,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+
+  // Seed the two founder profiles (no-op if already present).
+  await sql`
+    INSERT INTO profiles (slug, name, title, subtitle, company, initials, links, seo_title, seo_desc)
+    SELECT 'cocotier', 'Romuald Cocotier', 'CEO & Co-Founder', 'AI Expert', 'Mindzy', 'RC',
+      '[
+        {"platform":"whatsapp","label":"WhatsApp","href":"https://wa.me/33767546794","icon":"whatsapp","color":"#25D366"},
+        {"platform":"linkedin","label":"LinkedIn","href":"https://www.linkedin.com/in/r-cocotier/","icon":"linkedin","color":"#0A66C2"},
+        {"platform":"wechat","label":"WeChat","href":"weixin://dl/chat?Mr_cocotier","icon":"wechat","color":"#07C160"}
+      ]'::jsonb,
+      'Romuald Cocotier — Founder & AI Expert @ Mindzy',
+      'Connectez-vous avec Romuald Cocotier, fondateur de Mindzy et expert IA.'
+    WHERE NOT EXISTS (SELECT 1 FROM profiles WHERE slug = 'cocotier')
+  `
+  await sql`
+    INSERT INTO profiles (slug, name, title, subtitle, company, initials, links, seo_title, seo_desc)
+    SELECT 'martel', 'William Martel', 'CFO & Co-Founder', 'Fund Advisor', 'Mindzy', 'WM',
+      '[
+        {"platform":"whatsapp","label":"WhatsApp","href":"https://wa.me/33682765387","icon":"whatsapp","color":"#25D366"},
+        {"platform":"linkedin","label":"LinkedIn","href":"https://www.linkedin.com/in/williamartel/","icon":"linkedin","color":"#0A66C2"},
+        {"platform":"wechat","label":"WeChat: Mr_Denze","href":"weixin://dl/chat?Mr_Denze","icon":"wechat","color":"#07C160"}
+      ]'::jsonb,
+      'William Martel — Co-Founder @ Mindzy',
+      'Connectez-vous avec William Martel, co-fondateur de Mindzy.'
+    WHERE NOT EXISTS (SELECT 1 FROM profiles WHERE slug = 'martel')
+  `
+
   // ─── Ebook content (editable landing-page copy, multi-locale) ──────────────
   // Keyed by (slug, locale). Stores the fields that back `/[locale]/ebooks/[slug]`.
   // Also holds the PDF + cover URLs (Vercel Blob) for ebooks created from the dashboard.
@@ -1033,6 +1078,100 @@ export async function deleteEbookContent(slug: string): Promise<void> {
   await initDB()
   const sql = getSql()
   await sql`DELETE FROM ebook_content WHERE slug = ${slug}`
+}
+
+// ─── Profiles (linktree-style founder cards) ────────────────────────────────
+
+export type ProfileLink = {
+  platform: string
+  label: string
+  href: string
+  icon: 'whatsapp' | 'linkedin' | 'wechat' | 'email' | 'web' | 'phone' | 'instagram'
+  color: string
+}
+
+export interface Profile {
+  id: number
+  slug: string
+  name: string
+  title: string | null
+  subtitle: string | null
+  company: string | null
+  initials: string | null
+  links: ProfileLink[]
+  is_active: boolean
+  seo_title: string | null
+  seo_desc: string | null
+  created_at: string
+  updated_at: string
+}
+
+export async function listProfiles(): Promise<Profile[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM profiles ORDER BY created_at DESC`
+  return rows as Profile[]
+}
+
+export async function getProfile(slug: string): Promise<Profile | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM profiles WHERE slug = ${slug} LIMIT 1`
+  return (rows[0] as Profile) ?? null
+}
+
+export async function createProfile(data: {
+  slug: string
+  name: string
+  title?: string
+  subtitle?: string
+  company?: string
+  initials?: string
+  links?: ProfileLink[]
+  seoTitle?: string
+  seoDesc?: string
+}): Promise<Profile> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO profiles (slug, name, title, subtitle, company, initials, links, seo_title, seo_desc)
+    VALUES (
+      ${data.slug}, ${data.name}, ${data.title ?? null}, ${data.subtitle ?? null},
+      ${data.company ?? null}, ${data.initials ?? null},
+      ${JSON.stringify(data.links ?? [])}::jsonb,
+      ${data.seoTitle ?? null}, ${data.seoDesc ?? null}
+    )
+    RETURNING *
+  `
+  return rows[0] as Profile
+}
+
+export async function updateProfile(
+  id: number,
+  data: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>,
+): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE profiles SET
+      name      = COALESCE(${data.name ?? null}, name),
+      title     = COALESCE(${data.title ?? null}, title),
+      subtitle  = COALESCE(${data.subtitle ?? null}, subtitle),
+      company   = COALESCE(${data.company ?? null}, company),
+      initials  = COALESCE(${data.initials ?? null}, initials),
+      links     = COALESCE(${data.links ? JSON.stringify(data.links) : null}::jsonb, links),
+      is_active = COALESCE(${data.is_active ?? null}, is_active),
+      seo_title = COALESCE(${data.seo_title ?? null}, seo_title),
+      seo_desc  = COALESCE(${data.seo_desc ?? null}, seo_desc),
+      updated_at = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteProfile(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM profiles WHERE id = ${id}`
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

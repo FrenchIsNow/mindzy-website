@@ -5,16 +5,19 @@ import { getProfile } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const p = await getProfile('cocotier').catch(() => null)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const p = await getProfile(slug).catch(() => null)
+  if (!p) return { title: 'Profil' }
   return {
-    title: p?.seo_title || 'Romuald Cocotier — Founder & AI Expert @ Mindzy',
-    description: p?.seo_desc || 'Connectez-vous avec Romuald Cocotier, fondateur de Mindzy et expert IA.',
+    title: p.seo_title || `${p.name} — ${p.company || 'Mindzy'}`,
+    description: p.seo_desc || `Connectez-vous avec ${p.name}.`,
   }
 }
 
-export default async function CocotierPage() {
-  const p = await getProfile('cocotier').catch(() => null)
+export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const p = await getProfile(slug).catch(() => null)
   if (!p || !p.is_active) notFound()
 
   return (

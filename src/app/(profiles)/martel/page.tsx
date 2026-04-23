@@ -1,32 +1,30 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { ProfileCard } from '@/components/features/ProfileCard'
+import { getProfile } from '@/lib/db'
 
-export const metadata: Metadata = {
-  title: 'William Martel — Co-Founder @ Mindzy',
-  description: 'Connectez-vous avec William Martel, co-fondateur de Mindzy.',
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getProfile('martel').catch(() => null)
+  return {
+    title: p?.seo_title || 'William Martel — Co-Founder @ Mindzy',
+    description: p?.seo_desc || 'Connectez-vous avec William Martel, co-fondateur de Mindzy.',
+  }
 }
 
-// ── Replace placeholders with real values ──────────────────────────────────
-const LINKS = {
-  whatsapp: 'https://wa.me/33682765387',
-  linkedin: 'https://www.linkedin.com/in/williamartel/',
-  wechat_id: 'Mr_Denze',
-}
-// ──────────────────────────────────────────────────────────────────────────
+export default async function MartelPage() {
+  const p = await getProfile('martel').catch(() => null)
+  if (!p || !p.is_active) notFound()
 
-export default function MartelPage() {
   return (
     <ProfileCard
-      name="William Martel"
-      title="CFO & Co-Founder"
-      subtitle="Fund Advisor"
-      company="Mindzy"
-      initials="WM"
-      links={[
-        { platform: 'whatsapp', label: 'WhatsApp', href: LINKS.whatsapp, icon: 'whatsapp', color: '#25D366' },
-        { platform: 'linkedin', label: 'LinkedIn', href: LINKS.linkedin, icon: 'linkedin', color: '#0A66C2' },
-        { platform: 'wechat', label: `WeChat: ${LINKS.wechat_id}`, href: `weixin://dl/chat?${LINKS.wechat_id}`, icon: 'wechat', color: '#07C160' },
-      ]}
+      name={p.name}
+      title={p.title || ''}
+      subtitle={p.subtitle || ''}
+      company={p.company || 'Mindzy'}
+      initials={p.initials || p.name.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase()}
+      links={p.links}
     />
   )
 }
