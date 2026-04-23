@@ -65,35 +65,41 @@ export function EbookDownloadForm({ slug, locale, pdfPath, ctaLink, labels }: Eb
 
     setLoading(true)
     try {
-      await fetch('/api/leads', {
+      const res = await fetch('/api/ebooks/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          profileType: 'ebook',
-          fullName: name.trim(),
+          name: name.trim(),
           email: email.trim(),
           phone: phone.trim(),
-          message: `Téléchargement ebook: ${slug}`,
-          sheetName: 'EBOOK_DOWNLOADS',
-          locale,
-          ebookSlug: slug,
           company: company.trim(),
-          recaptchaToken: 'ebook-download',
+          ebookSlug: slug,
+          locale,
         }),
       })
+      // API returns the download URL — use it if available, fall back to local path
+      const data = res.ok ? await res.json() : null
+      const pdfUrl = data?.downloadUrl ?? pdfPath ?? `/ebooks/${slug}-fr.pdf`
+      const link = document.createElement('a')
+      link.href = pdfUrl
+      link.download = pdfUrl.split('/').pop() ?? `${slug}.pdf`
+      link.target = '_blank'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     } catch {
-      // Silent fail — still show success
+      // Fallback: trigger local download even if API fails
+      const pdfUrl = pdfPath ?? `/ebooks/${slug}-fr.pdf`
+      const link = document.createElement('a')
+      link.href = pdfUrl
+      link.download = pdfUrl.split('/').pop() ?? `${slug}.pdf`
+      link.target = '_blank'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
     setLoading(false)
     setSuccess(true)
-    const pdfUrl = pdfPath ?? `/ebooks/${slug}-fr.pdf`
-    const link = document.createElement('a')
-    link.href = pdfUrl
-    link.download = pdfUrl.split('/').pop() ?? `${slug}.pdf`
-    link.target = '_blank'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
     if (ctaLink) setTimeout(() => { window.location.href = ctaLink }, 800)
   }
 

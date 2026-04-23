@@ -10,7 +10,7 @@
     "validate:ebooks": "node ./scripts/validate-ebooks.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.87.0",
+    "@neondatabase/serverless": "^0.10.4",
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
     "@types/qrcode": "^1.5.6",
