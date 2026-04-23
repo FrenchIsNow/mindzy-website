@@ -207,15 +207,37 @@ export default function EbookSettingsForm({
                   </optgroup>
                 )}
               </select>
-              <div className="mt-1 text-xs text-slate-500">
-                Prix pris depuis le produit sélectionné ({form.upsellPriceEuros || '0.00'} {form.currency.toUpperCase()}).{' '}
-                Pour le modifier, éditez le{' '}
-                <Link href={currentUpsellValue.startsWith('service:') ? `/dashboard/admin/services/${form.upsell_slug}` : `/dashboard/admin/ebooks/${form.upsell_slug}`} className="text-violet-600 hover:underline">
-                  produit lui-même
-                </Link>
-                .
-              </div>
+              {form.upsell_slug && (
+                <div className="mt-1 text-xs text-slate-500">
+                  Pour modifier son prix, éditez le{' '}
+                  <Link href={currentUpsellValue.startsWith('service:') ? `/dashboard/admin/services/${form.upsell_slug}` : `/dashboard/admin/ebooks/${form.upsell_slug}`} className="text-violet-600 hover:underline">
+                    produit lui-même
+                  </Link>
+                  .
+                </div>
+              )}
             </div>
+
+            {/* Pricing breakdown: ebook + upsell = total if accepted */}
+            {form.upsell_slug && !form.is_free && form.priceEuros && form.upsellPriceEuros && (
+              <div className="rounded-lg border border-violet-200 bg-violet-50/40 p-4 text-sm">
+                <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-violet-700">Si l&apos;upsell est accepté</div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>Prix ebook</span>
+                  <span className="tabular-nums">{Number(form.priceEuros).toFixed(2)} {form.currency.toUpperCase()}</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-700">
+                  <span>+ Upsell</span>
+                  <span className="tabular-nums">{Number(form.upsellPriceEuros).toFixed(2)} {form.currency.toUpperCase()}</span>
+                </div>
+                <div className="mt-2 flex items-center justify-between border-t border-violet-200 pt-2 font-semibold text-violet-900">
+                  <span>Total client</span>
+                  <span className="tabular-nums">
+                    {(Number(form.priceEuros || 0) + Number(form.upsellPriceEuros || 0)).toFixed(2)} {form.currency.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

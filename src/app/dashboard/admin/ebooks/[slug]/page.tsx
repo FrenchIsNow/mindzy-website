@@ -58,19 +58,38 @@ export default async function EbookDetail({ params }: { params: Promise<{ slug: 
       <Link href="/dashboard/admin/ebooks" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
         ← Ebooks
       </Link>
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{ebook.title.fr}</h1>
           <p className="text-sm text-slate-600">/{ebook.slug} · {ebook.pages} pages · {ebook.category}</p>
         </div>
         <Link
           href={`/dashboard/admin/ebooks/${slug}/edit`}
-          className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+          className="shrink-0 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
         >
           Éditer la page
         </Link>
       </div>
-      <div className="mb-6" />
+
+      {/* Public page preview */}
+      <div className="mt-4 mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3">
+        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">Page publique</span>
+        {(['fr', 'en', 'es'] as const).map(l => (
+          <a
+            key={l}
+            href={`/${l}/ebooks/${slug}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700"
+          >
+            <span className="uppercase tracking-wider">{l}</span>
+            <span className="text-slate-400">mindzy.me/{l}/ebooks/{slug}</span>
+            <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+            </svg>
+          </a>
+        ))}
+      </div>
 
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         <KPI label="Leads" value={leads.length} />
