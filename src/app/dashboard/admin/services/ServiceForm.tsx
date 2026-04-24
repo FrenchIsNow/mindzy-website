@@ -17,7 +17,6 @@ export default function ServiceForm(props: Props) {
     description: initial?.description ?? '',
     priceEuros: initial ? (initial.price_cents / 100).toFixed(2) : '',
     currency: initial?.currency ?? 'eur',
-    url: initial?.url ?? '',
     is_active: initial?.is_active ?? true,
   })
   const [saving, setSaving] = useState(false)
@@ -48,7 +47,6 @@ export default function ServiceForm(props: Props) {
           description: form.description || undefined,
           priceCents,
           currency: form.currency,
-          url: form.url || undefined,
         }),
       })
       setSaving(false)
@@ -68,7 +66,6 @@ export default function ServiceForm(props: Props) {
           description: form.description || null,
           price_cents: priceCents,
           currency: form.currency,
-          url: form.url || null,
           is_active: form.is_active,
         }),
       })
@@ -134,10 +131,6 @@ export default function ServiceForm(props: Props) {
             <option value="eur">EUR</option>
             <option value="usd">USD</option>
           </select>
-        </div>
-        <div className="col-span-2">
-          <label className="mb-1 block text-sm font-medium text-slate-700">URL (checkout, Calendly…)</label>
-          <input value={form.url} onChange={e => set('url', e.target.value)} placeholder="https://…" className={cls} />
         </div>
         {props.mode === 'edit' && (
           <div className="col-span-2">

@@ -190,7 +190,6 @@ export async function initDB() {
       description       TEXT,
       price_cents       INTEGER NOT NULL DEFAULT 0,
       currency          TEXT NOT NULL DEFAULT 'eur',
-      url               TEXT,
       is_active         BOOLEAN NOT NULL DEFAULT TRUE,
       stripe_product_id TEXT,
       stripe_price_id   TEXT,
@@ -200,6 +199,7 @@ export async function initDB() {
   `
   await sql`ALTER TABLE services ADD COLUMN IF NOT EXISTS stripe_product_id TEXT`
   await sql`ALTER TABLE services ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`
+  await sql`ALTER TABLE services DROP COLUMN IF EXISTS url`
   await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_product_id TEXT`
   await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`
 
@@ -668,7 +668,6 @@ export interface Service {
   description: string | null
   price_cents: number
   currency: string
-  url: string | null
   is_active: boolean
   stripe_product_id: string | null
   stripe_price_id: string | null
@@ -724,14 +723,13 @@ export async function createService(data: {
   description?: string
   priceCents: number
   currency?: string
-  url?: string
 }): Promise<Service> {
   await initDB()
   const sql = getSql()
   const rows = await sql`
-    INSERT INTO services (slug, name, description, price_cents, currency, url)
+    INSERT INTO services (slug, name, description, price_cents, currency)
     VALUES (${data.slug}, ${data.name}, ${data.description ?? null}, ${data.priceCents},
-            ${data.currency ?? 'eur'}, ${data.url ?? null})
+            ${data.currency ?? 'eur'})
     RETURNING *
   `
   return rows[0] as Service
@@ -749,7 +747,6 @@ export async function updateService(
       description  = COALESCE(${data.description ?? null}, description),
       price_cents  = COALESCE(${data.price_cents ?? null}, price_cents),
       currency     = COALESCE(${data.currency ?? null}, currency),
-      url          = COALESCE(${data.url ?? null}, url),
       is_active    = COALESCE(${data.is_active ?? null}, is_active),
       updated_at   = NOW()
     WHERE id = ${id}

@@ -27,7 +27,6 @@ export async function POST(req: Request) {
     description?: string
     priceCents?: number
     currency?: string
-    url?: string
   } | null
 
   if (!body?.slug || !body.name || typeof body.priceCents !== 'number') {
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
     description: body.description,
     priceCents: body.priceCents,
     currency: body.currency,
-    url: body.url,
   })
 
   try {
