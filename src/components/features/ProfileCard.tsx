@@ -10,11 +10,12 @@ type LinkItem = {
 
 interface ProfileCardProps {
   name: string
-  title: string        // e.g. "CEO & Co-Founder"
-  subtitle: string     // e.g. "AI Expert"
+  title: string
+  subtitle: string
   company: string
   initials: string
   links: LinkItem[]
+  photoUrl?: string
 }
 
 function PlatformIcon({ icon }: { icon: LinkItem['icon'] }) {
@@ -58,7 +59,7 @@ function PlatformIcon({ icon }: { icon: LinkItem['icon'] }) {
   )
 }
 
-export function ProfileCard({ name, title, subtitle, company, initials, links }: ProfileCardProps) {
+export function ProfileCard({ name, title, subtitle, company, initials, links, photoUrl }: ProfileCardProps) {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
@@ -78,12 +79,21 @@ export function ProfileCard({ name, title, subtitle, company, initials, links }:
           <div className="h-20" style={{ background: 'linear-gradient(135deg, #7C3AED, #A78BFA)' }} />
           {/* Avatar */}
           <div className="-mt-10 flex justify-center mb-4">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-2xl"
-              style={{ background: 'linear-gradient(135deg, #7C3AED, #5B21B6)', border: '4px solid #1A1A2E' }}
-            >
-              {initials}
-            </div>
+            {photoUrl ? (
+              <img
+                src={photoUrl}
+                alt={name}
+                className="w-20 h-20 rounded-full object-cover shadow-2xl"
+                style={{ border: '4px solid #1A1A2E' }}
+              />
+            ) : (
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-2xl"
+                style={{ background: 'linear-gradient(135deg, #7C3AED, #5B21B6)', border: '4px solid #1A1A2E' }}
+              >
+                {initials}
+              </div>
+            )}
           </div>
           <div className="px-6 pb-6">
             <h1 className="text-xl font-bold text-white mb-1">{name}</h1>

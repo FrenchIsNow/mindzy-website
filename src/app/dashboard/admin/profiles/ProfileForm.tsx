@@ -32,6 +32,8 @@ export default function ProfileForm(props: Props) {
     seoDesc: initial?.seo_desc ?? '',
     isActive: initial?.is_active ?? true,
   })
+  const [photoUrl, setPhotoUrl] = useState<string>(initial?.photo_url ?? '')
+  const [photoUploading, setPhotoUploading] = useState(false)
   const [links, setLinks] = useState<ProfileLink[]>(initial?.links ?? [])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -39,6 +41,25 @@ export default function ProfileForm(props: Props) {
 
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) => setForm(p => ({ ...p, [k]: v }))
   const cls = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500'
+
+  async function uploadPhoto(file: File) {
+    if (!form.slug) { setError('Renseignez le slug avant d\'uploader une photo.'); return }
+    setPhotoUploading(true)
+    setError('')
+    const fd = new FormData()
+    fd.append('file', file)
+    fd.append('kind', 'profile-photo')
+    fd.append('slug', form.slug)
+    const res = await fetch('/api/dashboard/upload', { method: 'POST', body: fd })
+    setPhotoUploading(false)
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      setError(d.error || 'Erreur upload photo')
+      return
+    }
+    const { url } = await res.json()
+    setPhotoUrl(url)
+  }
 
   function addLink(platform: keyof typeof PLATFORM_PRESETS) {
     const preset = PLATFORM_PRESETS[platform]
@@ -103,6 +124,7 @@ export default function ProfileForm(props: Props) {
           subtitle: form.subtitle,
           company: form.company,
           initials: form.initials,
+          photo_url: photoUrl || null,
           seo_title: form.seoTitle,
           seo_desc: form.seoDesc,
           is_active: form.isActive,
@@ -136,6 +158,44 @@ export default function ProfileForm(props: Props) {
     <div className="space-y-5">
       <div className="rounded-2xl border border-slate-200 bg-white p-6">
         <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Identité</h3>
+
+        {/* Photo upload */}
+        <div className="mb-4 flex items-center gap-4">
+          <div className="relative shrink-0">
+            {photoUrl ? (
+              <img src={photoUrl} alt="Photo" className="h-20 w-20 rounded-full object-cover border-2 border-violet-200" />
+            ) : (
+              <div className="h-20 w-20 rounded-full bg-violet-100 flex items-center justify-center text-2xl font-bold text-violet-400 border-2 border-dashed border-violet-300">
+                {form.initials || '?'}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="cursor-pointer rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 inline-flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {photoUploading ? 'Upload…' : 'Choisir une photo'}
+              <input
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                disabled={photoUploading}
+                onChange={e => { const f = e.target.files?.[0]; if (f) uploadPhoto(f) }}
+              />
+            </label>
+            {photoUrl && (
+              <button
+                onClick={() => setPhotoUrl('')}
+                className="text-xs text-red-500 hover:underline text-left"
+              >
+                Supprimer la photo
+              </button>
+            )}
+            <p className="text-xs text-slate-400">JPG, PNG, WebP — max 10 Mo</p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           <Field label="Slug" required>
             <input

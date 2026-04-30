@@ -10,8 +10,8 @@ const MAX_IMAGE_BYTES = 10 * 1024 * 1024 // 10 MB
 /**
  * Accepts multipart form-data with fields:
  *   file  – the File to upload
- *   kind  – "pdf" | "image"
- *   slug  – ebook slug, used as path prefix (letters, digits, dashes only)
+ *   kind  – "pdf" | "image" | "profile-photo"
+ *   slug  – ebook or profile slug, used as path prefix
  *
  * Returns { url } of the uploaded blob.
  */
@@ -41,7 +41,10 @@ export async function POST(req: Request) {
 
   const isPdf = kind === 'pdf'
   const isImage = kind === 'image'
-  if (!isPdf && !isImage) return NextResponse.json({ error: 'kind must be "pdf" or "image"' }, { status: 400 })
+  const isProfilePhoto = kind === 'profile-photo'
+  if (!isPdf && !isImage && !isProfilePhoto) {
+    return NextResponse.json({ error: 'kind must be "pdf", "image", or "profile-photo"' }, { status: 400 })
+  }
 
   const maxBytes = isPdf ? MAX_PDF_BYTES : MAX_IMAGE_BYTES
   if (file.size > maxBytes) {
@@ -51,12 +54,16 @@ export async function POST(req: Request) {
   if (isPdf && file.type !== 'application/pdf') {
     return NextResponse.json({ error: 'PDF file required' }, { status: 400 })
   }
-  if (isImage && !file.type.startsWith('image/')) {
+  if ((isImage || isProfilePhoto) && !file.type.startsWith('image/')) {
     return NextResponse.json({ error: 'Image file required' }, { status: 400 })
   }
 
   const ext = isPdf ? 'pdf' : (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '')
-  const path = isPdf ? `ebooks/${slug}.${ext}` : `ebooks/covers/${slug}.${ext}`
+  const path = isPdf
+    ? `ebooks/${slug}.${ext}`
+    : isProfilePhoto
+      ? `profiles/${slug}.${ext}`
+      : `ebooks/covers/${slug}.${ext}`
 
   const blob = await put(path, file, {
     access: 'public',
