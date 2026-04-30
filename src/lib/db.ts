@@ -222,6 +222,7 @@ export async function initDB() {
       subtitle    TEXT,
       company     TEXT,
       initials    TEXT,
+      photo_url   TEXT,
       links       JSONB NOT NULL DEFAULT '[]'::jsonb,
       is_active   BOOLEAN NOT NULL DEFAULT TRUE,
       seo_title   TEXT,
@@ -230,6 +231,7 @@ export async function initDB() {
       updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `
+  await sql`ALTER TABLE profiles ADD COLUMN IF NOT EXISTS photo_url TEXT`
 
   // Seed the two founder profiles (no-op if already present).
   await sql`
@@ -1095,6 +1097,7 @@ export interface Profile {
   subtitle: string | null
   company: string | null
   initials: string | null
+  photo_url: string | null
   links: ProfileLink[]
   is_active: boolean
   seo_title: string | null
@@ -1156,6 +1159,7 @@ export async function updateProfile(
       subtitle  = COALESCE(${data.subtitle ?? null}, subtitle),
       company   = COALESCE(${data.company ?? null}, company),
       initials  = COALESCE(${data.initials ?? null}, initials),
+      photo_url = COALESCE(${data.photo_url ?? null}, photo_url),
       links     = COALESCE(${data.links ? JSON.stringify(data.links) : null}::jsonb, links),
       is_active = COALESCE(${data.is_active ?? null}, is_active),
       seo_title = COALESCE(${data.seo_title ?? null}, seo_title),
