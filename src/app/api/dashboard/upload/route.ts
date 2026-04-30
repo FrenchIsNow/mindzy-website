@@ -65,12 +65,16 @@ export async function POST(req: Request) {
       ? `profiles/${slug}.${ext}`
       : `ebooks/covers/${slug}.${ext}`
 
-  const blob = await put(path, file, {
-    access: 'public',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: file.type,
-  })
-
-  return NextResponse.json({ url: blob.url, pathname: blob.pathname })
+  try {
+    const blob = await put(path, file, {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: file.type,
+    })
+    return NextResponse.json({ url: blob.url, pathname: blob.pathname })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return NextResponse.json({ error: `Vercel Blob error: ${msg}` }, { status: 500 })
+  }
 }

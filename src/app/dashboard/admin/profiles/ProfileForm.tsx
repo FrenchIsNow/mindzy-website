@@ -33,7 +33,7 @@ export default function ProfileForm(props: Props) {
     isActive: initial?.is_active ?? true,
   })
   const [photoUrl, setPhotoUrl] = useState<string>(initial?.photo_url ?? '')
-  const [photoUploading, setPhotoUploading] = useState(false)
+  const [photoLoading, setPhotoLoading] = useState(false)
   const [links, setLinks] = useState<ProfileLink[]>(initial?.links ?? [])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -42,23 +42,29 @@ export default function ProfileForm(props: Props) {
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) => setForm(p => ({ ...p, [k]: v }))
   const cls = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500'
 
-  async function uploadPhoto(file: File) {
-    if (!form.slug) { setError('Renseignez le slug avant d\'uploader une photo.'); return }
-    setPhotoUploading(true)
+  function handlePhotoFile(file: File) {
+    if (!file.type.startsWith('image/')) { setError('Fichier image requis (JPG, PNG, WebP)'); return }
+    if (file.size > 10 * 1024 * 1024) { setError('Image trop lourde (max 10 Mo)'); return }
+    setPhotoLoading(true)
     setError('')
-    const fd = new FormData()
-    fd.append('file', file)
-    fd.append('kind', 'profile-photo')
-    fd.append('slug', form.slug)
-    const res = await fetch('/api/dashboard/upload', { method: 'POST', body: fd })
-    setPhotoUploading(false)
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}))
-      setError(d.error || 'Erreur upload photo')
-      return
+    const reader = new FileReader()
+    reader.onload = e => {
+      const img = new Image()
+      img.onload = () => {
+        const MAX = 400
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height))
+        const canvas = document.createElement('canvas')
+        canvas.width = Math.round(img.width * scale)
+        canvas.height = Math.round(img.height * scale)
+        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height)
+        setPhotoUrl(canvas.toDataURL('image/jpeg', 0.85))
+        setPhotoLoading(false)
+      }
+      img.onerror = () => { setError('Impossible de lire l\'image'); setPhotoLoading(false) }
+      img.src = e.target?.result as string
     }
-    const { url } = await res.json()
-    setPhotoUrl(url)
+    reader.onerror = () => { setError('Erreur de lecture du fichier'); setPhotoLoading(false) }
+    reader.readAsDataURL(file)
   }
 
   function addLink(platform: keyof typeof PLATFORM_PRESETS) {
@@ -175,13 +181,13 @@ export default function ProfileForm(props: Props) {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              {photoUploading ? 'Upload…' : 'Choisir une photo'}
+              {photoLoading ? 'Traitement…' : 'Choisir une photo'}
               <input
                 type="file"
                 accept="image/*"
                 className="sr-only"
-                disabled={photoUploading}
-                onChange={e => { const f = e.target.files?.[0]; if (f) uploadPhoto(f) }}
+                disabled={photoLoading}
+                onChange={e => { const f = e.target.files?.[0]; if (f) handlePhotoFile(f) }}
               />
             </label>
             {photoUrl && (
@@ -192,7 +198,7 @@ export default function ProfileForm(props: Props) {
                 Supprimer la photo
               </button>
             )}
-            <p className="text-xs text-slate-400">JPG, PNG, WebP — max 10 Mo</p>
+            <p className="text-xs text-slate-400">JPG, PNG, WebP — redimensionné 400px, sauvegardé avec le profil</p>
           </div>
         </div>
 
