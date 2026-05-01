@@ -56,7 +56,9 @@ export default function ProfileForm(props: Props) {
         const canvas = document.createElement('canvas')
         canvas.width = Math.round(img.width * scale)
         canvas.height = Math.round(img.height * scale)
-        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height)
+        const ctx = canvas.getContext('2d')
+        if (!ctx) { setError('Canvas non supporté par ce navigateur'); setPhotoLoading(false); return }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
         setPhotoUrl(canvas.toDataURL('image/jpeg', 0.85))
         setPhotoLoading(false)
       }

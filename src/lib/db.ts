@@ -1159,7 +1159,6 @@ export async function updateProfile(
       subtitle  = COALESCE(${data.subtitle ?? null}, subtitle),
       company   = COALESCE(${data.company ?? null}, company),
       initials  = COALESCE(${data.initials ?? null}, initials),
-      photo_url = COALESCE(${data.photo_url ?? null}, photo_url),
       links     = COALESCE(${data.links ? JSON.stringify(data.links) : null}::jsonb, links),
       is_active = COALESCE(${data.is_active ?? null}, is_active),
       seo_title = COALESCE(${data.seo_title ?? null}, seo_title),
@@ -1167,6 +1166,10 @@ export async function updateProfile(
       updated_at = NOW()
     WHERE id = ${id}
   `
+  // photo_url uses direct assignment so null explicitly clears the photo (COALESCE can't do this)
+  if ('photo_url' in data) {
+    await sql`UPDATE profiles SET photo_url = ${data.photo_url ?? null} WHERE id = ${id}`
+  }
 }
 
 export async function deleteProfile(id: number): Promise<void> {
