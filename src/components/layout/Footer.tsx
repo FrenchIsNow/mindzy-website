@@ -28,6 +28,8 @@ export function Footer({ locale }: { locale: Locale }) {
     company: [
       { href: `/${locale}/pourquoi-nous`, label: (t.links as any).whyUs },
       { href: `/${locale}/avis-clients`, label: (t.links as any).reviews },
+      { href: `/${locale}/ai-employee`, label: locale === 'en' ? 'AI Employee' : locale === 'es' ? 'Empleado IA' : 'Employé IA' },
+      { href: `/${locale}/ai-waitlist`, label: locale === 'en' ? 'AI Early Access' : locale === 'es' ? 'Acceso anticipado IA' : 'Accès anticipé IA' },
     ],
     legal: [
       { href: `/${locale}/legal/cgu`, label: t.links.cgu },
