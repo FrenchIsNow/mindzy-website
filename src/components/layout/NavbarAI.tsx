@@ -1,8 +1,93 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+
+const LOCALES = [
+  { code: 'en', label: 'English' },
+  { code: 'fr', label: 'Français' },
+  { code: 'es', label: 'Español' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'it', label: 'Italiano' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ar', label: 'العربية' },
+  { code: 'zh', label: '简体中文' },
+  { code: 'ja', label: '日本語' },
+  { code: 'ru', label: 'Русский' },
+]
+
+// Only the 3 locales the project actually supports
+const SUPPORTED = ['en', 'fr', 'es']
+
+function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const currentLabel = LOCALES.find(l => l.code === currentLocale)?.label ?? 'English'
+
+  function getLocaleHref(locale: string) {
+    const segments = pathname.split('/')
+    segments[1] = locale
+    return segments.join('/') || '/'
+  }
+
+  useEffect(() => {
+    function onOutsideClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('click', onOutsideClick)
+    return () => document.removeEventListener('click', onOutsideClick)
+  }, [])
+
+  return (
+    <div ref={ref} style={{ position: 'relative', fontSize: '13px' }}>
+      <button
+        onClick={(e) => { e.stopPropagation(); setOpen(o => !o) }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 10px', color: 'var(--ai-fg-muted)', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit' }}
+        className="hover:text-[var(--ai-fg)] transition-colors"
+      >
+        {currentLabel}
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ transition: 'transform 160ms', transform: open ? 'rotate(180deg)' : 'none' }}>
+          <path d="M2 4l3 3 3-3"/>
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: 'var(--ai-bg-2)', border: '1px solid var(--ai-border)', borderRadius: '12px', padding: '6px', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', minWidth: '160px', zIndex: 100 }}
+          onClick={e => e.stopPropagation()}
+        >
+          {LOCALES.map(locale => {
+            const supported = SUPPORTED.includes(locale.code)
+            const isActive = locale.code === currentLocale
+            return supported ? (
+              <Link
+                key={locale.code}
+                href={getLocaleHref(locale.code)}
+                onClick={() => setOpen(false)}
+                style={{ display: 'block', padding: '8px 12px', borderRadius: '8px', fontSize: '13px', color: isActive ? 'var(--ai-fg)' : 'var(--ai-fg-muted)', fontWeight: isActive ? 500 : 400, textDecoration: 'none' }}
+                className="hover:bg-[var(--ai-bg-3)] hover:text-[var(--ai-fg)] transition-colors"
+              >
+                {locale.label}
+              </Link>
+            ) : (
+              <span
+                key={locale.code}
+                style={{ display: 'block', padding: '8px 12px', borderRadius: '8px', fontSize: '13px', color: 'var(--ai-fg-soft)', cursor: 'not-allowed', opacity: 0.45 }}
+                title="Coming soon"
+              >
+                {locale.label}
+              </span>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
 
 function MoonIcon() {
   return (
@@ -28,20 +113,23 @@ function SunIcon() {
   )
 }
 
-const NAV_LINKS = [
-  { href: '/en', label: 'Home' },
-  { href: '/en/process', label: 'Process' },
-  { href: '/en/portfolio', label: 'Portfolio' },
-  { href: '/en/about', label: 'About' },
-  { href: '/en/blog', label: 'Blog' },
-  { href: '/en/faq', label: 'FAQ' },
-  { href: '/en/ai-employee', label: 'AI Employee' },
+const NAV_PATHS = [
+  { path: '', label: 'Home' },
+  { path: '/process', label: 'Process' },
+  { path: '/portfolio', label: 'Portfolio' },
+  { path: '/about', label: 'About' },
+  { path: '/blog', label: 'Blog' },
+  { path: '/faq', label: 'FAQ' },
+  { path: '/ai-employee', label: 'AI Employee' },
 ]
 
 export function NavbarAI() {
   const [scrolled, setScrolled] = useState(false)
   const [isDark, setIsDark] = useState(false)
   const pathname = usePathname()
+
+  // Extract current locale from pathname (e.g. /en/about → "en")
+  const currentLocale = pathname.split('/')[1] ?? 'en'
 
   useEffect(() => {
     const stored = localStorage.getItem('mindzy-theme')
@@ -97,10 +185,11 @@ export function NavbarAI() {
           </span>
         </Link>
 
-        {/* Center nav links */}
+        {/* Center nav links — locale-aware */}
         <nav className="hidden md:flex items-center gap-9 text-sm">
-          {NAV_LINKS.map(({ href, label }) => {
-            const isActive = pathname === href
+          {NAV_PATHS.map(({ path, label }) => {
+            const href = `/${currentLocale}${path}`
+            const isActive = pathname === href || (path === '' && pathname === `/${currentLocale}`)
             return (
               <Link
                 key={href}
@@ -112,11 +201,7 @@ export function NavbarAI() {
                 }`}
                 style={
                   isActive
-                    ? {
-                        textDecoration: 'underline',
-                        textDecorationColor: 'var(--ai-accent)',
-                        textUnderlineOffset: '4px',
-                      }
+                    ? { textDecoration: 'underline', textDecorationColor: 'var(--ai-accent)', textUnderlineOffset: '4px' }
                     : undefined
                 }
               >
@@ -138,8 +223,8 @@ export function NavbarAI() {
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          {/* English label */}
-          <span style={{ fontSize: '13px', color: 'var(--ai-fg-muted)', cursor: 'pointer' }}>English</span>
+          {/* Locale switcher */}
+          <LocaleSwitcher currentLocale={currentLocale} />
 
           {/* Book a Call — glass button */}
           <a
