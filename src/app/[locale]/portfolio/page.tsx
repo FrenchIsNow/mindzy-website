@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { GlassButton } from '@/components/ui/GlassButton'
 
 const CSS = `
-.pf-hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; padding:120px 0 80px; }
+.pf-hero { position:relative; min-height:calc(100vh - 72px); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; padding:48px 0 80px; }
 .pf-hero__grid { position:absolute; inset:0; background-image:linear-gradient(to right,rgba(128,128,128,0.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(128,128,128,0.08) 1px,transparent 1px); background-size:24px 24px; pointer-events:none; }
 
 @keyframes pf-fadein { from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)} }

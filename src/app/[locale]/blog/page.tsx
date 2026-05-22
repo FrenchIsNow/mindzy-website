@@ -6,7 +6,7 @@ import { GlassButton } from '@/components/ui/GlassButton'
 const CSS = `
 @keyframes mt-blink { 0%,100%{opacity:1}50%{opacity:0} }
 
-.blog-hero { padding:200px 0 72px; text-align:center; position:relative; }
+.blog-hero { padding:128px 0 72px; text-align:center; position:relative; }
 .blog-hero__title { font-family:var(--font-serif-ai); font-size:clamp(36px,5vw,64px); line-height:1.22; max-width:18ch; margin:18px auto 0; padding-bottom:.08em; font-weight:400; letter-spacing:-0.02em; }
 .blog-hero__sub { margin:20px auto 0; color:var(--ai-fg-muted); font-size:18px; max-width:54ch; line-height:1.6; }
 
