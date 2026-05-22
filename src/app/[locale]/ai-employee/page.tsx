@@ -1,24 +1,15 @@
 "use client"
 
 import React, { Suspense, useEffect, useMemo, useRef, useState, createContext, useContext } from "react"
+import { useParams } from "next/navigation"
+import Link from "next/link"
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber"
-import {
-  OrbitControls,
-  Environment,
-  Html,
-  Plane,
-  Sphere,
-} from "@react-three/drei"
+import { OrbitControls, Html, Plane, Sphere } from "@react-three/drei"
 import { Download, Heart, X } from "lucide-react"
 
-/**
- * Single-file Stellar Card Gallery
- * - Context, Starfield, Galaxy, FloatingCard, Modal, and Page in one.
- */
-
 /* =========================
-   Card Context (inlined)
+   Card data (matches static site galaxy-gallery.js)
    ========================= */
 
 type Card = {
@@ -27,6 +18,29 @@ type Card = {
   alt: string
   title: string
 }
+
+const CARDS: Card[] = [
+  { id: "1",  imageUrl: "/ai-employee/01.png", alt: "AI Strategy",      title: "AI Strategy" },
+  { id: "2",  imageUrl: "/ai-employee/02.png", alt: "Intelligence",     title: "Intelligence" },
+  { id: "3",  imageUrl: "/ai-employee/03.png", alt: "Machine Learning", title: "Machine Learning" },
+  { id: "4",  imageUrl: "/ai-employee/04.png", alt: "Automation",       title: "Automation" },
+  { id: "5",  imageUrl: "/ai-employee/05.png", alt: "Neural Networks",  title: "Neural Networks" },
+  { id: "6",  imageUrl: "/ai-employee/06.png", alt: "Security",         title: "Security" },
+  { id: "7",  imageUrl: "/ai-employee/07.png", alt: "Cloud",            title: "Cloud" },
+  { id: "8",  imageUrl: "/ai-employee/08.png", alt: "Digital World",    title: "Digital World" },
+  { id: "9",  imageUrl: "/ai-employee/09.png", alt: "Data Streams",     title: "Data Streams" },
+  { id: "10", imageUrl: "/ai-employee/10.png", alt: "Leadership",       title: "Leadership" },
+  { id: "11", imageUrl: "/ai-employee/11.png", alt: "Business Roles",   title: "Business Roles" },
+  { id: "12", imageUrl: "/ai-employee/12.png", alt: "Productivity",     title: "Productivity" },
+  { id: "13", imageUrl: "/ai-employee/13.png", alt: "Analytics",        title: "Analytics" },
+  { id: "14", imageUrl: "/ai-employee/14.png", alt: "Workflow",         title: "Workflow" },
+  { id: "15", imageUrl: "/ai-employee/15.png", alt: "Collaboration",    title: "Collaboration" },
+  { id: "16", imageUrl: "/ai-employee/16.png", alt: "Performance",      title: "Performance" },
+  { id: "17", imageUrl: "/ai-employee/17.png", alt: "Development",      title: "Development" },
+  { id: "18", imageUrl: "/ai-employee/18.png", alt: "Innovation",       title: "Innovation" },
+  { id: "19", imageUrl: "/ai-employee/19.png", alt: "Operations",       title: "Operations" },
+  { id: "20", imageUrl: "/ai-employee/20.png", alt: "Deployment",       title: "Deployment" },
+]
 
 type CardContextType = {
   selectedCard: Card | null
@@ -44,46 +58,23 @@ function useCard() {
 
 function CardProvider({ children }: { children: React.ReactNode }) {
   const [selectedCard, setSelectedCard] = useState<Card | null>(null)
-
-  const cards: Card[] = [
-    { id: "1", imageUrl: "https://i.ibb.co/4ZWcP129/1.png", alt: "Elegant Invitation", title: "Elegant Invitation" },
-    { id: "2", imageUrl: "https://i.ibb.co/TMbhBRcL/2.png", alt: "Modern Design", title: "Modern Design" },
-    { id: "3", imageUrl: "https://i.ibb.co/spXBFdSm/3.png", alt: "Vintage Style", title: "Vintage Style" },
-    { id: "4", imageUrl: "https://i.ibb.co/N2TCN0bC/4.png", alt: "Minimalist", title: "Minimalist" },
-    { id: "5", imageUrl: "https://i.ibb.co/jZkh6q1M/5.png", alt: "Floral Design", title: "Floral Design" },
-    { id: "6", imageUrl: "https://i.ibb.co/6cc7mksr/6.png", alt: "Geometric", title: "Geometric" },
-    { id: "7", imageUrl: "https://i.ibb.co/bjV35jNQ/7.png", alt: "Luxury Gold", title: "Luxury Gold" },
-    { id: "8", imageUrl: "https://i.ibb.co/PZ7WLs7g/8.png", alt: "Rustic Style", title: "Rustic Style" },
-    { id: "9", imageUrl: "https://i.ibb.co/qLR5bQRM/9.png", alt: "Dark Modern", title: "Dark Modern" },
-    { id: "10", imageUrl: "https://i.ibb.co/PdNhw3K/10.png", alt: "Colorful Party", title: "Colorful Party" },
-    { id: "11", imageUrl: "https://i.ibb.co/zWpN1nqJ/11.png", alt: "Geometric", title: "Geometric" },
-    { id: "12", imageUrl: "https://i.ibb.co/fVYnCXgR/12.png", alt: "Luxury Gold", title: "Luxury Gold" },
-    { id: "13", imageUrl: "https://i.ibb.co/1G6jZWcZ/13.png", alt: "Rustic Style", title: "Rustic Style" },
-    { id: "14", imageUrl: "https://i.ibb.co/xKG7m905/14.png", alt: "Dark Modern", title: "Dark Modern" },
-    { id: "15", imageUrl: "https://i.ibb.co/7dJzR3xK/15.png", alt: "Colorful Party", title: "Colorful Party" },
-    { id: "16", imageUrl: "https://i.ibb.co/NdJ1csXB/16.png", alt: "Elegant Script", title: "Elegant Script" },
-    { id: "17", imageUrl: "https://i.ibb.co/8L2Sdt5Q/17.png", alt: "Watercolor Art", title: "Watercolor Art" },
-    { id: "18", imageUrl: "https://i.ibb.co/mC1zxJYq/18.png", alt: "Botanical", title: "Botanical" },
-    { id: "19", imageUrl: "https://i.ibb.co/wryzsKs4/20.png", alt: "Art Deco", title: "Art Deco" },
-    { id: "20", imageUrl: "https://i.ibb.co/1fvnxL3L/19.png", alt: "Marble Luxury", title: "Marble Luxury" },
-  ]
-
   return (
-    <CardContext.Provider value={{ selectedCard, setSelectedCard, cards }}>
+    <CardContext.Provider value={{ selectedCard, setSelectedCard, cards: CARDS }}>
       {children}
     </CardContext.Provider>
   )
 }
 
 /* =========================
-   Starfield Background (inlined)
+   Starfield background
    ========================= */
 
 function StarfieldBackground() {
   const mountRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!mountRef.current) return
+    const mount = mountRef.current
+    if (!mount) return
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000)
@@ -91,7 +82,7 @@ function StarfieldBackground() {
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setClearColor(0x000000, 1)
-    mountRef.current.appendChild(renderer.domElement)
+    mount.appendChild(renderer.domElement)
 
     const starsGeometry = new THREE.BufferGeometry()
     const starsCount = 10000
@@ -127,9 +118,8 @@ function StarfieldBackground() {
     return () => {
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationId)
-      if (mountRef.current && renderer.domElement) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        mountRef.current.removeChild(renderer.domElement)
+      if (mount && renderer.domElement.parentNode === mount) {
+        mount.removeChild(renderer.domElement)
       }
       renderer.dispose()
       starsGeometry.dispose()
@@ -137,11 +127,11 @@ function StarfieldBackground() {
     }
   }, [])
 
-  return <div ref={mountRef} className="fixed top-0 left-0 w-full h-full z-0 bg-black" />
+  return <div ref={mountRef} className="absolute top-0 left-0 w-full h-full z-0 bg-black" />
 }
 
 /* =========================
-   Floating Card (inlined)
+   Floating card
    ========================= */
 
 function FloatingCard({
@@ -149,7 +139,7 @@ function FloatingCard({
   position,
 }: {
   card: Card
-  position: { x: number; y: number; z: number; rotationX: number; rotationY: number; rotationZ: number }
+  position: { x: number; y: number; z: number }
 }) {
   const meshRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
@@ -162,29 +152,14 @@ function FloatingCard({
     }
   })
 
-  const handleClick = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation()
-    setSelectedCard(card)
-  }
-  const handlePointerOver = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation()
-    setHovered(true)
-    document.body.style.cursor = "pointer"
-  }
-  const handlePointerOut = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation()
-    setHovered(false)
-    document.body.style.cursor = "auto"
-  }
-
   return (
     <group ref={groupRef} position={[position.x, position.y, position.z]}>
       <Plane
         ref={meshRef}
         args={[4.5, 6]}
-        onClick={handleClick}
-        onPointerOver={handlePointerOver}
-        onPointerOut={handlePointerOut}
+        onClick={(e) => { e.stopPropagation(); setSelectedCard(card) }}
+        onPointerOver={(e) => { e.stopPropagation(); setHovered(true); document.body.style.cursor = "pointer" }}
+        onPointerOut={(e) => { e.stopPropagation(); setHovered(false); document.body.style.cursor = "auto" }}
       >
         <meshBasicMaterial transparent opacity={0} />
       </Plane>
@@ -194,31 +169,60 @@ function FloatingCard({
         distanceFactor={10}
         position={[0, 0, 0.01]}
         style={{
-          transition: "all 0.3s ease",
-          transform: hovered ? "scale(1.15)" : "scale(1)",
+          transition: "all 0.22s ease",
+          transform: hovered ? "scale(1.1)" : "scale(1)",
           pointerEvents: "none",
         }}
       >
         <div
-          className="w-40 h-52 rounded-lg overflow-hidden shadow-2xl bg-[#1F2121] p-3 select-none"
+          className="select-none"
           style={{
+            width: "160px",
+            height: "210px",
+            borderRadius: "14px",
+            overflow: "hidden",
+            background: "#0e0e18",
+            border: hovered ? "1px solid rgba(167,139,250,0.65)" : "1px solid rgba(124,58,237,0.22)",
             boxShadow: hovered
-              ? "0 25px 50px rgba(49, 184, 198, 0.5), 0 0 30px rgba(49, 184, 198, 0.3)"
-              : "0 15px 30px rgba(0, 0, 0, 0.6)",
-            border: hovered ? "2px solid rgba(49, 184, 198, 0.5)" : "1px solid rgba(255, 255, 255, 0.1)",
+              ? "0 0 28px rgba(124,58,237,0.55), 0 12px 40px rgba(0,0,0,0.85)"
+              : "0 8px 32px rgba(0,0,0,0.75)",
+            padding: "7px 7px 10px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={card.imageUrl || "/placeholder.svg"}
+            src={card.imageUrl}
             alt={card.alt}
-            className="w-full h-40 object-cover rounded-md"
+            style={{
+              width: "100%",
+              flex: 1,
+              minHeight: 0,
+              objectFit: "cover",
+              borderRadius: "9px",
+              display: "block",
+            }}
             loading="lazy"
             draggable={false}
           />
-          <div className="mt-1 text-center">
-            <p className="text-white text-xs font-medium truncate">{card.title}</p>
-          </div>
+          <p
+            style={{
+              margin: 0,
+              color: "#ddd8f5",
+              fontSize: "10px",
+              fontWeight: 500,
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              fontFamily: "var(--font-instrument-sans), sans-serif",
+              letterSpacing: "0.05em",
+            }}
+          >
+            {card.title}
+          </p>
         </div>
       </Html>
     </group>
@@ -226,100 +230,142 @@ function FloatingCard({
 }
 
 /* =========================
-   Card Modal (inlined)
+   Card modal — matches static site styling
    ========================= */
 
 function CardModal() {
   const { selectedCard, setSelectedCard } = useCard()
   const [isFavorited, setIsFavorited] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!selectedCard) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setSelectedCard(null) }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [selectedCard, setSelectedCard])
 
   if (!selectedCard) return null
 
-  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    const rotateX = (y - centerY) / 15
-    const rotateY = (centerX - x) / 15
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-  }
-
-  const handleMouseLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.transition = "transform 0.5s ease-out"
-      cardRef.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)"
-    }
-  }
-
-  const toggleFavorite = () => setIsFavorited((v) => !v)
-  const handleClose = () => setSelectedCard(null)
-  const handleBackdropClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    if (e.target === e.currentTarget) handleClose()
-  }
-
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-      onClick={handleBackdropClick}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-6"
+      style={{
+        background: "rgba(0,0,0,0.75)",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
+      }}
+      onClick={(e) => { if (e.target === e.currentTarget) setSelectedCard(null) }}
     >
-      <div className="relative max-w-md w-full mx-4">
+      <div
+        className="relative w-full"
+        style={{
+          maxWidth: "360px",
+          background: "#0e0e18",
+          border: "1px solid rgba(124, 58, 237, 0.3)",
+          borderRadius: "20px",
+          padding: "20px",
+          boxShadow: "0 40px 100px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.04)",
+        }}
+      >
         <button
-          onClick={handleClose}
-          className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+          aria-label="Close"
+          onClick={() => setSelectedCard(null)}
+          style={{
+            position: "absolute",
+            top: "-44px",
+            right: 0,
+            background: "transparent",
+            border: "none",
+            color: "rgba(255,255,255,0.7)",
+            cursor: "pointer",
+            padding: "6px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <X className="w-8 h-8" />
+          <X className="w-5 h-5" />
         </button>
 
-        <div style={{ perspective: "1000px" }} className="w-full">
-          <div
-            ref={cardRef}
-            className="relative cursor-pointer rounded-[16px] bg-[#1F2121] p-4 transition-all duration-500 ease-out w-full"
+        <div
+          style={{
+            width: "100%",
+            aspectRatio: "3 / 4",
+            borderRadius: "12px",
+            overflow: "hidden",
+            marginBottom: "16px",
+            background: "#1a1a2e",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={selectedCard.imageUrl}
+            alt={selectedCard.alt}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        </div>
+
+        <h2
+          style={{
+            fontFamily: "var(--font-instrument-serif), serif",
+            fontSize: "20px",
+            color: "#fff",
+            textAlign: "center",
+            margin: "0 0 16px",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {selectedCard.title}
+        </h2>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            type="button"
             style={{
-              transformStyle: "preserve-3d",
-              boxShadow:
-                "rgba(0, 0, 0, 0.01) 0px 520px 146px 0px, rgba(0, 0, 0, 0.04) 0px 333px 133px 0px, rgba(0, 0, 0, 0.26) 0px 83px 83px 0px, rgba(0, 0, 0, 0.29) 0px 21px 46px 0px",
+              flex: 1,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "7px",
+              height: "40px",
+              borderRadius: "10px",
+              fontSize: "14px",
+              fontWeight: 600,
+              fontFamily: "var(--font-instrument-sans), sans-serif",
+              cursor: "pointer",
+              border: "none",
+              background: "#7c3aed",
+              color: "#fff",
+              transition: "background 0.18s ease, transform 0.14s ease",
             }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
+            onMouseOver={(e) => { e.currentTarget.style.background = "#6d28d9" }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "#7c3aed" }}
           >
-            <div className="relative w-full mb-4" style={{ aspectRatio: "3 / 4" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                loading="lazy"
-                className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover"
-                alt={selectedCard.alt}
-                src={selectedCard.imageUrl || "/placeholder.svg"}
-                style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 5px 6px 0px", opacity: 1 }}
-              />
-            </div>
-
-            <h3 className="text-white text-lg font-semibold mb-4 text-center">{selectedCard.title}</h3>
-
-            <div className="flex gap-2">
-              <button
-                type="button"
-                className="inline-flex h-9 flex-1 items-center justify-center rounded-lg text-base font-medium text-black outline-none transition duration-300 ease-out hover:opacity-80 active:scale-[0.97]"
-                style={{ backgroundColor: "#31b8c6" }}
-              >
-                <div className="flex items-center gap-1.5">
-                  <Download className="h-4 w-4" strokeWidth={1.8} />
-                  <span>Download</span>
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={toggleFavorite}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-black outline-none transition duration-300 ease-out hover:opacity-80 active:scale-[0.97]"
-                style={{ backgroundColor: "#31b8c6" }}
-              >
-                <Heart className="h-4 w-4" strokeWidth={1.8} fill={isFavorited ? "currentColor" : "none"} />
-              </button>
-            </div>
-          </div>
+            <Download className="w-[15px] h-[15px]" strokeWidth={1.8} />
+            Download
+          </button>
+          <button
+            type="button"
+            aria-label="Favourite"
+            onClick={() => setIsFavorited((v) => !v)}
+            style={{
+              flex: "0 0 40px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "40px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              border: "none",
+              background: "#7c3aed",
+              color: "#fff",
+              transition: "background 0.18s ease",
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "#6d28d9" }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "#7c3aed" }}
+          >
+            <Heart className="w-[15px] h-[15px]" strokeWidth={1.8} fill={isFavorited ? "currentColor" : "none"} />
+          </button>
         </div>
       </div>
     </div>
@@ -327,21 +373,14 @@ function CardModal() {
 }
 
 /* =========================
-   Card Galaxy (inlined)
+   Card galaxy — Fibonacci sphere
    ========================= */
 
 function CardGalaxy() {
   const { cards } = useCard()
 
   const cardPositions = useMemo(() => {
-    const positions: {
-      x: number
-      y: number
-      z: number
-      rotationX: number
-      rotationY: number
-      rotationZ: number
-    }[] = []
+    const positions: { x: number; y: number; z: number }[] = []
     const numCards = cards.length
     const goldenRatio = (1 + Math.sqrt(5)) / 2
 
@@ -353,14 +392,7 @@ function CardGalaxy() {
       const z = Math.sin(theta) * radiusAtY
       const layerRadius = 12 + (i % 3) * 4
 
-      positions.push({
-        x: x * layerRadius,
-        y: y * layerRadius,
-        z: z * layerRadius,
-        rotationX: Math.atan2(z, Math.sqrt(x * x + y * y)),
-        rotationY: Math.atan2(x, z),
-        rotationZ: (Math.random() - 0.5) * 0.2,
-      })
+      positions.push({ x: x * layerRadius, y: y * layerRadius, z: z * layerRadius })
     }
     return positions
   }, [cards.length])
@@ -371,13 +403,13 @@ function CardGalaxy() {
         <meshStandardMaterial color="#1a1a2e" transparent opacity={0.15} wireframe />
       </Sphere>
       <Sphere args={[12, 32, 32]} position={[0, 0, 0]}>
-        <meshStandardMaterial color="#31b8c6" transparent opacity={0.05} wireframe />
+        <meshStandardMaterial color="#7c3aed" transparent opacity={0.05} wireframe />
       </Sphere>
       <Sphere args={[16, 32, 32]} position={[0, 0, 0]}>
-        <meshStandardMaterial color="#31b8c6" transparent opacity={0.03} wireframe />
+        <meshStandardMaterial color="#7c3aed" transparent opacity={0.03} wireframe />
       </Sphere>
       <Sphere args={[20, 32, 32]} position={[0, 0, 0]}>
-        <meshStandardMaterial color="#31b8c6" transparent opacity={0.02} wireframe />
+        <meshStandardMaterial color="#7c3aed" transparent opacity={0.02} wireframe />
       </Sphere>
 
       {cards.map((card, i) => (
@@ -388,50 +420,166 @@ function CardGalaxy() {
 }
 
 /* =========================
-   Page Export
+   Page
    ========================= */
 
 export default function AIEmployeePage() {
+  const params = useParams<{ locale: string }>()
+  const locale = (params?.locale as string) || "fr"
+  const waitingListHref = `/${locale}/waiting-list`
+
   return (
     <CardProvider>
-      <div className="w-full h-screen relative overflow-hidden bg-black">
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ height: "100vh", minHeight: "600px", background: "#000" }}
+      >
         <StarfieldBackground />
 
         <Canvas
           camera={{ position: [0, 0, 15], fov: 60 }}
-          className="absolute inset-0 z-10"
-          onCreated={({ gl }) => {
-            gl.domElement.style.pointerEvents = "auto"
-          }}
+          className="absolute inset-0"
+          style={{ zIndex: 1 }}
+          onCreated={({ gl }) => { gl.domElement.style.pointerEvents = "auto" }}
         >
           <Suspense fallback={null}>
-            <Environment preset="night" />
-            <ambientLight intensity={0.4} />
+            <ambientLight intensity={0.5} />
             <pointLight position={[10, 10, 10]} intensity={0.6} />
             <pointLight position={[-10, -10, -10]} intensity={0.3} />
             <CardGalaxy />
             <OrbitControls
-              enablePan
+              enablePan={false}
               enableZoom
               enableRotate
               minDistance={5}
               maxDistance={40}
-              autoRotate={false}
-              rotateSpeed={0.5}
-              zoomSpeed={1.2}
-              panSpeed={0.8}
+              autoRotate
+              autoRotateSpeed={0.45}
+              rotateSpeed={0.4}
+              zoomSpeed={1.0}
               target={[0, 0, 0]}
             />
           </Suspense>
         </Canvas>
 
-        <CardModal />
+        {/* Centred glass overlay — title + button */}
+        <div
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center"
+          style={{ padding: "24px", pointerEvents: "none" }}
+        >
+          <div
+            style={{
+              display: "inline-flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "16px",
+              padding: "40px 52px 44px",
+              borderRadius: "24px",
+              background: "rgba(0, 0, 0, 0.45)",
+              backdropFilter: "saturate(1.2) blur(18px)",
+              WebkitBackdropFilter: "saturate(1.2) blur(18px)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 8px 40px rgba(0, 0, 0, 0.5)",
+              maxWidth: "580px",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                color: "#a78bfa",
+                letterSpacing: "0.13em",
+                fontSize: "12px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+              }}
+            >
+              AI Employee as a Service
+            </div>
+            <h1
+              style={{
+                fontFamily: "var(--font-instrument-serif), serif",
+                fontSize: "clamp(28px, 4vw, 52px)",
+                fontWeight: 400,
+                lineHeight: 1.2,
+                letterSpacing: "-0.015em",
+                color: "#fff",
+                margin: 0,
+                maxWidth: "16ch",
+              }}
+            >
+              Our AI employee platform is{" "}
+              <em style={{ fontStyle: "italic", color: "#c4b5fd" }}>in development.</em>
+            </h1>
+            <p
+              style={{
+                fontSize: "16px",
+                lineHeight: 1.7,
+                color: "rgba(255, 255, 255, 0.62)",
+                maxWidth: "44ch",
+                margin: 0,
+              }}
+            >
+              Mindzy is building a dedicated platform to help companies create and deploy custom
+              AI employees for real business roles. Designed around your tools, your workflows,
+              and your governance rules.
+            </p>
 
-        <div className="absolute top-4 left-4 z-20 text-white pointer-events-none">
-          <h1 className="text-2xl font-bold mb-2">3D Stellar Card Gallery</h1>
-          <p className="text-sm opacity-70">Drag to look around • Scroll to zoom • Click cards to view details</p>
+            <div style={{ pointerEvents: "auto", marginTop: "4px", position: "relative", display: "inline-block" }}>
+              <Link
+                href={waitingListHref}
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "14px 26px",
+                  borderRadius: "9999px",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  letterSpacing: "-0.02em",
+                  color: "#fff",
+                  background: "rgba(124, 58, 237, 0.75)",
+                  border: "1px solid rgba(167, 139, 250, 0.45)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 20px rgba(124,58,237,0.4), 0 1px 3px rgba(0,0,0,0.3)",
+                  textDecoration: "none",
+                  transition: "background 0.2s ease, box-shadow 0.2s ease",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = "rgba(124, 58, 237, 0.92)"
+                  e.currentTarget.style.boxShadow =
+                    "inset 0 1px 0 rgba(255,255,255,0.28), 0 6px 28px rgba(124,58,237,0.6), 0 1px 4px rgba(0,0,0,0.3)"
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = "rgba(124, 58, 237, 0.75)"
+                  e.currentTarget.style.boxShadow =
+                    "inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 20px rgba(124,58,237,0.4), 0 1px 3px rgba(0,0,0,0.3)"
+                }}
+              >
+                Join the Waiting List
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M2 7h10M8 3l4 4-4 4" />
+                </svg>
+              </Link>
+            </div>
+
+            <p
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.06em",
+                color: "rgba(255, 255, 255, 0.3)",
+                textTransform: "uppercase",
+                marginTop: "8px",
+              }}
+            >
+              Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click cards to preview
+            </p>
+          </div>
         </div>
-      </div>
+
+        <CardModal />
+      </section>
     </CardProvider>
   )
 }

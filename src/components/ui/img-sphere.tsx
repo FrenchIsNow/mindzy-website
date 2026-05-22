@@ -317,6 +317,43 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       >
+        {/* SVG lines from center to each visible bubble */}
+        <svg
+          className="absolute inset-0 pointer-events-none"
+          style={{ width: containerSize, height: containerSize, zIndex: 5 }}
+        >
+          {worldPositions.map((pos, index) => {
+            if (!pos.isVisible) return null
+            return (
+              <line
+                key={index}
+                x1={containerSize / 2}
+                y1={containerSize / 2}
+                x2={containerSize / 2 + pos.x}
+                y2={containerSize / 2 + pos.y}
+                stroke="#7c3aed"
+                strokeWidth="0.8"
+                strokeOpacity={pos.fadeOpacity * 0.4}
+              />
+            )
+          })}
+        </svg>
+
+        {/* Central purple dot */}
+        <div
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            width: 10,
+            height: 10,
+            background: '#7c3aed',
+            left: containerSize / 2,
+            top: containerSize / 2,
+            transform: 'translate(-50%, -50%)',
+            zIndex: 2000,
+            boxShadow: '0 0 0 3px rgba(124,58,237,0.2), 0 0 14px rgba(124,58,237,0.6)',
+          }}
+        />
+
         <div className="relative w-full h-full" style={{ zIndex: 10 }}>
           {images.map((image, index) => renderImageNode(image, index))}
         </div>
