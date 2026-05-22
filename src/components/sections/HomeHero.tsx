@@ -128,24 +128,16 @@ export function HomeHero() {
               style={{
                 fontSize: 'clamp(52px, 7.8vw, 96px)',
                 lineHeight: 1.04,
-                letterSpacing: '-0.025em',
+                letterSpacing: '-0.02em',
                 color: 'var(--ai-fg)',
-                fontFamily: 'var(--font-instrument-sans), var(--font-sora), sans-serif',
-                fontWeight: 600,
+                fontFamily: 'var(--font-instrument-serif), Georgia, serif',
+                fontWeight: 400,
                 maxWidth: '14ch',
-                margin: '0 0 24px',
+                margin: '0 0 28px',
               }}
             >
               The{' '}
-              <em
-                style={{
-                  fontFamily: 'var(--font-instrument-serif), Georgia, serif',
-                  fontStyle: 'italic',
-                  fontWeight: 400,
-                }}
-              >
-                custom
-              </em>{' '}
+              <em style={{ fontStyle: 'italic' }}>custom</em>{' '}
               AI infrastructure built around your company.
             </h1>
 
