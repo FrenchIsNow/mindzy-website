@@ -1,54 +1,52 @@
 import type { Metadata } from 'next'
-import { FAQContent } from './FAQContent'
-import { getMessages } from '@/lib/getMessages'
-import { faqItems } from '@/lib/config'
-import type { Locale } from '@/lib/i18n'
-import { buildPageMetadata, jsonLdFaqPage, jsonLdBreadcrumb, jsonLdSpeakablePage, JsonLd } from '@/lib/seo'
+import { FadeIn } from '@/components/animations/FadeIn'
+import { FinalCTASection } from '@/components/sections/FinalCTASection'
 
-const faqDescriptions: Record<string, string> = {
-  fr: 'Réponses à toutes vos questions sur la création de site web avec Mindzy. Tarifs, délais, fonctionnalités, support technique et plus.',
-  en: 'Answers to all your questions about website creation with Mindzy. Pricing, timelines, features, technical support and more.',
-  es: 'Respuestas a todas tus preguntas sobre la creación de sitios web con Mindzy. Precios, plazos, funcionalidades, soporte técnico y más.',
+export const metadata: Metadata = {
+  title: 'FAQ — Mindzy',
+  description: 'Frequently asked questions about Mindzy AI infrastructure services.',
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params
-  const t = getMessages(locale as Locale).faq
-  return buildPageMetadata({
-    locale: locale as Locale,
-    path: '/faq',
-    title: t.title,
-    description: faqDescriptions[locale] || faqDescriptions.fr,
-  })
-}
+const FAQ_ITEMS = [
+  { q: 'What exactly is AI infrastructure?', a: 'AI infrastructure is the operating layer that connects AI models, your business tools, your workflows, and your governance into a coherent system. Unlike a single AI agent that performs one task, AI infrastructure runs multiple workflows across departments with validation, oversight, and human control built in.' },
+  { q: 'How is Mindzy different from off-the-shelf AI tools?', a: 'Off-the-shelf tools are built for generic use cases. Mindzy builds around your specific company: your tools, your hierarchy, your approval flows. Nothing is templated. Every integration, every validation rule, every model routing decision is designed for your operations.' },
+  { q: 'What size of company works with Mindzy?', a: 'We work with companies ranging from 10-person startups to enterprise organizations. The key requirement is that you have real operational workflows — repetitive processes, approval loops, data flows — that AI can structurally improve.' },
+  { q: 'How long does a deployment take?', a: 'The first operational AI workforce typically deploys in 30–90 days. This includes diagnosis, blueprint, pilot deployment, validation, and rollout to the first department. Subsequent departments roll out faster as the infrastructure is already in place.' },
+  { q: 'What AI models do you use?', a: 'Mindzy operates three proprietary models — MindFast, MindDeep, and Mind 3.1 — and routes tasks to the right model based on complexity, latency, and context. We also connect to all major external models (OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek) when client requirements call for it.' },
+  { q: 'Do we need a technical team to work with Mindzy?', a: 'No. Mindzy handles the full technical implementation. Your team interacts with the dashboard and validates outputs — no engineering work is required on your side. We train your operational teams, not your engineers.' },
+  { q: 'How do you handle security and data governance?', a: 'Governance is built into every deployment: role-based access controls, validation gates, audit logs, and escalation paths. Your data stays within your defined perimeter. We design compliance into the infrastructure, not as an afterthought.' },
+  { q: 'What does the ongoing relationship look like?', a: 'After deployment, we deliver a 90-day optimization roadmap and offer quarterly review cadences to tune model routing, expand to new workflows, and refine governance as your company evolves.' },
+]
 
 export default async function FAQPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
-  const faqJsonLd = jsonLdFaqPage(
-    faqItems.map(item => ({
-      question: item.question[locale as Locale],
-      answer: item.answer[locale as Locale],
-    }))
-  )
-  const bcLabels: Record<string, { home: string; faq: string }> = {
-    fr: { home: 'Accueil', faq: 'FAQ' },
-    en: { home: 'Home', faq: 'FAQ' },
-    es: { home: 'Inicio', faq: 'FAQ' },
-  }
-  const bc = bcLabels[locale] || bcLabels.fr
-  const breadcrumbJsonLd = jsonLdBreadcrumb([
-    { name: bc.home, url: `https://mindzy.me/${locale}` },
-    { name: bc.faq, url: `https://mindzy.me/${locale}/faq` },
-  ])
-
-  const speakableJsonLd = jsonLdSpeakablePage(`https://mindzy.me/${locale}/faq`, ['h1', '.faq-question', 'h2'])
-
+  await params
   return (
-    <>
-      <JsonLd data={faqJsonLd} />
-      <JsonLd data={breadcrumbJsonLd} />
-      <JsonLd data={speakableJsonLd} />
-      <FAQContent locale={locale as Locale} />
-    </>
+    <div style={{ background: 'var(--ai-bg)' }}>
+      <section style={{ padding: '120px 0 80px', textAlign: 'center' }}>
+        <div className="w-full max-w-[680px] mx-auto px-8">
+          <FadeIn>
+            <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)', marginBottom: '24px' }}>FAQ</div>
+            <h1 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(36px,4.5vw,56px)', lineHeight: 1.22 }}>
+              Frequently asked questions
+            </h1>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 120px' }}>
+        <div className="w-full max-w-[760px] mx-auto px-8">
+          {FAQ_ITEMS.map((item, i) => (
+            <FadeIn key={i} delay={i * 40}>
+              <div style={{ borderTop: '1px solid var(--ai-border)', padding: '40px 0' }}>
+                <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(20px,2.4vw,28px)', lineHeight: 1.3, marginBottom: '16px' }}>{item.q}</h2>
+                <p style={{ fontSize: '17px', lineHeight: 1.7, color: 'var(--ai-fg-muted)' }}>{item.a}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      <FinalCTASection />
+    </div>
   )
 }
