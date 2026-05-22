@@ -17,8 +17,8 @@ const LOCALES = [
   { code: 'ru', label: 'Русский' },
 ]
 
-// Only the 3 locales the project actually supports
-const SUPPORTED = ['en', 'fr', 'es']
+// All supported locales
+const SUPPORTED = ['en', 'fr', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru']
 
 function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const [open, setOpen] = useState(false)

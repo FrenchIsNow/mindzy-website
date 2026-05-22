@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(fr|en|es)/services',
+        source: '/:locale(fr|en|es|de|it|pt|ar|zh|ja|ru)/services',
         destination: '/:locale/solutions/site-web',
         permanent: true,
       },
@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(fr|en|es)/formations',
+        source: '/:locale(fr|en|es|de|it|pt|ar|zh|ja|ru)/formations',
         destination: '/:locale/solutions/formations',
         permanent: true,
       },
@@ -50,17 +50,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/:locale(fr|en|es)/profil',
+        source: '/:locale(fr|en|es|de|it|pt|ar|zh|ja|ru)/profil',
         destination: '/:locale/diagnostic',
         permanent: true,
       },
       {
-        source: '/:locale(fr|en|es)/profil/:type',
+        source: '/:locale(fr|en|es|de|it|pt|ar|zh|ja|ru)/profil/:type',
         destination: '/:locale/diagnostic',
         permanent: true,
       },
       {
-        source: '/:locale(fr|en|es)/ebooks/seo-geo-therapeutes-guide',
+        source: '/:locale(fr|en|es|de|it|pt|ar|zh|ja|ru)/ebooks/seo-geo-therapeutes-guide',
         destination: '/:locale/ebooks/seo-geo-expert-guide',
         permanent: true,
       },

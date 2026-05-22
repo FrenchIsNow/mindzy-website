@@ -5,7 +5,7 @@ import { FooterAI } from '@/components/layout/FooterAI'
 import { CookieConsent } from '@/components/CookieConsent'
 import { ContactModalProvider } from '@/components/features/ContactFormModal'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
-import { locales, type Locale } from '@/lib/i18n'
+import { routerLocales, toLocale, type Locale } from '@/lib/i18n'
 import { JsonLd, jsonLdOrganization, jsonLdWebsite, jsonLdLocalBusiness } from '@/lib/seo'
 
 const outfit = Outfit({
@@ -38,24 +38,25 @@ const instrumentSans = Instrument_Sans({
 })
 
 export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
+  return routerLocales.map((locale) => ({ locale }))
 }
 
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  if (!locales.includes(locale as Locale)) notFound()
+  if (!routerLocales.includes(locale as (typeof routerLocales)[number])) notFound()
+  const translationLocale: Locale = toLocale(locale as (typeof routerLocales)[number])
   return (
     <html lang={locale} className={`${outfit.variable} ${sora.variable} ${instrumentSerif.variable} ${instrumentSans.variable}`} suppressHydrationWarning>
       <body className="antialiased" style={{ fontFamily: 'var(--font-instrument-sans), var(--font-sora), system-ui, sans-serif', background: 'var(--ai-bg)', color: 'var(--ai-fg)' }}>
         <GoogleAnalytics />
-        <ContactModalProvider locale={locale as Locale}>
+        <ContactModalProvider locale={translationLocale}>
           <JsonLd data={jsonLdOrganization()} />
           <JsonLd data={jsonLdWebsite()} />
-          <JsonLd data={jsonLdLocalBusiness(locale)} />
+          <JsonLd data={jsonLdLocalBusiness(translationLocale)} />
           <NavbarAI />
           <main className="min-h-screen">{children}</main>
           <FooterAI />
-          <CookieConsent locale={locale as Locale} />
+          <CookieConsent locale={translationLocale} />
         </ContactModalProvider>
         {/* Global scroll-reveal script — mirrors static site's global.js setupFades() */}
         <script dangerouslySetInnerHTML={{ __html: `
