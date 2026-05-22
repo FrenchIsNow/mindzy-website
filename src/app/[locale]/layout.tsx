@@ -2,7 +2,6 @@ import { Outfit, Sora, Instrument_Serif, Instrument_Sans } from 'next/font/googl
 import { notFound } from 'next/navigation'
 import { NavbarAI } from '@/components/layout/NavbarAI'
 import { FooterAI } from '@/components/layout/FooterAI'
-import { StickyCTA } from '@/components/layout/StickyCTA'
 import { CookieConsent } from '@/components/CookieConsent'
 import { ContactModalProvider } from '@/components/features/ContactFormModal'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
@@ -56,7 +55,6 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <NavbarAI />
           <main className="min-h-screen">{children}</main>
           <FooterAI />
-          <StickyCTA locale={locale as Locale} />
           <CookieConsent locale={locale as Locale} />
         </ContactModalProvider>
         {/* Global scroll-reveal script — mirrors static site's global.js setupFades() */}
