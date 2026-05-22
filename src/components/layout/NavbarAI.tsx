@@ -35,6 +35,7 @@ const NAV_LINKS = [
   { href: '/en/about', label: 'About' },
   { href: '/en/blog', label: 'Blog' },
   { href: '/en/faq', label: 'FAQ' },
+  { href: '/en/ai-employee', label: 'AI Employee' },
 ]
 
 export function NavbarAI() {
@@ -125,7 +126,7 @@ export function NavbarAI() {
           })}
         </nav>
 
-        {/* Right: Theme toggle + CTA */}
+        {/* Right: Theme toggle + English + CTA */}
         <div className="flex items-center gap-3.5">
           {/* Theme toggle */}
           <button
@@ -137,12 +138,32 @@ export function NavbarAI() {
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          {/* Book a Call CTA */}
+          {/* English label */}
+          <span style={{ fontSize: '13px', color: 'var(--ai-fg-muted)', cursor: 'pointer' }}>English</span>
+
+          {/* Book a Call — glass button */}
           <a
             href="https://calendar.app.google/ghE79tSFxmea4Scd9"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors bg-[var(--ai-accent)] hover:bg-[var(--ai-accent-hover)]"
+            style={{
+              position: 'relative',
+              display: 'inline-flex',
+              alignItems: 'center',
+              borderRadius: '9999px',
+              fontSize: '14px',
+              fontWeight: 600,
+              letterSpacing: '-0.02em',
+              color: 'rgba(20,20,40,0.88)',
+              background: 'rgba(255,255,255,0.55)',
+              backdropFilter: 'blur(14px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(14px) saturate(180%)',
+              border: '1px solid rgba(20,20,40,0.12)',
+              boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.90), inset 0 -1px 0 rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.08)',
+              padding: '10px 18px',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
           >
             Book a Call
           </a>
