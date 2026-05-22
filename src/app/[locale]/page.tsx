@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { HomeHero } from '@/components/sections/HomeHero'
 import { Hero } from '@/components/sections/Hero'
 import { PainPoints } from '@/components/sections/PainPoints'
 import { UseCaseCards } from '@/components/sections/UseCaseCards'
@@ -60,6 +61,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       <JsonLd data={reviewsJsonLd} />
       <JsonLd data={speakableJsonLd} />
+      {/* ── NEW AI DESIGN PROOF OF CONCEPT ── */}
+      <HomeHero />
+      {/* ── END POC ── */}
       {/* Hero Section - Main value proposition */}
       <Hero locale={locale as Locale} />
      {/* Technologies & Partners - Scrolling logos */}
