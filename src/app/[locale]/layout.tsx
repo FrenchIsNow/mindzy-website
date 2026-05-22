@@ -1,7 +1,7 @@
 import { Outfit, Sora, Instrument_Serif, Instrument_Sans } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { NavbarAI } from '@/components/layout/NavbarAI'
+import { FooterAI } from '@/components/layout/FooterAI'
 import { StickyCTA } from '@/components/layout/StickyCTA'
 import { CookieConsent } from '@/components/CookieConsent'
 import { ContactModalProvider } from '@/components/features/ContactFormModal'
@@ -53,9 +53,9 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <JsonLd data={jsonLdOrganization()} />
           <JsonLd data={jsonLdWebsite()} />
           <JsonLd data={jsonLdLocalBusiness(locale)} />
-          <Header locale={locale as Locale} />
-          <main className="min-h-screen">{children}</main>
-          <Footer locale={locale as Locale} />
+          <NavbarAI />
+          <main className="min-h-screen pt-[72px]">{children}</main>
+          <FooterAI />
           <StickyCTA locale={locale as Locale} />
           <CookieConsent locale={locale as Locale} />
         </ContactModalProvider>
