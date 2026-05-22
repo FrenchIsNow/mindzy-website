@@ -1,0 +1,89 @@
+const PARTNERS = [
+  { name: 'OpenAI', src: '/logo/OpenAI_Logo.svg.png' },
+  { name: 'Claude AI', src: '/logo/Claude_AI_logo.svg.png' },
+  { name: 'n8n', src: '/logo/n8n-logo.png' },
+  { name: 'Vercel', src: '/logo/Vercel_logo_2025.svg' },
+  { name: 'AWS', src: '/logo/aws-logo.webp' },
+  { name: 'Google Cloud', src: '/logo/google-cloud-logo.png' },
+  { name: 'Cloudflare', src: '/logo/cloudflare-logo.png' },
+  { name: 'Microsoft Azure', src: '/logo/microsoft-azure-logo.png' },
+  { name: 'Stripe', src: '/logo/stripe-logo.png' },
+  { name: 'Slack', src: '/logo/slack-logo.png' },
+  { name: 'Google Analytics', src: '/logo/google-analytics-logo.png' },
+  { name: 'HubSpot', src: '/logo/hubspot-logo.png' },
+  { name: 'PayPal', src: '/logo/paypal-logo.png' },
+]
+
+export function TrustMarqueeSection() {
+  return (
+    <>
+      <style suppressHydrationWarning>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+      <section style={{ borderTop: '1px solid var(--ai-border)', borderBottom: '1px solid var(--ai-border)', padding: '96px 0' }}>
+        {/* Header */}
+        <div className="w-full max-w-[1200px] mx-auto px-8 text-center mb-12">
+          <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>
+            Our partners
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(38px,5vw,56px)', lineHeight: 1.08, marginTop: '14px', color: 'var(--ai-fg)' }}>
+            They trust us
+          </h2>
+          <p style={{ marginTop: '14px', color: 'var(--ai-fg-muted)', fontSize: '18px', lineHeight: 1.6 }}>
+            The tools and platforms we connect to, every day, inside our clients.
+          </p>
+        </div>
+
+        {/* Marquee */}
+        <div
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)',
+            maskImage: 'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              width: 'max-content',
+              animation: 'marquee 55s linear infinite',
+            }}
+          >
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <div
+                key={i}
+                style={{
+                  flex: '0 0 auto',
+                  minWidth: '200px',
+                  height: '88px',
+                  borderRadius: '16px',
+                  border: '1px solid var(--ai-border)',
+                  background: 'var(--ai-bg-2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0 28px',
+                  marginRight: '20px',
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={p.src}
+                  alt={p.name}
+                  style={{
+                    height: '32px',
+                    width: 'auto',
+                    maxWidth: '130px',
+                    objectFit: 'contain',
+                  }}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
+export default TrustMarqueeSection
