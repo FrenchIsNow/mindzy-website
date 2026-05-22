@@ -47,14 +47,14 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!locales.includes(locale as Locale)) notFound()
   return (
     <html lang={locale} className={`${outfit.variable} ${sora.variable} ${instrumentSerif.variable} ${instrumentSans.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-cream-50">
+      <body className="antialiased" style={{ fontFamily: 'var(--font-instrument-sans), var(--font-sora), system-ui, sans-serif', background: 'var(--ai-bg)', color: 'var(--ai-fg)' }}>
         <GoogleAnalytics />
         <ContactModalProvider locale={locale as Locale}>
           <JsonLd data={jsonLdOrganization()} />
           <JsonLd data={jsonLdWebsite()} />
           <JsonLd data={jsonLdLocalBusiness(locale)} />
           <NavbarAI />
-          <main className="min-h-screen pt-[72px]">{children}</main>
+          <main className="min-h-screen">{children}</main>
           <FooterAI />
           <StickyCTA locale={locale as Locale} />
           <CookieConsent locale={locale as Locale} />
