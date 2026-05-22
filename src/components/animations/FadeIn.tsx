@@ -1,7 +1,6 @@
 'use client'
 
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface FadeInProps {
   children: React.ReactNode
@@ -18,36 +17,38 @@ export function FadeIn({
   as: Tag = 'div',
   threshold = 0.12,
 }: FadeInProps) {
-  const { ref, isIntersecting } = useIntersectionObserver({ threshold })
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    const el = ref.current
+    if (!el) return
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
+    // Apply delay via inline style before revealing
+    if (delay > 0) el.style.transitionDelay = `${delay}ms`
 
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches)
+    // Check prefers-reduced-motion — show immediately if needed
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-visible')
+      return
     }
 
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
-
-  const isVisible = prefersReducedMotion || isIntersecting
-  const baseClasses = 'transition-[opacity,transform] duration-[900ms] ease-out'
-  const animationClasses = isVisible
-    ? 'opacity-100 translate-y-0'
-    : 'opacity-0 translate-y-3'
-  const allClasses = `${baseClasses} ${animationClasses} ${className}`.trim()
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible')
+            io.unobserve(e.target)
+          }
+        })
+      },
+      { threshold }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [delay, threshold])
 
   return (
-    <Tag
-      ref={ref}
-      className={allClasses}
-      style={{ transitionDelay: prefersReducedMotion ? '0ms' : `${delay}ms` }}
-    >
+    <Tag ref={ref} className={`ai-fade-in${className ? ' ' + className : ''}`}>
       {children}
     </Tag>
   )
