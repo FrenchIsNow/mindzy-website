@@ -1,57 +1,16 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
+import type { JSX } from 'react'
 
 interface FadeInProps {
   children: React.ReactNode
   delay?: number
   className?: string
-  as?: React.ElementType
-  threshold?: number
+  as?: keyof JSX.IntrinsicElements
 }
 
-export function FadeIn({
-  children,
-  delay = 0,
-  className = '',
-  as: Tag = 'div',
-  threshold = 0.12,
-}: FadeInProps) {
-  const ref = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    // Apply delay via inline style before revealing
-    if (delay > 0) el.style.transitionDelay = `${delay}ms`
-
-    // Check prefers-reduced-motion — show immediately if needed
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.classList.add('is-visible')
-      return
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible')
-            io.unobserve(e.target)
-          }
-        })
-      },
-      { threshold }
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [delay, threshold])
-
-  return (
-    <Tag ref={ref} className={`ai-fade-in${className ? ' ' + className : ''}`}>
-      {children}
-    </Tag>
-  )
+export function FadeIn({ children, delay, className, as: Tag = 'div' }: FadeInProps) {
+  const style: React.CSSProperties | undefined = delay ? { transitionDelay: `${delay}ms` } : undefined
+  const Element = Tag as React.ElementType
+  return <Element className={`ai-fade-in${className ? ' ' + className : ''}`} style={style}>{children}</Element>
 }
 
 export default FadeIn

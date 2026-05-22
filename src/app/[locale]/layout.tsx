@@ -59,6 +59,27 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <StickyCTA locale={locale as Locale} />
           <CookieConsent locale={locale as Locale} />
         </ContactModalProvider>
+        {/* Global scroll-reveal script — mirrors static site's global.js setupFades() */}
+        <script dangerouslySetInnerHTML={{ __html: `
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  function setup(){
+    document.querySelectorAll('.ai-fade-in').forEach(function(el){io.observe(el);});
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',setup);
+  } else {
+    setup();
+  }
+})();
+`}} />
       </body>
     </html>
   )
