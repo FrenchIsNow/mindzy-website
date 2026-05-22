@@ -1,4 +1,4 @@
-import { Outfit, Sora } from 'next/font/google'
+import { Outfit, Sora, Instrument_Serif, Instrument_Sans } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -23,6 +23,21 @@ const sora = Sora({
   weight: ['300', '400', '500', '600', '700'],
 })
 
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument-serif',
+  weight: ['400'],
+  style: ['normal', 'italic'],
+})
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument-sans',
+  weight: ['400', '500', '600', '700'],
+})
+
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
@@ -31,7 +46,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const { locale } = await params
   if (!locales.includes(locale as Locale)) notFound()
   return (
-    <html lang={locale} className={`${outfit.variable} ${sora.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${outfit.variable} ${sora.variable} ${instrumentSerif.variable} ${instrumentSans.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-cream-50">
         <GoogleAnalytics />
         <ContactModalProvider locale={locale as Locale}>
