@@ -115,14 +115,27 @@ function SunIcon() {
   )
 }
 
+const NAV_LABELS: Record<string, string[]> = {
+  en: ['Home', 'Process', 'Portfolio', 'About', 'Blog', 'FAQ', 'AI Employee'],
+  fr: ['Accueil', 'Processus', 'Portfolio', 'À propos', 'Blog', 'FAQ', 'AI Employee'],
+  es: ['Inicio', 'Proceso', 'Portfolio', 'Nosotros', 'Blog', 'FAQ', 'AI Employee'],
+  de: ['Startseite', 'Prozess', 'Portfolio', 'Über uns', 'Blog', 'FAQ', 'AI Employee'],
+  it: ['Home', 'Processo', 'Portfolio', 'Chi siamo', 'Blog', 'FAQ', 'AI Employee'],
+  pt: ['Início', 'Processo', 'Portfolio', 'Sobre nós', 'Blog', 'FAQ', 'AI Employee'],
+  ar: ['الرئيسية', 'العملية', 'المشاريع', 'من نحن', 'المدونة', 'FAQ', 'AI Employee'],
+  zh: ['首页', '流程', '作品集', '关于我们', '博客', 'FAQ', 'AI Employee'],
+  ja: ['ホーム', 'プロセス', 'ポートフォリオ', '会社概要', 'ブログ', 'FAQ', 'AI Employee'],
+  ru: ['Главная', 'Процесс', 'Портфолио', 'О нас', 'Блог', 'FAQ', 'AI Employee'],
+}
+
 const NAV_PATHS = [
-  { path: '', label: 'Home' },
-  { path: '/process', label: 'Process' },
-  { path: '/portfolio', label: 'Portfolio' },
-  { path: '/about', label: 'About' },
-  { path: '/blog', label: 'Blog' },
-  { path: '/faq', label: 'FAQ' },
-  { path: '/ai-employee', label: 'AI Employee' },
+  { path: '', idx: 0 },
+  { path: '/process', idx: 1 },
+  { path: '/portfolio', idx: 2 },
+  { path: '/about', idx: 3 },
+  { path: '/blog', idx: 4 },
+  { path: '/faq', idx: 5 },
+  { path: '/ai-employee', idx: 6 },
 ]
 
 export function NavbarAI() {
@@ -189,9 +202,10 @@ export function NavbarAI() {
 
         {/* Center nav links — locale-aware */}
         <nav className="hidden md:flex items-center gap-9 text-sm">
-          {NAV_PATHS.map(({ path, label }) => {
+          {NAV_PATHS.map(({ path, idx }) => {
             const href = `/${currentLocale}${path}`
             const isActive = pathname === href || (path === '' && pathname === `/${currentLocale}`)
+            const label = (NAV_LABELS[currentLocale] ?? NAV_LABELS.en)[idx]
             return (
               <Link
                 key={href}
