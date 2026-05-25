@@ -1,0 +1,593 @@
+{
+  "nav": {
+    "home": "首页",
+    "solutions": "解决方案",
+    "portfolio": "作品集",
+    "whyUs": "为何选择我们",
+    "blog": "博客",
+    "faq": "常见问题",
+    "cta": "立即开始",
+    "solutionsItems": {
+      "siteWeb": { "title": "官方网站", "subtitle": "不可或缺的数字门面" },
+      "surMesure": { "title": "定制解决方案", "subtitle": "战略项目与数字架构" },
+      "formations": { "title": "培训与社交媒体", "subtitle": "提升您的曝光度" },
+      "branding": { "title": "品牌与内容", "subtitle": "视觉形象与内容策略" }
+    }
+  },
+  "hero": {
+    "badge": "新一代网络机构",
+    "title": "您的高端专业网站",
+    "titleHighlight": "两周内交付",
+    "subtitle": "Mindzy 为有雄心的创业者打造专业网站。在线预约、优化的 SEO 与 GEO、定制设计。",
+    "cta": "启动我的项目",
+    "ctaSecondary": "查看我们的作品",
+    "stats": {
+      "clients": "满意客户",
+      "satisfaction": "满意度",
+      "support": "含技术支持"
+    }
+  },
+  "useCases": {
+    "title": "您的情况是什么？",
+    "subtitle": "选择您的档案，发现最合适的解决方案",
+    "cards": {
+      "beginner": {
+        "title": "我正在创业",
+        "description": "还没有网站，我想以能赢得信任的专业形象开始。"
+      },
+      "pro": {
+        "title": "我已有网站",
+        "description": "我的网站已过时或不再代表我，我想对其进行现代化改造。"
+      },
+      "booking": {
+        "title": "我想要自动化",
+        "description": "我在手动管理上浪费了太多时间，我想要在线预约和支付功能。"
+      },
+      "sales": {
+        "title": "我想在线销售",
+        "description": "我提供产品或服务，希望直接在网站上销售。"
+      },
+      "custom": {
+        "title": "定制项目",
+        "description": "网页、移动端或跨平台应用：我想要定制技术解决方案。"
+      }
+    }
+  },
+  "whyMindzy": {
+    "title": "为什么选择 Mindzy？",
+    "subtitle": "我们与传统机构的区别",
+    "eyebrow": "我们的承诺",
+    "titleAlt": "造就差异的因素",
+    "reasons": {
+      "specialized": {
+        "title": "转化率专家",
+        "description": "专为将访客转化为客户而设计的网站。"
+      },
+      "turnkey": {
+        "title": "一站式解决方案",
+        "description": "我们处理一切：设计、内容、SEO 与 GEO、上线。"
+      },
+      "results": {
+        "title": "有保障的结果",
+        "description": "我们的客户见证了业务的腾飞。"
+      },
+      "support": {
+        "title": "专属支持",
+        "description": "随时待命的团队支持您。"
+      }
+    },
+    "items": [
+      {
+        "key": "reality",
+        "title": "以您的实际情况为中心的方法",
+        "description": "我们从不从模板或固定流程开始。每个项目都始于对您的业务、工作流程和约束条件的深入理解。"
+      },
+      {
+        "key": "bespoke",
+        "title": "定制项目，而非标准产品",
+        "description": "我们设计适合简单或复杂需求的网站、应用程序和内部系统，而不会将您的项目强行套入预设框架。"
+      },
+      {
+        "key": "support",
+        "title": "人性化且负责任的支持",
+        "description": "在 Mindzy，您不只是另一个档案。我们在每一步都引导、建议并与您共同调整项目。"
+      },
+      {
+        "key": "seo",
+        "title": "内置 SEO 与 GEO 专业知识",
+        "description": "可见度不是附加功能，而是项目的一部分。SEO 与 GEO 从设计阶段就已整合，以确保健康持久的基础。"
+      },
+      {
+        "key": "durable",
+        "title": "为长久而建的项目",
+        "description": "我们优先考虑稳定性、清晰度和可维护性。目标：一个随时间推移仍保持相关性和可用性的项目。"
+      },
+      {
+        "key": "responsive",
+        "title": "跨所有设备的一致体验",
+        "description": "每个项目都设计为流畅一致，无论屏幕大小或使用场景如何。"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "客户怎么说",
+    "subtitle": "信任我们的创业者的真实评价"
+  },
+  "pricing": {
+    "title": "透明定价",
+    "subtitle": "选择最适合您需求的套餐",
+    "monthly": "/月（含税）",
+    "setup": "初始设置",
+    "cta": "选择",
+    "popular": "最受欢迎",
+    "customQuote": {
+      "title": "定制项目？",
+      "description": "大型项目或特殊需求：请联系我们获取报价。",
+      "cta": "申请报价"
+    },
+    "roi": {
+      "title": "投资回报计算器",
+      "businessType": "业务类型",
+      "plan": "套餐",
+      "breakeven": "足以收回成本",
+      "timeSaved": "节省的小时/月",
+      "timeSavedLabel": "节省时间",
+      "newClients": "预计新客户/月",
+      "newClientsLabel": "业务增长",
+      "extraRevenue": "预计额外收入/月",
+      "extraRevenueLabel": "额外收入",
+      "annualROI": "预计年度投资回报率",
+      "disclaimer": "基于行业平均水平的估算"
+    },
+    "features": {
+      "pages": "页面",
+      "articles": "SEO & GEO 文章/月",
+      "booking": "在线预约",
+      "payments": "在线支付",
+      "products": "产品",
+      "gmb": "Google Business",
+      "support": "优先支持",
+      "ssl": "SSL",
+      "hosting": "含主机服务"
+    },
+    "plans": {
+      "basic": {
+        "name": "Starter",
+        "description": "开启您的线上存在"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "曝光、预约与支付"
+      },
+      "ecommerce": {
+        "name": "E-commerce",
+        "description": "在线销售"
+      }
+    }
+  },
+  "diagnostic": {
+    "title": "快速诊断",
+    "subtitle": "60 秒内评估您的数字存在",
+    "progress": "问题",
+    "next": "下一步",
+    "back": "返回",
+    "professionQuestion": "您的职业是什么？",
+    "otherProfessionPlaceholder": "填写您的职业",
+    "result": {
+      "title": "您的结果",
+      "low": {
+        "title": "潜力未发掘",
+        "message": "您的数字存在有很大的提升空间。"
+      },
+      "medium": {
+        "title": "良好基础",
+        "message": "仍有可把握的机会。"
+      },
+      "high": {
+        "title": "出色的在线形象",
+        "message": "恭喜！我们可以帮助您进一步优化。"
+      }
+    },
+    "cta": "发现我的个性化解决方案"
+  },
+  "portfolio": {
+    "title": "我们的作品",
+    "subtitle": "为客户打造的网站",
+    "filter": {
+      "all": "全部",
+      "therapist": "服务",
+      "clinic": "企业",
+      "coach": "教练",
+      "ecom": "电子商务"
+    },
+    "search": "搜索...",
+    "loadMore": "加载更多",
+    "viewSite": "查看网站"
+  },
+  "process": {
+    "title": "我们的流程",
+    "subtitle": "从首次接触到正式上线",
+    "steps": {
+      "diagnostic": {
+        "title": "诊断",
+        "description": "我们分析您的情况和目标。",
+        "duration": "10 min"
+      },
+      "onboarding": {
+        "title": "入职",
+        "description": "您提交您的内容。",
+        "duration": "30 min"
+      },
+      "design": {
+        "title": "设计与开发",
+        "description": "打造您的定制网站。",
+        "duration": "2 weeks"
+      },
+      "launch": {
+        "title": "上线",
+        "description": "部署并提供培训和支持。",
+        "duration": "1 day"
+      }
+    }
+  },
+  "whyUs": {
+    "metaDescription": "为什么选择 Mindzy 而非传统网络机构？定制设计、两周交付、无限支持、透明定价。",
+    "title": "为什么选择 Mindzy？",
+    "subtitle": "传统机构 vs Mindzy",
+    "badge": "为何选择我们",
+    "comparison": {
+      "title": "Mindzy 的与众不同",
+      "agencies": {
+        "title": "传统机构",
+        "points": [
+          "通用模板",
+          "周期长、成本高",
+          "交付后支持有限"
+        ]
+      },
+      "mindzy": {
+        "title": "Mindzy",
+        "points": [
+          "100% 定制设计",
+          "两周内交付",
+          "含无限技术支持"
+        ]
+      }
+    },
+    "titles": {
+      "stats": "用数字说话",
+      "differentiators": "我们的独特之处",
+      "comparison": "详细对比",
+      "process": "我们的流程",
+      "engagements": "我们的承诺",
+      "testimonials": "他们信任我们",
+      "cta": "准备好改变您的线上形象了吗？",
+      "ctaSubtitle": "预约免费 30 分钟探索通话，讨论您的项目。",
+      "ctaButton": "预约免费通话",
+      "ctaSecondary": "查看我们的定价"
+    },
+    "stats": [
+      {
+        "value": "150+",
+        "label": "已建网站",
+        "description": "服务遍布欧洲的创业者"
+      },
+      {
+        "value": "98%",
+        "label": "客户满意度",
+        "description": "基于已验证的评价"
+      },
+      {
+        "value": "2 wks",
+        "label": "平均交付时间",
+        "description": "从下单到上线"
+      },
+      {
+        "value": "24/7",
+        "label": "响应式支持",
+        "description": "平均响应时间不超过 4h"
+      }
+    ],
+    "differentiators": [
+      {
+        "icon": "🎯",
+        "title": "以您的实际情况为中心的方法",
+        "description": "我们从不从模板或固定流程开始。每个项目都始于对您的业务、工作流程和约束条件的深入理解。",
+        "details": [
+          "真实需求分析",
+          "适应您的行业",
+          "不强加标准解决方案",
+          "短期与长期视野"
+        ]
+      },
+      {
+        "icon": "🧩",
+        "title": "定制项目，而非标准产品",
+        "description": "我们设计适合简单或复杂需求的网站、应用程序和内部系统，而不会将您的项目强行套入预设框架。",
+        "details": [
+          "功能和技术定制",
+          "从一开始就内置可扩展性",
+          "从简单项目到结构化系统",
+          "以实际使用为优先"
+        ]
+      },
+      {
+        "icon": "🤝",
+        "title": "人性化且负责任的支持",
+        "description": "在 Mindzy，您不只是另一个档案。我们在每一步都引导、建议并与您共同调整项目。",
+        "details": [
+          "积极参与的团队成员",
+          "清晰且有教育意义的交流",
+          "具体建议，无行话",
+          "始终陪伴，贯穿始终"
+        ]
+      },
+      {
+        "icon": "🔍",
+        "title": "内置 SEO 与 GEO 专业知识",
+        "description": "可见度不是附加功能，而是项目的一部分。SEO 与 GEO 从设计阶段就已整合，以确保健康持久的基础。",
+        "details": [
+          "清晰可读的结构",
+          "为搜索引擎优化的内容",
+          "性能与速度优化",
+          "长期视野，不追求短期效果"
+        ]
+      },
+      {
+        "icon": "🛡️",
+        "title": "为长久而建的项目",
+        "description": "我们优先考虑稳定性、清晰度和可维护性。目标：一个随时间推移仍保持相关性和可用性的项目。",
+        "details": [
+          "可靠稳固的项目",
+          "易于演进",
+          "成熟的技术",
+          "简化的维护"
+        ]
+      },
+      {
+        "icon": "📱",
+        "title": "跨所有设备的一致体验",
+        "description": "每个项目都设计为流畅一致，无论屏幕大小或使用场景如何。",
+        "details": [
+          "原生响应式",
+          "移动端与桌面端一致",
+          "可控的性能",
+          "清晰且易于访问的体验"
+        ]
+      }
+    ],
+    "process": [
+      {
+        "step": "01",
+        "title": "理解与范围界定",
+        "description": "我们花时间了解您的业务、目标和约束，以定义清晰且相关的框架。"
+      },
+      {
+        "step": "02",
+        "title": "定制设计",
+        "description": "我们设计适合您需求的方法：结构、功能和技术方向，经您确认。"
+      },
+      {
+        "step": "03",
+        "title": "开发与调整",
+        "description": "我们逐步开发项目，定期沟通并根据您的反馈进行调整。"
+      },
+      {
+        "step": "04",
+        "title": "上线与支持",
+        "description": "项目部署后，我们继续支持您上手使用和未来的迭代演进。"
+      }
+    ],
+    "engagements": [
+      {
+        "title": "清晰透明的合作关系",
+        "description": "我们以清晰的沟通、共同的决策和从一开始就共享的项目愿景开展工作。"
+      },
+      {
+        "title": "与您共同设计的项目",
+        "description": "每个项目都是合作共建的。您的反馈和理解是流程不可或缺的一部分。"
+      },
+      {
+        "title": "稳固持久的基础",
+        "description": "我们设计稳定、可维护且为演进而建的项目，无不必要的依赖或多余的复杂性。"
+      },
+      {
+        "title": "负责任的方法",
+        "description": "我们应用安全、保密和可靠性方面的最佳实践，并根据您项目的性质进行调整。"
+      }
+    ],
+    "comparison": {
+      "headers": [
+        "对比项目",
+        "传统机构",
+        "自由职业者",
+        "DIY（Wix 等）",
+        "Mindzy"
+      ],
+      "rows": [
+        [
+          "平均价格",
+          "€3,000 - €15,000",
+          "€1,500 - €5,000",
+          "€200 - €500/year",
+          "From €49/month"
+        ],
+        [
+          "交付时间",
+          "2-4 个月",
+          "1-2 个月",
+          "DIY（不定）",
+          "2 weeks"
+        ],
+        [
+          "定制设计",
+          "✓ 高端",
+          "✓ 参差不齐",
+          "✗ 模板",
+          "✓ 高端"
+        ],
+        [
+          "SEO & GEO 优化",
+          "✓（额外收费）",
+          "? 参差不齐",
+          "✗ 基础",
+          "✓ 已包含"
+        ],
+        [
+          "在线预约",
+          "? 按需",
+          "? 参差不齐",
+          "? 插件",
+          "✓ 内置"
+        ],
+        [
+          "持续支持",
+          "✗ 有限",
+          "? 参差不齐",
+          "✗ 论坛",
+          "✓ 无限"
+        ],
+        [
+          "更新",
+          "✗ 额外收费",
+          "✗ 额外收费",
+          "✓ 自动",
+          "✓ 已包含"
+        ],
+        [
+          "主机服务",
+          "✗ 额外",
+          "✗ 额外",
+          "✓ 已包含",
+          "✓ 含高端主机"
+        ]
+      ]
+    }
+  },
+  "reviews": {
+    "title": "客户评价",
+    "subtitle": "已验证的真实评价"
+  },
+  "blog": {
+    "title": "博客",
+    "subtitle": "帮助您发展业务的技巧",
+    "readMore": "阅读更多",
+    "readTime": "分钟阅读",
+    "likedArticle": "您喜欢这篇文章吗？",
+    "relatedArticles": "相关文章",
+    "categories": {
+      "all": "全部",
+      "marketing": "市场营销",
+      "seo": "SEO & GEO",
+      "productivite": "生产力",
+      "business": "商业",
+      "branding": "品牌",
+      "sante": "健康"
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "开始之前您需要了解的一切",
+    "categories": {
+      "all": "全部",
+      "general": "常规",
+      "pricing": "定价",
+      "technical": "技术",
+      "support": "支持",
+      "features": "功能",
+      "process": "流程"
+    },
+    "allCategories": {
+      "all": "全部",
+      "vision": "愿景与目标",
+      "positionnement": "定位",
+      "technique": "技术",
+      "seo": "SEO & GEO",
+      "fonctionnalites": "功能",
+      "autonomie": "自主性",
+      "accompagnement": "支持",
+      "formation": "培训",
+      "tarifs": "定价",
+      "cas-specifiques": "特殊情况",
+      "decision": "决策",
+      "confiance": "信任"
+    }
+  },
+  "about": {
+    "title": "关于我们",
+    "subtitle": "我们的使命：助力创业者数字化转型",
+    "mission": {
+      "title": "我们的使命",
+      "description": "帮助创业者在线发展业务。"
+    },
+    "values": {
+      "title": "我们的价值观",
+      "items": [
+        {
+          "title": "卓越",
+          "description": "每个项目追求完美。"
+        },
+        {
+          "title": "简洁",
+          "description": "让技术人人可用。"
+        },
+        {
+          "title": "透明",
+          "description": "定价清晰，无隐藏费用。"
+        }
+      ]
+    }
+  },
+  "legal": {
+    "cgu": {
+      "title": "使用条款"
+    },
+    "cgv": {
+      "title": "销售条款"
+    },
+    "mentions": {
+      "title": "法律声明"
+    }
+  },
+  "footer": {
+    "description": "Mindzy – 专注于网络开发、SEO 及人工智能可见度（GEO）的数字机构。",
+    "sections": {
+      "solutions": "解决方案",
+      "resources": "资源",
+      "company": "公司",
+      "legal": "法律"
+    },
+    "links": {
+      "siteWeb": "官方网站",
+      "surMesure": "定制解决方案",
+      "formations": "培训",
+      "branding": "品牌与内容",
+      "portfolio": "作品集",
+      "blog": "博客",
+      "faq": "常见问题",
+      "ebooks": "免费指南",
+      "about": "关于我们",
+      "whyUs": "为何选择我们",
+      "reviews": "评价",
+      "pricing": "定价",
+      "diagnostic": "诊断",
+      "cgu": "CGU",
+      "mentions": "法律",
+      "sitemap": "网站地图"
+    },
+    "copyright": "保留所有权利。"
+  },
+  "stickyCta": {
+    "message": "准备好提升您的在线形象了吗？",
+    "startButton": "立即开始",
+    "meetingButton": "预约通话"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "getStarted": "立即开始",
+    "back": "返回",
+    "next": "下一步",
+    "submit": "提交",
+    "loading": "加载中..."
+  }
+}

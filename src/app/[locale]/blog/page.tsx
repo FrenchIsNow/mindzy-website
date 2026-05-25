@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { GlassButton } from '@/components/ui/GlassButton'
 
 const CSS = `
@@ -58,7 +59,40 @@ const CSS = `
 .eyebrow-blog { font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--ai-accent); }
 `
 
-const POSTS = [
+const TRANSLATIONS = {
+  en: {
+    eyebrow: 'Notes from the field',
+    h1_line1: 'Essays on building, governing,',
+    h1_line2: 'and operating',
+    subtitle: 'From model orchestration and validation layers to custom dashboards and governance — the operational realities behind every Mindzy build.',
+    words: ['AI infrastructure', 'AI workflows', 'AI governance', 'AI systems', 'AI agents'],
+    filterAll: 'All',
+    filterLabels: { infrastructure: 'Infrastructure', governance: 'Governance', models: 'Models', operations: 'Operations', industry: 'Industry' },
+    readBtn: 'Read Article',
+    closingH2_plain: 'Want a Mindzy infrastructure',
+    closingH2_em: 'inside your company?',
+    closingP: '30 minutes. We listen, we map, we tell you whether AI can move the needle for your operations.',
+    cta: 'Book a call to discuss your project',
+  },
+  fr: {
+    eyebrow: 'Notes du terrain',
+    h1_line1: 'Essais sur la construction, la gouvernance,',
+    h1_line2: 'et l\'exploitation —',
+    subtitle: 'De l\'orchestration des modèles aux couches de validation, en passant par les tableaux de bord et la gouvernance — les réalités opérationnelles derrière chaque déploiement Mindzy.',
+    words: ['infrastructure IA', 'workflows IA', 'gouvernance IA', 'systèmes IA', 'agents IA'],
+    filterAll: 'Tout',
+    filterLabels: { infrastructure: 'Infrastructure', governance: 'Gouvernance', models: 'Modèles', operations: 'Opérations', industry: 'Secteur' },
+    readBtn: 'Lire l\'article',
+    closingH2_plain: 'Vous voulez une infrastructure Mindzy',
+    closingH2_em: 'dans votre entreprise ?',
+    closingP: '30 minutes. On écoute, on cartographie, on vous dit si l\'IA peut faire bouger les lignes dans vos opérations.',
+    cta: 'Réserver un appel pour discuter de votre projet',
+  },
+}
+
+type Post = { cat: string; catLabel: string; date: string; read: string; title: string; excerpt: string; img: string }
+
+const POSTS_EN: Post[] = [
   { cat: 'infrastructure', catLabel: 'Infrastructure', date: 'May 2026', read: '12 min read', title: 'Why AI agents fail without infrastructure', excerpt: 'The bottleneck for AI inside companies has shifted from model quality to operating layer. A practical look at what an infrastructure actually contains — and what it does not.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop' },
   { cat: 'models', catLabel: 'Models', date: 'May 2026', read: '9 min read', title: 'Routing tasks across MindFast, MindDeep, and Mind 3.1', excerpt: 'How task-level routing decisions are made inside a Mindzy deployment, and why a single best-model strategy almost always underperforms.', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80&auto=format&fit=crop' },
   { cat: 'governance', catLabel: 'Governance', date: 'April 2026', read: '14 min read', title: 'The validation layer is the product', excerpt: 'Most production AI failures are not model failures. They are governance failures. A field guide to validation rules, approval flows, and audit boundaries.', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80&auto=format&fit=crop' },
@@ -73,25 +107,46 @@ const POSTS = [
   { cat: 'governance', catLabel: 'Governance', date: 'January 2026', read: '9 min read', title: 'Reversible cutovers and the case against big-bang rollouts', excerpt: 'Every Mindzy deployment is reversible until your team signs off. The case for slowing down before going live.', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop' },
 ]
 
-const FILTERS = ['all', 'infrastructure', 'governance', 'models', 'operations', 'industry']
+const POSTS_FR: Post[] = [
+  { cat: 'infrastructure', catLabel: 'Infrastructure', date: 'Mai 2026', read: '12 min de lecture', title: 'Pourquoi les agents IA échouent sans infrastructure', excerpt: 'Le goulot d\'étranglement pour l\'IA en entreprise s\'est déplacé de la qualité des modèles vers la couche opérationnelle. Un regard pratique sur ce que contient réellement une infrastructure — et ce qu\'elle ne contient pas.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'models', catLabel: 'Modèles', date: 'Mai 2026', read: '9 min de lecture', title: 'Router les tâches entre MindFast, MindDeep et Mind 3.1', excerpt: 'Comment les décisions de routage au niveau des tâches sont prises dans un déploiement Mindzy, et pourquoi une stratégie de modèle unique sous-performe presque toujours.', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'governance', catLabel: 'Gouvernance', date: 'Avril 2026', read: '14 min de lecture', title: 'La couche de validation est le produit', excerpt: 'La plupart des échecs IA en production ne sont pas des défaillances de modèles. Ce sont des défaillances de gouvernance. Un guide pratique sur les règles de validation, les flux d\'approbation et les périmètres d\'audit.', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'operations', catLabel: 'Opérations', date: 'Avril 2026', read: '11 min de lecture', title: 'Déployer département par département — un guide pratique', excerpt: 'Pourquoi le déploiement progressif gagne encore, comment choisir le premier département, et ce qu\'il faut placer derrière une validation humaine avant tout lancement.', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'industry', catLabel: 'Secteur', date: 'Avril 2026', read: '10 min de lecture', title: 'Ce que « AI-native » signifie vraiment pour une entreprise traditionnelle', excerpt: 'L\'infrastructure IA ne nécessite pas de reconstruire l\'entreprise. Elle nécessite de concevoir la couche opérationnelle autour du fonctionnement actuel de l\'entreprise.', img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'infrastructure', catLabel: 'Infrastructure', date: 'Mars 2026', read: '8 min de lecture', title: 'Les connecteurs sont la moitié ingrate de chaque déploiement', excerpt: 'Un essai court sur les outils sans API, les systèmes legacy que personne ne veut toucher, et pourquoi la couche connecteur est celle où les projets Mindzy réussissent ou échouent.', img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'governance', catLabel: 'Gouvernance', date: 'Mars 2026', read: '13 min de lecture', title: 'Les permissions comme problème de design, pas de politique', excerpt: 'Recadrer la hiérarchie des rôles, les flux d\'approbation et les pistes d\'audit comme des surfaces de design de premier plan dans une couche opérationnelle IA.', img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'models', catLabel: 'Modèles', date: 'Mars 2026', read: '7 min de lecture', title: 'Trois modèles propriétaires, tous les modèles externes — pourquoi les deux comptent', excerpt: 'Sur la valeur d\'utiliser MindFast, MindDeep et Mind 3.1 aux côtés de Claude, GPT, Gemini, Mistral et d\'autres — sans jamais enfermer les clients dans un seul fournisseur.', img: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'operations', catLabel: 'Opérations', date: 'Février 2026', read: '15 min de lecture', title: 'Comment les ingénieurs Mindzy gèrent les équipes d\'agents', excerpt: 'Un jour dans la vie. Notre équipe n\'écrit plus du code ligne par ligne — elle révise, valide et supervise des agents spécialisés. Voici à quoi ça ressemble en pratique.', img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'industry', catLabel: 'Secteur', date: 'Février 2026', read: '6 min de lecture', title: 'Le diagnostic est le livrable', excerpt: 'Pourquoi chaque engagement Mindzy commence par un diagnostic exécutif — et ce que nous cherchons avant de proposer une quelconque technologie.', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'infrastructure', catLabel: 'Infrastructure', date: 'Janvier 2026', read: '11 min de lecture', title: 'Concevoir des tableaux de bord autour de la hiérarchie, pas des métriques', excerpt: 'Un tableau de bord Mindzy personnalisé n\'est pas une page de reporting. Il reflète la structure décisionnelle de l\'entreprise — direction, managers, équipes, validation.', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop' },
+  { cat: 'governance', catLabel: 'Gouvernance', date: 'Janvier 2026', read: '9 min de lecture', title: 'Basculements réversibles et le plaidoyer contre les déploiements massifs', excerpt: 'Chaque déploiement Mindzy est réversible jusqu\'à ce que votre équipe valide. Le plaidoyer pour ralentir avant de passer en production.', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop' },
+]
 
-const WORDS = ['AI infrastructure', 'AI workflows', 'AI governance', 'AI systems', 'AI agents']
+const POSTS_BY_LOCALE: Record<string, Post[]> = { en: POSTS_EN, fr: POSTS_FR }
+
+const FILTERS = ['all', 'infrastructure', 'governance', 'models', 'operations', 'industry']
 const INTERVAL_MS = 3200
 const MORPH_DURATION = 700
 const MORPH_STEPS = 22
 
 export default function BlogPage() {
-  const [displayWord, setDisplayWord] = useState(WORDS[0])
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] ?? 'en'
+  const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
+  const posts = POSTS_BY_LOCALE[locale] ?? POSTS_EN
+
+  const [displayWord, setDisplayWord] = useState(t.words[0])
   const [activeFilter, setActiveFilter] = useState('all')
   const idxRef = useRef(0)
 
   // Morphing text
   useEffect(() => {
+    const words = t.words
     let cancelled = false
     function morph() {
       if (cancelled) return
-      const from = WORDS[idxRef.current]
-      const to = WORDS[(idxRef.current + 1) % WORDS.length]
+      const from = words[idxRef.current]
+      const to = words[(idxRef.current + 1) % words.length]
       let step = 0
       function tick() {
         if (cancelled) return
@@ -108,14 +163,15 @@ export default function BlogPage() {
           setTimeout(tick, MORPH_DURATION / MORPH_STEPS)
         } else {
           setDisplayWord(to)
-          idxRef.current = (idxRef.current + 1) % WORDS.length
+          idxRef.current = (idxRef.current + 1) % words.length
           setTimeout(morph, INTERVAL_MS)
         }
       }
       tick()
     }
-    const t = setTimeout(morph, INTERVAL_MS)
-    return () => { cancelled = true; clearTimeout(t) }
+    const timer = setTimeout(morph, INTERVAL_MS)
+    return () => { cancelled = true; clearTimeout(timer) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Card entrance animation
@@ -136,7 +192,7 @@ export default function BlogPage() {
     return () => io.disconnect()
   }, [activeFilter])
 
-  const visible = activeFilter === 'all' ? POSTS : POSTS.filter(p => p.cat === activeFilter)
+  const visible = activeFilter === 'all' ? posts : posts.filter(p => p.cat === activeFilter)
 
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
@@ -145,10 +201,10 @@ export default function BlogPage() {
       {/* Hero */}
       <section className="blog-hero">
         <div className="w-full max-w-[1200px] mx-auto px-8">
-          <div className="eyebrow-blog">Notes from the field</div>
+          <div className="eyebrow-blog">{t.eyebrow}</div>
           <h1 className="blog-hero__title">
-            Essays on building, governing,<br />
-            and operating{' '}
+            {t.h1_line1}<br />
+            {t.h1_line2}{' '}
             <em style={{ fontStyle: 'italic', display: 'inline' }}>
               <span style={{
                 background: 'linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%)',
@@ -171,9 +227,7 @@ export default function BlogPage() {
               }} />
             </em>.
           </h1>
-          <p className="blog-hero__sub">
-            From model orchestration and validation layers to custom dashboards and governance — the operational realities behind every Mindzy build.
-          </p>
+          <p className="blog-hero__sub">{t.subtitle}</p>
           <div className="blog-filters">
             {FILTERS.map(f => (
               <button
@@ -181,7 +235,7 @@ export default function BlogPage() {
                 className={`blog-filter${activeFilter === f ? ' is-active' : ''}`}
                 onClick={() => setActiveFilter(f)}
               >
-                {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}
+                {f === 'all' ? t.filterAll : t.filterLabels[f as keyof typeof t.filterLabels]}
               </button>
             ))}
           </div>
@@ -204,7 +258,7 @@ export default function BlogPage() {
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                       </svg>
-                      Read Article
+                      {t.readBtn}
                     </button>
                   </div>
                   <div className="blog-card__badges">
@@ -240,10 +294,10 @@ export default function BlogPage() {
       {/* Closing CTA */}
       <section className="blog-close">
         <div className="w-full max-w-[1200px] mx-auto px-8">
-          <h2>Want a Mindzy infrastructure <em style={{ fontStyle: 'italic' }}>inside your company?</em></h2>
-          <p>30 minutes. We listen, we map, we tell you whether AI can move the needle for your operations.</p>
+          <h2>{t.closingH2_plain} <em style={{ fontStyle: 'italic' }}>{t.closingH2_em}</em></h2>
+          <p>{t.closingP}</p>
           <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
-            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>Book a call to discuss your project</GlassButton>
+            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>{t.cta}</GlassButton>
           </div>
         </div>
       </section>

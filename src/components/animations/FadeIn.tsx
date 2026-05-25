@@ -11,7 +11,12 @@ export function FadeIn({ children, delay, className, as = 'div' }: FadeInProps) 
   const style: React.CSSProperties | undefined = delay ? { transitionDelay: `${delay}ms` } : undefined
   return React.createElement(
     as,
-    { className: `ai-fade-in${className ? ' ' + className : ''}`, style },
+    {
+      className: `ai-fade-in${className ? ' ' + className : ''}`,
+      style,
+      // Inline IntersectionObserver in layout.tsx may add `is-visible` before hydration completes.
+      suppressHydrationWarning: true,
+    },
     children
   )
 }

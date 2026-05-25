@@ -1,7 +1,321 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import { GlassButton } from '@/components/ui/GlassButton'
+
+const TRANSLATIONS = {
+  en: {
+    eyebrow: 'Our work',
+    title: 'Created by Mindzy.',
+    subtitle: 'Every project below was scoped, designed, and delivered by our team with one objective: building digital experiences that are clear, elegant, and built for performance.',
+    statProjects: 'Projects delivered',
+    statIndustries: 'Industries',
+    bookCall: 'Book a Call',
+    exploreWork: 'Explore work',
+    featuredLabel: 'Featured projects',
+    visitSite: 'Visit site',
+    filterAll: 'All',
+    filterSport: 'Sport & Coaching',
+    closingTitle: 'Want this',
+    closingTitleItalic: 'infrastructure',
+    closingTitleEnd: 'inside your company?',
+    closingBody: '30 minutes. We listen, we map, we tell you whether AI can move the needle for your operations.',
+    bookCallBottom: 'Book a call',
+    catLabels: {
+      investment: 'Investment',
+      media: 'Media',
+      legal: 'Legal',
+      wellness: 'Wellness',
+      commerce: 'Commerce',
+      sport: 'Sport',
+      creative: 'Creative',
+      photography: 'Photography',
+      consulting: 'Consulting',
+      freelance: 'Freelance',
+      design: 'Design',
+    },
+  },
+  fr: {
+    eyebrow: 'Nos réalisations',
+    title: 'Créé par Mindzy.',
+    subtitle: 'Chaque projet ci-dessous a été cadré, conçu et livré par notre équipe avec un seul objectif : construire des expériences digitales claires, élégantes et performantes.',
+    statProjects: 'Projets livrés',
+    statIndustries: 'Secteurs',
+    bookCall: 'Réserver un appel',
+    exploreWork: 'Voir les projets',
+    featuredLabel: 'Projets phares',
+    visitSite: 'Visiter le site',
+    filterAll: 'Tous',
+    filterSport: 'Sport & Coaching',
+    closingTitle: 'Vous voulez cette',
+    closingTitleItalic: 'infrastructure',
+    closingTitleEnd: 'dans votre entreprise ?',
+    closingBody: "30 minutes. On écoute, on cartographie, on vous dit si l'IA peut faire la différence dans vos opérations.",
+    bookCallBottom: 'Réserver un appel',
+    catLabels: {
+      investment: 'Investissement',
+      media: 'Médias',
+      legal: 'Juridique',
+      wellness: 'Bien-être',
+      commerce: 'Commerce',
+      sport: 'Sport',
+      creative: 'Créatif',
+      photography: 'Photographie',
+      consulting: 'Conseil',
+      freelance: 'Freelance',
+      design: 'Design',
+    },
+  },
+  es: {
+    eyebrow: 'Nuestro trabajo',
+    title: 'Creado por Mindzy.',
+    subtitle: 'Cada proyecto fue definido, diseñado y entregado por nuestro equipo con un único objetivo: construir experiencias digitales claras, elegantes y orientadas al rendimiento.',
+    statProjects: 'Proyectos entregados',
+    statIndustries: 'Sectores',
+    bookCall: 'Reservar una llamada',
+    exploreWork: 'Ver proyectos',
+    featuredLabel: 'Proyectos destacados',
+    visitSite: 'Visitar el sitio',
+    filterAll: 'Todos',
+    filterSport: 'Deporte & Coaching',
+    closingTitle: '¿Quieres esta',
+    closingTitleItalic: 'infraestructura',
+    closingTitleEnd: 'en tu empresa?',
+    closingBody: '30 minutos. Escuchamos, mapeamos y te decimos si la IA puede marcar la diferencia en tus operaciones.',
+    bookCallBottom: 'Reservar una llamada',
+    catLabels: {
+      investment: 'Inversión',
+      media: 'Medios',
+      legal: 'Legal',
+      wellness: 'Bienestar',
+      commerce: 'Comercio',
+      sport: 'Deporte',
+      creative: 'Creativo',
+      photography: 'Fotografía',
+      consulting: 'Consultoría',
+      freelance: 'Freelance',
+      design: 'Diseño',
+    },
+  },
+  de: {
+    eyebrow: 'Unsere Arbeit',
+    title: 'Erstellt von Mindzy.',
+    subtitle: 'Jedes Projekt wurde von unserem Team geplant, gestaltet und umgesetzt – mit einem Ziel: digitale Erlebnisse zu schaffen, die klar, elegant und leistungsstark sind.',
+    statProjects: 'Abgeschlossene Projekte',
+    statIndustries: 'Branchen',
+    bookCall: 'Gespräch buchen',
+    exploreWork: 'Projekte ansehen',
+    featuredLabel: 'Ausgewählte Projekte',
+    visitSite: 'Website besuchen',
+    filterAll: 'Alle',
+    filterSport: 'Sport & Coaching',
+    closingTitle: 'Möchten Sie diese',
+    closingTitleItalic: 'Infrastruktur',
+    closingTitleEnd: 'in Ihrem Unternehmen?',
+    closingBody: '30 Minuten. Wir hören zu, analysieren und sagen Ihnen, ob KI Ihre Abläufe verbessern kann.',
+    bookCallBottom: 'Gespräch buchen',
+    catLabels: {
+      investment: 'Investment',
+      media: 'Medien',
+      legal: 'Recht',
+      wellness: 'Wellness',
+      commerce: 'Handel',
+      sport: 'Sport',
+      creative: 'Kreativ',
+      photography: 'Fotografie',
+      consulting: 'Beratung',
+      freelance: 'Freelance',
+      design: 'Design',
+    },
+  },
+  it: {
+    eyebrow: 'Il nostro lavoro',
+    title: 'Creato da Mindzy.',
+    subtitle: 'Ogni progetto è stato definito, progettato e consegnato dal nostro team con un unico obiettivo: creare esperienze digitali chiare, eleganti e performanti.',
+    statProjects: 'Progetti consegnati',
+    statIndustries: 'Settori',
+    bookCall: 'Prenota una chiamata',
+    exploreWork: 'Esplora i progetti',
+    featuredLabel: 'Progetti in evidenza',
+    visitSite: 'Visita il sito',
+    filterAll: 'Tutti',
+    filterSport: 'Sport & Coaching',
+    closingTitle: 'Vuoi questa',
+    closingTitleItalic: 'infrastruttura',
+    closingTitleEnd: 'nella tua azienda?',
+    closingBody: "30 minuti. Ascoltiamo, mappiamo e ti diciamo se l'AI può fare la differenza nelle tue operazioni.",
+    bookCallBottom: 'Prenota una chiamata',
+    catLabels: {
+      investment: 'Investimento',
+      media: 'Media',
+      legal: 'Legale',
+      wellness: 'Benessere',
+      commerce: 'Commercio',
+      sport: 'Sport',
+      creative: 'Creativo',
+      photography: 'Fotografia',
+      consulting: 'Consulenza',
+      freelance: 'Freelance',
+      design: 'Design',
+    },
+  },
+  pt: {
+    eyebrow: 'Nosso trabalho',
+    title: 'Criado pela Mindzy.',
+    subtitle: 'Cada projeto foi definido, desenhado e entregue pela nossa equipa com um único objetivo: criar experiências digitais claras, elegantes e orientadas para a performance.',
+    statProjects: 'Projetos entregues',
+    statIndustries: 'Setores',
+    bookCall: 'Agendar uma chamada',
+    exploreWork: 'Ver projetos',
+    featuredLabel: 'Projetos em destaque',
+    visitSite: 'Visitar o site',
+    filterAll: 'Todos',
+    filterSport: 'Desporto & Coaching',
+    closingTitle: 'Quer esta',
+    closingTitleItalic: 'infraestrutura',
+    closingTitleEnd: 'na sua empresa?',
+    closingBody: '30 minutos. Ouvimos, mapeamos e dizemos se a IA pode fazer a diferença nas suas operações.',
+    bookCallBottom: 'Agendar uma chamada',
+    catLabels: {
+      investment: 'Investimento',
+      media: 'Media',
+      legal: 'Jurídico',
+      wellness: 'Bem-estar',
+      commerce: 'Comércio',
+      sport: 'Desporto',
+      creative: 'Criativo',
+      photography: 'Fotografia',
+      consulting: 'Consultoria',
+      freelance: 'Freelance',
+      design: 'Design',
+    },
+  },
+  ar: {
+    eyebrow: 'أعمالنا',
+    title: 'من تصميم Mindzy.',
+    subtitle: 'كل مشروع أدناه تم تحديد نطاقه وتصميمه وتسليمه من قِبَل فريقنا بهدف واحد: بناء تجارب رقمية واضحة وأنيقة ومُحسَّنة للأداء.',
+    statProjects: 'مشروع مُنجَز',
+    statIndustries: 'قطاع',
+    bookCall: 'احجز مكالمة',
+    exploreWork: 'استعرض الأعمال',
+    featuredLabel: 'مشاريع مميزة',
+    visitSite: 'زيارة الموقع',
+    filterAll: 'الكل',
+    filterSport: 'الرياضة والتدريب',
+    closingTitle: 'هل تريد هذه',
+    closingTitleItalic: 'البنية التحتية',
+    closingTitleEnd: 'داخل شركتك؟',
+    closingBody: '30 دقيقة. نستمع، نرسم الخريطة، ونخبرك إذا كان الذكاء الاصطناعي قادراً على إحداث فارق في عملياتك.',
+    bookCallBottom: 'احجز مكالمة',
+    catLabels: {
+      investment: 'استثمار',
+      media: 'إعلام',
+      legal: 'قانوني',
+      wellness: 'صحة وعافية',
+      commerce: 'تجارة',
+      sport: 'رياضة',
+      creative: 'إبداعي',
+      photography: 'تصوير',
+      consulting: 'استشارات',
+      freelance: 'مستقل',
+      design: 'تصميم',
+    },
+  },
+  zh: {
+    eyebrow: '我们的作品',
+    title: '由 Mindzy 打造。',
+    subtitle: '以下每个项目均由我们的团队规划、设计并交付，目标只有一个：打造清晰、优雅且以性能为导向的数字体验。',
+    statProjects: '交付项目',
+    statIndustries: '行业',
+    bookCall: '预约通话',
+    exploreWork: '浏览作品',
+    featuredLabel: '精选项目',
+    visitSite: '访问网站',
+    filterAll: '全部',
+    filterSport: '运动与教练',
+    closingTitle: '想将这套',
+    closingTitleItalic: '基础设施',
+    closingTitleEnd: '引入您的公司？',
+    closingBody: '30 分钟。我们倾听、梳理，告诉您 AI 能否为您的运营带来突破。',
+    bookCallBottom: '预约通话',
+    catLabels: {
+      investment: '投资',
+      media: '媒体',
+      legal: '法律',
+      wellness: '健康',
+      commerce: '商业',
+      sport: '运动',
+      creative: '创意',
+      photography: '摄影',
+      consulting: '咨询',
+      freelance: '自由职业',
+      design: '设计',
+    },
+  },
+  ja: {
+    eyebrow: '私たちの実績',
+    title: 'Mindzy が手がけた作品。',
+    subtitle: '以下のすべてのプロジェクトは、明確でエレガントかつパフォーマンスに優れたデジタル体験を構築するという一つの目標のもと、私たちのチームが設計・納品しました。',
+    statProjects: '納品済みプロジェクト',
+    statIndustries: '業界',
+    bookCall: '通話を予約する',
+    exploreWork: '作品を見る',
+    featuredLabel: '注目プロジェクト',
+    visitSite: 'サイトを見る',
+    filterAll: 'すべて',
+    filterSport: 'スポーツ＆コーチング',
+    closingTitle: 'この',
+    closingTitleItalic: 'インフラ',
+    closingTitleEnd: 'を自社に導入しませんか？',
+    closingBody: '30 分間。お話を伺い、マッピングし、AI が貴社の業務にどう貢献できるかをお伝えします。',
+    bookCallBottom: '通話を予約する',
+    catLabels: {
+      investment: '投資',
+      media: 'メディア',
+      legal: '法律',
+      wellness: 'ウェルネス',
+      commerce: '商業',
+      sport: 'スポーツ',
+      creative: 'クリエイティブ',
+      photography: '写真',
+      consulting: 'コンサルティング',
+      freelance: 'フリーランス',
+      design: 'デザイン',
+    },
+  },
+  ru: {
+    eyebrow: 'Наши работы',
+    title: 'Создано Mindzy.',
+    subtitle: 'Каждый проект был спроектирован, разработан и сдан нашей командой с единственной целью: создавать цифровые продукты, которые чёткие, элегантные и ориентированные на результат.',
+    statProjects: 'Реализованных проектов',
+    statIndustries: 'Отраслей',
+    bookCall: 'Записаться на звонок',
+    exploreWork: 'Смотреть работы',
+    featuredLabel: 'Избранные проекты',
+    visitSite: 'Посетить сайт',
+    filterAll: 'Все',
+    filterSport: 'Спорт и тренинг',
+    closingTitle: 'Хотите эту',
+    closingTitleItalic: 'инфраструктуру',
+    closingTitleEnd: 'в своей компании?',
+    closingBody: '30 минут. Мы слушаем, составляем карту и говорим вам, может ли ИИ изменить ситуацию в вашей деятельности.',
+    bookCallBottom: 'Записаться на звонок',
+    catLabels: {
+      investment: 'Инвестиции',
+      media: 'Медиа',
+      legal: 'Юриспруденция',
+      wellness: 'Велнес',
+      commerce: 'Торговля',
+      sport: 'Спорт',
+      creative: 'Креатив',
+      photography: 'Фотография',
+      consulting: 'Консалтинг',
+      freelance: 'Фриланс',
+      design: 'Дизайн',
+    },
+  },
+}
 
 const CSS = `
 .pf-hero { position:relative; min-height:calc(100vh - 72px); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; padding:48px 0 80px; }
@@ -62,45 +376,49 @@ const CSS = `
 `
 
 const FEATURED = [
-  { title: 'Overlord Fund', cat: 'investment', catLabel: 'Investment', desc: 'Investment vehicle management platform. Creation and management of Holdings, Club deals and Funds. Legal, tax and accounting management.', href: 'https://www.overlord.fund/fr', img: '/portfolio/overlord-fund.jpg' },
-  { title: 'Le Revenu', cat: 'media', catLabel: 'Media', desc: 'French financial magazine specialized in financial investment advice, life insurance, stock market, taxation, real estate.', href: 'https://www.lerevenu.com/', img: '/portfolio/le-revenu.jpg' },
+  { title: 'Overlord Fund', cat: 'investment', desc: 'Investment vehicle management platform. Creation and management of Holdings, Club deals and Funds. Legal, tax and accounting management.', href: 'https://www.overlord.fund/fr', img: '/portfolio/overlord-fund.jpg' },
+  { title: 'Le Revenu', cat: 'media', desc: 'French financial magazine specialized in financial investment advice, life insurance, stock market, taxation, real estate.', href: 'https://www.lerevenu.com/', img: '/portfolio/le-revenu.jpg' },
 ]
 
 const PROJECTS = [
-  { title: 'Isla Wedding', desc: 'Wedding photography and planning service.', cat: 'creative', catLabel: 'Photography', href: 'https://isla-wedding.mindzy.me/', img: '/portfolio/isla-wedding.jpg' },
-  { title: 'B2B Consulting', desc: 'Business consulting firm in French Guiana. Accounting support, business creation, strategic management.', cat: 'investment', catLabel: 'Consulting', href: 'https://b2bconsulting.pro/', img: '/portfolio/b2b-consulting.jpg' },
-  { title: 'Equityz', desc: 'Investment club for Antillean-Guyanese entrepreneurs.', cat: 'investment', catLabel: 'Investment', href: 'https://equityz.fr/', img: '/portfolio/equityz.jpg' },
-  { title: 'Ory Avocats', desc: 'Law firm specialized in criminal law, business criminal law and fundamental freedoms.', cat: 'legal', catLabel: 'Legal', href: 'https://www.ory-avocats.com/', img: '/portfolio/ory-avocats.jpg' },
-  { title: 'Ligny Avocat', desc: 'Law office specialized in criminal law and litigation.', cat: 'legal', catLabel: 'Legal', href: 'https://www.ligny-avocat.com/', img: '/portfolio/ligny-avocat.jpg' },
-  { title: 'Pharaonique Official', desc: 'Streetwear clothing brand. Sweatshirts, T-shirts, Sets, Caps. Over 50,000 customers worldwide.', cat: 'commerce', catLabel: 'Commerce', href: 'https://pharaoniqueofficial.com/', img: '/portfolio/pharaonique-official.jpg' },
-  { title: 'Ligaphone Paris', desc: 'Specialized audio and music e-commerce store in Paris.', cat: 'commerce', catLabel: 'Commerce', href: 'https://ligaphone-paris.myshopify.com/fr', img: '/portfolio/ligaphone-paris.jpg' },
-  { title: 'French Is Now', desc: 'Web developer portfolio and Mindzy site creator.', cat: 'creative', catLabel: 'Freelance', href: 'https://www.frenchisnow.com/', img: '/portfolio/french-is-now.jpg' },
-  { title: 'Joplin Designer', desc: 'Graphic designer and art director.', cat: 'creative', catLabel: 'Design', href: 'https://joplin-designer.mindzy.me/', img: '/portfolio/joplin-designer.jpg' },
-  { title: 'Byur Surfing', desc: 'Surf school and surfing lessons by the sea.', cat: 'sport', catLabel: 'Sport', href: 'https://byur-surfing.mindzy.me/', img: '/portfolio/byur-surfing.jpg' },
-  { title: 'Bangla Boxing Stadium', desc: 'Thai boxing and martial arts gym.', cat: 'sport', catLabel: 'Sport', href: 'http://banglaboxingstadium.com/', img: '/portfolio/banglaboxingstadium.jpg' },
-  { title: 'Coach Marchand', desc: 'Sports coach and physical trainer. Personalized programs, individual and group coaching.', cat: 'sport', catLabel: 'Sport', href: 'https://coach-marchand.mindzy.me/', img: '/portfolio/coach-marchand.jpg' },
-  { title: 'Acupuncture Mei', desc: 'Traditional Chinese acupuncture practice. Personalized care and alternative medicine.', cat: 'wellness', catLabel: 'Wellness', href: 'https://acupuncture-mei.mindzy.me/', img: '/portfolio/acupuncture-mei.jpg' },
-  { title: 'Aromatherapist Hélène', desc: 'Certified aromatherapist. Aromatherapy and essential oils consultations.', cat: 'wellness', catLabel: 'Wellness', href: 'https://aromatherapeute-helene.mindzy.me/', img: '/portfolio/aromatherapie-helene.jpg' },
-  { title: 'Art Therapy Camille', desc: 'Art therapist specialized in support through creativity.', cat: 'wellness', catLabel: 'Wellness', href: 'https://arttherapie-camille.mindzy.me/', img: '/portfolio/art-therapie-camille.jpg' },
-  { title: 'Ayurveda Priya', desc: 'Ayurveda practitioner. Consultations, ayurvedic massages and personalized wellness programs.', cat: 'wellness', catLabel: 'Wellness', href: 'https://ayurveda-priya.mindzy.me/', img: '/portfolio/ayurveda-priya.jpg' },
-  { title: 'Chiropractor Thomas', desc: 'Chiropractic office. Back and joint care through spinal adjustments.', cat: 'wellness', catLabel: 'Wellness', href: 'https://chiropracteur-thomas.mindzy.me/', img: '/portfolio/chiropracteur-thomas.jpg' },
-  { title: 'Dietitian Aurélie', desc: 'Registered dietitian-nutritionist. Personalized consultations and nutritional follow-up.', cat: 'wellness', catLabel: 'Wellness', href: 'https://dieteticienne-aurelie.mindzy.me/', img: '/portfolio/dieteticienne-aurelie.jpg' },
-  { title: 'Energy Healer Bresom', desc: 'Energy healing practitioner. Chakra rebalancing and energetic harmonization.', cat: 'wellness', catLabel: 'Wellness', href: 'https://energeticien-bresom.mindzy.me/', img: '/portfolio/energeticien-bresom.jpg' },
-  { title: 'Hypnotherapist Duverne', desc: 'Certified hypnotherapist. Hypnosis for phobias, addictions and self-confidence.', cat: 'wellness', catLabel: 'Wellness', href: 'https://hypno-duverne.mindzy.me/', img: '/portfolio/hypno-duverne.jpg' },
-  { title: 'Hypnosis Nathalie', desc: 'Therapeutic hypnosis practitioner. Specialized in stress management, sleep and well-being.', cat: 'wellness', catLabel: 'Wellness', href: 'https://hypno-nathalie.mindzy.me/', img: '/portfolio/hypno-nathalie.jpg' },
-  { title: 'Kinesiologist Sophie', desc: 'Certified kinesiologist. Body rebalancing, emotional management and holistic support.', cat: 'wellness', catLabel: 'Wellness', href: 'https://kinesiologue-sophie.mindzy.me/', img: '/portfolio/kine-sophie.jpg' },
-  { title: 'Lithotherapist Duval', desc: 'Lithotherapist and crystal specialist. Crystal healing, workshops and training.', cat: 'wellness', catLabel: 'Wellness', href: 'https://lithotherapeute-duval.mindzy.me/', img: '/portfolio/lithotherapeute-duval.jpg' },
-  { title: 'Magnetizer Delacroix', desc: 'Healing magnetizer. Energy healing through magnetism for pain and blockage relief.', cat: 'wellness', catLabel: 'Wellness', href: 'https://magnetiseur-delacroix.mindzy.me/', img: '/portfolio/magnetiseur-delacroix.jpg' },
-  { title: 'Medium Moreau', desc: 'Medium and clairvoyant. Mediumship consultations, spiritual guidance and life coaching.', cat: 'wellness', catLabel: 'Wellness', href: 'https://medium-moreau.mindzy.me/', img: '/portfolio/medium-moreau.jpg' },
-  { title: 'Osteopath Lefebvre', desc: 'Licensed osteopath D.O. Consultations for adults, athletes and infants.', cat: 'wellness', catLabel: 'Wellness', href: 'https://osteo-lefebvre.mindzy.me/', img: '/portfolio/osteo-lefebvre.jpg' },
-  { title: 'Reflexology Manie', desc: 'Certified reflexologist. Foot and hand reflexology for relaxation and tension relief.', cat: 'wellness', catLabel: 'Wellness', href: 'https://reflexo-manie.mindzy.me/', img: '/portfolio/reflexo-manie.jpg' },
-  { title: 'Shiatsu Kenji', desc: 'Traditional Japanese shiatsu practitioner. Digital pressure on meridians.', cat: 'wellness', catLabel: 'Wellness', href: 'https://shiatsu-kenji.mindzy.me/', img: '/portfolio/shiatsu-kenji.jpg' },
-  { title: 'Sophrology Rabiovic', desc: 'Certified sophrologist. Sessions for stress management, mental preparation and relaxation.', cat: 'wellness', catLabel: 'Wellness', href: 'https://sophro-rabiovic.mindzy.me/', img: '/portfolio/sophro-rabiovic.jpg' },
+  { title: 'Isla Wedding', desc: 'Wedding photography and planning service.', cat: 'creative', catKey: 'photography', href: 'https://isla-wedding.mindzy.me/', img: '/portfolio/isla-wedding.jpg' },
+  { title: 'B2B Consulting', desc: 'Business consulting firm in French Guiana. Accounting support, business creation, strategic management.', cat: 'investment', catKey: 'consulting', href: 'https://b2bconsulting.pro/', img: '/portfolio/b2b-consulting.jpg' },
+  { title: 'Equityz', desc: 'Investment club for Antillean-Guyanese entrepreneurs.', cat: 'investment', catKey: 'investment', href: 'https://equityz.fr/', img: '/portfolio/equityz.jpg' },
+  { title: 'Ory Avocats', desc: 'Law firm specialized in criminal law, business criminal law and fundamental freedoms.', cat: 'legal', catKey: 'legal', href: 'https://www.ory-avocats.com/', img: '/portfolio/ory-avocats.jpg' },
+  { title: 'Ligny Avocat', desc: 'Law office specialized in criminal law and litigation.', cat: 'legal', catKey: 'legal', href: 'https://www.ligny-avocat.com/', img: '/portfolio/ligny-avocat.jpg' },
+  { title: 'Pharaonique Official', desc: 'Streetwear clothing brand. Sweatshirts, T-shirts, Sets, Caps. Over 50,000 customers worldwide.', cat: 'commerce', catKey: 'commerce', href: 'https://pharaoniqueofficial.com/', img: '/portfolio/pharaonique-official.jpg' },
+  { title: 'Ligaphone Paris', desc: 'Specialized audio and music e-commerce store in Paris.', cat: 'commerce', catKey: 'commerce', href: 'https://ligaphone-paris.myshopify.com/fr', img: '/portfolio/ligaphone-paris.jpg' },
+  { title: 'French Is Now', desc: 'Web developer portfolio and Mindzy site creator.', cat: 'creative', catKey: 'freelance', href: 'https://www.frenchisnow.com/', img: '/portfolio/french-is-now.jpg' },
+  { title: 'Joplin Designer', desc: 'Graphic designer and art director.', cat: 'creative', catKey: 'design', href: 'https://joplin-designer.mindzy.me/', img: '/portfolio/joplin-designer.jpg' },
+  { title: 'Byur Surfing', desc: 'Surf school and surfing lessons by the sea.', cat: 'sport', catKey: 'sport', href: 'https://byur-surfing.mindzy.me/', img: '/portfolio/byur-surfing.jpg' },
+  { title: 'Bangla Boxing Stadium', desc: 'Thai boxing and martial arts gym.', cat: 'sport', catKey: 'sport', href: 'http://banglaboxingstadium.com/', img: '/portfolio/banglaboxingstadium.jpg' },
+  { title: 'Coach Marchand', desc: 'Sports coach and physical trainer. Personalized programs, individual and group coaching.', cat: 'sport', catKey: 'sport', href: 'https://coach-marchand.mindzy.me/', img: '/portfolio/coach-marchand.jpg' },
+  { title: 'Acupuncture Mei', desc: 'Traditional Chinese acupuncture practice. Personalized care and alternative medicine.', cat: 'wellness', catKey: 'wellness', href: 'https://acupuncture-mei.mindzy.me/', img: '/portfolio/acupuncture-mei.jpg' },
+  { title: 'Aromatherapist Hélène', desc: 'Certified aromatherapist. Aromatherapy and essential oils consultations.', cat: 'wellness', catKey: 'wellness', href: 'https://aromatherapeute-helene.mindzy.me/', img: '/portfolio/aromatherapie-helene.jpg' },
+  { title: 'Art Therapy Camille', desc: 'Art therapist specialized in support through creativity.', cat: 'wellness', catKey: 'wellness', href: 'https://arttherapie-camille.mindzy.me/', img: '/portfolio/art-therapie-camille.jpg' },
+  { title: 'Ayurveda Priya', desc: 'Ayurveda practitioner. Consultations, ayurvedic massages and personalized wellness programs.', cat: 'wellness', catKey: 'wellness', href: 'https://ayurveda-priya.mindzy.me/', img: '/portfolio/ayurveda-priya.jpg' },
+  { title: 'Chiropractor Thomas', desc: 'Chiropractic office. Back and joint care through spinal adjustments.', cat: 'wellness', catKey: 'wellness', href: 'https://chiropracteur-thomas.mindzy.me/', img: '/portfolio/chiropracteur-thomas.jpg' },
+  { title: 'Dietitian Aurélie', desc: 'Registered dietitian-nutritionist. Personalized consultations and nutritional follow-up.', cat: 'wellness', catKey: 'wellness', href: 'https://dieteticienne-aurelie.mindzy.me/', img: '/portfolio/dieteticienne-aurelie.jpg' },
+  { title: 'Energy Healer Bresom', desc: 'Energy healing practitioner. Chakra rebalancing and energetic harmonization.', cat: 'wellness', catKey: 'wellness', href: 'https://energeticien-bresom.mindzy.me/', img: '/portfolio/energeticien-bresom.jpg' },
+  { title: 'Hypnotherapist Duverne', desc: 'Certified hypnotherapist. Hypnosis for phobias, addictions and self-confidence.', cat: 'wellness', catKey: 'wellness', href: 'https://hypno-duverne.mindzy.me/', img: '/portfolio/hypno-duverne.jpg' },
+  { title: 'Hypnosis Nathalie', desc: 'Therapeutic hypnosis practitioner. Specialized in stress management, sleep and well-being.', cat: 'wellness', catKey: 'wellness', href: 'https://hypno-nathalie.mindzy.me/', img: '/portfolio/hypno-nathalie.jpg' },
+  { title: 'Kinesiologist Sophie', desc: 'Certified kinesiologist. Body rebalancing, emotional management and holistic support.', cat: 'wellness', catKey: 'wellness', href: 'https://kinesiologue-sophie.mindzy.me/', img: '/portfolio/kine-sophie.jpg' },
+  { title: 'Lithotherapist Duval', desc: 'Lithotherapist and crystal specialist. Crystal healing, workshops and training.', cat: 'wellness', catKey: 'wellness', href: 'https://lithotherapeute-duval.mindzy.me/', img: '/portfolio/lithotherapeute-duval.jpg' },
+  { title: 'Magnetizer Delacroix', desc: 'Healing magnetizer. Energy healing through magnetism for pain and blockage relief.', cat: 'wellness', catKey: 'wellness', href: 'https://magnetiseur-delacroix.mindzy.me/', img: '/portfolio/magnetiseur-delacroix.jpg' },
+  { title: 'Medium Moreau', desc: 'Medium and clairvoyant. Mediumship consultations, spiritual guidance and life coaching.', cat: 'wellness', catKey: 'wellness', href: 'https://medium-moreau.mindzy.me/', img: '/portfolio/medium-moreau.jpg' },
+  { title: 'Osteopath Lefebvre', desc: 'Licensed osteopath D.O. Consultations for adults, athletes and infants.', cat: 'wellness', catKey: 'wellness', href: 'https://osteo-lefebvre.mindzy.me/', img: '/portfolio/osteo-lefebvre.jpg' },
+  { title: 'Reflexology Manie', desc: 'Certified reflexologist. Foot and hand reflexology for relaxation and tension relief.', cat: 'wellness', catKey: 'wellness', href: 'https://reflexo-manie.mindzy.me/', img: '/portfolio/reflexo-manie.jpg' },
+  { title: 'Shiatsu Kenji', desc: 'Traditional Japanese shiatsu practitioner. Digital pressure on meridians.', cat: 'wellness', catKey: 'wellness', href: 'https://shiatsu-kenji.mindzy.me/', img: '/portfolio/shiatsu-kenji.jpg' },
+  { title: 'Sophrology Rabiovic', desc: 'Certified sophrologist. Sessions for stress management, mental preparation and relaxation.', cat: 'wellness', catKey: 'wellness', href: 'https://sophro-rabiovic.mindzy.me/', img: '/portfolio/sophro-rabiovic.jpg' },
 ]
 
 const FILTERS = ['all', 'investment', 'legal', 'wellness', 'media', 'commerce', 'sport', 'creative']
 
 export default function PortfolioPage() {
+  const params = useParams()
+  const locale = (params?.locale as string) ?? 'en'
+  const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
+
   const [activeFilter, setActiveFilter] = useState('all')
 
   const visible = activeFilter === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === activeFilter)
@@ -121,6 +439,17 @@ export default function PortfolioPage() {
     return () => io.disconnect()
   }, [visible]) // re-run when filter changes
 
+  const getCatLabel = (catKey: string) => {
+    const labels = t.catLabels as Record<string, string>
+    return labels[catKey] ?? catKey
+  }
+
+  const getFilterLabel = (f: string) => {
+    if (f === 'all') return t.filterAll
+    if (f === 'sport') return t.filterSport
+    return getCatLabel(f)
+  }
+
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -129,24 +458,24 @@ export default function PortfolioPage() {
       <section className="pf-hero">
         <div className="pf-hero__grid" aria-hidden="true" />
         <div className="w-full max-w-[1200px] mx-auto px-8" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="eyebrow-pf pf-hero__eyebrow">Our work</div>
-          <h1 className="pf-hero__title">Created by Mindzy.</h1>
-          <p className="pf-hero__sub">Every project below was scoped, designed, and delivered by our team with one objective: building digital experiences that are clear, elegant, and built for performance.</p>
+          <div className="eyebrow-pf pf-hero__eyebrow">{t.eyebrow}</div>
+          <h1 className="pf-hero__title">{t.title}</h1>
+          <p className="pf-hero__sub">{t.subtitle}</p>
           <div className="pf-hero__stats">
             <div>
               <div className="pf-hero__stat-val">34</div>
-              <div className="pf-hero__stat-lbl">Projects delivered</div>
+              <div className="pf-hero__stat-lbl">{t.statProjects}</div>
             </div>
             <div style={{ width: '1px', background: 'var(--ai-border)', flexShrink: 0 }} />
             <div>
               <div className="pf-hero__stat-val">12</div>
-              <div className="pf-hero__stat-lbl">Industries</div>
+              <div className="pf-hero__stat-lbl">{t.statIndustries}</div>
             </div>
           </div>
           <div className="pf-hero__ctas">
-            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>Book a Call</GlassButton>
+            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>{t.bookCall}</GlassButton>
             <GlassButton href="#projects">
-              Explore work
+              {t.exploreWork}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
             </GlassButton>
           </div>
@@ -159,26 +488,29 @@ export default function PortfolioPage() {
       {/* Featured */}
       <section className="pf-featured" id="projects">
         <div className="w-full max-w-[1200px] mx-auto px-8">
-          <div className="pf-featured__label">Featured projects</div>
+          <div className="pf-featured__label">{t.featuredLabel}</div>
           <div className="pf-featured__grid">
-            {FEATURED.map(p => (
-              <a key={p.title} className="pf-card pf-card--featured is-visible" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
-                <div className="pf-card__img-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="pf-card__img" src={p.img} alt={p.title} loading="eager" />
-                  <span className="pf-card__cat-badge">{p.catLabel}</span>
-                </div>
-                <div className="pf-card__body">
-                  <div className="pf-card__cat">{p.catLabel}</div>
-                  <div className="pf-card__title">{p.title}</div>
-                  <p className="pf-card__desc">{p.desc}</p>
-                  <span className="pf-card__link">
-                    Visit site
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-                  </span>
-                </div>
-              </a>
-            ))}
+            {FEATURED.map(p => {
+              const catLabel = getCatLabel(p.cat)
+              return (
+                <a key={p.title} className="pf-card pf-card--featured is-visible" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
+                  <div className="pf-card__img-wrap">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="pf-card__img" src={p.img} alt={p.title} loading="eager" />
+                    <span className="pf-card__cat-badge">{catLabel}</span>
+                  </div>
+                  <div className="pf-card__body">
+                    <div className="pf-card__cat">{catLabel}</div>
+                    <div className="pf-card__title">{p.title}</div>
+                    <p className="pf-card__desc">{p.desc}</p>
+                    <span className="pf-card__link">
+                      {t.visitSite}
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+                    </span>
+                  </div>
+                </a>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -189,29 +521,32 @@ export default function PortfolioPage() {
           <div className="pf-filters">
             {FILTERS.map(f => (
               <button key={f} className={`pf-filter${activeFilter === f ? ' is-active' : ''}`} onClick={() => setActiveFilter(f)}>
-                {f === 'all' ? 'All' : f === 'sport' ? 'Sport & Coaching' : f.charAt(0).toUpperCase() + f.slice(1)}
+                {getFilterLabel(f)}
               </button>
             ))}
           </div>
           <div className="pf-grid">
-            {visible.map(p => (
-              <a key={p.title} className="pf-card" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
-                <div className="pf-card__img-wrap">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="pf-card__img" src={p.img} alt={p.title} loading="lazy" />
-                  <span className="pf-card__cat-badge">{p.catLabel}</span>
-                </div>
-                <div className="pf-card__body">
-                  <div className="pf-card__cat">{p.catLabel}</div>
-                  <div className="pf-card__title">{p.title}</div>
-                  <p className="pf-card__desc">{p.desc}</p>
-                  <span className="pf-card__link">
-                    Visit site
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-                  </span>
-                </div>
-              </a>
-            ))}
+            {visible.map(p => {
+              const catLabel = getCatLabel(p.catKey)
+              return (
+                <a key={p.title} className="pf-card" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
+                  <div className="pf-card__img-wrap">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img className="pf-card__img" src={p.img} alt={p.title} loading="lazy" />
+                    <span className="pf-card__cat-badge">{catLabel}</span>
+                  </div>
+                  <div className="pf-card__body">
+                    <div className="pf-card__cat">{catLabel}</div>
+                    <div className="pf-card__title">{p.title}</div>
+                    <p className="pf-card__desc">{p.desc}</p>
+                    <span className="pf-card__link">
+                      {t.visitSite}
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+                    </span>
+                  </div>
+                </a>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -219,10 +554,10 @@ export default function PortfolioPage() {
       {/* Closing CTA */}
       <section className="pf-close">
         <div className="w-full max-w-[1200px] mx-auto px-8">
-          <h2>Want this <em style={{ fontStyle: 'italic' }}>infrastructure</em> inside your company?</h2>
-          <p>30 minutes. We listen, we map, we tell you whether AI can move the needle for your operations.</p>
+          <h2>{t.closingTitle} <em style={{ fontStyle: 'italic' }}>{t.closingTitleItalic}</em> {t.closingTitleEnd}</h2>
+          <p>{t.closingBody}</p>
           <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
-            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>Book a call</GlassButton>
+            <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>{t.bookCallBottom}</GlassButton>
           </div>
         </div>
       </section>

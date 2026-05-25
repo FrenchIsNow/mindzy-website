@@ -17,20 +17,20 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
-  await params
+  const { locale } = await params
   return (
     <>
       <HomeHero />
-      <TrustMarqueeSection />
-      <CustomDesignSection />
+      <TrustMarqueeSection locale={locale} />
+      <CustomDesignSection locale={locale} />
       <ManifestoSection />
       <DashboardSection />
       <ArchitectureSection />
       <OrchestrationSection />
       <IntegrationsSection />
       <CompoundingSection />
-      <UseCasesSection />
-      <FinalCTASection />
+      <UseCasesSection locale={locale} />
+      <FinalCTASection locale={locale} />
     </>
   )
 }

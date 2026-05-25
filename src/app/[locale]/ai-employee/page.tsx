@@ -9,6 +9,113 @@ import { OrbitControls, Html, Plane, Sphere } from "@react-three/drei"
 import { Download, Heart, X } from "lucide-react"
 
 /* =========================
+   Translations
+   ========================= */
+
+const TRANSLATIONS = {
+  en: {
+    eyebrow: "AI Employee as a Service",
+    title: "Our AI employee platform is",
+    titleItalic: "in development.",
+    description:
+      "Mindzy is building a dedicated platform to help companies create and deploy custom AI employees for real business roles. Designed around your tools, your workflows, and your governance rules.",
+    joinWaitingList: "Join the Waiting List",
+    hint: "Drag to explore · Scroll to zoom · Click cards to preview",
+    download: "Download",
+  },
+  fr: {
+    eyebrow: "AI Employee as a Service",
+    title: "Notre plateforme d'employés IA est",
+    titleItalic: "en développement.",
+    description:
+      "Mindzy développe une plateforme dédiée pour aider les entreprises à créer et déployer des employés IA personnalisés pour de véritables rôles métier. Conçue autour de vos outils, vos workflows et vos règles de gouvernance.",
+    joinWaitingList: "Rejoindre la liste d'attente",
+    hint: "Glisser pour explorer · Scroll pour zoomer · Cliquer pour prévisualiser",
+    download: "Télécharger",
+  },
+  es: {
+    eyebrow: "AI Employee as a Service",
+    title: "Nuestra plataforma de empleados IA está",
+    titleItalic: "en desarrollo.",
+    description:
+      "Mindzy está construyendo una plataforma dedicada para ayudar a las empresas a crear e implementar empleados de IA personalizados para roles empresariales reales. Diseñada en torno a tus herramientas, flujos de trabajo y reglas de gobernanza.",
+    joinWaitingList: "Unirse a la lista de espera",
+    hint: "Arrastra para explorar · Scroll para hacer zoom · Clic en las tarjetas para previsualizar",
+    download: "Descargar",
+  },
+  de: {
+    eyebrow: "AI Employee as a Service",
+    title: "Unsere KI-Mitarbeiter-Plattform ist",
+    titleItalic: "in Entwicklung.",
+    description:
+      "Mindzy entwickelt eine dedizierte Plattform, die Unternehmen dabei hilft, maßgeschneiderte KI-Mitarbeiter für echte Geschäftsrollen zu erstellen und einzusetzen. Entwickelt rund um Ihre Tools, Workflows und Governance-Regeln.",
+    joinWaitingList: "Warteliste beitreten",
+    hint: "Ziehen zum Erkunden · Scrollen zum Zoomen · Karten klicken zum Vorschauen",
+    download: "Herunterladen",
+  },
+  it: {
+    eyebrow: "AI Employee as a Service",
+    title: "La nostra piattaforma di dipendenti IA è",
+    titleItalic: "in sviluppo.",
+    description:
+      "Mindzy sta costruendo una piattaforma dedicata per aiutare le aziende a creare e distribuire dipendenti IA personalizzati per ruoli aziendali reali. Progettata attorno ai tuoi strumenti, flussi di lavoro e regole di governance.",
+    joinWaitingList: "Iscriviti alla lista d'attesa",
+    hint: "Trascina per esplorare · Scorri per zoomare · Clicca le schede per l'anteprima",
+    download: "Scarica",
+  },
+  pt: {
+    eyebrow: "AI Employee as a Service",
+    title: "A nossa plataforma de funcionários IA está",
+    titleItalic: "em desenvolvimento.",
+    description:
+      "A Mindzy está a construir uma plataforma dedicada para ajudar as empresas a criar e implementar funcionários de IA personalizados para funções empresariais reais. Desenhada em torno das suas ferramentas, fluxos de trabalho e regras de governação.",
+    joinWaitingList: "Juntar-se à lista de espera",
+    hint: "Arraste para explorar · Role para aproximar · Clique nos cartões para pré-visualizar",
+    download: "Descarregar",
+  },
+  ar: {
+    eyebrow: "موظف الذكاء الاصطناعي كخدمة",
+    title: "منصة موظفي الذكاء الاصطناعي لدينا",
+    titleItalic: "قيد التطوير.",
+    description:
+      "تبني Mindzy منصة مخصصة لمساعدة الشركات على إنشاء ونشر موظفي ذكاء اصطناعي مخصصين لأدوار الأعمال الحقيقية. مُصمَّمة حول أدواتك وسير عملك وقواعد الحوكمة الخاصة بك.",
+    joinWaitingList: "انضم إلى قائمة الانتظار",
+    hint: "اسحب للاستكشاف · مرر للتكبير · انقر على البطاقات للمعاينة",
+    download: "تحميل",
+  },
+  zh: {
+    eyebrow: "AI 员工即服务",
+    title: "我们的 AI 员工平台",
+    titleItalic: "正在开发中。",
+    description:
+      "Mindzy 正在构建一个专用平台，帮助企业为真实业务岗位创建和部署定制化 AI 员工。平台围绕您的工具、工作流程和治理规则进行设计。",
+    joinWaitingList: "加入等待名单",
+    hint: "拖动探索 · 滚动缩放 · 点击卡片预览",
+    download: "下载",
+  },
+  ja: {
+    eyebrow: "AI Employee as a Service",
+    title: "私たちの AI 従業員プラットフォームは",
+    titleItalic: "開発中です。",
+    description:
+      "Mindzy は、企業が実際のビジネスロール向けにカスタム AI 従業員を作成・展開できる専用プラットフォームを構築しています。あなたのツール、ワークフロー、ガバナンスルールを中心に設計されています。",
+    joinWaitingList: "ウェイティングリストに参加する",
+    hint: "ドラッグして探索 · スクロールでズーム · カードをクリックしてプレビュー",
+    download: "ダウンロード",
+  },
+  ru: {
+    eyebrow: "AI-сотрудник как услуга",
+    title: "Наша платформа AI-сотрудников",
+    titleItalic: "находится в разработке.",
+    description:
+      "Mindzy создаёт специализированную платформу, которая поможет компаниям создавать и развёртывать кастомных AI-сотрудников для реальных бизнес-ролей. Разработана вокруг ваших инструментов, рабочих процессов и правил управления.",
+    joinWaitingList: "Присоединиться к списку ожидания",
+    hint: "Перетащите для просмотра · Прокрутите для масштабирования · Кликните карточки для предпросмотра",
+    download: "Скачать",
+  },
+}
+
+/* =========================
    Card data (matches static site galaxy-gallery.js)
    ========================= */
 
@@ -233,7 +340,7 @@ function FloatingCard({
    Card modal — matches static site styling
    ========================= */
 
-function CardModal() {
+function CardModal({ downloadLabel }: { downloadLabel: string }) {
   const { selectedCard, setSelectedCard } = useCard()
   const [isFavorited, setIsFavorited] = useState(false)
 
@@ -342,7 +449,7 @@ function CardModal() {
             onMouseOut={(e) => { e.currentTarget.style.background = "#7c3aed" }}
           >
             <Download className="w-[15px] h-[15px]" strokeWidth={1.8} />
-            Download
+            {downloadLabel}
           </button>
           <button
             type="button"
@@ -425,7 +532,8 @@ function CardGalaxy() {
 
 export default function AIEmployeePage() {
   const params = useParams<{ locale: string }>()
-  const locale = (params?.locale as string) || "fr"
+  const locale = (params?.locale as string) || "en"
+  const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
   const waitingListHref = `/${locale}/waiting-list`
 
   return (
@@ -493,7 +601,7 @@ export default function AIEmployeePage() {
                 textTransform: "uppercase",
               }}
             >
-              AI Employee as a Service
+              {t.eyebrow}
             </div>
             <h1
               style={{
@@ -507,8 +615,8 @@ export default function AIEmployeePage() {
                 maxWidth: "16ch",
               }}
             >
-              Our AI employee platform is{" "}
-              <em style={{ fontStyle: "italic", color: "#c4b5fd" }}>in development.</em>
+              {t.title}{" "}
+              <em style={{ fontStyle: "italic", color: "#c4b5fd" }}>{t.titleItalic}</em>
             </h1>
             <p
               style={{
@@ -519,9 +627,7 @@ export default function AIEmployeePage() {
                 margin: 0,
               }}
             >
-              Mindzy is building a dedicated platform to help companies create and deploy custom
-              AI employees for real business roles. Designed around your tools, your workflows,
-              and your governance rules.
+              {t.description}
             </p>
 
             <div style={{ pointerEvents: "auto", marginTop: "4px", position: "relative", display: "inline-block" }}>
@@ -557,7 +663,7 @@ export default function AIEmployeePage() {
                     "inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 20px rgba(124,58,237,0.4), 0 1px 3px rgba(0,0,0,0.3)"
                 }}
               >
-                Join the Waiting List
+                {t.joinWaitingList}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M2 7h10M8 3l4 4-4 4" />
                 </svg>
@@ -573,12 +679,12 @@ export default function AIEmployeePage() {
                 marginTop: "8px",
               }}
             >
-              Drag to explore &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click cards to preview
+              {t.hint}
             </p>
           </div>
         </div>
 
-        <CardModal />
+        <CardModal downloadLabel={t.download} />
       </section>
     </CardProvider>
   )

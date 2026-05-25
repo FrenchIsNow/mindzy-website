@@ -1,3 +1,60 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+
+const TRANSLATIONS = {
+  en: {
+    h2_plain: 'Connects to every tool',
+    h2_em: 'in your stack.',
+    desc: 'APIs, webhooks, and custom connectors — Mindzy integrates with the platforms your teams already depend on.',
+  },
+  fr: {
+    h2_plain: 'Se connecte à chaque outil',
+    h2_em: 'de votre stack.',
+    desc: 'APIs, webhooks et connecteurs personnalisés — Mindzy s\'intègre aux plateformes dont vos équipes dépendent déjà.',
+  },
+  es: {
+    h2_plain: 'Se conecta a cada herramienta',
+    h2_em: 'de tu stack.',
+    desc: 'APIs, webhooks y conectores personalizados — Mindzy se integra con las plataformas que tus equipos ya utilizan.',
+  },
+  de: {
+    h2_plain: 'Verbindet sich mit jedem Tool',
+    h2_em: 'in Ihrem Stack.',
+    desc: 'APIs, Webhooks und individuelle Konnektoren — Mindzy integriert sich in die Plattformen, auf die Ihre Teams bereits angewiesen sind.',
+  },
+  it: {
+    h2_plain: 'Si connette a ogni strumento',
+    h2_em: 'nel tuo stack.',
+    desc: 'API, webhook e connettori personalizzati — Mindzy si integra con le piattaforme su cui i tuoi team già si affidano.',
+  },
+  pt: {
+    h2_plain: 'Conecta-se a cada ferramenta',
+    h2_em: 'do seu stack.',
+    desc: 'APIs, webhooks e conectores personalizados — Mindzy integra-se com as plataformas que suas equipes já dependem.',
+  },
+  ar: {
+    h2_plain: 'يتصل بكل أداة',
+    h2_em: 'في مجموعتك.',
+    desc: 'واجهات برمجية وخطافات ويب وموصلات مخصصة — تتكامل Mindzy مع المنصات التي تعتمد عليها فرقك بالفعل.',
+  },
+  zh: {
+    h2_plain: '连接您技术栈中',
+    h2_em: '的每一个工具。',
+    desc: 'API、Webhook 和自定义连接器——Mindzy 与您团队已在使用的平台无缝集成。',
+  },
+  ja: {
+    h2_plain: 'スタック内のすべてのツールに',
+    h2_em: '接続します。',
+    desc: 'API、Webhook、カスタムコネクター — Mindzy はチームがすでに使用しているプラットフォームと統合します。',
+  },
+  ru: {
+    h2_plain: 'Подключается к каждому инструменту',
+    h2_em: 'в вашем стеке.',
+    desc: 'API, веб-хуки и пользовательские коннекторы — Mindzy интегрируется с платформами, которые ваши команды уже используют.',
+  },
+}
+
 const ROW1 = [
   'anthropic',
   'claude',
@@ -57,6 +114,10 @@ const ROW2 = [
 ]
 
 export function IntegrationsSection() {
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] ?? 'en'
+  const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
+
   return (
     <section
       style={{
@@ -95,7 +156,7 @@ export function IntegrationsSection() {
             letterSpacing: '-0.015em',
           }}
         >
-          Connects to every tool <em>in your stack.</em>
+          {t.h2_plain} <em>{t.h2_em}</em>
         </h2>
         <p
           style={{
@@ -107,7 +168,7 @@ export function IntegrationsSection() {
             margin: '16px auto 0',
           }}
         >
-          APIs, webhooks, and custom connectors — Mindzy integrates with the platforms your teams already depend on.
+          {t.desc}
         </p>
       </div>
 

@@ -1,23 +1,18 @@
 import type { MetadataRoute } from 'next'
 import { locales } from '@/lib/i18n'
 import { getBlogPosts, getBlogCategories } from '@/lib/blog'
-import { getAllEbookSlugs } from '@/lib/ebooks'
 
 const SITE_URL = 'https://mindzy.me'
 
 const staticPages = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
-  { path: '/solutions/site-web', priority: 0.9, changeFrequency: 'monthly' as const },
-  { path: '/pricing', priority: 0.9, changeFrequency: 'weekly' as const },
-  { path: '/solutions/formations', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/solutions/sur-mesure', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/process', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/portfolio', priority: 0.8, changeFrequency: 'weekly' as const },
-  { path: '/pourquoi-nous', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/diagnostic', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/process', priority: 0.7, changeFrequency: 'monthly' as const },
+  { path: '/about', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
-  { path: '/avis-clients', priority: 0.6, changeFrequency: 'weekly' as const },
   { path: '/faq', priority: 0.6, changeFrequency: 'monthly' as const },
+  { path: '/ai-employee', priority: 0.8, changeFrequency: 'monthly' as const },
+  { path: '/waiting-list', priority: 0.5, changeFrequency: 'monthly' as const },
 ]
 
 const NOW = new Date()
@@ -80,42 +75,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: { languages: alternates },
       })
     }
-  }
-
-  // Ebook pages
-  const ebookSlugs = getAllEbookSlugs()
-  for (const slug of ebookSlugs) {
-    for (const locale of locales) {
-      const alternates: Record<string, string> = {}
-      for (const l of locales) {
-        alternates[l] = `${SITE_URL}/${l}/ebooks/${slug}`
-      }
-      alternates['x-default'] = `${SITE_URL}/fr/ebooks/${slug}`
-
-      entries.push({
-        url: `${SITE_URL}/${locale}/ebooks/${slug}`,
-        lastModified: NOW,
-        changeFrequency: 'monthly',
-        priority: 0.7,
-        alternates: { languages: alternates },
-      })
-    }
-  }
-
-  // Ebook listing
-  for (const locale of locales) {
-    const alternates: Record<string, string> = {}
-    for (const l of locales) {
-      alternates[l] = `${SITE_URL}/${l}/ebooks`
-    }
-    alternates['x-default'] = `${SITE_URL}/fr/ebooks`
-    entries.push({
-      url: `${SITE_URL}/${locale}/ebooks`,
-      lastModified: NOW,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-      alternates: { languages: alternates },
-    })
   }
 
   return entries

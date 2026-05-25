@@ -2,7 +2,20 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+
+const BOOK_CALL: Record<string, string> = {
+  en: 'Book a Call',
+  fr: 'Réserver un appel',
+  es: 'Reservar una llamada',
+  de: 'Anruf buchen',
+  it: 'Prenota una chiamata',
+  pt: 'Agendar uma chamada',
+  ar: 'احجز مكالمة',
+  zh: '预约通话',
+  ja: '通話を予約',
+  ru: 'Записаться на звонок',
+}
 
 const LOCALES = [
   { code: 'en', label: 'English' },
@@ -17,21 +30,20 @@ const LOCALES = [
   { code: 'ru', label: 'Русский' },
 ]
 
-// All supported locales
-const SUPPORTED = ['en', 'fr', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru']
 
 function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const router = useRouter()
 
   const currentLabel = LOCALES.find(l => l.code === currentLocale)?.label ?? 'English'
 
-  function getLocaleHref(locale: string) {
+  function switchLocale(locale: string) {
     const segments = pathname.split('/')
     segments[1] = locale
-    return segments.join('/') || '/'
+    const href = segments.join('/') || '/'
+    setOpen(false)
+    window.location.href = href
   }
 
   useEffect(() => {
@@ -61,26 +73,16 @@ function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
           onClick={e => e.stopPropagation()}
         >
           {LOCALES.map(locale => {
-            const supported = SUPPORTED.includes(locale.code)
             const isActive = locale.code === currentLocale
-            return supported ? (
-              <Link
+            return (
+              <button
                 key={locale.code}
-                href={getLocaleHref(locale.code)}
-                onClick={() => setOpen(false)}
-                style={{ display: 'block', padding: '8px 12px', borderRadius: '8px', fontSize: '13px', color: isActive ? 'var(--ai-fg)' : 'var(--ai-fg-muted)', fontWeight: isActive ? 500 : 400, textDecoration: 'none' }}
+                onClick={() => switchLocale(locale.code)}
+                style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px', borderRadius: '8px', fontSize: '13px', color: isActive ? 'var(--ai-fg)' : 'var(--ai-fg-muted)', fontWeight: isActive ? 500 : 400, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
                 className="hover:bg-[var(--ai-bg-3)] hover:text-[var(--ai-fg)] transition-colors"
               >
                 {locale.label}
-              </Link>
-            ) : (
-              <span
-                key={locale.code}
-                style={{ display: 'block', padding: '8px 12px', borderRadius: '8px', fontSize: '13px', color: 'var(--ai-fg-soft)', cursor: 'not-allowed', opacity: 0.45 }}
-                title="Coming soon"
-              >
-                {locale.label}
-              </span>
+              </button>
             )
           })}
         </div>
@@ -166,7 +168,7 @@ export function NavbarAI() {
     >
       <div className="w-full max-w-[1200px] mx-auto px-8 flex items-center justify-between gap-7">
         {/* Logo + Brand */}
-        <Link href="/en" className="flex items-center gap-2.5">
+        <Link href={`/${currentLocale}`} className="flex items-center gap-2.5">
           <svg viewBox="0 0 1008 874" width="22" height="22" aria-hidden="true">
             <g fill="#7c3aed">
               <path d="M505 0 L0 870 L653 260 Z" />
@@ -250,7 +252,7 @@ export function NavbarAI() {
               whiteSpace: 'nowrap',
             }}
           >
-            Book a Call
+            {BOOK_CALL[currentLocale] ?? BOOK_CALL.en}
           </a>
         </div>
       </div>

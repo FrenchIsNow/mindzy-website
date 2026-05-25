@@ -1,3 +1,56 @@
+const TRANSLATIONS = {
+  en: {
+    eyebrow: 'Our partners',
+    title: 'They trust us',
+    subtitle: 'The tools and platforms we connect to, every day, inside our clients.',
+  },
+  fr: {
+    eyebrow: 'Nos partenaires',
+    title: 'Ils nous font confiance',
+    subtitle: 'Les outils et plateformes auxquels nous nous connectons, chaque jour, chez nos clients.',
+  },
+  es: {
+    eyebrow: 'Nuestros socios',
+    title: 'Confían en nosotros',
+    subtitle: 'Las herramientas y plataformas a las que nos conectamos, cada día, dentro de nuestros clientes.',
+  },
+  de: {
+    eyebrow: 'Unsere Partner',
+    title: 'Sie vertrauen uns',
+    subtitle: 'Die Tools und Plattformen, mit denen wir uns täglich bei unseren Kunden verbinden.',
+  },
+  it: {
+    eyebrow: 'I nostri partner',
+    title: 'Si fidano di noi',
+    subtitle: 'Gli strumenti e le piattaforme a cui ci colleghiamo ogni giorno, all\'interno dei nostri clienti.',
+  },
+  pt: {
+    eyebrow: 'Nossos parceiros',
+    title: 'Eles confiam em nós',
+    subtitle: 'As ferramentas e plataformas às quais nos conectamos todos os dias, dentro dos nossos clientes.',
+  },
+  ar: {
+    eyebrow: 'شركاؤنا',
+    title: 'يثقون بنا',
+    subtitle: 'الأدوات والمنصات التي نتصل بها كل يوم داخل شركات عملائنا.',
+  },
+  zh: {
+    eyebrow: '我们的合作伙伴',
+    title: '他们信任我们',
+    subtitle: '我们每天在客户内部连接的工具和平台。',
+  },
+  ja: {
+    eyebrow: 'パートナー',
+    title: '彼らは私たちを信頼しています',
+    subtitle: '私たちがクライアントの社内で毎日接続しているツールとプラットフォーム。',
+  },
+  ru: {
+    eyebrow: 'Наши партнёры',
+    title: 'Они доверяют нам',
+    subtitle: 'Инструменты и платформы, с которыми мы работаем ежедневно внутри компаний наших клиентов.',
+  },
+}
+
 const PARTNERS = [
   { name: 'OpenAI', src: '/logo/OpenAI_Logo.svg.png' },
   { name: 'Claude AI', src: '/logo/Claude_AI_logo.svg.png' },
@@ -14,7 +67,9 @@ const PARTNERS = [
   { name: 'PayPal', src: '/logo/paypal-logo.png' },
 ]
 
-export function TrustMarqueeSection() {
+export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
+  const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
+
   return (
     <>
       <style suppressHydrationWarning>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
@@ -22,13 +77,13 @@ export function TrustMarqueeSection() {
         {/* Header */}
         <div className="w-full max-w-[1200px] mx-auto px-8 text-center mb-12">
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>
-            Our partners
+            {t.eyebrow}
           </div>
           <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(38px,5vw,56px)', lineHeight: 1.08, marginTop: '14px', color: 'var(--ai-fg)' }}>
-            They trust us
+            {t.title}
           </h2>
           <p style={{ marginTop: '14px', color: 'var(--ai-fg-muted)', fontSize: '18px', lineHeight: 1.6 }}>
-            The tools and platforms we connect to, every day, inside our clients.
+            {t.subtitle}
           </p>
         </div>
 

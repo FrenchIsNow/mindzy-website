@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { X } from 'lucide-react';
 
 export interface Position3D {
@@ -54,6 +54,17 @@ const SPHERE_MATH = {
   degreesToRadians: (d: number) => d * (Math.PI / 180),
   normalizeAngle: (a: number) => { while (a > 180) a -= 360; while (a < -180) a += 360; return a; }
 };
+
+// Seeded PRNG so random bubble connections stay stable across re-renders
+function mulberry32(seed: number) {
+  let t = seed >>> 0;
+  return function () {
+    t = (t + 0x6d2b79f5) >>> 0;
+    let r = Math.imul(t ^ (t >>> 15), 1 | t);
+    r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   images = [],
@@ -257,12 +268,34 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
 
   const worldPositions = calculateWorldPositions();
 
+  // Random bubble-to-bubble connection pairs (stable across renders)
+  const connectionPairs = useMemo(() => {
+    const rand = mulberry32(7);
+    const seen = new Set<string>();
+    const pairs: Array<[number, number]> = [];
+    const target = Math.min(18, Math.floor(images.length * 0.6));
+    let safety = 0;
+    while (pairs.length < target && safety < 400) {
+      safety++;
+      const i = Math.floor(rand() * images.length);
+      let j = Math.floor(rand() * images.length);
+      if (i === j) continue;
+      const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pairs.push([i, j]);
+    }
+    return pairs;
+  }, [images.length]);
+
   const renderImageNode = useCallback((image: ImageData, index: number) => {
     const pos = worldPositions[index];
     if (!pos || !pos.isVisible) return null;
     const size = baseImageSize * pos.scale;
     const isHovered = hoveredIndex === index;
     const finalScale = isHovered ? Math.min(hoverScale, hoverScale / pos.scale) : 1;
+    // Bubble visually hovers above its dot anchor
+    const hoverOffset = size * 0.55 + 4;
 
     return (
       <div
@@ -270,7 +303,7 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         className="absolute cursor-pointer select-none transition-transform duration-200 ease-out"
         style={{
           width: `${size}px`, height: `${size}px`,
-          left: `${containerSize / 2 + pos.x}px`, top: `${containerSize / 2 + pos.y}px`,
+          left: `${containerSize / 2 + pos.x}px`, top: `${containerSize / 2 + pos.y - hoverOffset}px`,
           opacity: pos.fadeOpacity,
           transform: `translate(-50%, -50%) scale(${finalScale})`,
           zIndex: pos.zIndex
@@ -317,42 +350,65 @@ const SphereImageGrid: React.FC<SphereImageGridProps> = ({
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       >
-        {/* SVG lines from center to each visible bubble */}
+        {/* SVG layer: random curved dashed connections + per-bubble anchor dots */}
         <svg
           className="absolute inset-0 pointer-events-none"
           style={{ width: containerSize, height: containerSize, zIndex: 5 }}
         >
-          {worldPositions.map((pos, index) => {
-            if (!pos.isVisible) return null
+          {/* Random curved dashed connections between bubbles — no straight, no solid */}
+          {connectionPairs.map(([i, j], idx) => {
+            const a = worldPositions[i]
+            const b = worldPositions[j]
+            if (!a || !b || !a.isVisible || !b.isVisible) return null
+            const x1 = containerSize / 2 + a.x
+            const y1 = containerSize / 2 + a.y
+            const x2 = containerSize / 2 + b.x
+            const y2 = containerSize / 2 + b.y
+            const dx = x2 - x1
+            const dy = y2 - y1
+            const len = Math.sqrt(dx * dx + dy * dy) || 1
+            // Perpendicular bulge — alternates direction for variety
+            const perpScale = (idx % 2 === 0 ? 0.22 : -0.28) + ((idx * 37) % 13) / 80
+            const cx = (x1 + x2) / 2 + (-dy / len) * len * perpScale
+            const cy = (y1 + y2) / 2 + (dx / len) * len * perpScale
+            const opacity = Math.min(a.fadeOpacity, b.fadeOpacity) * 0.35
             return (
-              <line
-                key={index}
-                x1={containerSize / 2}
-                y1={containerSize / 2}
-                x2={containerSize / 2 + pos.x}
-                y2={containerSize / 2 + pos.y}
-                stroke="#7c3aed"
-                strokeWidth="0.8"
-                strokeOpacity={pos.fadeOpacity * 0.4}
+              <path
+                key={`conn-${idx}`}
+                d={`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`}
+                stroke="#a78bfa"
+                strokeWidth={0.9}
+                fill="none"
+                strokeOpacity={opacity}
+                strokeDasharray={`${3 + (idx % 3)} ${2 + (idx % 2)}`}
+                strokeLinecap="round"
               />
             )
           })}
+          {/* Per-bubble anchor dots — the bubble image hovers above each */}
+          {worldPositions.map((pos, index) => {
+            if (!pos.isVisible) return null
+            const r = 1.6 + pos.scale * 2.2
+            return (
+              <g key={`dot-${index}`}>
+                <circle
+                  cx={containerSize / 2 + pos.x}
+                  cy={containerSize / 2 + pos.y}
+                  r={r * 2.4}
+                  fill="#7c3aed"
+                  opacity={pos.fadeOpacity * 0.18}
+                />
+                <circle
+                  cx={containerSize / 2 + pos.x}
+                  cy={containerSize / 2 + pos.y}
+                  r={r}
+                  fill="#c4b5fd"
+                  opacity={pos.fadeOpacity * 0.95}
+                />
+              </g>
+            )
+          })}
         </svg>
-
-        {/* Central purple dot */}
-        <div
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            width: 10,
-            height: 10,
-            background: '#7c3aed',
-            left: containerSize / 2,
-            top: containerSize / 2,
-            transform: 'translate(-50%, -50%)',
-            zIndex: 2000,
-            boxShadow: '0 0 0 3px rgba(124,58,237,0.2), 0 0 14px rgba(124,58,237,0.6)',
-          }}
-        />
 
         <div className="relative w-full h-full" style={{ zIndex: 10 }}>
           {images.map((image, index) => renderImageNode(image, index))}

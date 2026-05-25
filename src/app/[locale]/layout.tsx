@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Outfit, Sora, Instrument_Serif, Instrument_Sans } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NavbarAI } from '@/components/layout/NavbarAI'
@@ -7,6 +8,54 @@ import { ContactModalProvider } from '@/components/features/ContactFormModal'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { routerLocales, toLocale, type Locale } from '@/lib/i18n'
 import { JsonLd, jsonLdOrganization, jsonLdWebsite, jsonLdLocalBusiness } from '@/lib/seo'
+import '../globals.css'
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://mindzy.me'),
+  title: { default: 'Mindzy — The custom AI infrastructure built around your company', template: '%s | Mindzy' },
+  description: 'Mindzy designs and builds AI infrastructures from scratch, inside any company that wants to integrate AI into its operations.',
+  authors: [{ name: 'Mindzy', url: 'https://mindzy.me' }],
+  creator: 'Mindzy',
+  publisher: 'Mindzy',
+  formatDetection: { email: false, telephone: false },
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    other: [
+      { rel: 'android-chrome', url: '/android-chrome-192x192.png' },
+      { rel: 'android-chrome', url: '/android-chrome-512x512.png' },
+    ],
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['fr_FR', 'es_ES'],
+    url: 'https://mindzy.me',
+    siteName: 'Mindzy',
+    title: 'Mindzy — Custom AI infrastructure',
+    description: 'AI infrastructures designed and built from scratch, around your tools, workflows, and governance rules.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mindzy — Custom AI infrastructure',
+    description: 'AI infrastructures designed and built from scratch.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
 
 const outfit = Outfit({
   subsets: ['latin'],
