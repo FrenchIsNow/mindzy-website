@@ -58,8 +58,9 @@ const TAGLINES: Record<string, { eyebrow: string; title: string; subtitle: strin
   },
 }
 
-export default async function Image({ params }: { params: { locale: string } }) {
-  const t = TAGLINES[params.locale] ?? TAGLINES.en
+export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = TAGLINES[locale] ?? TAGLINES.en
 
   return new ImageResponse(
     (
@@ -159,7 +160,7 @@ export default async function Image({ params }: { params: { locale: string } }) 
           }}
         >
           <span>mindzy.me</span>
-          <span style={{ color: '#a78bfa' }}>{(params.locale || 'en').toUpperCase()}</span>
+          <span style={{ color: '#a78bfa' }}>{(locale || 'en').toUpperCase()}</span>
         </div>
       </div>
     ),
