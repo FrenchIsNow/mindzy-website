@@ -7,9 +7,9 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 const TRANSLATIONS = {
   en: {
     eyebrow: 'What makes us different',
-    h2line1: 'Most companies sell AI agents.',
-    h2line2: 'We build AI infrastructure.',
-    p1: 'An AI agent solves one task. An AI infrastructure runs your company. Mindzy designs the operating layer that connects every model, every tool, every department, and every workflow into a coherent system you actually control.',
+    h2line1: 'Made for you.',
+    h2line2: 'An AI agent solves one task.',
+    p1: 'An AI infrastructure runs your company. Mindzy designs the operating layer that connects every model, every tool, every department, and every workflow into a coherent system you actually control.',
     p2: 'Mindzy operates three proprietary models: <strong>MindFast</strong>, <strong>MindDeep</strong>, and <strong>Mind 3.1</strong>, and gives your teams access to every major model on the market: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen, and more. The right model for the right task, always.',
     nodes: {
       models: 'Models',
@@ -22,9 +22,9 @@ const TRANSLATIONS = {
   },
   fr: {
     eyebrow: 'Ce qui nous distingue',
-    h2line1: 'La plupart des entreprises vendent des agents IA.',
-    h2line2: 'Nous construisons une infrastructure IA.',
-    p1: 'Un agent IA résout une tâche. Une infrastructure IA fait tourner votre entreprise. Mindzy conçoit la couche opérationnelle qui connecte chaque modèle, chaque outil, chaque département et chaque flux de travail dans un système cohérent que vous contrôlez réellement.',
+    h2line1: 'Fait pour vous.',
+    h2line2: 'Un agent IA résout une tâche.',
+    p1: 'Une infrastructure IA fait tourner votre entreprise. Mindzy conçoit la couche opérationnelle qui connecte chaque modèle, chaque outil, chaque département et chaque flux de travail dans un système cohérent que vous contrôlez réellement.',
     p2: 'Mindzy opère trois modèles propriétaires : <strong>MindFast</strong>, <strong>MindDeep</strong> et <strong>Mind 3.1</strong>, et donne à vos équipes accès à tous les grands modèles du marché : OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen, et plus encore. Le bon modèle pour la bonne tâche, toujours.',
     nodes: {
       models: 'Modèles',
@@ -37,9 +37,9 @@ const TRANSLATIONS = {
   },
   es: {
     eyebrow: 'Lo que nos diferencia',
-    h2line1: 'La mayoría de las empresas venden agentes de IA.',
-    h2line2: 'Nosotros construimos infraestructura de IA.',
-    p1: 'Un agente de IA resuelve una tarea. Una infraestructura de IA gestiona tu empresa. Mindzy diseña la capa operativa que conecta cada modelo, cada herramienta, cada departamento y cada flujo de trabajo en un sistema coherente que realmente controlas.',
+    h2line1: 'Hecho para ti.',
+    h2line2: 'Un agente de IA resuelve una tarea.',
+    p1: 'Una infraestructura de IA gestiona tu empresa. Mindzy diseña la capa operativa que conecta cada modelo, cada herramienta, cada departamento y cada flujo de trabajo en un sistema coherente que realmente controlas.',
     p2: 'Mindzy opera tres modelos propietarios: <strong>MindFast</strong>, <strong>MindDeep</strong> y <strong>Mind 3.1</strong>, y brinda a tus equipos acceso a todos los principales modelos del mercado: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen, y más. El modelo correcto para la tarea correcta, siempre.',
     nodes: {
       models: 'Modelos',
@@ -52,9 +52,9 @@ const TRANSLATIONS = {
   },
   de: {
     eyebrow: 'Was uns unterscheidet',
-    h2line1: 'Die meisten Unternehmen verkaufen KI-Agenten.',
-    h2line2: 'Wir bauen KI-Infrastruktur.',
-    p1: 'Ein KI-Agent löst eine Aufgabe. Eine KI-Infrastruktur führt Ihr Unternehmen. Mindzy entwirft die Betriebsschicht, die jedes Modell, jedes Tool, jede Abteilung und jeden Workflow in ein kohärentes System verbindet, das Sie wirklich kontrollieren.',
+    h2line1: 'Für Sie gemacht.',
+    h2line2: 'Ein KI-Agent löst eine Aufgabe.',
+    p1: 'Eine KI-Infrastruktur führt Ihr Unternehmen. Mindzy entwirft die Betriebsschicht, die jedes Modell, jedes Tool, jede Abteilung und jeden Workflow in ein kohärentes System verbindet, das Sie wirklich kontrollieren.',
     p2: 'Mindzy betreibt drei proprietäre Modelle: <strong>MindFast</strong>, <strong>MindDeep</strong> und <strong>Mind 3.1</strong>, und gibt Ihren Teams Zugang zu allen wichtigen Modellen auf dem Markt: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen und mehr. Das richtige Modell für die richtige Aufgabe, immer.',
     nodes: {
       models: 'Modelle',
@@ -67,9 +67,9 @@ const TRANSLATIONS = {
   },
   it: {
     eyebrow: 'Cosa ci distingue',
-    h2line1: 'La maggior parte delle aziende vende agenti IA.',
-    h2line2: 'Noi costruiamo infrastrutture IA.',
-    p1: 'Un agente IA risolve un compito. Un\'infrastruttura IA gestisce la tua azienda. Mindzy progetta il livello operativo che connette ogni modello, ogni strumento, ogni reparto e ogni flusso di lavoro in un sistema coerente che controlli davvero.',
+    h2line1: 'Fatto per te.',
+    h2line2: 'Un agente IA risolve un compito.',
+    p1: 'Un\'infrastruttura IA gestisce la tua azienda. Mindzy progetta il livello operativo che connette ogni modello, ogni strumento, ogni reparto e ogni flusso di lavoro in un sistema coerente che controlli davvero.',
     p2: 'Mindzy opera tre modelli proprietari: <strong>MindFast</strong>, <strong>MindDeep</strong> e <strong>Mind 3.1</strong>, e dà ai tuoi team accesso a tutti i principali modelli sul mercato: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen e altri. Il modello giusto per il compito giusto, sempre.',
     nodes: {
       models: 'Modelli',
@@ -82,9 +82,9 @@ const TRANSLATIONS = {
   },
   pt: {
     eyebrow: 'O que nos diferencia',
-    h2line1: 'A maioria das empresas vende agentes de IA.',
-    h2line2: 'Nós construímos infraestrutura de IA.',
-    p1: 'Um agente de IA resolve uma tarefa. Uma infraestrutura de IA gerencia sua empresa. A Mindzy projeta a camada operacional que conecta cada modelo, cada ferramenta, cada departamento e cada fluxo de trabalho em um sistema coerente que você realmente controla.',
+    h2line1: 'Feito para você.',
+    h2line2: 'Um agente de IA resolve uma tarefa.',
+    p1: 'Uma infraestrutura de IA gerencia sua empresa. A Mindzy projeta a camada operacional que conecta cada modelo, cada ferramenta, cada departamento e cada fluxo de trabalho em um sistema coerente que você realmente controla.',
     p2: 'A Mindzy opera três modelos proprietários: <strong>MindFast</strong>, <strong>MindDeep</strong> e <strong>Mind 3.1</strong>, e dá às suas equipes acesso a todos os principais modelos do mercado: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen e mais. O modelo certo para a tarefa certa, sempre.',
     nodes: {
       models: 'Modelos',
@@ -97,9 +97,9 @@ const TRANSLATIONS = {
   },
   ar: {
     eyebrow: 'ما يميزنا',
-    h2line1: 'معظم الشركات تبيع وكلاء الذكاء الاصطناعي.',
-    h2line2: 'نحن نبني بنية تحتية للذكاء الاصطناعي.',
-    p1: 'وكيل الذكاء الاصطناعي يحل مهمة واحدة. البنية التحتية للذكاء الاصطناعي تدير شركتك. تصمم Mindzy الطبقة التشغيلية التي تربط كل نموذج وكل أداة وكل قسم وكل سير عمل في نظام متماسك تتحكم فيه فعلاً.',
+    h2line1: 'صُنع لك.',
+    h2line2: 'وكيل الذكاء الاصطناعي يحل مهمة واحدة.',
+    p1: 'البنية التحتية للذكاء الاصطناعي تدير شركتك. تصمم Mindzy الطبقة التشغيلية التي تربط كل نموذج وكل أداة وكل قسم وكل سير عمل في نظام متماسك تتحكم فيه فعلاً.',
     p2: 'تشغّل Mindzy ثلاثة نماذج خاصة: <strong>MindFast</strong> و<strong>MindDeep</strong> و<strong>Mind 3.1</strong>، وتمنح فرقك إمكانية الوصول إلى جميع النماذج الرئيسية في السوق: OpenAI وAnthropic وGoogle وMistral وMeta وxAI وDeepSeek وQwen والمزيد. النموذج المناسب للمهمة المناسبة، دائماً.',
     nodes: {
       models: 'النماذج',
@@ -112,9 +112,9 @@ const TRANSLATIONS = {
   },
   zh: {
     eyebrow: '我们的与众不同之处',
-    h2line1: '大多数公司销售 AI 代理。',
-    h2line2: '我们构建 AI 基础设施。',
-    p1: 'AI 代理解决一项任务。AI 基础设施运营您的公司。Mindzy 设计将每个模型、每个工具、每个部门和每个工作流程连接到您真正控制的连贯系统中的操作层。',
+    h2line1: '为你而生。',
+    h2line2: 'AI 代理解决一项任务。',
+    p1: 'AI 基础设施运营您的公司。Mindzy 设计将每个模型、每个工具、每个部门和每个工作流程连接到您真正控制的连贯系统中的操作层。',
     p2: 'Mindzy 运营三个专有模型：<strong>MindFast</strong>、<strong>MindDeep</strong> 和 <strong>Mind 3.1</strong>，并让您的团队访问市场上所有主要模型：OpenAI、Anthropic、Google、Mistral、Meta、xAI、DeepSeek、Qwen 等。始终为正确的任务选择正确的模型。',
     nodes: {
       models: '模型',
@@ -127,9 +127,9 @@ const TRANSLATIONS = {
   },
   ja: {
     eyebrow: '私たちの違い',
-    h2line1: 'ほとんどの企業はAIエージェントを販売しています。',
-    h2line2: '私たちはAIインフラを構築します。',
-    p1: 'AIエージェントは一つのタスクを解決します。AIインフラはあなたの会社を動かします。Mindzyは、すべてのモデル、すべてのツール、すべての部門、すべてのワークフローを、あなたが実際にコントロールできる一貫したシステムに接続する運用レイヤーを設計します。',
+    h2line1: 'あなたのために。',
+    h2line2: 'AIエージェントは一つのタスクを解決します。',
+    p1: 'AIインフラはあなたの会社を動かします。Mindzyは、すべてのモデル、すべてのツール、すべての部門、すべてのワークフローを、あなたが実際にコントロールできる一貫したシステムに接続する運用レイヤーを設計します。',
     p2: 'Mindzyは3つの独自モデルを運用しています：<strong>MindFast</strong>、<strong>MindDeep</strong>、<strong>Mind 3.1</strong>。そして市場のすべての主要モデルへのアクセスを提供します：OpenAI、Anthropic、Google、Mistral、Meta、xAI、DeepSeek、Qwen など。常に適切なタスクに適切なモデルを。',
     nodes: {
       models: 'モデル',
@@ -142,9 +142,9 @@ const TRANSLATIONS = {
   },
   ru: {
     eyebrow: 'Наше отличие',
-    h2line1: 'Большинство компаний продают ИИ-агентов.',
-    h2line2: 'Мы строим ИИ-инфраструктуру.',
-    p1: 'ИИ-агент решает одну задачу. ИИ-инфраструктура управляет вашей компанией. Mindzy проектирует операционный слой, который соединяет каждую модель, каждый инструмент, каждый отдел и каждый рабочий процесс в единую систему, которую вы реально контролируете.',
+    h2line1: 'Создано для вас.',
+    h2line2: 'ИИ-агент решает одну задачу.',
+    p1: 'ИИ-инфраструктура управляет вашей компанией. Mindzy проектирует операционный слой, который соединяет каждую модель, каждый инструмент, каждый отдел и каждый рабочий процесс в единую систему, которую вы реально контролируете.',
     p2: 'Mindzy управляет тремя собственными моделями: <strong>MindFast</strong>, <strong>MindDeep</strong> и <strong>Mind 3.1</strong>, и предоставляет вашим командам доступ ко всем ведущим моделям на рынке: OpenAI, Anthropic, Google, Mistral, Meta, xAI, DeepSeek, Qwen и другим. Правильная модель для правильной задачи — всегда.',
     nodes: {
       models: 'Модели',

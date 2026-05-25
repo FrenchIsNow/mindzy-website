@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { HomeHero } from '@/components/sections/HomeHero'
 import { TrustMarqueeSection } from '@/components/sections/TrustMarqueeSection'
-import { CustomDesignSection } from '@/components/sections/CustomDesignSection'
 import { ManifestoSection } from '@/components/sections/ManifestoSection'
 import { DashboardSection } from '@/components/sections/DashboardSection'
 import { ArchitectureSection } from '@/components/sections/ArchitectureSection'
@@ -88,7 +87,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       />
       <HomeHero />
       <TrustMarqueeSection locale={locale} />
-      <CustomDesignSection locale={locale} />
       <ManifestoSection />
       <DashboardSection />
       <ArchitectureSection />
