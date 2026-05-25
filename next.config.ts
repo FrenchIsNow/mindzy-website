@@ -10,6 +10,16 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  outputFileTracingExcludes: {
+    '**': [
+      './public/**/*',
+      './public/images/**/*',
+      './public/portfolio/**/*',
+      './.next/**/*',
+      './node_modules/@swc/**/*',
+      './node_modules/webpack/**/*',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
