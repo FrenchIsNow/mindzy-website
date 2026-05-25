@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
+import Image from 'next/image'
 import { GlassButton } from '@/components/ui/GlassButton'
 import { JsonLd, jsonLdBreadcrumb } from '@/lib/seo'
 
@@ -527,8 +528,7 @@ export default function PortfolioPage() {
               return (
                 <a key={p.title} className="pf-card pf-card--featured is-visible" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
                   <div className="pf-card__img-wrap">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="pf-card__img" src={p.img} alt={p.title} loading="eager" />
+                    <Image className="pf-card__img" src={p.img} alt={p.title} fill sizes="(max-width:768px) 100vw, 50vw" priority />
                     <span className="pf-card__cat-badge">{catLabel}</span>
                   </div>
                   <div className="pf-card__body">
@@ -563,8 +563,7 @@ export default function PortfolioPage() {
               return (
                 <a key={p.title} className="pf-card" href={p.href} target="_blank" rel="noopener" data-cat={p.cat}>
                   <div className="pf-card__img-wrap">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img className="pf-card__img" src={p.img} alt={p.title} loading="lazy" />
+                    <Image className="pf-card__img" src={p.img} alt={p.title} fill sizes="(max-width:600px) 100vw, (max-width:1000px) 50vw, 33vw" loading="lazy" />
                     <span className="pf-card__cat-badge">{catLabel}</span>
                   </div>
                   <div className="pf-card__body">

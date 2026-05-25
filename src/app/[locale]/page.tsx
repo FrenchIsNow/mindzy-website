@@ -10,7 +10,41 @@ import { IntegrationsSection } from '@/components/sections/IntegrationsSection'
 import { CompoundingSection } from '@/components/sections/CompoundingSection'
 import { UseCasesSection } from '@/components/sections/UseCasesSection'
 import { FinalCTASection } from '@/components/sections/FinalCTASection'
-import { JsonLd, jsonLdBreadcrumb, jsonLdSpeakablePage } from '@/lib/seo'
+import type { Locale } from '@/lib/i18n'
+import { JsonLd, jsonLdBreadcrumb, jsonLdSpeakablePage, buildPageMetadata } from '@/lib/seo'
+
+const HOME_META: Partial<Record<Locale, { title: string; description: string }>> = {
+  en: {
+    title: 'Mindzy — The custom AI infrastructure built around your company',
+    description: 'Mindzy designs and builds custom AI infrastructure inside companies — connected to your tools, governed by your rules, deployed around your real workflows. No template, no pre-built stack.',
+  },
+  fr: {
+    title: 'Mindzy — Infrastructure IA sur mesure pour votre entreprise',
+    description: "Mindzy conçoit et déploie une infrastructure IA sur mesure dans les entreprises — connectée à vos outils, gouvernée par vos règles, déployée autour de vos workflows réels.",
+  },
+  es: {
+    title: 'Mindzy — Infraestructura IA personalizada para tu empresa',
+    description: 'Mindzy diseña y construye infraestructura IA personalizada dentro de las empresas — conectada a tus herramientas, gobernada por tus reglas, desplegada alrededor de tus workflows reales.',
+  },
+  de: {
+    title: 'Mindzy — Maßgeschneiderte KI-Infrastruktur für Ihr Unternehmen',
+    description: 'Mindzy entwirft und baut maßgeschneiderte KI-Infrastruktur in Unternehmen — verbunden mit Ihren Tools, geregelt durch Ihre Regeln, eingesetzt rund um Ihre realen Workflows.',
+  },
+  it: {
+    title: 'Mindzy — Infrastruttura IA personalizzata per la tua azienda',
+    description: "Mindzy progetta e implementa infrastrutture IA personalizzate all'interno delle aziende — connesse ai tuoi strumenti, governate dalle tue regole, distribuite intorno ai tuoi workflow reali.",
+  },
+  pt: {
+    title: 'Mindzy — Infraestrutura IA personalizada para a sua empresa',
+    description: 'A Mindzy projeta e implementa infraestrutura IA personalizada dentro das empresas — conectada às suas ferramentas, governada pelas suas regras, implantada em torno dos seus workflows reais.',
+  },
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const t = HOME_META[locale as Locale] ?? HOME_META.en!
+  return buildPageMetadata({ locale: locale as Locale, path: '', title: t.title, description: t.description })
+}
 
 const homeServiceSchema = {
   '@context': 'https://schema.org',
@@ -37,11 +71,6 @@ const homeServiceSchema = {
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom AI workforce (AI Employee)' } },
     ],
   },
-}
-
-export const metadata: Metadata = {
-  title: 'Mindzy — The custom AI infrastructure built around your company',
-  description: 'Mindzy designs and builds AI infrastructures from scratch, inside any company that wants to integrate AI into its operations. No template. No pre-built stack.',
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
