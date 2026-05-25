@@ -3,6 +3,40 @@
 import { useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { GlassButton } from '@/components/ui/GlassButton'
+import { JsonLd, jsonLdBreadcrumb } from '@/lib/seo'
+
+const FOUNDERS = [
+  {
+    '@type': 'Person',
+    name: 'Romuald Cocotier',
+    jobTitle: 'Founder & CEO · AI Expert',
+    worksFor: { '@type': 'Organization', name: 'Mindzy' },
+    url: 'https://mindzy.me/en/p/cocotier',
+    sameAs: ['https://www.linkedin.com/in/r-cocotier/'],
+  },
+  {
+    '@type': 'Person',
+    name: 'William Martel',
+    jobTitle: 'Founder & CFO · Fund Advisor',
+    worksFor: { '@type': 'Organization', name: 'Mindzy' },
+    url: 'https://mindzy.me/en/p/martel',
+    sameAs: ['https://www.linkedin.com/in/williamartel/'],
+  },
+] as const
+
+const aboutOrgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Mindzy',
+  url: 'https://mindzy.me',
+  logo: 'https://mindzy.me/logo.svg',
+  description:
+    'Mindzy designs and deploys custom AI infrastructure for companies of all sizes and maturity levels — adapted to how each company actually works, with structure, validation, and human control at every step.',
+  foundingDate: '2024',
+  founder: FOUNDERS,
+  email: 'contact@mindzy.me',
+  sameAs: ['https://linkedin.com/company/mindzy'],
+}
 
 const TRANSLATIONS = {
   en: {
@@ -641,6 +675,16 @@ export default function AboutPage() {
 
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
+      <JsonLd data={aboutOrgSchema} />
+      {FOUNDERS.map(f => (
+        <JsonLd key={f.name} data={{ '@context': 'https://schema.org', ...f }} />
+      ))}
+      <JsonLd
+        data={jsonLdBreadcrumb([
+          { name: 'Mindzy', url: `https://mindzy.me/${locale}` },
+          { name: 'About', url: `https://mindzy.me/${locale}/about` },
+        ])}
+      />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* Hero */}

@@ -106,11 +106,17 @@ export function jsonLdOrganization() {
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
+    description:
+      'Mindzy designs and builds custom AI infrastructure inside companies — connected to their tools, governed by their rules, and deployed around their real workflows.',
+    slogan: 'The custom AI infrastructure built around your company.',
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'contact@mindzy.me',
       contactType: 'customer service',
-      availableLanguage: ['French', 'English', 'Spanish'],
+      availableLanguage: [
+        'French', 'English', 'Spanish', 'German', 'Italian',
+        'Portuguese', 'Arabic', 'Chinese', 'Japanese', 'Russian',
+      ],
     },
     sameAs: ['https://linkedin.com/company/mindzy'],
   }
@@ -122,12 +128,14 @@ export function jsonLdWebsite() {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    inLanguage: ['fr', 'en', 'es'],
+    description:
+      'Mindzy designs and builds custom AI infrastructure inside companies that want to integrate AI into their operations. No template. No pre-built stack.',
+    inLanguage: [...locales],
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/fr/blog?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/en/blog?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -156,9 +164,16 @@ const serviceAreaByLocale: Record<string, { name: string; sameAs: string }[]> = 
 }
 
 const descriptionByLocale: Record<string, string> = {
-  fr: 'Agence de création de sites web professionnels pour thérapeutes et entrepreneurs — SEO & GEO intégré, accompagnement humain.',
-  en: 'Professional website design agency for therapists and entrepreneurs — integrated SEO & GEO, personalized support.',
-  es: 'Agencia de creación de sitios web profesionales para terapeutas y emprendedores — SEO y GEO integrado, acompañamiento personalizado.',
+  fr: "Mindzy conçoit et déploie des infrastructures IA sur mesure à l'intérieur des entreprises — connectées à vos outils, gouvernées par vos règles, déployées autour de vos vrais flux de travail.",
+  en: 'Mindzy designs and builds custom AI infrastructure inside companies — connected to your tools, governed by your rules, deployed around your real workflows.',
+  es: 'Mindzy diseña e implementa infraestructuras de IA personalizadas dentro de las empresas — conectadas a tus herramientas, gobernadas por tus reglas, desplegadas alrededor de tus flujos de trabajo reales.',
+  de: 'Mindzy entwirft und implementiert maßgeschneiderte KI-Infrastrukturen innerhalb von Unternehmen — verbunden mit Ihren Tools, geregelt durch Ihre Regeln, eingesetzt rund um Ihre realen Arbeitsabläufe.',
+  it: 'Mindzy progetta e implementa infrastrutture IA personalizzate all\'interno delle aziende — connesse ai tuoi strumenti, governate dalle tue regole, distribuite intorno ai tuoi veri flussi di lavoro.',
+  pt: 'A Mindzy projeta e implementa infraestruturas de IA personalizadas dentro das empresas — conectadas às suas ferramentas, governadas pelas suas regras, implantadas em torno dos seus fluxos de trabalho reais.',
+  ar: 'تصمم Mindzy وتنشر بنى تحتية مخصصة للذكاء الاصطناعي داخل الشركات — متصلة بأدواتك، تحكمها قواعدك، ومنتشرة حول سير عملك الحقيقي.',
+  zh: 'Mindzy 在企业内部设计并部署量身定制的 AI 基础设施——与您的工具无缝连接，遵循您的规则，围绕您的真实工作流程部署。',
+  ja: 'Mindzyは企業内にカスタムAIインフラストラクチャを設計・展開します — あなたのツールに接続し、あなたのルールに従い、実際のワークフローに合わせて展開されます。',
+  ru: 'Mindzy проектирует и внедряет индивидуальные ИИ-инфраструктуры внутри компаний — подключённые к вашим инструментам, управляемые вашими правилами и развёрнутые вокруг ваших реальных рабочих процессов.',
 }
 
 export function jsonLdLocalBusiness(locale = 'fr') {
@@ -180,8 +195,15 @@ export function jsonLdLocalBusiness(locale = 'fr') {
       name: area.name,
       sameAs: area.sameAs,
     })),
-    knowsLanguage: ['fr', 'en', 'es'],
-    serviceType: ['Web Design', 'SEO', 'Branding', 'Web Development'],
+    knowsLanguage: [...locales],
+    serviceType: [
+      'AI Infrastructure',
+      'AI Integration',
+      'AI Workflow Automation',
+      'AI Model Orchestration',
+      'AI Governance',
+      'Enterprise AI Consulting',
+    ],
   }
 }
 
@@ -250,6 +272,29 @@ export function jsonLdFaqPage(items: FaqJsonLdItem[]) {
   }
 }
 
+interface HowToStep {
+  name: string
+  text: string
+  url?: string
+}
+
+export function jsonLdHowTo(params: { name: string; description: string; totalTime?: string; steps: HowToStep[] }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: params.name,
+    description: params.description,
+    ...(params.totalTime && { totalTime: params.totalTime }),
+    step: params.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      ...(s.url && { url: s.url }),
+    })),
+  }
+}
+
 export function jsonLdBreadcrumb(items: { name: string; url: string }[]) {
   return {
     '@context': 'https://schema.org',
@@ -279,11 +324,11 @@ export function jsonLdService(offers: ServiceOffer[]) {
       name: SITE_NAME,
       url: SITE_URL,
     },
-    serviceType: 'Web Design',
-    areaServed: 'Europe',
+    serviceType: 'AI Infrastructure',
+    areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Web Design Plans',
+      name: 'AI Infrastructure Engagements',
       itemListElement: offers.map(offer => ({
         '@type': 'Offer',
         name: offer.name,

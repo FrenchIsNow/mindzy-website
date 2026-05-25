@@ -4,18 +4,18 @@ import { getBlogPosts, getBlogCategories } from '@/lib/blog'
 
 const SITE_URL = 'https://mindzy.me'
 
+// Per-page lastMod — update these when the page content materially changes.
+// Search engines distrust pages whose lastMod is always "now".
 const staticPages = [
-  { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
-  { path: '/process', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/portfolio', priority: 0.8, changeFrequency: 'weekly' as const },
-  { path: '/about', priority: 0.7, changeFrequency: 'monthly' as const },
-  { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
-  { path: '/faq', priority: 0.6, changeFrequency: 'monthly' as const },
-  { path: '/ai-employee', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/waiting-list', priority: 0.5, changeFrequency: 'monthly' as const },
+  { path: '',              priority: 1.0, changeFrequency: 'weekly' as const,  lastMod: '2026-05-25' },
+  { path: '/process',      priority: 0.8, changeFrequency: 'monthly' as const, lastMod: '2026-05-25' },
+  { path: '/portfolio',    priority: 0.8, changeFrequency: 'weekly' as const,  lastMod: '2026-05-25' },
+  { path: '/about',        priority: 0.7, changeFrequency: 'monthly' as const, lastMod: '2026-05-25' },
+  { path: '/blog',         priority: 0.7, changeFrequency: 'daily' as const,   lastMod: '2026-05-25' },
+  { path: '/faq',          priority: 0.6, changeFrequency: 'monthly' as const, lastMod: '2026-05-25' },
+  { path: '/ai-employee',  priority: 0.8, changeFrequency: 'monthly' as const, lastMod: '2026-05-25' },
+  { path: '/waiting-list', priority: 0.5, changeFrequency: 'monthly' as const, lastMod: '2026-05-25' },
 ]
-
-const NOW = new Date()
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       entries.push({
         url: `${SITE_URL}/${locale}${page.path}`,
-        lastModified: NOW,
+        lastModified: new Date(page.lastMod),
         changeFrequency: page.changeFrequency,
         priority: page.priority,
         alternates: { languages: alternates },
@@ -69,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       entries.push({
         url: `${SITE_URL}/${locale}/blog/category/${category}`,
-        lastModified: NOW,
+        lastModified: new Date('2026-05-25'),
         changeFrequency: 'weekly',
         priority: 0.6,
         alternates: { languages: alternates },

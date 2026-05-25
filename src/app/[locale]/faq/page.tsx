@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useParams } from 'next/navigation'
+import { JsonLd, jsonLdFaqPage, jsonLdBreadcrumb } from '@/lib/seo'
 
 const CSS = `
 @keyframes mt-blink { 0%,100%{opacity:1}50%{opacity:0} }
@@ -1685,8 +1686,23 @@ export default function FAQPage() {
 
   const allHidden = q !== '' && t.faqs.every(cat => cat.items.every(item => !item.q.toLowerCase().includes(q)))
 
+  const faqSchemaItems = useMemo(
+    () =>
+      t.faqs.flatMap(cat =>
+        cat.items.map(item => ({ question: item.q, answer: item.paragraphs.join('\n\n') })),
+      ),
+    [t.faqs],
+  )
+
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
+      <JsonLd data={jsonLdFaqPage(faqSchemaItems)} />
+      <JsonLd
+        data={jsonLdBreadcrumb([
+          { name: 'Mindzy', url: `https://mindzy.me/${locale}` },
+          { name: 'FAQ', url: `https://mindzy.me/${locale}/faq` },
+        ])}
+      />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       <section className="faq-hero">

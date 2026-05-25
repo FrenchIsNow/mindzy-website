@@ -1,0 +1,5 @@
+Contact: mailto:contact@mindzy.me
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en, fr
+Canonical: https://mindzy.me/.well-known/security.txt
+Policy: https://mindzy.me/en/legal/mentions
