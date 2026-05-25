@@ -1265,32 +1265,6 @@ export async function deleteWaitlistEntry(id: number): Promise<void> {
   await sql`DELETE FROM waitlist_entries WHERE id = ${id}`
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-// ─── AI Waitlist ──────────────────────────────────────────────────────────────
-
-export async function saveWaitlistEntry(data: {
-  name: string
-  email: string
-  company?: string
-  role?: string
-  locale?: string
-}): Promise<number> {
-  await initDB()
-  const sql = getSql()
-  const rows = await sql`
-    INSERT INTO ai_waitlist (name, email, company, role, locale)
-    VALUES (${data.name}, ${data.email}, ${data.company ?? null}, ${data.role ?? null}, ${data.locale ?? 'fr'})
-    RETURNING id
-  `
-  return rows[0].id as number
-}
-
-export async function listWaitlistEntries() {
-  await initDB()
-  const sql = getSql()
-  return sql`SELECT * FROM ai_waitlist ORDER BY created_at DESC`
-}
 
 /** Returns the effective price in cents after applying an active promo code. */
 export function applyPromo(entry: CatalogEntry, code: string): number {
