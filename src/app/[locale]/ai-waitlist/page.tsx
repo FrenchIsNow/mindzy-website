@@ -218,7 +218,7 @@ export default async function AIWaitlistPage({ params }: { params: Promise<{ loc
     },
   }
 
-  const t = content[l] || content.fr
+  const t = content[l as keyof typeof content] ?? content.fr
 
   return (
     <>
