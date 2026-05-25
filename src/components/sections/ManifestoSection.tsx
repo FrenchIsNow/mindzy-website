@@ -206,7 +206,7 @@ export function ManifestoSection() {
             <svg
               ref={ref}
               className={`orbital-svg w-full aspect-square max-w-[420px] mx-auto${isIntersecting ? ' is-built' : ''}`}
-              viewBox="0 0 360 360"
+              viewBox="-20 -20 400 400"
               aria-hidden="true"
             >
               <defs>
