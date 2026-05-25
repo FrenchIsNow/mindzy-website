@@ -38,11 +38,15 @@ export const metadata: Metadata = {
     siteName: 'Mindzy',
     title: 'Mindzy — Custom AI infrastructure',
     description: 'AI infrastructures designed and built from scratch, around your tools, workflows, and governance rules.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Mindzy — Custom AI infrastructure built around your company' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Mindzy — Custom AI infrastructure',
     description: 'AI infrastructures designed and built from scratch.',
+    images: ['/og-image.png'],
+    site: '@mindzy',
+    creator: '@mindzy',
   },
   robots: {
     index: true,

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { GlassButton } from '@/components/ui/GlassButton'
+import { JsonLd, jsonLdBreadcrumb } from '@/lib/seo'
 
 const TRANSLATIONS = {
   en: {
@@ -450,8 +451,39 @@ export default function PortfolioPage() {
     return getCatLabel(f)
   }
 
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `Mindzy — ${t.featuredLabel ?? 'Portfolio'}`,
+    url: `https://mindzy.me/${locale}/portfolio`,
+    description: 'Selected projects designed and delivered by Mindzy across legal, wellness, commerce, sport, creative, and investment verticals.',
+    numberOfItems: PROJECTS.length,
+    hasPart: {
+      '@type': 'ItemList',
+      itemListElement: PROJECTS.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'CreativeWork',
+          name: p.title,
+          description: p.desc,
+          url: p.href,
+          image: `https://mindzy.me${p.img}`,
+          genre: p.catKey,
+        },
+      })),
+    },
+  }
+
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
+      <JsonLd data={itemListSchema} />
+      <JsonLd
+        data={jsonLdBreadcrumb([
+          { name: 'Mindzy', url: `https://mindzy.me/${locale}` },
+          { name: 'Portfolio', url: `https://mindzy.me/${locale}/portfolio` },
+        ])}
+      />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* Hero */}

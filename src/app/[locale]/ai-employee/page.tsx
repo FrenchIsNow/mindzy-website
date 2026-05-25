@@ -7,6 +7,7 @@ import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, Html, Plane, Sphere } from "@react-three/drei"
 import { Download, Heart, X } from "lucide-react"
+import { JsonLd, jsonLdBreadcrumb } from "@/lib/seo"
 
 /* =========================
    Translations
@@ -536,8 +537,32 @@ export default function AIEmployeePage() {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
   const waitingListHref = `/${locale}/waiting-list`
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Mindzy AI Employee",
+    category: "AI Employee as a Service",
+    description: t.description,
+    brand: { "@type": "Brand", name: "Mindzy" },
+    audience: { "@type": "BusinessAudience", audienceType: "Companies integrating AI into operations" },
+    offers: {
+      "@type": "Offer",
+      url: `https://mindzy.me/${locale}/waiting-list`,
+      availability: "https://schema.org/PreOrder",
+      priceCurrency: "EUR",
+      priceSpecification: { "@type": "PriceSpecification", price: "0", priceCurrency: "EUR", description: "Early-access waitlist" },
+    },
+  }
+
   return (
     <CardProvider>
+      <JsonLd data={productSchema} />
+      <JsonLd
+        data={jsonLdBreadcrumb([
+          { name: "Mindzy", url: `https://mindzy.me/${locale}` },
+          { name: "AI Employee", url: `https://mindzy.me/${locale}/ai-employee` },
+        ])}
+      />
       <section
         className="relative w-full overflow-hidden"
         style={{ height: "100vh", minHeight: "600px", background: "#000" }}

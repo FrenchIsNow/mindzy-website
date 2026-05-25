@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import { GlassButton } from '@/components/ui/GlassButton'
+import { JsonLd, jsonLdHowTo, jsonLdBreadcrumb } from '@/lib/seo'
 
 const TRANSLATIONS = {
   en: {
@@ -1041,6 +1042,19 @@ export default function ProcessPage() {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
   const anchors = buildAnchors()
 
+  const howToSchema = useMemo(
+    () =>
+      jsonLdHowTo({
+        name: `${t.heroH1a} ${t.heroH1b}`,
+        description: t.heroLines.join(' '),
+        steps: t.steps.map(s => ({
+          name: s.title.replace(/\.$/, ''),
+          text: `${s.essence} ${s.copy}`,
+        })),
+      }),
+    [t],
+  )
+
   useEffect(() => {
     // Ported directly from process.html script
     const rail  = document.getElementById('processRail')
@@ -1126,6 +1140,13 @@ export default function ProcessPage() {
 
   return (
     <div style={{ background: 'var(--ai-bg)', paddingTop: '72px' }}>
+      <JsonLd data={howToSchema} />
+      <JsonLd
+        data={jsonLdBreadcrumb([
+          { name: 'Mindzy', url: `https://mindzy.me/${locale}` },
+          { name: 'Process', url: `https://mindzy.me/${locale}/process` },
+        ])}
+      />
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* Hero */}
