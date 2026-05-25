@@ -212,6 +212,20 @@ export async function initDB() {
     WHERE NOT EXISTS (SELECT 1 FROM services WHERE slug = 'geo-audit')
   `
 
+  // ─── AI Waitlist ────────────────────────────────────────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS ai_waitlist (
+      id         SERIAL PRIMARY KEY,
+      name       TEXT NOT NULL,
+      email      TEXT NOT NULL,
+      company    TEXT,
+      role       TEXT,
+      locale     TEXT NOT NULL DEFAULT 'fr',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_ai_waitlist_email ON ai_waitlist(email)`
+
   // ─── Profiles (linktree-style founder / team cards) ────────────────────────
   await sql`
     CREATE TABLE IF NOT EXISTS profiles (
@@ -1252,6 +1266,31 @@ export async function deleteWaitlistEntry(id: number): Promise<void> {
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+
+// ─── AI Waitlist ──────────────────────────────────────────────────────────────
+
+export async function saveWaitlistEntry(data: {
+  name: string
+  email: string
+  company?: string
+  role?: string
+  locale?: string
+}): Promise<number> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO ai_waitlist (name, email, company, role, locale)
+    VALUES (${data.name}, ${data.email}, ${data.company ?? null}, ${data.role ?? null}, ${data.locale ?? 'fr'})
+    RETURNING id
+  `
+  return rows[0].id as number
+}
+
+export async function listWaitlistEntries() {
+  await initDB()
+  const sql = getSql()
+  return sql`SELECT * FROM ai_waitlist ORDER BY created_at DESC`
+}
 
 /** Returns the effective price in cents after applying an active promo code. */
 export function applyPromo(entry: CatalogEntry, code: string): number {
