@@ -100,7 +100,7 @@ export function ContactModalProvider({ locale, children }: { locale: Locale; chi
 }
 
 function ContactFormModal({ locale, planId, onClose }: { locale: Locale; planId?: string; onClose: () => void }) {
-  const t = copy[locale]
+  const t = (copy as Record<Locale, typeof copy.en>)[locale] ?? copy.en
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
   useEffect(() => {

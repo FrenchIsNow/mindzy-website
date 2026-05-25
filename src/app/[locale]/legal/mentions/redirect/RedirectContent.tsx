@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import type { Locale } from '@/lib/i18n'
 
-const copy: Record<Locale, {
+const copy: Partial<Record<Locale, {
   badge: string
   title: string
   subtitle: (site: string | null) => string
@@ -23,7 +23,7 @@ const copy: Record<Locale, {
   contactEmail: string
   backLabel: string
   mindzyLabel: string
-}> = {
+}>> = {
   fr: {
     badge: 'Mentions légales',
     title: 'Ce site est conçu et géré par Mindzy',
@@ -203,7 +203,7 @@ const colorMap = {
 export function RedirectContent({ locale }: { locale: Locale }) {
   const searchParams = useSearchParams()
   const site = searchParams.get('site')
-  const t = copy[locale]
+  const t = (copy[locale] ?? copy.fr)!
 
   return (
     <div className="pt-32 pb-20 bg-cream-50 min-h-screen">

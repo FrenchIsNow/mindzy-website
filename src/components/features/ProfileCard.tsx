@@ -105,9 +105,9 @@ export function ProfileCard({ name, title, subtitle, company, initials, links, p
 
         {/* Links */}
         <div className="flex flex-col gap-2.5">
-          {links.map((link) => (
+          {links.map((link, i) => (
             <a
-              key={link.platform}
+              key={`${link.platform}-${i}`}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"

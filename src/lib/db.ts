@@ -301,6 +301,25 @@ export async function initDB() {
   `
   await sql`CREATE INDEX IF NOT EXISTS idx_ebook_content_slug ON ebook_content(slug)`
 
+  // ─── Waiting list (AI Employee early-access signups) ───────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS waitlist_entries (
+      id           SERIAL PRIMARY KEY,
+      first_name   TEXT NOT NULL,
+      last_name    TEXT NOT NULL,
+      email        TEXT NOT NULL,
+      role         TEXT,
+      company      TEXT,
+      company_size TEXT,
+      use_case     TEXT,
+      locale       TEXT NOT NULL DEFAULT 'fr',
+      source       TEXT,
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_waitlist_entries_email ON waitlist_entries(LOWER(email))`
+  await sql`CREATE INDEX IF NOT EXISTS idx_waitlist_entries_created ON waitlist_entries(created_at DESC)`
+
   // Self-blog: Mindzy's own articles are managed as a special "mindzy" client.
   // Seed on first init so the admin always sees "Mon blog" in the sidebar.
   // Password is a random string; admin manages this via the Paramètres tab.
@@ -1173,7 +1192,6 @@ export async function updateProfile(
       subtitle  = COALESCE(${data.subtitle ?? null}, subtitle),
       company   = COALESCE(${data.company ?? null}, company),
       initials  = COALESCE(${data.initials ?? null}, initials),
-      photo_url = COALESCE(${data.photo_url ?? null}, photo_url),
       links     = COALESCE(${data.links ? JSON.stringify(data.links) : null}::jsonb, links),
       is_active = COALESCE(${data.is_active ?? null}, is_active),
       seo_title = COALESCE(${data.seo_title ?? null}, seo_title),
@@ -1181,12 +1199,70 @@ export async function updateProfile(
       updated_at = NOW()
     WHERE id = ${id}
   `
+  // photo_url uses direct assignment so null explicitly clears the photo (COALESCE can't do this)
+  if ('photo_url' in data) {
+    await sql`UPDATE profiles SET photo_url = ${data.photo_url ?? null} WHERE id = ${id}`
+  }
 }
 
 export async function deleteProfile(id: number): Promise<void> {
   await initDB()
   const sql = getSql()
   await sql`DELETE FROM profiles WHERE id = ${id}`
+}
+
+// ─── Waiting list (AI Employee early-access signups) ─────────────────────────
+
+export interface WaitlistEntry {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  role: string | null
+  company: string | null
+  company_size: string | null
+  use_case: string | null
+  locale: string
+  source: string | null
+  created_at: string
+}
+
+export async function saveWaitlistEntry(data: {
+  firstName: string
+  lastName: string
+  email: string
+  role?: string | null
+  company?: string | null
+  companySize?: string | null
+  useCase?: string | null
+  locale?: string
+  source?: string | null
+}): Promise<number> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO waitlist_entries
+      (first_name, last_name, email, role, company, company_size, use_case, locale, source)
+    VALUES
+      (${data.firstName}, ${data.lastName}, ${data.email},
+       ${data.role ?? null}, ${data.company ?? null}, ${data.companySize ?? null},
+       ${data.useCase ?? null}, ${data.locale ?? 'fr'}, ${data.source ?? null})
+    RETURNING id
+  `
+  return rows[0].id as number
+}
+
+export async function listWaitlistEntries(): Promise<WaitlistEntry[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM waitlist_entries ORDER BY created_at DESC`
+  return rows as WaitlistEntry[]
+}
+
+export async function deleteWaitlistEntry(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM waitlist_entries WHERE id = ${id}`
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

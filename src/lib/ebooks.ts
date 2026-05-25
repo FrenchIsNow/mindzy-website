@@ -46,19 +46,19 @@ export interface EbookDetailOverride {
 
 export interface Ebook {
   slug: string
-  title: Record<Locale, string>
-  subtitle: Record<Locale, string>
-  excerpt: Record<Locale, string>
+  title: Partial<Record<Locale, string>>
+  subtitle: Partial<Record<Locale, string>>
+  excerpt: Partial<Record<Locale, string>>
   pages: number
   category: string
   tags: string[]
   image: string
   publishedDate: string
   downloadCount: number
-  chapters: Record<Locale, EbookChapter[]>
-  features: Record<Locale, EbookFeature[]>
-  stats: Record<Locale, EbookStat[]>
-  testimonial: Record<Locale, EbookTestimonial>
+  chapters: Partial<Record<Locale, EbookChapter[]>>
+  features: Partial<Record<Locale, EbookFeature[]>>
+  stats: Partial<Record<Locale, EbookStat[]>>
+  testimonial: Partial<Record<Locale, EbookTestimonial>>
   ctaLink?: string
   free: boolean
   pdfByLocale?: Partial<Record<Locale, string>>

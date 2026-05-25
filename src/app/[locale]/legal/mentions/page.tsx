@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   })
 }
 
-const legalContent: Record<Locale, { lastUpdateLabel: string; lastUpdate: string; sections: Record<string, { title: string; content: string[] }> }> = {
+const legalContent: Partial<Record<Locale, { lastUpdateLabel: string; lastUpdate: string; sections: Record<string, { title: string; content: string[] }> }>> = {
   fr: {
     lastUpdateLabel: 'Dernière mise à jour :',
     lastUpdate: '12 février 2026',
@@ -268,7 +268,7 @@ export default async function MentionsLegalesPage({ params }: { params: Promise<
   const { locale } = await params
   const loc = locale as Locale
   const t = getMessages(loc).legal.mentions
-  const content = legalContent[loc]
+  const content = legalContent[loc] ?? legalContent.fr!
 
   return (
     <div className="pt-32 pb-20">

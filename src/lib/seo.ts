@@ -9,6 +9,13 @@ const localeMap: Record<Locale, string> = {
   fr: 'fr_FR',
   en: 'en_US',
   es: 'es_ES',
+  de: 'de_DE',
+  it: 'it_IT',
+  pt: 'pt_PT',
+  ar: 'ar_SA',
+  zh: 'zh_CN',
+  ja: 'ja_JP',
+  ru: 'ru_RU',
 }
 
 export function buildCanonicalUrl(locale: Locale, path = ''): string {
