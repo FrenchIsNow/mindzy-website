@@ -133,6 +133,23 @@ export function HomeHero() {
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <div className="flex flex-col md:flex-row md:items-center w-full gap-10 md:gap-0">
 
+          {/* Sphere — mobile only, centered above text */}
+          <div className="flex md:hidden items-center justify-center">
+            <SphereImageGrid
+              images={IMAGES}
+              containerSize={260}
+              sphereRadius={96}
+              autoRotate
+              autoRotateSpeed={0.2}
+              dragSensitivity={0.8}
+              momentumDecay={0.96}
+              maxRotationSpeed={6}
+              baseImageScale={0.15}
+              hoverScale={1.3}
+              perspective={1000}
+            />
+          </div>
+
           {/* Left column: text content */}
           <div className="w-full md:flex-none md:max-w-[620px]">
             <FadeIn className="md:pr-12">
@@ -163,7 +180,7 @@ export function HomeHero() {
             </FadeIn>
           </div>
 
-          {/* Right column: sphere — hidden on small screens */}
+          {/* Right column: sphere — desktop only */}
           <div className="hidden md:flex items-center justify-center flex-1 min-w-0">
             <SphereImageGrid
               images={IMAGES}
