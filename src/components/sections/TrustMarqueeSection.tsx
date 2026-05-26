@@ -128,6 +128,15 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
               </div>
             ))}
           </div>
+          {/* Row 2: right → left */}
+          <div style={{ display: 'flex', width: 'max-content', animation: 'marquee-r 42s linear infinite', animationDelay: '-12s' }}>
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <div key={i} style={{ flex: '0 0 auto', minWidth: '130px', height: '60px', borderRadius: '12px', border: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 16px', marginRight: '10px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.src} alt={p.name} style={{ height: '22px', width: 'auto', maxWidth: '90px', objectFit: 'contain' }} loading="lazy" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>
