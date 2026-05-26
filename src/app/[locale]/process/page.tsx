@@ -842,7 +842,7 @@ const CSS = `
   .process-step__copy { margin-top: 20px; font-size: 16px; line-height: 1.68; color: var(--ai-fg-muted); max-width: 480px; }
 
   .process-anchor { position: relative; z-index: 1; border: 1px solid var(--ai-border); border-radius: 16px; background: var(--ai-surface); padding: 24px; aspect-ratio: 4/5; overflow: hidden; will-change: transform, opacity; }
-  @media (max-width: 900px) { .process-anchor { aspect-ratio: 16/9; } }
+  @media (max-width: 900px) { .process-anchor { aspect-ratio: unset; overflow: visible; min-height: auto; } }
 
   .anchor-org { display: grid; gap: 14px; padding-top: 8px; align-content: start; }
   .anchor-org__root { align-self: center; justify-self: center; padding: 10px 18px; border-radius: 10px; background: var(--ai-accent); color: #fff; font-size: 12px; font-weight: 500; }

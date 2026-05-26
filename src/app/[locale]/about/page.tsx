@@ -537,8 +537,8 @@ const CSS = `
 .sr-item.sr-visible { opacity:1; transform:translateY(0); }
 
 /* Founders */
-.founders-grid { display:grid; grid-template-columns:repeat(2,300px); gap:28px; margin-top:20px; }
-@media(max-width:720px){.founders-grid{grid-template-columns:1fr;max-width:300px;}}
+.founders-grid { display:grid; grid-template-columns:repeat(2,300px); gap:28px; margin-top:20px; justify-content:center; }
+@media(max-width:720px){.founders-grid{grid-template-columns:1fr;max-width:300px;margin-left:auto;margin-right:auto;}}
 .founder-card { position:relative; background:var(--ai-bg); border-radius:28px; padding:36px 28px 28px; box-shadow:12px 12px 28px rgba(0,0,0,0.10),-12px -12px 28px rgba(255,255,255,0.88); transition:transform 480ms cubic-bezier(.2,.7,.2,1),box-shadow 480ms cubic-bezier(.2,.7,.2,1); cursor:default; overflow:hidden; }
 html[data-ai-theme="black"] .founder-card { box-shadow:12px 12px 28px rgba(0,0,0,0.42),-12px -12px 28px rgba(255,255,255,0.04); }
 .founder-card:hover { transform:scale(1.04) translateY(-6px); box-shadow:20px 20px 44px rgba(0,0,0,0.15),-20px -20px 44px rgba(255,255,255,0.96); }
