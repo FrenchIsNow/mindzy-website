@@ -28,6 +28,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
       company={p.company || 'Mindzy'}
       initials={p.initials || p.name.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase()}
       links={p.links}
+      photoUrl={p.photo_url || undefined}
     />
   )
 }

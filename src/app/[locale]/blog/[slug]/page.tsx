@@ -210,9 +210,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                       {locale === 'fr' ? 'Decouvrez comment Mindzy peut vous aider.' : locale === 'es' ? 'Descubre como Mindzy puede ayudarte.' : 'Discover how Mindzy can help you.'}
                     </p>
                   </div>
-                  <Link href={`/${locale}/diagnostic`}>
+                  <a href="https://calendar.app.google/ghE79tSFxmea4Scd9" target="_blank" rel="noopener">
                     <Button variant="primary" size="md">{getMessages(locale as Locale).hero.cta}</Button>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </article>

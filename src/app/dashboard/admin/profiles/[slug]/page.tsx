@@ -1,5 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
+import QRCode from 'qrcode'
 import { getSession } from '@/lib/dashboard-auth'
 import { Shell } from '@/components/dashboard/Sidebar'
 import { getProfile } from '@/lib/db'
@@ -17,6 +18,8 @@ export default async function EditProfilePage({ params }: { params: Promise<{ sl
   if (!profile) notFound()
 
   const publicUrl = profile.slug === 'cocotier' || profile.slug === 'martel' ? `/${profile.slug}` : `/p/${profile.slug}`
+  const fullUrl = `https://mindzy.me${publicUrl}`
+  const qrDataUrl = await QRCode.toDataURL(fullUrl, { width: 200, margin: 2, color: { dark: '#4C1D95', light: '#FFFFFF' } })
 
   return (
     <Shell role="admin" userName="Admin">
@@ -28,6 +31,18 @@ export default async function EditProfilePage({ params }: { params: Promise<{ sl
           <h1 className="text-2xl font-semibold tracking-tight">{profile.name}</h1>
           <a href={publicUrl} target="_blank" rel="noreferrer" className="text-sm text-violet-600 hover:underline">
             mindzy.me{publicUrl} ↗
+          </a>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <div className="rounded-xl border border-violet-200 bg-white p-2 shadow-sm">
+            <img src={qrDataUrl} alt={`QR ${profile.name}`} width={120} height={120} />
+          </div>
+          <a
+            href={qrDataUrl}
+            download={`qr-${profile.slug}.png`}
+            className="text-xs text-slate-500 hover:text-violet-600"
+          >
+            ↓ Télécharger
           </a>
         </div>
       </div>

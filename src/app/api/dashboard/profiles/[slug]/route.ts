@@ -30,7 +30,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ slug: 
   if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
 
   const update: Record<string, unknown> = {}
-  const allowed = ['name', 'title', 'subtitle', 'company', 'initials', 'links', 'is_active', 'seo_title', 'seo_desc']
+  const allowed = ['name', 'title', 'subtitle', 'company', 'initials', 'photo_url', 'links', 'is_active', 'seo_title', 'seo_desc']
   for (const k of allowed) if (k in body) update[k] = body[k]
 
   await updateProfile(profile.id, update)

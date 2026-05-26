@@ -107,7 +107,7 @@ export default async function EbookDetail({ params }: { params: Promise<{ slug: 
             .filter(e => e.slug !== slug)
             .map(e => {
               const c = (catalogAll.find(x => x.slug === e.slug) ?? null) as { price_cents: number | null } | null
-              return { slug: e.slug, name: e.title.fr, priceCents: c?.price_cents ?? null }
+              return { slug: e.slug, name: e.title.fr ?? e.title.en ?? '', priceCents: c?.price_cents ?? null }
             })}
         />
       </section>

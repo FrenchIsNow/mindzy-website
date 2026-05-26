@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Mindzy is a Next.js 16 + React 19 multilingual SaaS marketing website for a service that creates premium websites for therapists and wellness practitioners. Supports French (default), English, and Spanish.
+Mindzy is a Next.js 16 + React 19 multilingual marketing website for an AI infrastructure firm. Mindzy designs and builds custom AI infrastructure inside companies — connected to their tools, governed by their rules, and deployed around their real workflows. No template, no pre-built stack. Each engagement begins with an executive diagnosis (mapping departments, tools, workflows, bottlenecks) before any technology is proposed. Supports 10 locales: French (default), English, Spanish, German, Italian, Portuguese, Arabic, Chinese, Japanese, Russian.
 
 ## Commands
 

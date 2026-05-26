@@ -1,4 +1,4 @@
-import type { Locale } from './i18n'
+import { locales, type Locale } from './i18n'
 import { getBlogPosts, getBlogPost, type BlogPostMeta, type BlogPostFull } from './blog'
 import { getDashboardClientBySlug } from './db'
 import { neon } from '@neondatabase/serverless'
@@ -31,7 +31,6 @@ export async function getPublicBlogPost(locale: Locale, slug: string): Promise<B
 
 /** All slugs across locales for generateStaticParams. */
 export async function getAllPublicBlogSlugs(): Promise<{ locale: Locale; slug: string }[]> {
-  const locales: Locale[] = ['fr', 'en', 'es']
   const out: { locale: Locale; slug: string }[] = []
   for (const locale of locales) {
     const markdown = getBlogPosts(locale)

@@ -32,6 +32,8 @@ export default function ProfileForm(props: Props) {
     seoDesc: initial?.seo_desc ?? '',
     isActive: initial?.is_active ?? true,
   })
+  const [photoUrl, setPhotoUrl] = useState<string>(initial?.photo_url ?? '')
+  const [photoLoading, setPhotoLoading] = useState(false)
   const [links, setLinks] = useState<ProfileLink[]>(initial?.links ?? [])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -39,6 +41,33 @@ export default function ProfileForm(props: Props) {
 
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) => setForm(p => ({ ...p, [k]: v }))
   const cls = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500'
+
+  function handlePhotoFile(file: File) {
+    if (!file.type.startsWith('image/')) { setError('Fichier image requis (JPG, PNG, WebP)'); return }
+    if (file.size > 10 * 1024 * 1024) { setError('Image trop lourde (max 10 Mo)'); return }
+    setPhotoLoading(true)
+    setError('')
+    const reader = new FileReader()
+    reader.onload = e => {
+      const img = new Image()
+      img.onload = () => {
+        const MAX = 400
+        const scale = Math.min(1, MAX / Math.max(img.width, img.height))
+        const canvas = document.createElement('canvas')
+        canvas.width = Math.round(img.width * scale)
+        canvas.height = Math.round(img.height * scale)
+        const ctx = canvas.getContext('2d')
+        if (!ctx) { setError('Canvas non supporté par ce navigateur'); setPhotoLoading(false); return }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        setPhotoUrl(canvas.toDataURL('image/jpeg', 0.85))
+        setPhotoLoading(false)
+      }
+      img.onerror = () => { setError('Impossible de lire l\'image'); setPhotoLoading(false) }
+      img.src = e.target?.result as string
+    }
+    reader.onerror = () => { setError('Erreur de lecture du fichier'); setPhotoLoading(false) }
+    reader.readAsDataURL(file)
+  }
 
   function addLink(platform: keyof typeof PLATFORM_PRESETS) {
     const preset = PLATFORM_PRESETS[platform]
@@ -103,6 +132,7 @@ export default function ProfileForm(props: Props) {
           subtitle: form.subtitle,
           company: form.company,
           initials: form.initials,
+          photo_url: photoUrl || null,
           seo_title: form.seoTitle,
           seo_desc: form.seoDesc,
           is_active: form.isActive,
@@ -136,6 +166,44 @@ export default function ProfileForm(props: Props) {
     <div className="space-y-5">
       <div className="rounded-2xl border border-slate-200 bg-white p-6">
         <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Identité</h3>
+
+        {/* Photo upload */}
+        <div className="mb-4 flex items-center gap-4">
+          <div className="relative shrink-0">
+            {photoUrl ? (
+              <img src={photoUrl} alt="Photo" className="h-20 w-20 rounded-full object-cover border-2 border-violet-200" />
+            ) : (
+              <div className="h-20 w-20 rounded-full bg-violet-100 flex items-center justify-center text-2xl font-bold text-violet-400 border-2 border-dashed border-violet-300">
+                {form.initials || '?'}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="cursor-pointer rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 inline-flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {photoLoading ? 'Traitement…' : 'Choisir une photo'}
+              <input
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                disabled={photoLoading}
+                onChange={e => { const f = e.target.files?.[0]; if (f) handlePhotoFile(f) }}
+              />
+            </label>
+            {photoUrl && (
+              <button
+                onClick={() => setPhotoUrl('')}
+                className="text-xs text-red-500 hover:underline text-left"
+              >
+                Supprimer la photo
+              </button>
+            )}
+            <p className="text-xs text-slate-400">JPG, PNG, WebP — redimensionné 400px, sauvegardé avec le profil</p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           <Field label="Slug" required>
             <input

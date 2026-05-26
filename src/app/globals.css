@@ -46,6 +46,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  font-family: var(--font-instrument-sans), var(--font-sora), system-ui, sans-serif;
+  letter-spacing: -0.005em;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 /* Text balance utility */
@@ -344,4 +363,72 @@ input, textarea, select {
 /* Placeholder styling */
 ::placeholder {
   @apply text-gray-400;
+}
+
+/* ── AI Design System tokens (Mindzy static site migration) ── */
+:root {
+  --mindzy-violet: #7c3aed;
+  --mindzy-violet-deep: #5b21b6;
+  --mindzy-violet-light: #a78bfa;
+  --mindzy-dark: #0a0e1a;
+  --mindzy-cream: #fefdf9;
+  --mindzy-gold: #d4af37;
+
+  /* Themed surface tokens (light default) */
+  --ai-bg: #fefdf9;
+  --ai-bg-2: #ffffff;
+  --ai-bg-3: #f5f2eb;
+  --ai-surface: #ffffff;
+  --ai-fg: #0a0e1a;
+  --ai-fg-muted: rgba(10, 14, 26, 0.62);
+  --ai-fg-soft: rgba(10, 14, 26, 0.40);
+  --ai-border: rgba(10, 14, 26, 0.10);
+  --ai-border-strong: rgba(10, 14, 26, 0.18);
+  --ai-accent: #7c3aed;
+  --ai-accent-hover: #5b21b6;
+  --ai-grid-line: rgba(10, 14, 26, 0.06);
+  --ai-shadow-card: 0 1px 0 rgba(10, 14, 26, 0.04), 0 14px 40px -20px rgba(10, 14, 26, 0.12);
+
+  /* Font families */
+  --font-serif-ai: var(--font-instrument-serif), Georgia, serif;
+  --font-sans-ai: var(--font-instrument-sans), var(--font-sora), sans-serif;
+
+  /* Motion */
+  --t-fast: 160ms cubic-bezier(.2,.7,.2,1);
+  --t-med: 280ms cubic-bezier(.2,.7,.2,1);
+  --t-slow: 520ms cubic-bezier(.2,.7,.2,1);
+}
+
+[data-ai-theme="black"] {
+  --ai-bg: #0a0e1a;
+  --ai-bg-2: #13182a;
+  --ai-bg-3: #1a2038;
+  --ai-surface: #13182a;
+  --ai-fg: #fefdf9;
+  --ai-fg-muted: rgba(254, 253, 249, 0.62);
+  --ai-fg-soft: rgba(254, 253, 249, 0.36);
+  --ai-border: rgba(254, 253, 249, 0.10);
+  --ai-border-strong: rgba(254, 253, 249, 0.18);
+  --ai-accent: #a78bfa;
+  --ai-accent-hover: #c4b5fd;
+  --ai-grid-line: rgba(254, 253, 249, 0.05);
+  --ai-shadow-card: 0 1px 0 rgba(0,0,0,.3), 0 18px 60px -20px rgba(0,0,0,.7);
+}
+
+/* Fade-in scroll animation */
+.ai-fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.ai-fade-in.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-fade-in {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
