@@ -108,14 +108,12 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
         </div>
         {/* Mobile: double row, opposite directions */}
         <div
-          className="md:hidden"
+          className="flex flex-col md:hidden"
           style={{
             position: 'relative',
             overflow: 'hidden',
             WebkitMaskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
             maskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
-            display: 'flex',
-            flexDirection: 'column',
             gap: '10px',
           }}
         >
