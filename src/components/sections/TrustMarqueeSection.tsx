@@ -72,10 +72,10 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
 
   return (
     <>
-      <style suppressHydrationWarning>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+      <style suppressHydrationWarning>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } } @keyframes marquee-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }`}</style>
       <section className="py-12 md:py-24 border-t border-b border-[var(--ai-border)]">
         {/* Header */}
-        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8 text-center mb-12">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8 text-center mb-8 md:mb-12">
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>
             {t.eyebrow}
           </div>
@@ -87,8 +87,9 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
           </p>
         </div>
 
-        {/* Marquee */}
+        {/* Desktop: single row marquee */}
         <div
+          className="hidden md:block"
           style={{
             position: 'relative',
             overflow: 'hidden',
@@ -96,42 +97,43 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
             maskImage: 'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              width: 'max-content',
-              animation: 'marquee 55s linear infinite',
-            }}
-          >
+          <div style={{ display: 'flex', width: 'max-content', animation: 'marquee 55s linear infinite' }}>
             {[...PARTNERS, ...PARTNERS].map((p, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: '0 0 auto',
-                  minWidth: '200px',
-                  height: '88px',
-                  borderRadius: '16px',
-                  border: '1px solid var(--ai-border)',
-                  background: 'var(--ai-bg-2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0 28px',
-                  marginRight: '20px',
-                }}
-              >
+              <div key={i} style={{ flex: '0 0 auto', minWidth: '200px', height: '88px', borderRadius: '16px', border: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 28px', marginRight: '20px' }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.src}
-                  alt={p.name}
-                  style={{
-                    height: '32px',
-                    width: 'auto',
-                    maxWidth: '130px',
-                    objectFit: 'contain',
-                  }}
-                  loading="lazy"
-                />
+                <img src={p.src} alt={p.name} style={{ height: '32px', width: 'auto', maxWidth: '130px', objectFit: 'contain' }} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Mobile: double row, opposite directions */}
+        <div
+          className="md:hidden"
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
+            maskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          {/* Row 1: left → right */}
+          <div style={{ display: 'flex', width: 'max-content', animation: 'marquee 38s linear infinite' }}>
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <div key={i} style={{ flex: '0 0 auto', minWidth: '130px', height: '60px', borderRadius: '12px', border: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 16px', marginRight: '10px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.src} alt={p.name} style={{ height: '22px', width: 'auto', maxWidth: '90px', objectFit: 'contain' }} loading="lazy" />
+              </div>
+            ))}
+          </div>
+          {/* Row 2: right → left */}
+          <div style={{ display: 'flex', width: 'max-content', animation: 'marquee-r 42s linear infinite', animationDelay: '-12s' }}>
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <div key={i} style={{ flex: '0 0 auto', minWidth: '130px', height: '60px', borderRadius: '12px', border: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 16px', marginRight: '10px' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.src} alt={p.name} style={{ height: '22px', width: 'auto', maxWidth: '90px', objectFit: 'contain' }} loading="lazy" />
               </div>
             ))}
           </div>

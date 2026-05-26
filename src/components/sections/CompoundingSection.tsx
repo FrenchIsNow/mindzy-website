@@ -189,12 +189,12 @@ export function CompoundingSection() {
     <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <FadeIn>
-          <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
+          <div style={{ maxWidth: '740px', marginBottom: 'clamp(28px,4vw,56px)' }}>
             <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
             <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(34px,4.6vw,56px)', lineHeight: 1.08, marginTop: '14px' }}>
               <em>{t.h2_em}</em> {t.h2_end}
             </h2>
-            <p style={{ marginTop: '24px', fontSize: '18px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
+            <p style={{ marginTop: '24px', fontSize: 'clamp(15px,2.5vw,18px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
               {t.desc}
             </p>
           </div>

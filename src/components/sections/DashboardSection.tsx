@@ -11,7 +11,7 @@ const TRANSLATIONS = {
     h2_1: 'Command center',
     h2_2: 'built around your hierarchy.',
     desc: "Every Mindzy dashboard is custom-designed for the client's departments, roles, and validation rules.",
-    topBarSub: 'Example view — anonymized client setup',
+    topBarSub: 'Client setup',
     departments: 'Departments',
     deptList: ['Sales', 'Operations', 'Support', 'Administration', 'Management'],
     today: 'Today',
@@ -456,12 +456,12 @@ export function DashboardSection() {
       <div ref={sectionRef} className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         {/* Section head */}
         <FadeIn>
-          <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
+          <div style={{ maxWidth: '740px', marginBottom: 'clamp(28px,4vw,56px)' }}>
             <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
             <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(34px,4.6vw,56px)', lineHeight: 1.08, marginTop: '14px' }}>
               <em>{t.h2_1}</em> {t.h2_2}
             </h2>
-            <p style={{ marginTop: '24px', fontSize: '18px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
+            <p style={{ marginTop: '24px', fontSize: 'clamp(15px,2.5vw,18px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
               {t.desc}
             </p>
           </div>
@@ -469,21 +469,23 @@ export function DashboardSection() {
 
         {/* Dashboard card */}
         <FadeIn delay={200}>
-          <div style={{ overflowX: 'auto' }}>
-          <div style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', overflow: 'hidden', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', minWidth: '660px' }}>
+          <style>{`
+@media(max-width:767px){.dash-body{grid-template-columns:1fr!important;min-height:auto!important;}.dash-sidebar,.dash-activity{display:none!important;}.dash-main{border-right:none!important;}}
+`}</style>
+          <div style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', overflow: 'hidden', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)' }}>
           {/* Top bar */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '1px solid var(--ai-border)', fontSize: '12.5px', color: 'var(--ai-fg-muted)', background: 'var(--ai-bg-2)' }}>
             <span style={{ display: 'inline-flex', gap: '6px' }}>
               {['#ff5f57','#febc2e','#28c840'].map(c => <span key={c} style={{ width: '10px', height: '10px', borderRadius: '999px', background: c, display: 'block' }} />)}
             </span>
-            <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '12px' }}>acme.mindzy.local — workforce</span>
+            <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '12px' }}>acme workforce</span>
             <span style={{ color: 'var(--ai-fg-soft)' }}>{t.topBarSub}</span>
           </div>
 
           {/* 3-column body */}
-          <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr 280px', minHeight: '480px' }}>
+          <div className="dash-body" style={{ display: 'grid', gridTemplateColumns: '200px 1fr 280px', minHeight: '480px' }}>
             {/* Sidebar */}
-            <div style={{ padding: '22px 20px', borderRight: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)' }}>
+            <div className="dash-sidebar" style={{ padding: '22px 20px', borderRight: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)' }}>
               <div style={{ fontSize: '11px', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ai-fg-soft)', marginBottom: '12px' }}>{t.departments}</div>
               <ul style={{ display: 'grid', gap: '4px', fontSize: '13.5px' }}>
                 {t.deptList.map((d, i) => (
@@ -499,7 +501,7 @@ export function DashboardSection() {
             </div>
 
             {/* Main lanes */}
-            <div style={{ padding: '24px', borderRight: '1px solid var(--ai-border)' }}>
+            <div className="dash-main" style={{ padding: '24px', borderRight: '1px solid var(--ai-border)' }}>
               <div style={{ fontSize: '11px', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ai-fg-soft)', marginBottom: '14px' }}>{t.workflowsLabel}</div>
               <div style={{ display: 'grid', gap: '10px' }}>
                 {t.lanes.map((lane, i) => (
@@ -527,7 +529,7 @@ export function DashboardSection() {
             </div>
 
             {/* Activity stream */}
-            <div style={{ padding: '22px', background: 'var(--ai-bg-2)' }}>
+            <div className="dash-activity" style={{ padding: '22px', background: 'var(--ai-bg-2)' }}>
               <h4 style={{ fontSize: '12px', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ai-fg-soft)', marginBottom: '16px' }}>{t.activity}</h4>
               <div ref={streamRef} style={{ display: 'grid', gap: '14px' }} />
             </div>
@@ -536,7 +538,6 @@ export function DashboardSection() {
           {/* Note */}
           <div style={{ padding: '14px 20px', borderTop: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', fontSize: '12px', color: 'var(--ai-fg-soft)', letterSpacing: '.01em' }}>
             {t.footerNote}
-          </div>
           </div>
           </div>
         </FadeIn>

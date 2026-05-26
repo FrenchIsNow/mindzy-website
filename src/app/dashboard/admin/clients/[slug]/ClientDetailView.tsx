@@ -100,16 +100,17 @@ export default function ClientDetailView({
 
       {tab === 'articles' && (
         <>
-          {client.slug === 'mindzy' && (
-            <div className="mb-4 flex justify-end">
+          <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
+            <NewArticleForm clientId={client.id} defaultLocale={client.locale} />
+            {client.slug === 'mindzy' && (
               <Link
                 href="/dashboard/admin/articles/import"
-                className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
-                + Importer des articles
+                ↑ Importer (bulk)
               </Link>
-            </div>
-          )}
+            )}
+          </div>
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
             {initialArticles.length === 0 ? (
               <div className="p-8 text-center text-sm text-slate-500">
@@ -221,6 +222,83 @@ export default function ClientDetailView({
 
       {tab === 'settings' && <SettingsTab client={client} />}
     </>
+  )
+}
+
+function NewArticleForm({ clientId, defaultLocale }: { clientId: number; defaultLocale: string }) {
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState('')
+  const [locale, setLocale] = useState(defaultLocale || 'fr')
+  const [creating, setCreating] = useState(false)
+  const [err, setErr] = useState('')
+
+  const LOCALES = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru']
+
+  async function create(e: React.FormEvent) {
+    e.preventDefault()
+    setCreating(true)
+    setErr('')
+    const res = await fetch('/api/dashboard/articles', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId, title: title.trim() || 'Nouvel article', locale }),
+    })
+    setCreating(false)
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      setErr(d.error || 'Création impossible')
+      return
+    }
+    const data = await res.json()
+    router.push(`/dashboard/admin/articles/${data.article.id}`)
+  }
+
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+      >
+        + Nouvel article
+      </button>
+    )
+  }
+
+  return (
+    <form onSubmit={create} className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
+      <input
+        autoFocus
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        placeholder="Titre de l'article…"
+        className="min-w-[260px] flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-violet-500 focus:outline-none"
+      />
+      <select
+        value={locale}
+        onChange={e => setLocale(e.target.value)}
+        className="rounded-lg border border-slate-300 px-2 py-1.5 text-sm focus:border-violet-500 focus:outline-none"
+      >
+        {LOCALES.map(l => (
+          <option key={l} value={l}>{l.toUpperCase()}</option>
+        ))}
+      </select>
+      <button
+        type="submit"
+        disabled={creating}
+        className="rounded-lg bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+      >
+        {creating ? '…' : 'Créer & éditer →'}
+      </button>
+      <button
+        type="button"
+        onClick={() => { setOpen(false); setTitle(''); setErr('') }}
+        className="text-xs text-slate-500 hover:text-slate-700"
+      >
+        Annuler
+      </button>
+      {err && <span className="text-xs text-red-600 w-full">{err}</span>}
+    </form>
   )
 }
 

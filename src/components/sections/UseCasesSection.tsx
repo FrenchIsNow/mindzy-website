@@ -450,7 +450,7 @@ export function UseCasesSection({ locale = 'en' }: { locale?: string }) {
     <section className="py-16 md:py-[120px]">
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         {/* Header */}
-        <div style={{ maxWidth: '740px', marginBottom: '60px' }}>
+        <div style={{ maxWidth: '740px', marginBottom: 'clamp(32px,5vw,60px)' }}>
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
           <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(32px,4vw,52px)', lineHeight: 1.22, margin: '12px 0 18px', letterSpacing: '-0.015em' }}>
             {t.h2}

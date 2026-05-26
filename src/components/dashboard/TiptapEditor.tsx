@@ -56,27 +56,29 @@ export default function TiptapEditor({ value, onChange, editable = true }: Props
           <div className="mx-1 w-px bg-slate-300" />
           <ToolbarBtn onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive('bulletList')}>•</ToolbarBtn>
           <ToolbarBtn onClick={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive('orderedList')}>1.</ToolbarBtn>
-          <ToolbarBtn onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')}>&quot;</ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')}>“”</ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive('codeBlock')}>{'</>'}</ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().setHorizontalRule().run()}>—</ToolbarBtn>
           <div className="mx-1 w-px bg-slate-300" />
           <ToolbarBtn
             onClick={() => {
               const prev = editor.getAttributes('link').href as string | undefined
-              const url = window.prompt('URL du lien', prev || 'https://')
+              const url = window.prompt('URL', prev || 'https://')
               if (url === null) return
               if (url === '') editor.chain().focus().unsetLink().run()
               else editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
             }}
             active={editor.isActive('link')}
           >
-            Lien
+            🔗
           </ToolbarBtn>
           <ToolbarBtn
             onClick={() => {
-              const url = window.prompt('URL de l&apos;image')
+              const url = window.prompt('Image URL')
               if (url) editor.chain().focus().setImage({ src: url }).run()
             }}
           >
-            Image
+            🖼
           </ToolbarBtn>
           <div className="mx-1 w-px bg-slate-300" />
           <ToolbarBtn onClick={() => editor.chain().focus().undo().run()}>↶</ToolbarBtn>

@@ -332,6 +332,7 @@ export function OrchestrationSection() {
 
     // Queue column (left — Incoming)
     const queueHost = document.createElement('div')
+    queueHost.className = 'orch-queue'
     queueHost.style.cssText =
       'position:absolute;left:0;top:24px;bottom:24px;width:220px;display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--ai-fg-soft);padding:0 8px;z-index:4;overflow:hidden;'
     const qLabel = document.createElement('h5')
@@ -343,6 +344,7 @@ export function OrchestrationSection() {
 
     // Done column (right — Completed)
     const doneHost = document.createElement('div')
+    doneHost.className = 'orch-done'
     doneHost.style.cssText =
       'position:absolute;right:0;top:24px;bottom:24px;width:220px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;font-size:12px;color:var(--ai-fg-soft);padding:0 8px;z-index:4;overflow:hidden;'
     const dLabel = document.createElement('h5')
@@ -485,7 +487,7 @@ export function OrchestrationSection() {
   return (
     <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
-        <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
+        <div style={{ maxWidth: '740px', marginBottom: 'clamp(28px,4vw,56px)' }}>
           <FadeIn>
             <div
               style={{
@@ -511,7 +513,7 @@ export function OrchestrationSection() {
             <p
               style={{
                 marginTop: '24px',
-                fontSize: '18px',
+                fontSize: 'clamp(15px,2.5vw,18px)',
                 lineHeight: 1.6,
                 color: 'var(--ai-fg-muted)',
                 maxWidth: '600px',
@@ -524,9 +526,12 @@ export function OrchestrationSection() {
           </FadeIn>
         </div>
 
+        <style suppressHydrationWarning>{`
+@media(max-width:767px){.orch-container{height:380px!important;padding:20px!important;}.orch-queue,.orch-done{opacity:0!important;width:60px!important;padding:0!important;}}
+`}</style>
         <FadeIn delay={200}>
-          <div style={{ overflowX: 'auto' }}>
           <div
+            className="orch-container"
             style={{
               borderRadius: '20px',
               background: 'var(--ai-surface)',
@@ -536,7 +541,6 @@ export function OrchestrationSection() {
               overflow: 'hidden',
               position: 'relative',
               boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)',
-              minWidth: '560px',
             }}
           >
             <div
@@ -590,7 +594,6 @@ export function OrchestrationSection() {
                 </svg>
               </div>
             </div>
-          </div>
           </div>
         </FadeIn>
       </div>

@@ -203,21 +203,99 @@ export function ArchitectureSection() {
       <style>{archStyles}</style>
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <FadeIn>
-          <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
+          <div style={{ maxWidth: '740px', marginBottom: 'clamp(28px,4vw,56px)' }}>
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
           <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(34px,4.6vw,56px)', lineHeight: 1.08, marginTop: '14px' }}>
             {t.h2_plain} <em>{t.h2_em}</em> {t.h2_end}
           </h2>
-          <p style={{ marginTop: '24px', fontSize: '18px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
+          <p style={{ marginTop: '24px', fontSize: 'clamp(15px,2.5vw,18px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '600px' }}>
             {t.desc}
           </p>
           </div>
         </FadeIn>
 
         <FadeIn delay={200}>
+          <div ref={ref}>
+            {/* Mobile: stacked layer cards */}
+            <div className="md:hidden" style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', padding: '20px', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)' }}>
+              <div style={{ border: '1px dashed var(--ai-accent)', borderRadius: '14px', padding: '14px' }}>
+                {/* L5 header */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                  <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--ai-accent)', background: 'color-mix(in srgb,var(--ai-accent) 14%,transparent)', borderRadius: '4px', padding: '2px 5px' }}>L5</span>
+                  <span style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{l.l5Label}</span>
+                </div>
+                {/* L1: Your company — foundation */}
+                <div style={{ background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', borderRadius: '10px', padding: '11px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--ai-fg-muted)', background: 'var(--ai-bg-3)', borderRadius: '4px', padding: '2px 5px' }}>L1</span>
+                    <span style={{ fontSize: '10px', fontWeight: 500, color: 'var(--ai-fg-muted)' }}>{l.l1Label}</span>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '5px' }}>
+                    {l.l1Tools.map((tool, i) => (
+                      <div key={i} style={{ background: 'var(--ai-bg-3)', borderRadius: '6px', padding: '6px', fontSize: '10px', textAlign: 'center', color: 'var(--ai-fg)' }}>{tool}</div>
+                    ))}
+                  </div>
+                </div>
+                {/* Flow arrow */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '5px 8px' }}>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                  <span style={{ fontSize: '10px', color: 'var(--ai-fg-muted)', lineHeight: 1 }}>↑</span>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                </div>
+                {/* L2: Connectors */}
+                <div style={{ background: 'var(--ai-bg-3)', border: '1px solid var(--ai-border)', borderRadius: '10px', padding: '11px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--ai-fg-muted)', background: 'var(--ai-bg-2)', borderRadius: '4px', padding: '2px 5px' }}>L2</span>
+                    <span style={{ fontSize: '10px', fontWeight: 500, color: 'var(--ai-fg-muted)' }}>{l.l2Label}</span>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {['API', 'Webhook', 'RPA', 'Browser', 'SDK', 'Email-bridge', 'CSV-stream', 'DB-tap'].map((c, i) => (
+                      <span key={i} style={{ fontFamily: 'ui-monospace,monospace', fontSize: '10px', color: 'var(--ai-fg-muted)', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', borderRadius: '4px', padding: '2px 6px' }}>{c}</span>
+                    ))}
+                  </div>
+                </div>
+                {/* Flow arrow */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '5px 8px' }}>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                  <span style={{ fontSize: '10px', color: 'var(--ai-fg-muted)', lineHeight: 1 }}>↑</span>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                </div>
+                {/* L3: Model orchestration */}
+                <div style={{ background: 'var(--ai-bg-3)', border: '1px solid var(--ai-border)', borderRadius: '10px', padding: '11px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--ai-accent)', background: 'color-mix(in srgb,var(--ai-accent) 12%,transparent)', borderRadius: '4px', padding: '2px 5px' }}>L3</span>
+                    <span style={{ fontSize: '10px', fontWeight: 500, color: 'var(--ai-fg-muted)' }}>{l.l3Label}</span>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {['MindFast', 'MindDeep', 'Mind 3.1', 'GPT', 'Claude', 'Gemini', 'Mistral', 'Llama'].map((m, i) => (
+                      <span key={i} style={{ fontSize: '10px', fontWeight: i < 3 ? 600 : 400, background: i < 3 ? 'var(--ai-accent)' : 'var(--ai-surface)', border: `1px solid ${i < 3 ? 'var(--ai-accent)' : 'var(--ai-border)'}`, borderRadius: '999px', padding: '3px 8px', color: i < 3 ? '#fff' : 'var(--ai-fg)' }}>{m}</span>
+                    ))}
+                  </div>
+                </div>
+                {/* Flow arrow */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '5px 8px' }}>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                  <span style={{ fontSize: '10px', color: 'var(--ai-fg-muted)', lineHeight: 1 }}>↑</span>
+                  <div style={{ flex: 1, height: '1px', background: 'var(--ai-border)' }} />
+                </div>
+                {/* L4: Governance */}
+                <div style={{ background: 'var(--ai-bg-3)', border: '1px solid var(--ai-border)', borderRadius: '10px', padding: '11px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+                    <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--ai-accent)', background: 'color-mix(in srgb,var(--ai-accent) 12%,transparent)', borderRadius: '4px', padding: '2px 5px' }}>L4</span>
+                    <span style={{ fontSize: '10px', fontWeight: 500, color: 'var(--ai-fg-muted)' }}>{l.l4Label}</span>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {l.l4Tags.map((tag, i) => (
+                      <span key={i} style={{ fontSize: '10px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', borderRadius: '5px', padding: '3px 7px', color: 'var(--ai-fg)' }}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p style={{ marginTop: '14px', fontSize: '12px', color: 'var(--ai-fg-soft)', textAlign: 'center', fontStyle: 'italic' }}>{t.caption}</p>
+            </div>
+            {/* Desktop: SVG diagram */}
           <div
-            ref={ref}
-            className={`arch-diagram${isIntersecting ? ' is-built' : ''}`}
+            className={`arch-diagram hidden md:block${isIntersecting ? ' is-built' : ''}`}
             style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', padding: 'clamp(20px,4vw,56px) clamp(16px,4vw,40px)' }}
           >
             <svg viewBox="0 0 1080 480" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: 'auto' }}>
@@ -296,6 +374,7 @@ export function ArchitectureSection() {
             <p style={{ marginTop: '24px', fontSize: '13px', color: 'var(--ai-fg-soft)', textAlign: 'center', fontStyle: 'italic' }}>
               {t.caption}
             </p>
+          </div>
           </div>
         </FadeIn>
       </div>

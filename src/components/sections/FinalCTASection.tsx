@@ -85,22 +85,24 @@ export function FinalCTASection({ locale = 'en' }: { locale?: string }) {
         <p style={{ marginTop: '24px', fontSize: 'clamp(16px,2.5vw,19px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '520px', margin: '24px auto 0' }}>
           {t.p}
         </p>
-        <div style={{ marginTop: '56px' }}>
+        <div style={{ marginTop: 'clamp(32px,4vw,56px)' }}>
           <a
             href="https://calendar.app.google/ghE79tSFxmea4Scd9"
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '16px 32px', borderRadius: '999px',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+              flexWrap: 'wrap',
+              padding: 'clamp(12px,2vw,16px) clamp(20px,4vw,32px)', borderRadius: '999px',
               background: 'rgba(255,255,255,0.10)',
               backdropFilter: 'blur(14px) saturate(180%)',
               WebkitBackdropFilter: 'blur(14px) saturate(180%)',
               border: '1px solid rgba(255,255,255,0.22)',
               color: 'var(--ai-fg)',
-              fontSize: '16px', fontWeight: 600,
+              fontSize: 'clamp(14px,2vw,16px)', fontWeight: 600,
               textDecoration: 'none',
               boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.55), 0 10px 30px rgba(0,0,0,0.10)',
+              maxWidth: '100%',
             }}
             className="hover:-translate-y-0.5 transition-transform"
           >
