@@ -131,14 +131,44 @@ export function HomeHero() {
       className="flex items-center pt-[100px] pb-16 md:pt-[120px] md:pb-20"
     >
       <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
-        <div className="flex flex-col items-center w-full text-center">
+        <div className="flex flex-col md:flex-row md:items-center w-full gap-10 md:gap-0">
 
-          {/* Sphere — small, centered at the top */}
-          <FadeIn className="flex items-center justify-center mb-8 md:mb-10">
+          {/* Left column: text content */}
+          <div className="w-full md:flex-none md:max-w-[620px]">
+            <FadeIn className="md:pr-12">
+              {/* Eyebrow */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '10.5px', letterSpacing: '0.10em', textTransform: 'uppercase', color: 'var(--ai-accent)', fontWeight: 500, marginBottom: '24px' }}>
+                <span style={{ display: 'block', width: 5, height: 5, borderRadius: '50%', background: 'var(--ai-accent)', opacity: 0.65, flexShrink: 0 }} />
+                {t.eyebrow}
+              </div>
+
+              {/* Headline */}
+              <h1 style={{ fontSize: 'clamp(40px, 7.8vw, 96px)', lineHeight: 1.04, letterSpacing: '-0.02em', color: 'var(--ai-fg)', fontFamily: 'var(--font-instrument-serif), Georgia, serif', fontWeight: 400, maxWidth: '16ch', margin: '0 0 24px' }}>
+                {t.headline1}<em style={{ fontStyle: 'italic' }}>{t.headlineItalic}</em>{t.headline2}
+              </h1>
+
+              {/* Subtitle */}
+              <p style={{ fontSize: 'clamp(16px, 2.5vw, 19px)', lineHeight: 1.65, color: 'var(--ai-fg-muted)', maxWidth: '560px', margin: '0 0 36px' }}>
+                {t.subtitle}
+              </p>
+
+              {/* CTAs */}
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>{t.cta1}</GlassButton>
+                <GlassButton href={`/${locale}/process`}>
+                  {t.cta2}
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+                </GlassButton>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Right column: sphere — hidden on small screens */}
+          <div className="hidden md:flex items-center justify-center flex-1 min-w-0">
             <SphereImageGrid
               images={IMAGES}
-              containerSize={240}
-              sphereRadius={88}
+              containerSize={520}
+              sphereRadius={190}
               autoRotate
               autoRotateSpeed={0.2}
               dragSensitivity={0.8}
@@ -148,35 +178,7 @@ export function HomeHero() {
               hoverScale={1.3}
               perspective={1000}
             />
-          </FadeIn>
-
-          {/* Text content */}
-          <FadeIn className="flex flex-col items-center">
-            {/* Eyebrow */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', fontSize: '10.5px', letterSpacing: '0.10em', textTransform: 'uppercase', color: 'var(--ai-accent)', fontWeight: 500, marginBottom: '24px' }}>
-              <span style={{ display: 'block', width: 5, height: 5, borderRadius: '50%', background: 'var(--ai-accent)', opacity: 0.65, flexShrink: 0 }} />
-              {t.eyebrow}
-            </div>
-
-            {/* Headline */}
-            <h1 style={{ fontSize: 'clamp(40px, 7.8vw, 96px)', lineHeight: 1.04, letterSpacing: '-0.02em', color: 'var(--ai-fg)', fontFamily: 'var(--font-instrument-serif), Georgia, serif', fontWeight: 400, maxWidth: '16ch', margin: '0 0 24px' }}>
-              {t.headline1}<em style={{ fontStyle: 'italic' }}>{t.headlineItalic}</em>{t.headline2}
-            </h1>
-
-            {/* Subtitle */}
-            <p style={{ fontSize: 'clamp(16px, 2.5vw, 19px)', lineHeight: 1.65, color: 'var(--ai-fg-muted)', maxWidth: '560px', margin: '0 0 36px' }}>
-              {t.subtitle}
-            </p>
-
-            {/* CTAs */}
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <GlassButton href="https://calendar.app.google/ghE79tSFxmea4Scd9" external>{t.cta1}</GlassButton>
-              <GlassButton href={`/${locale}/process`}>
-                {t.cta2}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-              </GlassButton>
-            </div>
-          </FadeIn>
+          </div>
 
         </div>
       </div>
