@@ -483,8 +483,8 @@ export function OrchestrationSection() {
   }, [locale])
 
   return (
-    <section style={{ padding: '120px 0', borderTop: '1px solid var(--ai-border)' }}>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+    <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
           <FadeIn>
             <div
@@ -525,6 +525,7 @@ export function OrchestrationSection() {
         </div>
 
         <FadeIn delay={200}>
+          <div style={{ overflowX: 'auto' }}>
           <div
             style={{
               borderRadius: '20px',
@@ -534,8 +535,8 @@ export function OrchestrationSection() {
               height: '560px',
               overflow: 'hidden',
               position: 'relative',
-              boxShadow:
-                '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)',
+              boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)',
+              minWidth: '560px',
             }}
           >
             <div
@@ -589,6 +590,7 @@ export function OrchestrationSection() {
                 </svg>
               </div>
             </div>
+          </div>
           </div>
         </FadeIn>
       </div>

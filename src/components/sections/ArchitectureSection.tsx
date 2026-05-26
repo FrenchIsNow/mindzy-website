@@ -199,9 +199,9 @@ export function ArchitectureSection() {
   const l = t.layers
 
   return (
-    <section style={{ padding: '120px 0', borderTop: '1px solid var(--ai-border)' }}>
+    <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
       <style>{archStyles}</style>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <FadeIn>
           <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
@@ -218,7 +218,7 @@ export function ArchitectureSection() {
           <div
             ref={ref}
             className={`arch-diagram${isIntersecting ? ' is-built' : ''}`}
-            style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', padding: '56px 40px', minHeight: '560px' }}
+            style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', padding: 'clamp(20px,4vw,56px) clamp(16px,4vw,40px)' }}
           >
             <svg viewBox="0 0 1080 480" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: 'auto' }}>
               <defs>

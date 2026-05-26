@@ -55,7 +55,7 @@ export function FinalCTASection({ locale = 'en' }: { locale?: string }) {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
 
   return (
-    <section style={{ position: 'relative', padding: '120px 0', overflow: 'hidden', textAlign: 'center' }}>
+    <section className="py-16 md:py-[120px]" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
       {/* Decorative beam lines (SVG positioned absolutely) */}
       <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
         <defs>
@@ -78,11 +78,11 @@ export function FinalCTASection({ locale = 'en' }: { locale?: string }) {
       </svg>
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1 }} className="w-full max-w-[1200px] mx-auto px-8">
+      <div style={{ position: 'relative', zIndex: 1 }} className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(32px,5vw,64px)', lineHeight: 1.18, maxWidth: '18ch', margin: '0 auto' }}>
           {t.h2}
         </h2>
-        <p style={{ marginTop: '24px', fontSize: '19px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '520px', margin: '24px auto 0' }}>
+        <p style={{ marginTop: '24px', fontSize: 'clamp(16px,2.5vw,19px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '520px', margin: '24px auto 0' }}>
           {t.p}
         </p>
         <div style={{ marginTop: '56px' }}>

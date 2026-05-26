@@ -1706,7 +1706,7 @@ export default function FAQPage() {
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       <section className="faq-hero">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="eyebrow-faq">{t.hero.eyebrow}</div>
           <h1>
             {t.hero.headingPrefix}{' '}
@@ -1747,7 +1747,7 @@ export default function FAQPage() {
       </section>
 
       <section>
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="faq-shell">
             <aside className="faq-nav">
               <div className="faq-nav__title">{t.hero.navTitle}</div>

@@ -1151,7 +1151,7 @@ export default function ProcessPage() {
 
       {/* Hero */}
       <section className="process-hero">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="eyebrow">{t.heroEyebrow}</div>
           <h1>
             <em style={{ fontStyle: 'italic' }}>{t.heroH1a}</em><br />
@@ -1170,7 +1170,7 @@ export default function ProcessPage() {
       </section>
 
       {/* Steps shell */}
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <div className="process-shell">
           {/* Left rail */}
           <aside className="process-rail" aria-label="Process steps">
@@ -1212,7 +1212,7 @@ export default function ProcessPage() {
 
       {/* Closing CTA */}
       <section className="process-close">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <h2>
             {t.closingH2a}<br />
             {t.closingH2b}<br />

@@ -179,7 +179,7 @@ export function FooterAI() {
         paddingBottom: '48px',
       }}
     >
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         {/* 3-col grid */}
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12"

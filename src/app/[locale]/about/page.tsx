@@ -724,7 +724,7 @@ export default function AboutPage() {
 
       {/* 01 — Origin */}
       <section className="ab-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="ab-section__grid">
             <div className="ab-section__label sr-item">{t.label01}</div>
             <div className="ab-section__content">
@@ -744,7 +744,7 @@ export default function AboutPage() {
 
       {/* 02 — Method */}
       <section className="ab-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="ab-section__grid">
             <div className="ab-section__label sr-item">{t.label02}</div>
             <div className="ab-section__content">
@@ -774,7 +774,7 @@ export default function AboutPage() {
 
       {/* 03 — Vision */}
       <section className="ab-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="ab-section__grid">
             <div className="ab-section__label sr-item">{t.label03}</div>
             <div className="ab-section__content">
@@ -792,7 +792,7 @@ export default function AboutPage() {
 
       {/* 04 — Founders */}
       <section className="ab-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="ab-section__grid" style={{ alignItems: 'start' }}>
             <div className="ab-section__label sr-item">{t.label04}</div>
             <div className="ab-section__content">
@@ -820,7 +820,7 @@ export default function AboutPage() {
 
       {/* Final CTA */}
       <section className="ab-close">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <h2>
             {t.ctaHeadlineA} <em style={{ fontStyle: 'italic' }}>{t.ctaHeadlineB}</em>{t.ctaHeadlineEnd}
           </h2>

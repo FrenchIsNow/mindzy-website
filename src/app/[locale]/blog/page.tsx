@@ -200,7 +200,7 @@ export default function BlogPage() {
 
       {/* Hero */}
       <section className="blog-hero">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="eyebrow-blog">{t.eyebrow}</div>
           <h1 className="blog-hero__title">
             {t.h1_line1}<br />
@@ -244,7 +244,7 @@ export default function BlogPage() {
 
       {/* Cards */}
       <section className="blog-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="blog-cards">
             {visible.map(p => (
               <a key={p.title} className="blog-card" href="#" data-cat={p.cat}>
@@ -293,7 +293,7 @@ export default function BlogPage() {
 
       {/* Closing CTA */}
       <section className="blog-close">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <h2>{t.closingH2_plain} <em style={{ fontStyle: 'italic' }}>{t.closingH2_em}</em></h2>
           <p>{t.closingP}</p>
           <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>

@@ -452,8 +452,8 @@ export function DashboardSection() {
   }, [locale])
 
   return (
-    <section style={{ padding: '120px 0', borderTop: '1px solid var(--ai-border)' }}>
-      <div ref={sectionRef} className="w-full max-w-[1200px] mx-auto px-8">
+    <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
+      <div ref={sectionRef} className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         {/* Section head */}
         <FadeIn>
           <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
@@ -469,7 +469,8 @@ export function DashboardSection() {
 
         {/* Dashboard card */}
         <FadeIn delay={200}>
-          <div style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', overflow: 'hidden', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)' }}>
+          <div style={{ overflowX: 'auto' }}>
+          <div style={{ borderRadius: '20px', background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', overflow: 'hidden', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', minWidth: '660px' }}>
           {/* Top bar */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '1px solid var(--ai-border)', fontSize: '12.5px', color: 'var(--ai-fg-muted)', background: 'var(--ai-bg-2)' }}>
             <span style={{ display: 'inline-flex', gap: '6px' }}>
@@ -535,6 +536,7 @@ export function DashboardSection() {
           {/* Note */}
           <div style={{ padding: '14px 20px', borderTop: '1px solid var(--ai-border)', background: 'var(--ai-bg-2)', fontSize: '12px', color: 'var(--ai-fg-soft)', letterSpacing: '.01em' }}>
             {t.footerNote}
+          </div>
           </div>
           </div>
         </FadeIn>

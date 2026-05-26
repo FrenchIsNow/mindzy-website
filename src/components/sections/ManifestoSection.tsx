@@ -165,7 +165,7 @@ export function ManifestoSection() {
   const { ref, isIntersecting } = useIntersectionObserver<SVGSVGElement>({ threshold: 0.3 })
 
   return (
-    <section style={{ padding: '120px 0', borderTop: '1px solid var(--ai-border)' }}>
+    <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
       <style>{`
 .orbital-svg .arch__layer { opacity: 0; transform: translateY(12px); transition: opacity .8s ease-out, transform .8s ease-out; }
 .orbital-svg.is-built .arch__layer { opacity: 1; transform: translateY(0); }
@@ -180,11 +180,8 @@ export function ManifestoSection() {
 .orbital-svg.is-built .orbital__node:nth-child(5) { transition-delay: 0.8s; }
 .orbital-svg.is-built .orbital__node:nth-child(6) { transition-delay: 0.95s; }
 `}</style>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
-        <div
-          style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.4fr) minmax(0,1fr)', gap: '80px', alignItems: 'center' }}
-          className="grid-cols-1 md:[grid-template-columns:minmax(0,1.4fr)_minmax(0,1fr)]"
-        >
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-10 md:gap-[80px] items-center">
           {/* Left column */}
           <FadeIn>
             <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
@@ -192,11 +189,11 @@ export function ManifestoSection() {
               <em>{t.h2line1}</em><br />
               {t.h2line2}
             </h2>
-            <p style={{ marginTop: '28px', fontSize: '19px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '60ch' }}>
+            <p style={{ marginTop: '28px', fontSize: 'clamp(16px,2.5vw,19px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '60ch' }}>
               {t.p1}
             </p>
             <p
-              style={{ marginTop: '28px', fontSize: '19px', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '60ch' }}
+              style={{ marginTop: '28px', fontSize: 'clamp(16px,2.5vw,19px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)', maxWidth: '60ch' }}
               dangerouslySetInnerHTML={{ __html: t.p2 }}
             />
           </FadeIn>

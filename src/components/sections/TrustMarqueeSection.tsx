@@ -73,16 +73,16 @@ export function TrustMarqueeSection({ locale = 'en' }: { locale?: string }) {
   return (
     <>
       <style suppressHydrationWarning>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
-      <section style={{ borderTop: '1px solid var(--ai-border)', borderBottom: '1px solid var(--ai-border)', padding: '96px 0' }}>
+      <section className="py-12 md:py-24 border-t border-b border-[var(--ai-border)]">
         {/* Header */}
-        <div className="w-full max-w-[1200px] mx-auto px-8 text-center mb-12">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8 text-center mb-12">
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>
             {t.eyebrow}
           </div>
           <h2 style={{ fontFamily: 'var(--font-serif-ai)', fontSize: 'clamp(38px,5vw,56px)', lineHeight: 1.08, marginTop: '14px', color: 'var(--ai-fg)' }}>
             {t.title}
           </h2>
-          <p style={{ marginTop: '14px', color: 'var(--ai-fg-muted)', fontSize: '18px', lineHeight: 1.6 }}>
+          <p style={{ marginTop: '14px', color: 'var(--ai-fg-muted)', fontSize: 'clamp(15px,2.5vw,18px)', lineHeight: 1.6 }}>
             {t.subtitle}
           </p>
         </div>

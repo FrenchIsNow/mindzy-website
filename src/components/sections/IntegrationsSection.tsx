@@ -120,12 +120,8 @@ export function IntegrationsSection() {
 
   return (
     <section
-      style={{
-        position: 'relative',
-        padding: '100px 0 96px',
-        textAlign: 'center',
-        overflow: 'hidden',
-      }}
+      className="py-16 md:pt-[100px] md:pb-[96px] text-center"
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
       {/* Dot grid background */}
       <div
@@ -146,7 +142,7 @@ export function IntegrationsSection() {
           zIndex: 1,
           marginBottom: '52px',
         }}
-        className="w-full max-w-[1200px] mx-auto px-8"
+        className="w-full max-w-[1200px] mx-auto px-5 md:px-8"
       >
         <h2
           style={{
@@ -185,24 +181,24 @@ export function IntegrationsSection() {
         {/* Fade edges */}
         <div style={{ position: 'relative' }}>
           <div
+            className="w-[60px] md:w-[120px]"
             style={{
               position: 'absolute',
               left: 0,
               top: 0,
               bottom: 0,
-              width: '120px',
               background: 'linear-gradient(to right, var(--ai-bg,#fefdf9), transparent)',
               zIndex: 2,
               pointerEvents: 'none',
             }}
           />
           <div
+            className="w-[60px] md:w-[120px]"
             style={{
               position: 'absolute',
               right: 0,
               top: 0,
               bottom: 0,
-              width: '120px',
               background: 'linear-gradient(to left, var(--ai-bg,#fefdf9), transparent)',
               zIndex: 2,
               pointerEvents: 'none',

@@ -490,7 +490,7 @@ export default function PortfolioPage() {
       {/* Hero */}
       <section className="pf-hero">
         <div className="pf-hero__grid" aria-hidden="true" />
-        <div className="w-full max-w-[1200px] mx-auto px-8" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8" style={{ position: 'relative', zIndex: 1 }}>
           <div className="eyebrow-pf pf-hero__eyebrow">{t.eyebrow}</div>
           <h1 className="pf-hero__title">{t.title}</h1>
           <p className="pf-hero__sub">{t.subtitle}</p>
@@ -520,7 +520,7 @@ export default function PortfolioPage() {
 
       {/* Featured */}
       <section className="pf-featured" id="projects">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="pf-featured__label">{t.featuredLabel}</div>
           <div className="pf-featured__grid">
             {FEATURED.map(p => {
@@ -549,7 +549,7 @@ export default function PortfolioPage() {
 
       {/* All projects */}
       <section className="pf-section">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="pf-filters">
             {FILTERS.map(f => (
               <button key={f} className={`pf-filter${activeFilter === f ? ' is-active' : ''}`} onClick={() => setActiveFilter(f)}>
@@ -584,7 +584,7 @@ export default function PortfolioPage() {
 
       {/* Closing CTA */}
       <section className="pf-close">
-        <div className="w-full max-w-[1200px] mx-auto px-8">
+        <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
           <h2>{t.closingTitle} <em style={{ fontStyle: 'italic' }}>{t.closingTitleItalic}</em> {t.closingTitleEnd}</h2>
           <p>{t.closingBody}</p>
           <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>

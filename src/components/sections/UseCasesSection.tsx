@@ -447,8 +447,8 @@ export function UseCasesSection({ locale = 'en' }: { locale?: string }) {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
 
   return (
-    <section style={{ padding: '120px 0' }}>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+    <section className="py-16 md:py-[120px]">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         {/* Header */}
         <div style={{ maxWidth: '740px', marginBottom: '60px' }}>
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
@@ -461,7 +461,7 @@ export function UseCasesSection({ locale = 'en' }: { locale?: string }) {
         </div>
 
         {/* Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }} className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {t.cases.map(card => (
             <div key={card.title} style={{
               background: 'var(--ai-surface)', border: '1px solid var(--ai-border)', borderRadius: '20px',

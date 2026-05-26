@@ -186,8 +186,8 @@ export function CompoundingSection() {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
 
   return (
-    <section style={{ padding: '120px 0', borderTop: '1px solid var(--ai-border)' }}>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+    <section className="py-16 md:py-[120px] border-t border-[var(--ai-border)]">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <FadeIn>
           <div style={{ maxWidth: '740px', marginBottom: '56px' }}>
             <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>{t.eyebrow}</div>
@@ -200,7 +200,7 @@ export function CompoundingSection() {
           </div>
         </FadeIn>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '56px', marginTop: '56px' }} className="grid-cols-1 sm:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-[56px] mt-14">
           {COUNTER_RANGES.map((range, i) => (
             <Counter
               key={i}

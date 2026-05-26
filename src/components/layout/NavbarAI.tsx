@@ -30,7 +30,6 @@ const LOCALES = [
   { code: 'ru', label: 'Русский' },
 ]
 
-
 function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -141,10 +140,19 @@ const NAV_PATHS = [
 export function NavbarAI() {
   const [scrolled, setScrolled] = useState(false)
   const [isDark, setIsDark] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
 
-  // Extract current locale from pathname (e.g. /en/about → "en")
   const currentLocale = pathname.split('/')[1] ?? 'en'
+
+  // Close mobile menu on navigation
+  useEffect(() => { setMobileOpen(false) }, [pathname])
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
 
   useEffect(() => {
     const stored = localStorage.getItem('mindzy-theme')
@@ -154,9 +162,7 @@ export function NavbarAI() {
   }, [])
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 8)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 8)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -166,22 +172,18 @@ export function NavbarAI() {
     localStorage.setItem('mindzy-theme', isDark ? 'black' : '')
   }, [isDark])
 
-  const toggleTheme = () => {
-    setIsDark((prev) => !prev)
-  }
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? 'border-b border-[var(--ai-border)]' : ''}`}
       style={{
         backdropFilter: 'saturate(1.4) blur(14px)',
         background: 'color-mix(in srgb, var(--ai-bg) 80%, transparent)',
-        padding: '18px 0',
       }}
     >
-      <div className="w-full max-w-[1200px] mx-auto px-8 flex items-center justify-between gap-7">
-        {/* Logo + Brand */}
-        <Link href={`/${currentLocale}`} className="flex items-center gap-2.5">
+      {/* Main bar */}
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8 flex items-center justify-between gap-4 h-[62px]">
+        {/* Logo */}
+        <Link href={`/${currentLocale}`} className="flex items-center gap-2.5 shrink-0">
           <svg viewBox="0 0 1008 874" width="22" height="22" aria-hidden="true">
             <g fill="#7c3aed">
               <path d="M505 0 L0 870 L653 260 Z" />
@@ -189,18 +191,12 @@ export function NavbarAI() {
               <path d="M503 481 L644 615 L113 874 L79 874 Z" />
             </g>
           </svg>
-          <span
-            style={{
-              fontFamily: 'var(--font-serif-ai)',
-              fontSize: '19px',
-              letterSpacing: '-0.01em',
-            }}
-          >
+          <span style={{ fontFamily: 'var(--font-serif-ai)', fontSize: '19px', letterSpacing: '-0.01em' }}>
             Mindzy
           </span>
         </Link>
 
-        {/* Center nav links — locale-aware */}
+        {/* Desktop center nav */}
         <nav className="hidden md:flex items-center gap-9 text-sm">
           {NAV_PATHS.map(({ path, idx }) => {
             const href = `/${currentLocale}${path}`
@@ -210,16 +206,8 @@ export function NavbarAI() {
               <Link
                 key={href}
                 href={href}
-                className={`transition-colors ${
-                  isActive
-                    ? 'text-[var(--ai-fg)]'
-                    : 'text-[var(--ai-fg-muted)] hover:text-[var(--ai-fg)]'
-                }`}
-                style={
-                  isActive
-                    ? { textDecoration: 'underline', textDecorationColor: 'var(--ai-accent)', textUnderlineOffset: '4px' }
-                    : undefined
-                }
+                className={`transition-colors ${isActive ? 'text-[var(--ai-fg)]' : 'text-[var(--ai-fg-muted)] hover:text-[var(--ai-fg)]'}`}
+                style={isActive ? { textDecoration: 'underline', textDecorationColor: 'var(--ai-accent)', textUnderlineOffset: '4px' } : undefined}
               >
                 {label}
               </Link>
@@ -227,32 +215,32 @@ export function NavbarAI() {
           })}
         </nav>
 
-        {/* Right: Theme toggle + English + CTA */}
-        <div className="flex items-center gap-3.5">
+        {/* Right controls */}
+        <div className="flex items-center gap-2 md:gap-3.5">
           {/* Theme toggle */}
           <button
-            onClick={toggleTheme}
+            onClick={() => setIsDark(p => !p)}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="flex items-center justify-center rounded-full border border-[var(--ai-border)] bg-[var(--ai-bg-3)] text-[var(--ai-fg-muted)] hover:text-[var(--ai-fg)] transition-colors"
+            className="flex items-center justify-center rounded-full border border-[var(--ai-border)] bg-[var(--ai-bg-3)] text-[var(--ai-fg-muted)] hover:text-[var(--ai-fg)] transition-colors shrink-0"
             style={{ width: '34px', height: '34px' }}
           >
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          {/* Locale switcher */}
-          <LocaleSwitcher currentLocale={currentLocale} />
+          {/* Locale switcher — desktop only */}
+          <div className="hidden md:block">
+            <LocaleSwitcher currentLocale={currentLocale} />
+          </div>
 
-          {/* Book a Call — glass button */}
+          {/* Book a Call — hidden on smallest screens, shown md+ */}
           <a
             href="https://calendar.app.google/ghE79tSFxmea4Scd9"
             target="_blank"
             rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center"
             style={{
-              position: 'relative',
-              display: 'inline-flex',
-              alignItems: 'center',
               borderRadius: '9999px',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
               letterSpacing: '-0.02em',
               color: 'rgba(20,20,40,0.88)',
@@ -261,15 +249,82 @@ export function NavbarAI() {
               WebkitBackdropFilter: 'blur(14px) saturate(180%)',
               border: '1px solid rgba(20,20,40,0.12)',
               boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.90), inset 0 -1px 0 rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.08)',
-              padding: '10px 18px',
+              padding: '9px 16px',
               textDecoration: 'none',
               whiteSpace: 'nowrap',
             }}
           >
             {BOOK_CALL[currentLocale] ?? BOOK_CALL.en}
           </a>
+
+          {/* Hamburger — mobile only */}
+          <button
+            onClick={() => setMobileOpen(o => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-[5px] shrink-0"
+          >
+            <span className={`block h-[1.5px] w-5 bg-[var(--ai-fg)] transition-all duration-200 ${mobileOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--ai-fg)] transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-[1.5px] w-5 bg-[var(--ai-fg)] transition-all duration-200 ${mobileOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu drawer */}
+      {mobileOpen && (
+        <div
+          style={{
+            background: 'color-mix(in srgb, var(--ai-bg) 97%, transparent)',
+            backdropFilter: 'saturate(1.4) blur(14px)',
+            borderTop: '1px solid var(--ai-border)',
+            borderBottom: '1px solid var(--ai-border)',
+          }}
+        >
+          <nav className="flex flex-col px-5 pt-4 pb-6 gap-1">
+            {NAV_PATHS.map(({ path, idx }) => {
+              const href = `/${currentLocale}${path}`
+              const isActive = pathname === href || (path === '' && pathname === `/${currentLocale}`)
+              const label = (NAV_LABELS[currentLocale] ?? NAV_LABELS.en)[idx]
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className="py-3 text-base font-medium border-b border-[var(--ai-border)] last:border-0 transition-colors"
+                  style={{ color: isActive ? 'var(--ai-accent)' : 'var(--ai-fg)' }}
+                >
+                  {label}
+                </Link>
+              )
+            })}
+            {/* Mobile CTA + locale */}
+            <div className="pt-4 flex items-center gap-3">
+              <a
+                href="https://calendar.app.google/ghE79tSFxmea4Scd9"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  flex: 1,
+                  textAlign: 'center',
+                  borderRadius: '9999px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: 'rgba(20,20,40,0.88)',
+                  background: 'rgba(255,255,255,0.55)',
+                  border: '1px solid rgba(20,20,40,0.12)',
+                  boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.90)',
+                  padding: '12px 20px',
+                  textDecoration: 'none',
+                }}
+              >
+                {BOOK_CALL[currentLocale] ?? BOOK_CALL.en}
+              </a>
+              <LocaleSwitcher currentLocale={currentLocale} />
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

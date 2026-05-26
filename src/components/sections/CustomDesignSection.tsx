@@ -67,8 +67,8 @@ export function CustomDesignSection({ locale = 'en' }: { locale?: string }) {
   const t = TRANSLATIONS[locale as keyof typeof TRANSLATIONS] ?? TRANSLATIONS.en
 
   return (
-    <section style={{ padding: '120px 0' }}>
-      <div className="w-full max-w-[1200px] mx-auto px-8">
+    <section className="py-16 md:py-[120px]">
+      <div className="w-full max-w-[1200px] mx-auto px-5 md:px-8">
         <FadeIn className="max-w-[920px] mx-auto text-center">
           <div style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ai-accent)' }}>
             {t.eyebrow}
@@ -83,7 +83,7 @@ export function CustomDesignSection({ locale = 'en' }: { locale?: string }) {
             {t.headline2}
           </h2>
           <div style={{ margin: '48px auto 0', maxWidth: '720px', textAlign: 'left' }}>
-            <p style={{ fontSize: '20px', lineHeight: 1.6, color: 'var(--ai-fg-muted)' }}>
+            <p style={{ fontSize: 'clamp(16px,2.5vw,20px)', lineHeight: 1.6, color: 'var(--ai-fg-muted)' }}>
               {t.description}
             </p>
           </div>
