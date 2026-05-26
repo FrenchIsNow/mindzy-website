@@ -30,7 +30,7 @@ const LOCALES = [
   { code: 'ru', label: 'Русский' },
 ]
 
-function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
+function LocaleSwitcher({ currentLocale, dropUp = false }: { currentLocale: string; dropUp?: boolean }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -68,7 +68,7 @@ function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
 
       {open && (
         <div
-          style={{ position: 'absolute', top: 'calc(100% + 8px)', right: 0, background: 'var(--ai-bg-2)', border: '1px solid var(--ai-border)', borderRadius: '12px', padding: '6px', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', minWidth: '160px', zIndex: 100 }}
+          style={{ position: 'absolute', ...(dropUp ? { bottom: 'calc(100% + 8px)' } : { top: 'calc(100% + 8px)' }), right: 0, background: 'var(--ai-bg-2)', border: '1px solid var(--ai-border)', borderRadius: '12px', padding: '6px', boxShadow: '0 1px 0 rgba(10,14,26,0.04),0 14px 40px -20px rgba(10,14,26,0.12)', minWidth: '160px', maxHeight: '240px', overflowY: 'auto', zIndex: 100 }}
           onClick={e => e.stopPropagation()}
         >
           {LOCALES.map(locale => {
@@ -320,7 +320,7 @@ export function NavbarAI() {
               >
                 {BOOK_CALL[currentLocale] ?? BOOK_CALL.en}
               </a>
-              <LocaleSwitcher currentLocale={currentLocale} />
+              <LocaleSwitcher currentLocale={currentLocale} dropUp />
             </div>
           </nav>
         </div>
