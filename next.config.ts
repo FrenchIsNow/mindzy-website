@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
       './public/**/*',
       './public/images/**/*',
       './public/portfolio/**/*',
-      './.next/**/*',
       './node_modules/@swc/**/*',
       './node_modules/webpack/**/*',
     ],
