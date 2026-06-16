@@ -19,7 +19,7 @@ export default async function ClientHome() {
   if (!client) redirect('/dashboard/login')
 
   const [articles, ideas] = await Promise.all([
-    listBlogArticlesForClient(client.id),
+    listBlogArticlesForClient(client.id, 'en'),
     listBlogIdeas(client.id),
   ])
 

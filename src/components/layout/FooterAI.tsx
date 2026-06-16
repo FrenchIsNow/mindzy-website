@@ -278,7 +278,7 @@ export function FooterAI() {
                 </a>
               </li>
               <li>
-                <span>EU · Asia · USA</span>
+                <span>EU · ASIA · USA</span>
               </li>
               <li>
                 <a

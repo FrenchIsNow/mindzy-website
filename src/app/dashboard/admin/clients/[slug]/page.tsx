@@ -16,7 +16,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ s
   const client = await getDashboardClientBySlug(slug)
   if (!client) notFound()
 
-  const [ideas, articles] = await Promise.all([listBlogIdeas(client.id), listBlogArticlesForClient(client.id)])
+  const [ideas, articles] = await Promise.all([listBlogIdeas(client.id), listBlogArticlesForClient(client.id, 'en')])
 
   const { password_hash: _ph, ...safeClient } = client
   const isSelfBlog = client.slug === 'mindzy'

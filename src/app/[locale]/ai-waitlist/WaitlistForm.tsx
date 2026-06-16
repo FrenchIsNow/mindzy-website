@@ -9,7 +9,8 @@ interface WaitlistFormProps {
 
 const formContent = {
   fr: {
-    namePlaceholder: 'Votre prénom',
+    firstNamePlaceholder: 'Prénom',
+    lastNamePlaceholder: 'Nom',
     emailPlaceholder: 'Votre email professionnel',
     companyPlaceholder: 'Nom de votre entreprise',
     rolePlaceholder: 'Votre poste',
@@ -29,7 +30,8 @@ const formContent = {
     privacy: 'Nous respectons votre vie privée. Aucun spam, uniquement des informations sur le lancement.',
   },
   en: {
-    namePlaceholder: 'Your first name',
+    firstNamePlaceholder: 'First name',
+    lastNamePlaceholder: 'Last name',
     emailPlaceholder: 'Your professional email',
     companyPlaceholder: 'Company name',
     rolePlaceholder: 'Your role',
@@ -49,7 +51,8 @@ const formContent = {
     privacy: 'We respect your privacy. No spam, only launch updates.',
   },
   es: {
-    namePlaceholder: 'Tu nombre',
+    firstNamePlaceholder: 'Nombre',
+    lastNamePlaceholder: 'Apellido',
     emailPlaceholder: 'Tu email profesional',
     companyPlaceholder: 'Nombre de tu empresa',
     rolePlaceholder: 'Tu puesto',
@@ -73,7 +76,7 @@ const formContent = {
 export function WaitlistForm({ locale }: WaitlistFormProps) {
   const t = formContent[locale as keyof typeof formContent] || formContent.fr
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
-  const [form, setForm] = useState({ name: '', email: '', company: '', role: '' })
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', company: '', role: '' })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -83,12 +86,16 @@ export function WaitlistForm({ locale }: WaitlistFormProps) {
     e.preventDefault()
     setStatus('submitting')
     try {
-      await fetch('/api/waitlist', {
+      const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, locale }),
       })
-      setStatus('success')
+      if (!res.ok) {
+        setStatus('error')
+      } else {
+        setStatus('success')
+      }
     } catch {
       setStatus('error')
     }
@@ -113,23 +120,32 @@ export function WaitlistForm({ locale }: WaitlistFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input
           type="text"
-          name="name"
+          name="firstName"
           required
-          placeholder={t.namePlaceholder}
-          value={form.name}
+          placeholder={t.firstNamePlaceholder}
+          value={form.firstName}
           onChange={handleChange}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-anthracite placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet/30 focus:border-violet transition-all"
         />
         <input
-          type="email"
-          name="email"
+          type="text"
+          name="lastName"
           required
-          placeholder={t.emailPlaceholder}
-          value={form.email}
+          placeholder={t.lastNamePlaceholder}
+          value={form.lastName}
           onChange={handleChange}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-anthracite placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet/30 focus:border-violet transition-all"
         />
       </div>
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder={t.emailPlaceholder}
+        value={form.email}
+        onChange={handleChange}
+        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-anthracite placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet/30 focus:border-violet transition-all"
+      />
       <input
         type="text"
         name="company"

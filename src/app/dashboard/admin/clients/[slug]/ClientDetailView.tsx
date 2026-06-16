@@ -90,7 +90,7 @@ export default function ClientDetailView({
 
       <div className="mb-6 flex gap-1 border-b border-slate-200">
         <TabBtn active={tab === 'articles'} onClick={() => setTab('articles')}>
-          Articles <span className="ml-1 text-xs text-slate-400">({initialArticles.length})</span>
+          Articles <span className="ml-1 text-xs text-slate-400">({initialArticles.length} EN)</span>
         </TabBtn>
         <TabBtn active={tab === 'ideas'} onClick={() => setTab('ideas')}>
           Idées <span className="ml-1 text-xs text-slate-400">({ideas.length})</span>
@@ -101,7 +101,7 @@ export default function ClientDetailView({
       {tab === 'articles' && (
         <>
           <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
-            <NewArticleForm clientId={client.id} defaultLocale={client.locale} />
+            <NewArticleForm clientId={client.id} />
             {client.slug === 'mindzy' && (
               <Link
                 href="/dashboard/admin/articles/import"
@@ -120,9 +120,10 @@ export default function ClientDetailView({
               <table className="w-full text-sm">
                 <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                   <tr>
-                    <th className="px-4 py-3">Titre</th>
-                    <th className="px-4 py-3">Statut</th>
-                    <th className="px-4 py-3">Créé</th>
+                    <th className="px-4 py-3">Title</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3">Translations</th>
+                    <th className="px-4 py-3">Created</th>
                     <th className="px-4 py-3 text-right">Action</th>
                   </tr>
                 </thead>
@@ -134,9 +135,16 @@ export default function ClientDetailView({
                         <div className="text-xs text-slate-500">/{a.slug}</div>
                       </td>
                       <td className="px-4 py-3"><StatusBadge status={a.status} /></td>
+                      <td className="px-4 py-3">
+                        {a.canonical_slug ? (
+                          <span className="text-xs text-violet-600">+ translations</span>
+                        ) : (
+                          <span className="text-xs text-slate-400">—</span>
+                        )}
+                      </td>
                       <td className="px-4 py-3 text-slate-600">{new Date(a.created_at).toLocaleDateString('fr-FR')}</td>
                       <td className="px-4 py-3 text-right">
-                        <Link href={`/dashboard/admin/articles/${a.id}`} className="text-violet-600 hover:underline">Éditer →</Link>
+                        <Link href={`/dashboard/admin/articles/${a.id}`} className="text-violet-600 hover:underline">Edit →</Link>
                       </td>
                     </tr>
                   ))}
@@ -225,15 +233,12 @@ export default function ClientDetailView({
   )
 }
 
-function NewArticleForm({ clientId, defaultLocale }: { clientId: number; defaultLocale: string }) {
+function NewArticleForm({ clientId }: { clientId: number }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
-  const [locale, setLocale] = useState(defaultLocale || 'fr')
   const [creating, setCreating] = useState(false)
   const [err, setErr] = useState('')
-
-  const LOCALES = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru']
 
   async function create(e: React.FormEvent) {
     e.preventDefault()
@@ -242,7 +247,7 @@ function NewArticleForm({ clientId, defaultLocale }: { clientId: number; default
     const res = await fetch('/api/dashboard/articles', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ clientId, title: title.trim() || 'Nouvel article', locale }),
+      body: JSON.stringify({ clientId, title: title.trim() || 'New article', locale: 'en' }),
     })
     setCreating(false)
     if (!res.ok) {
@@ -260,7 +265,7 @@ function NewArticleForm({ clientId, defaultLocale }: { clientId: number; default
         onClick={() => setOpen(true)}
         className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
       >
-        + Nouvel article
+        + New article (EN)
       </button>
     )
   }
@@ -271,31 +276,23 @@ function NewArticleForm({ clientId, defaultLocale }: { clientId: number; default
         autoFocus
         value={title}
         onChange={e => setTitle(e.target.value)}
-        placeholder="Titre de l'article…"
+        placeholder="Article title (EN)…"
         className="min-w-[260px] flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:border-violet-500 focus:outline-none"
       />
-      <select
-        value={locale}
-        onChange={e => setLocale(e.target.value)}
-        className="rounded-lg border border-slate-300 px-2 py-1.5 text-sm focus:border-violet-500 focus:outline-none"
-      >
-        {LOCALES.map(l => (
-          <option key={l} value={l}>{l.toUpperCase()}</option>
-        ))}
-      </select>
+      <span className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">EN</span>
       <button
         type="submit"
         disabled={creating}
         className="rounded-lg bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
       >
-        {creating ? '…' : 'Créer & éditer →'}
+        {creating ? '…' : 'Create & edit →'}
       </button>
       <button
         type="button"
         onClick={() => { setOpen(false); setTitle(''); setErr('') }}
         className="text-xs text-slate-500 hover:text-slate-700"
       >
-        Annuler
+        Cancel
       </button>
       {err && <span className="text-xs text-red-600 w-full">{err}</span>}
     </form>

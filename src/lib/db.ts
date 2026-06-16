@@ -646,12 +646,12 @@ export async function getArticleTranslations(canonicalSlug: string, clientId: nu
   return rows as BlogArticle[]
 }
 
-export async function listBlogArticlesForClient(clientId: number): Promise<BlogArticle[]> {
+export async function listBlogArticlesForClient(clientId: number, sourceLocale?: string): Promise<BlogArticle[]> {
   await initDB()
   const sql = getSql()
-  const rows = await sql`
-    SELECT * FROM blog_articles WHERE client_id = ${clientId} ORDER BY created_at DESC
-  `
+  const rows = sourceLocale
+    ? await sql`SELECT * FROM blog_articles WHERE client_id = ${clientId} AND locale = ${sourceLocale} ORDER BY created_at DESC`
+    : await sql`SELECT * FROM blog_articles WHERE client_id = ${clientId} ORDER BY created_at DESC`
   return rows as BlogArticle[]
 }
 
