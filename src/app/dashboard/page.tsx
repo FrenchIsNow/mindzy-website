@@ -1,9 +1,16 @@
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/dashboard-auth'
+import { getSession as getAdminSession } from '@/lib/auth'
 
 export default async function DashboardRoot() {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role === 'admin') redirect('/dashboard/admin')
-  redirect('/dashboard/client')
+  const clientSession = await getSession().catch(() => null)
+  if (clientSession) {
+    if (clientSession.role === 'client') redirect('/dashboard/client')
+    redirect('/dashboard/admin')
+  }
+
+  const adminSession = await getAdminSession()
+  if (adminSession) redirect('/dashboard/admin')
+
+  redirect('/dashboard/login')
 }

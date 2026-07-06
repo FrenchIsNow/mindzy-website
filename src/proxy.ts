@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getSessionCookie } from 'better-auth/cookies'
 
 const locales = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ar', 'zh', 'ja', 'ru']
 const defaultLocale = 'fr'
@@ -20,9 +21,28 @@ export function proxy(request: NextRequest) {
   // Profile pages — no locale redirect
   if (pathname === '/cocotier' || pathname === '/martel' || pathname.startsWith('/p/'))
     return NextResponse.next()
-  // Dashboard — no locale redirect (hidden admin area)
-  if (pathname === '/dashboard' || pathname.startsWith('/dashboard/'))
+  // Dashboard — no locale redirect; protected by Better Auth session cookie.
+  // Client portal keeps its own legacy session on /dashboard/client/*.
+  if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
+    const isPublicLogin =
+      pathname === '/dashboard/login' ||
+      pathname.startsWith('/dashboard/login') ||
+      pathname === '/dashboard/client/login' ||
+      pathname.startsWith('/dashboard/client/login')
+    const isClientArea = pathname === '/dashboard/client' || pathname.startsWith('/dashboard/client/')
+    if (!isPublicLogin && !isClientArea) {
+      const token = getSessionCookie(request, {
+        cookieName: 'session_token',
+        cookiePrefix: 'better-auth',
+      })
+      if (!token) {
+        const loginUrl = new URL('/dashboard/login', request.url)
+        loginUrl.searchParams.set('from', pathname)
+        return NextResponse.redirect(loginUrl)
+      }
+    }
     return NextResponse.next()
+  }
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)

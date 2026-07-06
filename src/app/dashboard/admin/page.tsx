@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/dashboard-auth'
+import { getSession } from '@/lib/auth'
 import { listDashboardClients, countArticlesForClient, listBlogIdeas } from '@/lib/db'
 import { Shell } from '@/components/dashboard/Sidebar'
 
@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 export default async function AdminHome() {
   const session = await getSession()
   if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
+  if (session.user.role !== 'admin') redirect('/dashboard/client')
 
   const allClients = await listDashboardClients()
   // Hide Mindzy self-blog from the "Clients" table (it's accessible via "Mon blog").
@@ -22,7 +22,7 @@ export default async function AdminHome() {
   )
 
   return (
-    <Shell role="admin" userName="Admin">
+    <Shell role="admin" userName={session.user.name}>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Clients</h1>
         <Link

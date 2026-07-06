@@ -2,12 +2,15 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { authClient } from '@/lib/auth-client'
 
 export default function Topbar({ role, clientName }: { role: 'admin' | 'client'; clientName?: string }) {
   const router = useRouter()
 
   async function logout() {
-    await fetch('/api/dashboard/logout', { method: 'POST' })
+    // Clear both the Better Auth (admin) and legacy (client) sessions.
+    await authClient.signOut().catch(() => null)
+    await fetch('/api/dashboard/logout', { method: 'POST' }).catch(() => null)
     router.push('/dashboard/login')
     router.refresh()
   }

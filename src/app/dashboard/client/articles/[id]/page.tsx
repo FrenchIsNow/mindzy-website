@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function ClientArticlePage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getSession()
-  if (!session) redirect('/dashboard/login')
+  if (!session) redirect('/dashboard/client/login')
   if (session.role !== 'client') redirect('/dashboard/admin')
 
   const { id } = await params

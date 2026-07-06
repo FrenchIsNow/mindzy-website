@@ -8,6 +8,93 @@ function getSql() {
   return neon(url)
 }
 
+// ─── Better Auth tables (idempotent) ─────────────────────────────────────────
+
+async function initAuthTables(sql: ReturnType<typeof getSql>) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS "user" (
+      id              TEXT PRIMARY KEY,
+      name            TEXT NOT NULL,
+      email           TEXT NOT NULL UNIQUE,
+      email_verified  BOOLEAN NOT NULL DEFAULT FALSE,
+      image           TEXT,
+      role            TEXT NOT NULL DEFAULT 'editor',
+      is_active       BOOLEAN NOT NULL DEFAULT TRUE,
+      banned          BOOLEAN NOT NULL DEFAULT FALSE,
+      ban_reason      TEXT,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS user_email_idx ON "user"(email)`
+  await sql`ALTER TABLE "user" ADD COLUMN IF NOT EXISTS banned BOOLEAN NOT NULL DEFAULT FALSE`
+  await sql`ALTER TABLE "user" ADD COLUMN IF NOT EXISTS ban_reason TEXT`
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS "session" (
+      id              TEXT PRIMARY KEY,
+      expires_at      TIMESTAMPTZ NOT NULL,
+      token           TEXT NOT NULL UNIQUE,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      ip_address      TEXT,
+      user_agent      TEXT,
+      user_id         TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS session_userId_idx ON "session"(user_id)`
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS "account" (
+      id                          TEXT PRIMARY KEY,
+      account_id                  TEXT NOT NULL,
+      provider_id                 TEXT NOT NULL,
+      user_id                     TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+      access_token                TEXT,
+      refresh_token               TEXT,
+      id_token                    TEXT,
+      access_token_expires_at     TIMESTAMPTZ,
+      refresh_token_expires_at    TIMESTAMPTZ,
+      scope                       TEXT,
+      password                    TEXT,
+      created_at                  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at                  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS account_userId_idx ON "account"(user_id)`
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS "verification" (
+      id              TEXT PRIMARY KEY,
+      identifier      TEXT NOT NULL,
+      value           TEXT NOT NULL,
+      expires_at      TIMESTAMPTZ NOT NULL,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS verification_identifier_idx ON "verification"(identifier)`
+}
+
+async function seedDefaultAdmin(sql: ReturnType<typeof getSql>) {
+  const password = process.env.ADMIN_INITIAL_PASSWORD
+  if (!password) return
+
+  const existing = await sql`SELECT id FROM "user" WHERE role = 'admin' AND is_active = TRUE LIMIT 1`
+  if (existing.length > 0) return
+
+  // Dynamic import avoids a hard module-level dependency on Better Auth env vars.
+  const { auth } = await import('./auth')
+  await auth.api.createUser({
+    body: {
+      email: 'contact@mindzy.me',
+      password,
+      name: 'Mindzy Admin',
+      role: 'admin',
+    },
+  })
+}
+
 // ─── Schema init (idempotent) ─────────────────────────────────────────────────
 
 let _initialized = false
@@ -15,6 +102,8 @@ let _initialized = false
 export async function initDB() {
   if (_initialized) return
   const sql = getSql()
+
+  await initAuthTables(sql)
 
   await sql`
     CREATE TABLE IF NOT EXISTS audit_requests (
@@ -329,6 +418,8 @@ export async function initDB() {
       'scrypt$0000000000000000000000000000000000000000000000000000000000000000$0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
     WHERE NOT EXISTS (SELECT 1 FROM dashboard_clients WHERE slug = 'mindzy')
   `
+
+  await seedDefaultAdmin(sql)
 
   _initialized = true
 }

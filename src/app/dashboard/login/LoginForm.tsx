@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { authClient } from '@/lib/auth-client'
 
 export default function LoginForm() {
   const router = useRouter()
-  const [identifier, setIdentifier] = useState('')
+  const searchParams = useSearchParams()
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -14,18 +16,21 @@ export default function LoginForm() {
     e.preventDefault()
     setError('')
     setLoading(true)
-    const res = await fetch('/api/dashboard/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identifier, password }),
+
+    const result = await authClient.signIn.email({
+      email,
+      password,
+      callbackURL: searchParams?.get('from') || '/dashboard/admin',
     })
-    const data = await res.json()
+
     setLoading(false)
-    if (!res.ok) {
-      setError(data.error || 'Erreur de connexion')
+
+    if (result.error) {
+      setError(result.error.message || 'Erreur de connexion')
       return
     }
-    router.push(data.redirect || '/dashboard')
+
+    router.push(searchParams?.get('from') || '/dashboard/admin')
     router.refresh()
   }
 
@@ -35,8 +40,8 @@ export default function LoginForm() {
         <label className="mb-1 block text-sm font-medium text-slate-700">Email</label>
         <input
           type="email"
-          value={identifier}
-          onChange={e => setIdentifier(e.target.value)}
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           placeholder="vous@exemple.com"
           autoComplete="username"
           className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"

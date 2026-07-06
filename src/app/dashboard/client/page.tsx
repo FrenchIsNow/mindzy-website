@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function ClientHome() {
   const session = await getSession()
-  if (!session) redirect('/dashboard/login')
+  if (!session) redirect('/dashboard/client/login')
   if (session.role !== 'client') redirect('/dashboard/admin')
 
   const client = await getDashboardClientById(session.clientId)
