@@ -419,9 +419,257 @@ export async function initDB() {
     WHERE NOT EXISTS (SELECT 1 FROM dashboard_clients WHERE slug = 'mindzy')
   `
 
+  await initCMSMigration(sql)
+
   await seedDefaultAdmin(sql)
 
   _initialized = true
+}
+
+// ─── CMS migration (idempotent, additive) ─────────────────────────────────────
+
+async function initCMSMigration(sql: ReturnType<typeof getSql>) {
+  // ── Blog Sites ─────────────────────────────────────────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS blog_sites (
+      id          SERIAL PRIMARY KEY,
+      slug        TEXT UNIQUE NOT NULL,
+      name        TEXT NOT NULL,
+      domain      TEXT,
+      is_default  BOOLEAN NOT NULL DEFAULT FALSE,
+      settings    JSONB NOT NULL DEFAULT '{}',
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_sites_slug ON blog_sites(slug)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_blog_sites_default ON blog_sites(is_default)`
+
+  // Default Mindzy site.
+  await sql`
+    INSERT INTO blog_sites (slug, name, domain, is_default)
+    SELECT 'mindzy', 'Mindzy Blog', 'mindzy.me', TRUE
+    WHERE NOT EXISTS (SELECT 1 FROM blog_sites WHERE slug = 'mindzy')
+  `
+
+  // Link ideas/articles to sites.
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS blog_site_id INTEGER REFERENCES blog_sites(id) ON DELETE SET NULL`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS blog_site_id INTEGER REFERENCES blog_sites(id) ON DELETE SET NULL`
+
+  // Backfill blog_site_id from dashboard_clients slug mapping.
+  await sql`
+    UPDATE blog_ideas
+    SET blog_site_id = (
+      SELECT bs.id FROM blog_sites bs
+      JOIN dashboard_clients dc ON dc.slug = bs.slug
+      WHERE dc.id = blog_ideas.client_id
+    )
+    WHERE blog_site_id IS NULL
+  `
+  await sql`
+    UPDATE blog_articles
+    SET blog_site_id = (
+      SELECT bs.id FROM blog_sites bs
+      JOIN dashboard_clients dc ON dc.slug = bs.slug
+      WHERE dc.id = blog_articles.client_id
+    )
+    WHERE blog_site_id IS NULL
+  `
+
+  // Ensure every dashboard_client has an implicit blog site (non-default).
+  await sql`
+    INSERT INTO blog_sites (slug, name, domain, is_default)
+    SELECT dc.slug, dc.name || ' Blog', dc.domain, FALSE
+    FROM dashboard_clients dc
+    WHERE NOT EXISTS (SELECT 1 FROM blog_sites bs WHERE bs.slug = dc.slug)
+  `
+
+  // ── Unified Leads ──────────────────────────────────────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS leads (
+      id              SERIAL PRIMARY KEY,
+      email           TEXT NOT NULL,
+      first_name      TEXT,
+      last_name       TEXT,
+      company         TEXT,
+      role            TEXT,
+      phone           TEXT,
+      locale          TEXT NOT NULL DEFAULT 'fr',
+      source          TEXT NOT NULL,
+      source_detail   JSONB DEFAULT '{}',
+      status          TEXT NOT NULL DEFAULT 'new',
+      tags            TEXT[],
+      notes           JSONB DEFAULT '[]',
+      gdpr_consent    BOOLEAN DEFAULT FALSE,
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(LOWER(email))`
+  await sql`CREATE INDEX IF NOT EXISTS idx_leads_source ON leads(source)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at DESC)`
+
+  await sql`ALTER TABLE ebook_leads ADD COLUMN IF NOT EXISTS lead_id INTEGER REFERENCES leads(id) ON DELETE SET NULL`
+  await sql`ALTER TABLE waitlist_entries ADD COLUMN IF NOT EXISTS lead_id INTEGER REFERENCES leads(id) ON DELETE SET NULL`
+
+  // Backfill ebook leads.
+  await sql`
+    WITH inserted AS (
+      INSERT INTO leads (email, first_name, last_name, company, locale, source, source_detail, status, gdpr_consent)
+      SELECT
+        LOWER(el.email),
+        split_part(el.name, ' ', 1),
+        NULLIF(split_part(el.name, ' ', 2), ''),
+        el.company,
+        el.locale,
+        'ebook',
+        jsonb_build_object('ebook_slug', el.ebook_slug, 'original_id', el.id),
+        'new',
+        TRUE
+      FROM ebook_leads el
+      WHERE el.lead_id IS NULL
+      RETURNING id, source_detail->>'original_id' AS original_id
+    )
+    UPDATE ebook_leads
+    SET lead_id = inserted.id
+    FROM inserted
+    WHERE ebook_leads.id = inserted.original_id::int
+  `
+
+  // Backfill waitlist entries.
+  await sql`
+    WITH inserted AS (
+      INSERT INTO leads (email, first_name, last_name, company, role, locale, source, source_detail, status, gdpr_consent)
+      SELECT
+        LOWER(we.email),
+        we.first_name,
+        we.last_name,
+        we.company,
+        we.role,
+        we.locale,
+        'waitlist',
+        jsonb_build_object('waiting_list_slug', COALESCE(we.source, 'ai-employee'), 'original_id', we.id),
+        'new',
+        TRUE
+      FROM waitlist_entries we
+      WHERE we.lead_id IS NULL
+      RETURNING id, source_detail->>'original_id' AS original_id
+    )
+    UPDATE waitlist_entries
+    SET lead_id = inserted.id
+    FROM inserted
+    WHERE waitlist_entries.id = inserted.original_id::int
+  `
+
+  // ── Ebooks ─────────────────────────────────────────────────────────────────
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'draft'`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS scheduled_at TIMESTAMPTZ`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS published_at TIMESTAMPTZ`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS author_id INTEGER`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS seo_title TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS seo_description TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS geo_keywords TEXT[]`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS canonical_slug TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS og_image_url TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS form_fields JSONB DEFAULT '["email","firstName","lastName","company","role"]'`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS thank_you_redirect_url TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS calendly_url TEXT`
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS download_count INTEGER NOT NULL DEFAULT 0`
+
+  await sql`ALTER TABLE ebook_content ADD COLUMN IF NOT EXISTS meta_title TEXT`
+  await sql`ALTER TABLE ebook_content ADD COLUMN IF NOT EXISTS meta_description TEXT`
+  await sql`ALTER TABLE ebook_content ADD COLUMN IF NOT EXISTS geo_metadata JSONB DEFAULT '{}'`
+
+  // Set sensible defaults for already-active ebooks.
+  await sql`
+    UPDATE ebook_catalog
+    SET status = 'published', published_at = COALESCE(published_at, created_at)
+    WHERE is_active = TRUE AND status = 'draft'
+  `
+
+  // ── Waiting Lists v2 ─────────────────────────────────────────────────────
+  await sql`
+    CREATE TABLE IF NOT EXISTS waiting_lists (
+      id                  SERIAL PRIMARY KEY,
+      slug                TEXT UNIQUE NOT NULL,
+      name                TEXT NOT NULL,
+      description         TEXT,
+      locale              TEXT NOT NULL DEFAULT 'fr',
+      status              TEXT NOT NULL DEFAULT 'active',
+      form_fields         JSONB DEFAULT '["firstName","lastName","email","company","role","companySize","useCase"]',
+      hero_title          TEXT,
+      hero_subtitle       TEXT,
+      benefits            JSONB DEFAULT '[]',
+      thank_you_message   TEXT,
+      redirect_url        TEXT,
+      created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_waiting_lists_slug ON waiting_lists(slug)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_waiting_lists_status ON waiting_lists(status)`
+
+  await sql`ALTER TABLE waitlist_entries ADD COLUMN IF NOT EXISTS waiting_list_id INTEGER REFERENCES waiting_lists(id) ON DELETE SET NULL`
+
+  // Default legacy list for the existing AI-employee waitlist.
+  await sql`
+    INSERT INTO waiting_lists (slug, name, description, locale, status, hero_title, hero_subtitle)
+    SELECT 'ai-employee',
+           'AI Employee Waitlist',
+           'Early access to the Mindzy AI employee platform.',
+           'fr',
+           'active',
+           'Rejoignez la liste d’accès anticipé',
+           'Soyez parmi les premiers à déployer un collaborateur IA dans votre entreprise.'
+    WHERE NOT EXISTS (SELECT 1 FROM waiting_lists WHERE slug = 'ai-employee')
+  `
+  await sql`
+    UPDATE waitlist_entries
+    SET waiting_list_id = (SELECT id FROM waiting_lists WHERE slug = 'ai-employee')
+    WHERE waiting_list_id IS NULL
+  `
+
+  // ── Blog Articles & Ideas enhancements ───────────────────────────────────
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS author_id INTEGER`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS blocks JSONB DEFAULT '[]'`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS seo_title TEXT`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS seo_description TEXT`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS geo_keywords TEXT[]`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS og_image_url TEXT`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS related_article_slugs TEXT[]`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS internal_links JSONB DEFAULT '[]'`
+  await sql`ALTER TABLE blog_articles ADD COLUMN IF NOT EXISTS scheduled_at TIMESTAMPTZ`
+
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS assigned_to INTEGER`
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS target_keyword TEXT`
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS due_date DATE`
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS source TEXT DEFAULT 'manual'`
+  await sql`ALTER TABLE blog_ideas ADD COLUMN IF NOT EXISTS priority TEXT DEFAULT 'medium'`
+
+  // Status normalisation for ideas: legacy idea/planned → waiting; article-only statuses → in_progress.
+  await sql`
+    UPDATE blog_ideas
+    SET status = CASE
+      WHEN status IN ('idea', 'planned') THEN 'waiting'
+      WHEN status IN ('generating', 'pending_review', 'approved', 'published', 'rejected') THEN 'in_progress'
+      ELSE status
+    END
+    WHERE status NOT IN ('waiting', 'in_progress', 'done', 'archived')
+  `
+
+  // Drop and recreate constraints idempotently.
+  await sql`ALTER TABLE blog_ideas DROP CONSTRAINT IF EXISTS blog_ideas_status_check`
+  await sql`ALTER TABLE blog_articles DROP CONSTRAINT IF EXISTS blog_articles_status_check`
+  await sql`ALTER TABLE ebook_catalog DROP CONSTRAINT IF EXISTS ebook_catalog_status_check`
+  await sql`ALTER TABLE waiting_lists DROP CONSTRAINT IF EXISTS waiting_lists_status_check`
+  await sql`ALTER TABLE leads DROP CONSTRAINT IF EXISTS leads_status_check`
+
+  await sql`ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check CHECK (status IN ('waiting','in_progress','done','archived'))`
+  await sql`ALTER TABLE blog_articles ADD CONSTRAINT blog_articles_status_check CHECK (status IN ('draft','scheduled','published','archived','pending_review','approved','rejected'))`
+  await sql`ALTER TABLE ebook_catalog ADD CONSTRAINT ebook_catalog_status_check CHECK (status IN ('draft','scheduled','published','archived'))`
+  await sql`ALTER TABLE waiting_lists ADD CONSTRAINT waiting_lists_status_check CHECK (status IN ('active','paused','archived'))`
+  await sql`ALTER TABLE leads ADD CONSTRAINT leads_status_check CHECK (status IN ('new','contacted','qualified','converted','archived'))`
 }
 
 // ─── Dashboard: clients ──────────────────────────────────────────────────────
@@ -548,6 +796,7 @@ export async function deleteDashboardClient(id: number): Promise<void> {
 export interface BlogIdea {
   id: number
   client_id: number
+  blog_site_id: number | null
   question: string
   category: string | null
   subcategory: string | null
@@ -557,6 +806,11 @@ export interface BlogIdea {
   locale: string | null
   status: string
   scheduled_for: string | null
+  assigned_to: number | null
+  target_keyword: string | null
+  due_date: string | null
+  source: string
+  priority: string
   created_at: string
 }
 
@@ -665,12 +919,15 @@ export async function deleteBlogIdea(id: number): Promise<void> {
 export interface BlogArticle {
   id: number
   client_id: number
+  blog_site_id: number | null
   idea_id: number | null
+  author_id: number | null
   title: string
   slug: string
   canonical_slug: string | null
   excerpt: string | null
   content_html: string
+  blocks: unknown[] | null
   cover_image_url: string | null
   cover_alt: string | null
   keywords: string[] | null
@@ -682,6 +939,13 @@ export interface BlogArticle {
   drive_md_url: string | null
   drive_image_url: string | null
   sheet_row_id: string | null
+  seo_title: string | null
+  seo_description: string | null
+  geo_keywords: string[] | null
+  og_image_url: string | null
+  related_article_slugs: string[] | null
+  internal_links: unknown[] | null
+  scheduled_at: string | null
   created_at: string
   updated_at: string
   published_at: string | null
@@ -1030,8 +1294,23 @@ export interface CatalogEntry {
   has_upsell: boolean
   upsell_price_cents: number | null
   upsell_slug: string | null
+  status: string
+  scheduled_at: string | null
+  published_at: string | null
+  author_id: number | null
+  seo_title: string | null
+  seo_description: string | null
+  geo_keywords: string[] | null
+  canonical_slug: string | null
+  og_image_url: string | null
+  form_fields: unknown[] | null
+  thank_you_redirect_url: string | null
+  calendly_url: string | null
+  download_count: number
   stripe_product_id?: string | null
   stripe_price_id?: string | null
+  created_at: string
+  updated_at: string
 }
 
 export async function getCatalogEntry(slug: string): Promise<CatalogEntry | null> {
@@ -1113,6 +1392,9 @@ export interface EbookContent {
   features: EbookFeature[] | null
   stats: EbookStat[] | null
   testimonial: EbookTestimonial | null
+  meta_title: string | null
+  meta_description: string | null
+  geo_metadata: Record<string, unknown> | null
   is_db_only: boolean
   updated_at: string
 }
@@ -1315,6 +1597,8 @@ export interface WaitlistEntry {
   use_case: string | null
   locale: string
   source: string | null
+  waiting_list_id: number | null
+  lead_id: number | null
   created_at: string
 }
 
@@ -1328,16 +1612,23 @@ export async function saveWaitlistEntry(data: {
   useCase?: string | null
   locale?: string
   source?: string | null
+  waitingListId?: number | null
 }): Promise<number> {
   await initDB()
   const sql = getSql()
+  let listId = data.waitingListId
+  if (listId === undefined || listId === null) {
+    const listRows = await sql`SELECT id FROM waiting_lists WHERE slug = 'ai-employee' LIMIT 1`
+    listId = listRows[0]?.id as number | undefined ?? null
+  }
   const rows = await sql`
     INSERT INTO waitlist_entries
-      (first_name, last_name, email, role, company, company_size, use_case, locale, source)
+      (first_name, last_name, email, role, company, company_size, use_case, locale, source, waiting_list_id)
     VALUES
       (${data.firstName}, ${data.lastName}, ${data.email},
        ${data.role ?? null}, ${data.company ?? null}, ${data.companySize ?? null},
-       ${data.useCase ?? null}, ${data.locale ?? 'fr'}, ${data.source ?? null})
+       ${data.useCase ?? null}, ${data.locale ?? 'fr'}, ${data.source ?? null},
+       ${listId})
     RETURNING id
   `
   return rows[0].id as number
@@ -1364,4 +1655,85 @@ export function applyPromo(entry: CatalogEntry, code: string): number {
   if (entry.promo_expires_at && new Date(entry.promo_expires_at) < new Date()) return entry.price_cents
   const discount = entry.promo_discount_pct ?? 0
   return Math.round(entry.price_cents * (1 - discount / 100))
+}
+
+// ─── CMS v2 entities ─────────────────────────────────────────────────────────
+
+export interface BlogSite {
+  id: number
+  slug: string
+  name: string
+  domain: string | null
+  is_default: boolean
+  settings: Record<string, unknown>
+  created_at: string
+  updated_at: string
+}
+
+export interface Lead {
+  id: number
+  email: string
+  first_name: string | null
+  last_name: string | null
+  company: string | null
+  role: string | null
+  phone: string | null
+  locale: string
+  source: string
+  source_detail: Record<string, unknown>
+  status: string
+  tags: string[] | null
+  notes: unknown[] | null
+  gdpr_consent: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface WaitingList {
+  id: number
+  slug: string
+  name: string
+  description: string | null
+  locale: string
+  status: string
+  form_fields: unknown[] | null
+  hero_title: string | null
+  hero_subtitle: string | null
+  benefits: unknown[] | null
+  thank_you_message: string | null
+  redirect_url: string | null
+  created_at: string
+  updated_at: string
+}
+
+export async function listBlogSites(): Promise<BlogSite[]> {
+  await initDB()
+  const sql = getSql()
+  return sql`SELECT * FROM blog_sites ORDER BY is_default DESC, name ASC` as unknown as Promise<BlogSite[]>
+}
+
+export async function getBlogSiteBySlug(slug: string): Promise<BlogSite | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM blog_sites WHERE slug = ${slug} LIMIT 1`
+  return (rows[0] as BlogSite) ?? null
+}
+
+export async function listLeads(limit = 100, offset = 0): Promise<Lead[]> {
+  await initDB()
+  const sql = getSql()
+  return sql`SELECT * FROM leads ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}` as unknown as Promise<Lead[]>
+}
+
+export async function listWaitingLists(): Promise<WaitingList[]> {
+  await initDB()
+  const sql = getSql()
+  return sql`SELECT * FROM waiting_lists ORDER BY created_at DESC` as unknown as Promise<WaitingList[]>
+}
+
+export async function getWaitingListBySlug(slug: string): Promise<WaitingList | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM waiting_lists WHERE slug = ${slug} LIMIT 1`
+  return (rows[0] as WaitingList) ?? null
 }

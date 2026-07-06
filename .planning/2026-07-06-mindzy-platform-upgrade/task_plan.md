@@ -6,10 +6,10 @@ Replace the custom dashboard session/auth layer with Better Auth + RBAC, restruc
 
 ## Current Phase
 
-**Phase 1 — Foundation & Auth**  
-Status: `completed`. Better Auth integrated, RBAC schema in place, default admin seeded, dashboard middleware protects `/dashboard/*` (legacy client portal stays on `/dashboard/client/*`), login/logout wired, admin sidebar restructured.
+**Phase 2 — Database Migrations & Data Model**  
+Status: `completed`. `blog_sites`, `leads`, `waiting_lists` tables created; CMS columns added to `ebook_catalog`, `ebook_content`, `blog_ideas`, `blog_articles`, `waitlist_entries`; status constraints enforced; existing data backfilled; TypeScript types updated.
 
-**Next: Phase 2 — Database migrations & data model for Blog Sites, Waiting Lists v2, and Unified Leads.**
+**Next: Phase 3 — Admin Information Architecture (list pages, detail pages, server-side role checks).**
 
 ---
 
