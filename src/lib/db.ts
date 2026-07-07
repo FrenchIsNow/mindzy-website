@@ -293,6 +293,12 @@ export async function initDB() {
   await sql`ALTER TABLE services DROP COLUMN IF EXISTS url`
   await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_product_id TEXT`
   await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS stripe_price_id TEXT`
+  // Per-locale deliverable type: { fr: 'pdf' | 'page' | 'article', en: ..., es: ... }
+  await sql`ALTER TABLE ebook_catalog ADD COLUMN IF NOT EXISTS deliverable_types JSONB NOT NULL DEFAULT '{}'::jsonb`
+  // HTML body for type='page' (internal page lead magnet).
+  await sql`ALTER TABLE ebook_content ADD COLUMN IF NOT EXISTS html_content TEXT`
+  // External/internal article URL for type='article' redirect.
+  await sql`ALTER TABLE ebook_content ADD COLUMN IF NOT EXISTS article_url TEXT`
 
   // Seed the GEO audit service — referenced by the seo-geo-expert-guide ebook as upsell.
   await sql`
@@ -1452,8 +1458,22 @@ export interface CatalogEntry {
   download_count: number
   stripe_product_id?: string | null
   stripe_price_id?: string | null
+  deliverable_types: Record<string, 'pdf' | 'page' | 'article'> | null
   created_at: string
   updated_at: string
+}
+
+export type DeliverableType = 'pdf' | 'page' | 'article'
+
+export function getDeliverableType(entry: CatalogEntry | null | undefined, locale: string): DeliverableType {
+  const types = entry?.deliverable_types
+  if (types && typeof types === 'object') {
+    const v = (types as Record<string, unknown>)[locale]
+    if (v === 'pdf' || v === 'page' || v === 'article') return v
+    const def = (types as Record<string, unknown>)['fr']
+    if (def === 'pdf' || def === 'page' || def === 'article') return def
+  }
+  return 'pdf'
 }
 
 export async function getCatalogEntry(slug: string): Promise<CatalogEntry | null> {
@@ -1482,7 +1502,8 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       is_active, has_upsell, upsell_price_cents, upsell_slug,
       status, scheduled_at, published_at, author_id,
       seo_title, seo_description, geo_keywords, canonical_slug, og_image_url,
-      form_fields, thank_you_redirect_url, calendly_url, download_count, updated_at
+      form_fields, thank_you_redirect_url, calendly_url, download_count,
+      deliverable_types, updated_at
     ) VALUES (
       ${data.slug},
       ${data.is_free ?? true},
@@ -1509,6 +1530,7 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       ${data.thank_you_redirect_url ?? null},
       ${data.calendly_url ?? null},
       ${data.download_count ?? 0},
+      ${data.deliverable_types ? JSON.stringify(data.deliverable_types) : '{}'}::jsonb,
       NOW()
     )
     ON CONFLICT (slug) DO UPDATE SET
@@ -1536,6 +1558,7 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       thank_you_redirect_url   = EXCLUDED.thank_you_redirect_url,
       calendly_url             = EXCLUDED.calendly_url,
       download_count           = EXCLUDED.download_count,
+      deliverable_types        = EXCLUDED.deliverable_types,
       updated_at               = NOW()
   `
 }
@@ -1568,6 +1591,9 @@ export interface EbookContent {
   meta_description: string | null
   geo_metadata: Record<string, unknown> | null
   is_db_only: boolean
+  // Lead-magnet fields: HTML body for type='page', article URL for type='article'.
+  html_content: string | null
+  article_url: string | null
   updated_at: string
 }
 
@@ -1614,6 +1640,8 @@ export async function upsertEbookContent(data: {
   metaDescription?: string | null
   geoMetadata?: Record<string, unknown> | null
   isDbOnly?: boolean
+  htmlContent?: string | null
+  articleUrl?: string | null
 }): Promise<void> {
   await initDB()
   const sql = getSql()
@@ -1622,7 +1650,8 @@ export async function upsertEbookContent(data: {
       slug, locale, title, subtitle, excerpt, category, tags,
       image_url, pdf_url, pages, reading_time,
       chapters, features, stats, testimonial,
-      meta_title, meta_description, geo_metadata, is_db_only, updated_at
+      meta_title, meta_description, geo_metadata, is_db_only,
+      html_content, article_url, updated_at
     ) VALUES (
       ${data.slug}, ${data.locale},
       ${data.title ?? null}, ${data.subtitle ?? null}, ${data.excerpt ?? null},
@@ -1637,6 +1666,8 @@ export async function upsertEbookContent(data: {
       ${data.metaDescription ?? null},
       ${data.geoMetadata ? JSON.stringify(data.geoMetadata) : null}::jsonb,
       ${data.isDbOnly ?? false},
+      ${data.htmlContent ?? null},
+      ${data.articleUrl ?? null},
       NOW()
     )
     ON CONFLICT (slug, locale) DO UPDATE SET
@@ -1657,6 +1688,8 @@ export async function upsertEbookContent(data: {
       meta_description= EXCLUDED.meta_description,
       geo_metadata    = EXCLUDED.geo_metadata,
       is_db_only      = EXCLUDED.is_db_only,
+      html_content    = EXCLUDED.html_content,
+      article_url     = EXCLUDED.article_url,
       updated_at      = NOW()
   `
 }
@@ -1718,6 +1751,36 @@ async function seedStaticEbooksToCatalog(): Promise<void> {
       `
     }
   }
+
+  // ─── EU AI Act lead magnet (DB-only slug, not in src/lib/ebooks.ts) ──────
+  // Catalog row only — the HTML body is seeded by scripts/seed-eu-ai-act.mjs
+  // because we can't read the source file from a Neon migration.
+  await sql`
+    INSERT INTO ebook_catalog (
+      slug, is_free, is_active, currency, status, published_at,
+      form_fields, deliverable_types, updated_at
+    ) VALUES (
+      ${'eu-ai-act-2024'}, ${true}, ${true}, ${'eur'}, ${'published'}, NOW(),
+      ${'["email","firstName","lastName","company"]'}::jsonb,
+      ${'{"fr": "page", "en": "pdf", "es": "pdf"}'}::jsonb,
+      NOW()
+    )
+    ON CONFLICT (slug) DO NOTHING
+  `
+
+  // FR content shell (filled in by the seed script).
+  await sql`
+    INSERT INTO ebook_content (
+      slug, locale, title, subtitle, excerpt, category, is_db_only, updated_at
+    ) VALUES (
+      ${'eu-ai-act-2024'}, ${'fr'},
+      ${'Règlement (UE) 2024/1689 — Rapport Complet AI Act'},
+      ${"Le guide opérationnel de la conformité à l'AI Act pour les entreprises."},
+      ${"Synthèse exécutive, classification par niveau de risque, obligations opérationnelles, sanctions, et roadmap de mise en conformité."},
+      ${'juridique'}, ${true}, NOW()
+    )
+    ON CONFLICT (slug, locale) DO NOTHING
+  `
 }
 
 // ─── Profiles (linktree-style founder cards) ────────────────────────────────

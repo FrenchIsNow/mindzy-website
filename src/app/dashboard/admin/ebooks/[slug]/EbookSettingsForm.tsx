@@ -18,6 +18,19 @@ const FORM_FIELD_OPTIONS = [
 
 const DEFAULT_FORM_FIELDS = ['email', 'firstName', 'lastName', 'company', 'role']
 
+const DELIVERABLE_TYPE_OPTIONS = [
+  { value: 'pdf', label: 'PDF (téléchargement)' },
+  { value: 'page', label: 'Page interne (HTML)' },
+  { value: 'article', label: 'Article (redirection)' },
+] as const
+type DeliverableType = (typeof DELIVERABLE_TYPE_OPTIONS)[number]['value']
+
+const LOCALES: Array<{ key: 'fr' | 'en' | 'es'; label: string }> = [
+  { key: 'fr', label: 'Français' },
+  { key: 'en', label: 'English' },
+  { key: 'es', label: 'Español' },
+]
+
 export default function EbookSettingsForm({
   slug,
   initial,
@@ -46,6 +59,15 @@ export default function EbookSettingsForm({
     const base = stored.length > 0 ? stored : DEFAULT_FORM_FIELDS
     // Email is always required.
     return base.includes('email') ? base : ['email', ...base]
+  })
+  const [deliverableTypes, setDeliverableTypes] = useState<Record<'fr' | 'en' | 'es', DeliverableType>>(() => {
+    const stored = initial?.deliverable_types as Record<string, unknown> | null | undefined
+    const coerce = (v: unknown): DeliverableType => (v === 'pdf' || v === 'page' || v === 'article' ? v : 'pdf')
+    return {
+      fr: coerce(stored?.fr ?? stored?.['fr'] ?? 'pdf'),
+      en: coerce(stored?.en ?? 'pdf'),
+      es: coerce(stored?.es ?? 'pdf'),
+    }
   })
   const [services, setServices] = useState<Service[]>([])
   const [saving, setSaving] = useState(false)
@@ -115,6 +137,7 @@ export default function EbookSettingsForm({
         upsell_price_cents: upsellCents,
         upsell_slug: form.has_upsell ? form.upsell_slug : null,
         form_fields: formFields,
+        deliverable_types: deliverableTypes,
       }),
     })
     setSaving(false)
@@ -223,6 +246,30 @@ export default function EbookSettingsForm({
               </label>
             )
           })}
+        </div>
+      </div>
+
+      <div className="border-t border-slate-200 pt-4">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Type de livrable par locale</h3>
+        <p className="mb-3 text-xs text-slate-500">Choisissez ce que reçoit l&apos;utilisateur après l&apos;envoi du formulaire : un PDF, une page HTML interne, ou une redirection vers un article.</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {LOCALES.map(loc => (
+            <div key={loc.key}>
+              <label className="mb-1 block text-xs font-medium text-slate-600">{loc.label}</label>
+              <select
+                value={deliverableTypes[loc.key]}
+                onChange={e => {
+                  const v = e.target.value as DeliverableType
+                  setDeliverableTypes(prev => ({ ...prev, [loc.key]: v }))
+                }}
+                className={cls}
+              >
+                {DELIVERABLE_TYPE_OPTIONS.map(o => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </div>
+          ))}
         </div>
       </div>
 

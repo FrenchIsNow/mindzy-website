@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getEbook } from '@/lib/ebooks'
-import { listEbookContentForSlug } from '@/lib/db'
+import { getCatalogEntry, getDeliverableType, listEbookContentForSlug } from '@/lib/db'
 import EbookContentEditor from './EbookContentEditor'
 
 export const dynamic = 'force-dynamic'
@@ -11,8 +11,15 @@ export default async function EditEbookPage({ params }: { params: Promise<{ slug
   const { slug } = await params
   const staticEbook = getEbook(slug)
   const dbRows = await listEbookContentForSlug(slug)
+  const entry = await getCatalogEntry(slug)
 
   if (!staticEbook && dbRows.length === 0) notFound()
+
+  const deliverableTypes = {
+    fr: getDeliverableType(entry, 'fr'),
+    en: getDeliverableType(entry, 'en'),
+    es: getDeliverableType(entry, 'es'),
+  } as const
 
   // Build initial state for all three locales.
   const initial: Record<string, unknown> = {}
@@ -36,6 +43,8 @@ export default async function EditEbookPage({ params }: { params: Promise<{ slug
       stats: db?.stats ?? s?.stats?.[locale] ?? [],
       testimonial: db?.testimonial ?? s?.testimonial?.[locale] ?? { quote: '', author: '', role: '' },
       hasDbOverride: Boolean(db),
+      htmlContent: db?.html_content ?? '',
+      articleUrl: db?.article_url ?? '',
     }
   }
 
@@ -48,6 +57,6 @@ export default async function EditEbookPage({ params }: { params: Promise<{ slug
         Modifiez la page publique <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">/fr/ebooks/{slug}</code>.
         Éditez en FR puis cliquez <strong>Traduire avec IA</strong> pour générer EN / ES.
       </p>
-      <EbookContentEditor slug={slug} initial={initial as never} isDbOnly={!staticEbook} />
+      <EbookContentEditor slug={slug} initial={initial as never} isDbOnly={!staticEbook} deliverableTypes={deliverableTypes} />
 </>  )
 }

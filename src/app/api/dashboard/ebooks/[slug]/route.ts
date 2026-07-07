@@ -48,6 +48,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     thank_you_redirect_url: body.thank_you_redirect_url as string | null,
     calendly_url: body.calendly_url as string | null,
     download_count: body.download_count as number | undefined,
+    deliverable_types: (body.deliverable_types as Record<string, 'pdf' | 'page' | 'article'>) || null,
   })
 
   // Sync to Stripe only for paid, active ebooks with a real price.

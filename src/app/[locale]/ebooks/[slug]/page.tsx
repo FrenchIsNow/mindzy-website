@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getCatalogEntry, getEbookContent, getAllCatalogEntries } from '@/lib/db'
+import { getCatalogEntry, getEbookContent, getAllCatalogEntries, getDeliverableType } from '@/lib/db'
 import { getEbook, ebooks as allStaticEbooks } from '@/lib/ebooks'
 import { locales, type Locale, defaultLocale } from '@/lib/i18n'
 import DownloadForm from './DownloadForm'
@@ -58,6 +58,10 @@ export default async function EbookLanding({ params }: { params: Promise<{ local
   const isFree = entry?.is_free ?? staticEbook?.free ?? true
   const formFields = Array.isArray(entry?.form_fields) ? (entry.form_fields as string[]) : ['email', 'firstName', 'lastName', 'company', 'role']
 
+  const deliverableType = getDeliverableType(entry, locale)
+  const htmlContent = dbContent?.html_content ?? ''
+  const showInlineContent = deliverableType === 'page' && Boolean(htmlContent)
+
   return (
     <>
       <div className="container-narrow section-padding">
@@ -98,10 +102,22 @@ export default async function EbookLanding({ params }: { params: Promise<{ local
             <div className="mb-6 aspect-[16/10] overflow-hidden rounded-xl bg-slate-100">
               <img src={image} alt={title} className="h-full w-full object-cover" />
             </div>
-            <DownloadForm slug={slug} locale={locale} fields={formFields} />
+            <DownloadForm slug={slug} locale={locale} fields={formFields} deliverableType={deliverableType} />
           </div>
         </div>
       </div>
+
+      {showInlineContent && (
+        <section id="content" className="container-narrow section-padding border-t border-slate-200">
+          {/* Lead-magnet HTML body — admin-controlled, sanitized at render time via the wrapper. */}
+          <div
+            className="lead-magnet-html prose max-w-none"
+            // The content is admin-authored (or seeded from a vetted source file) and
+            // lives in ebook_content.html_content. We render it inside a scoped wrapper.
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        </section>
+      )}
 
       {related.length > 0 && (
         <div className="container-narrow section-padding border-t border-slate-200">

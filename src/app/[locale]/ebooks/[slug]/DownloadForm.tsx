@@ -47,10 +47,12 @@ export default function DownloadForm({
   slug,
   locale,
   fields = ['email', 'firstName', 'lastName', 'company', 'role'],
+  deliverableType = 'pdf',
 }: {
   slug: string
   locale: string
   fields?: string[]
+  deliverableType?: 'pdf' | 'page' | 'article'
 }) {
   const [values, setValues] = useState<LeadProfile>({})
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -102,7 +104,16 @@ export default function DownloadForm({
         a.remove()
       }
 
-      if (json.redirectUrl) {
+      if (deliverableType === 'page') {
+        // Scroll to the rendered HTML body anchored at #content.
+        const target = document.getElementById('content')
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } else {
+          // Fallback: use the URL hash in case the section isn't on this locale yet.
+          window.location.hash = '#content'
+        }
+      } else if (json.redirectUrl) {
         window.location.href = json.redirectUrl
       }
     } catch {
@@ -206,8 +217,14 @@ export default function DownloadForm({
         disabled={status === 'loading'}
         className="w-full rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
       >
-        {status === 'loading' ? 'Envoi...' : 'Télécharger le guide'}
+        {status === 'loading' ? 'Envoi...' : deliverableType === 'page' ? 'Accéder au rapport' : deliverableType === 'article' ? "Recevoir l'article" : 'Télécharger le guide'}
       </button>
+      {deliverableType === 'page' && (
+        <p className="text-xs text-slate-500">Vous accéderez au rapport directement après l&apos;envoi.</p>
+      )}
+      {deliverableType === 'article' && (
+        <p className="text-xs text-slate-500">Vous serez redirigé vers l&apos;article après l&apos;envoi.</p>
+      )}
       {status === 'success' && (
         <p className="text-sm text-emerald-600">Merci ! Le téléchargement démarre...</p>
       )}

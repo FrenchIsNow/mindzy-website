@@ -14,4 +14,9 @@ build
 .vercel
 *.tsbuildinfo
 
+# Local-only: scratch, dev tooling, one-off test scripts not run in CI.
+Untitled
+.playwright-mcp/
+/test/
+
 

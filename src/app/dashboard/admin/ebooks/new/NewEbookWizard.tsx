@@ -393,7 +393,7 @@ export default function NewEbookWizard() {
             <PreviewRow label="Mots-clés GEO" value={form.geoKeywords || '—'} />
           </div>
           <p className="mt-4 text-xs text-slate-500">
-            En cliquant sur Publier, l\'ebook sera créé en base avec le contenu FR. Vous pourrez ensuite le traduire et l\'éditer depuis la fiche détail.
+            En cliquant sur Publier, le lead magnet sera créé en base avec le contenu FR. Vous pourrez ensuite le traduire et l'éditer depuis la fiche détail.
           </p>
         </div>
       )}

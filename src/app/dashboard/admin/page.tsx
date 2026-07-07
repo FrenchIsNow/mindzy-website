@@ -28,7 +28,7 @@ export default async function AdminHome() {
   const modules = [
     {
       href: '/dashboard/admin/ebooks',
-      label: 'Ebooks',
+      label: 'Lead magnets',
       description: `${ebooks.length} publication${ebooks.length > 1 ? 's' : ''}`,
     },
     {

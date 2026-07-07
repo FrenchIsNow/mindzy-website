@@ -25,12 +25,15 @@ type LocaleContent = {
   stats: Stat[]
   testimonial: Testimonial
   hasDbOverride: boolean
+  htmlContent: string
+  articleUrl: string
 }
 
 type Props = {
   slug: string
   initial: Record<'fr' | 'en' | 'es', LocaleContent>
   isDbOnly: boolean
+  deliverableTypes: Record<'fr' | 'en' | 'es', 'pdf' | 'page' | 'article'>
 }
 
 const LOCALES = [
@@ -39,7 +42,7 @@ const LOCALES = [
   { code: 'es' as const, flag: '🇪🇸', label: 'Español' },
 ]
 
-export default function EbookContentEditor({ slug, initial }: Props) {
+export default function EbookContentEditor({ slug, initial, deliverableTypes }: Props) {
   const router = useRouter()
   const [locale, setLocale] = useState<'fr' | 'en' | 'es'>('fr')
   const [state, setState] = useState(initial)
@@ -301,6 +304,58 @@ export default function EbookContentEditor({ slug, initial }: Props) {
           </div>
         </div>
       </Section>
+
+      {/* Page interne (HTML) / Article (URL) — gated by per-locale deliverable type */}
+      {(() => {
+        const t = deliverableTypes[locale]
+        if (t === 'page') {
+          return (
+            <Section title="Page interne (HTML)">
+              <p className="mb-3 text-xs text-slate-500">
+                Collez le HTML complet de la page. Le contenu est rendu tel quel après l&apos;envoi du formulaire
+                (votre CSS interne est conservé).
+              </p>
+              <textarea
+                value={current.htmlContent}
+                onChange={e => updateCurrent({ htmlContent: e.target.value })}
+                rows={20}
+                className={`${cls} font-mono text-xs`}
+                placeholder="<!doctype html><html>…</html>"
+              />
+              {current.htmlContent && (
+                <p className="mt-2 text-xs text-slate-500">
+                  Taille : {(new Blob([current.htmlContent]).size / 1024).toFixed(1)} KB
+                </p>
+              )}
+            </Section>
+          )
+        }
+        if (t === 'article') {
+          return (
+            <Section title="Article (redirection)">
+              <p className="mb-3 text-xs text-slate-500">
+                URL de l&apos;article vers lequel l&apos;utilisateur sera redirigé après l&apos;envoi du formulaire
+                (interne ou externe).
+              </p>
+              <input
+                value={current.articleUrl}
+                onChange={e => updateCurrent({ articleUrl: e.target.value })}
+                placeholder="https://… ou /blog/mon-article"
+                className={cls}
+              />
+            </Section>
+          )
+        }
+        return (
+          <Section title="Livrable">
+            <p className="text-sm text-slate-500">
+              Cette locale utilise le type <strong>PDF</strong>. Le fichier PDF uploadé dans l&apos;onglet FR est utilisé.
+              <br />
+              Pour basculer en page interne ou article, modifiez le type dans l&apos;onglet <em>Paramètres</em> de cette lead magnet.
+            </p>
+          </Section>
+        )
+      })()}
 
       {/* Save bar */}
       <div className="sticky bottom-4 flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-5 py-3 shadow-lg">

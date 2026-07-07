@@ -38,6 +38,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
       testimonial: db?.testimonial ?? s?.testimonial?.[locale] ?? null,
       isDbOnly: db?.is_db_only ?? !staticEbook,
       hasDbOverride: Boolean(db),
+      htmlContent: db?.html_content ?? '',
+      articleUrl: db?.article_url ?? '',
     }
   }
   return NextResponse.json({ locales: byLocale })
@@ -45,7 +47,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
 
 /**
  * PUT: upserts ebook content for a specific locale.
- * Body: { locale, title, subtitle, excerpt, category, tags, imageUrl, pdfUrl, pages, readingTime, chapters, features, stats, testimonial }
+ * Body: { locale, title, subtitle, excerpt, category, tags, imageUrl, pdfUrl, pages, readingTime, chapters, features, stats, testimonial, htmlContent, articleUrl }
  */
 export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
   const unauthorized = await requireApiAdmin()
@@ -80,6 +82,8 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     metaTitle: body.metaTitle as string | null,
     metaDescription: body.metaDescription as string | null,
     geoMetadata: body.geoMetadata as Record<string, unknown> | null,
+    htmlContent: body.htmlContent as string | null,
+    articleUrl: body.articleUrl as string | null,
     isDbOnly,
   })
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getCatalogEntry, getEbookContent, upsertEbookLeadForDownload } from '@/lib/db'
+import { getCatalogEntry, getEbookContent, getDeliverableType, upsertEbookLeadForDownload } from '@/lib/db'
 import { getEbook } from '@/lib/ebooks'
 import { defaultLocale } from '@/lib/i18n'
 
@@ -62,19 +62,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Impossible de sauvegarder l'inscription." }, { status: 500 })
   }
 
-  const redirectUrl =
-    entry?.thank_you_redirect_url ||
-    entry?.calendly_url ||
-    staticEbook?.ctaLink ||
-    null
+  const type = getDeliverableType(entry, locale)
 
-  const pdfUrl = staticEbook
-    ? `/ebooks/${staticEbook.pdfByLocale?.[locale as import('@/lib/i18n').Locale] || staticEbook.pdfByLocale?.[defaultLocale] || ''}`
-    : dbContent?.pdf_url || null
+  // For 'page' type, the client scrolls to #content instead of redirecting.
+  // For 'article', we redirect to the article URL (DB or fallback).
+  // For 'pdf' (default), the existing thank-you redirect applies.
+  const redirectUrl =
+    type === 'article'
+      ? (dbContent?.article_url || entry?.thank_you_redirect_url || entry?.calendly_url || staticEbook?.ctaLink || null)
+      : type === 'page'
+        ? null
+        : (entry?.thank_you_redirect_url || entry?.calendly_url || staticEbook?.ctaLink || null)
+
+  const pdfUrl = type === 'pdf'
+    ? (staticEbook
+        ? `/ebooks/${staticEbook.pdfByLocale?.[locale as import('@/lib/i18n').Locale] || staticEbook.pdfByLocale?.[defaultLocale] || ''}`
+        : dbContent?.pdf_url || null)
+    : null
 
   return NextResponse.json({
     ok: true,
     redirectUrl,
     pdfUrl,
+    deliverableType: type,
   })
 }

@@ -31,10 +31,10 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
       items: [{ href: '/dashboard/admin', label: 'Vue d\'ensemble', icon: <IconOverview /> }],
     },
     {
-      label: 'Ebooks',
+      label: 'Lead magnets',
       items: [
-        { href: '/dashboard/admin/ebooks', label: 'Tous les ebooks', icon: <IconBook /> },
-        { href: '/dashboard/admin/ebooks/new', label: 'Nouvel ebook', icon: <IconPlus /> },
+        { href: '/dashboard/admin/ebooks', label: 'Tous les lead magnets', icon: <IconBook /> },
+        { href: '/dashboard/admin/ebooks/new', label: 'Nouveau lead magnet', icon: <IconPlus /> },
       ],
     },
     {
@@ -65,6 +65,7 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
     {
       label: 'Paramètres',
       items: [
+        { href: '/dashboard/admin/profile', label: 'Mon profil', icon: <IconUser /> },
         { href: '/dashboard/admin/settings', label: 'Utilisateurs & RBAC', icon: <IconUser /> },
         { href: '/dashboard/admin/settings/organization', label: 'Organisation', icon: <IconBuilding /> },
         { href: '/dashboard/admin/settings/integrations', label: 'Intégrations', icon: <IconPlug /> },

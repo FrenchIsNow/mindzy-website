@@ -76,14 +76,14 @@ export default async function EbooksAdmin({ searchParams }: { searchParams: Prom
     <div className="space-y-5">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Ebooks</h1>
-          <p className="mt-1 text-sm text-slate-600">Créer, planifier et suivre les ebooks et leurs leads.</p>
+          <h1 className="text-2xl font-semibold tracking-tight">Lead magnets</h1>
+          <p className="mt-1 text-sm text-slate-600">Créer, planifier et suivre les lead magnets (PDF, page interne ou article) et leurs leads.</p>
         </div>
         <Link
           href="/dashboard/admin/ebooks/new"
           className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
         >
-          + Nouvel ebook
+          + Nouveau lead magnet
         </Link>
       </div>
 
@@ -92,7 +92,7 @@ export default async function EbooksAdmin({ searchParams }: { searchParams: Prom
           <input
             name="q"
             defaultValue={q ?? ''}
-            placeholder="Rechercher un ebook…"
+            placeholder="Rechercher un lead magnet…"
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-violet-500 focus:outline-none"
           />
           {status && status !== 'all' ? <input type="hidden" name="status" value={status} /> : null}
@@ -122,7 +122,7 @@ export default async function EbooksAdmin({ searchParams }: { searchParams: Prom
 
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
-          Aucun ebook ne correspond aux critères.
+          Aucun lead magnet ne correspond aux critères.
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
