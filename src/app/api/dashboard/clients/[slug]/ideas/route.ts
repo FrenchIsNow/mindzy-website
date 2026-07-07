@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin, getSession } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import {
   getDashboardClientBySlug,
   listBlogIdeas,
@@ -10,32 +10,25 @@ import {
 export const runtime = 'nodejs'
 
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-
-  if (session.role === 'client' && session.clientId !== client.id) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
 
   const ideas = await listBlogIdeas(client.id)
   return NextResponse.json({ ideas })
 }
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   const body = (await req.json().catch(() => null)) as
-    | { question?: string; category?: string; subcategory?: string; target?: string; contentType?: string; seoPriority?: string; locale?: string }
+    | { question?: string; category?: string; subcategory?: string; target?: string; contentType?: string; seoPriority?: string; locale?: string; source?: string; dueDate?: string | null; keyword?: string | null; status?: 'waiting' | 'in_progress' | 'done' | 'archived' }
     | { ideas: Array<{ question: string; category?: string; subcategory?: string; target?: string; contentType?: string; seoPriority?: string; locale?: string }> }
     | null
 
@@ -47,7 +40,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     return NextResponse.json({ ok: true, inserted: count })
   }
 
-  const single = body as { question?: string; category?: string; subcategory?: string; target?: string; contentType?: string; seoPriority?: string; locale?: string }
+  const single = body as { question?: string; category?: string; subcategory?: string; target?: string; contentType?: string; seoPriority?: string; locale?: string; source?: string; dueDate?: string | null; keyword?: string | null; status?: 'waiting' | 'in_progress' | 'done' | 'archived' }
   if (!single.question) {
     return NextResponse.json({ error: 'question required' }, { status: 400 })
   }
@@ -60,6 +53,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     contentType: single.contentType,
     seoPriority: single.seoPriority,
     locale: single.locale,
+    source: single.source,
+    dueDate: single.dueDate ?? undefined,
+    keyword: single.keyword ?? undefined,
+    status: single.status,
   })
   return NextResponse.json({ idea })
 }

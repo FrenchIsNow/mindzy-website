@@ -1,4 +1,6 @@
 import { neon } from '@neondatabase/serverless'
+import { ebooks as staticEbooks } from './ebooks'
+import type { Locale } from './i18n'
 
 // ─── Client ───────────────────────────────────────────────────────────────────
 
@@ -422,8 +424,10 @@ export async function initDB() {
   await initCMSMigration(sql)
 
   await seedDefaultAdmin(sql)
-
+  // Mark initialization complete before seeding static ebooks so that any
+  // nested `initDB()` calls (made by DB helpers used in the seed) return early.
   _initialized = true
+  await seedStaticEbooksToCatalog()
 }
 
 // ─── CMS migration (idempotent, additive) ─────────────────────────────────────
@@ -658,18 +662,30 @@ async function initCMSMigration(sql: ReturnType<typeof getSql>) {
     WHERE status NOT IN ('waiting', 'in_progress', 'done', 'archived')
   `
 
-  // Drop and recreate constraints idempotently.
-  await sql`ALTER TABLE blog_ideas DROP CONSTRAINT IF EXISTS blog_ideas_status_check`
-  await sql`ALTER TABLE blog_articles DROP CONSTRAINT IF EXISTS blog_articles_status_check`
-  await sql`ALTER TABLE ebook_catalog DROP CONSTRAINT IF EXISTS ebook_catalog_status_check`
-  await sql`ALTER TABLE waiting_lists DROP CONSTRAINT IF EXISTS waiting_lists_status_check`
-  await sql`ALTER TABLE leads DROP CONSTRAINT IF EXISTS leads_status_check`
-
-  await sql`ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check CHECK (status IN ('waiting','in_progress','done','archived'))`
-  await sql`ALTER TABLE blog_articles ADD CONSTRAINT blog_articles_status_check CHECK (status IN ('draft','scheduled','published','archived','pending_review','approved','rejected'))`
-  await sql`ALTER TABLE ebook_catalog ADD CONSTRAINT ebook_catalog_status_check CHECK (status IN ('draft','scheduled','published','archived'))`
-  await sql`ALTER TABLE waiting_lists ADD CONSTRAINT waiting_lists_status_check CHECK (status IN ('active','paused','archived'))`
-  await sql`ALTER TABLE leads ADD CONSTRAINT leads_status_check CHECK (status IN ('new','contacted','qualified','converted','archived'))`
+  // Drop and recreate constraints idempotently. Swallow 42710 (duplicate_object)
+  // in case a prior failed run left the constraint committed.
+  // ponytail: identifiers inlined — neon's tagged template only parameterizes values,
+  // and these table names are a hardcoded allowlist we own. Switch to .query() if
+  // we ever need dynamic table names.
+  const tables = ['blog_ideas', 'blog_articles', 'ebook_catalog', 'waiting_lists', 'leads'] as const
+  const constraints: Record<typeof tables[number], string> = {
+    blog_ideas: "CHECK (status IN ('waiting','in_progress','done','archived'))",
+    blog_articles: "CHECK (status IN ('draft','scheduled','published','archived','pending_review','approved','rejected'))",
+    ebook_catalog: "CHECK (status IN ('draft','scheduled','published','archived'))",
+    waiting_lists: "CHECK (status IN ('active','paused','archived'))",
+    leads: "CHECK (status IN ('new','contacted','qualified','converted','archived'))",
+  }
+  try {
+    for (const t of tables) {
+      await sql(`ALTER TABLE ${t} DROP CONSTRAINT IF EXISTS ${t}_status_check`)
+    }
+    for (const t of tables) {
+      await sql(`ALTER TABLE ${t} ADD CONSTRAINT ${t}_status_check ${constraints[t]}`)
+    }
+  } catch (err) {
+    if ((err as { code?: string })?.code === '42710') return // already in place
+    throw err
+  }
 }
 
 // ─── Dashboard: clients ──────────────────────────────────────────────────────
@@ -816,6 +832,7 @@ export interface BlogIdea {
 
 export async function createBlogIdea(data: {
   clientId: number
+  blogSiteId?: number | null
   question: string
   category?: string
   subcategory?: string
@@ -823,17 +840,22 @@ export async function createBlogIdea(data: {
   contentType?: string
   seoPriority?: string
   locale?: string
+  status?: 'waiting' | 'in_progress' | 'done' | 'archived'
+  source?: string
+  dueDate?: string | null
+  keyword?: string | null
 }): Promise<BlogIdea> {
   await initDB()
   const sql = getSql()
   const rows = await sql`
     INSERT INTO blog_ideas (
-      client_id, question, category, subcategory, target,
-      content_type, seo_priority, locale
+      client_id, blog_site_id, question, category, subcategory, target,
+      content_type, seo_priority, locale, status, source, due_date, keyword
     ) VALUES (
-      ${data.clientId}, ${data.question}, ${data.category ?? null},
-      ${data.subcategory ?? null}, ${data.target ?? null},
-      ${data.contentType ?? null}, ${data.seoPriority ?? null}, ${data.locale ?? null}
+      ${data.clientId}, ${data.blogSiteId ?? null}, ${data.question},
+      ${data.category ?? null}, ${data.subcategory ?? null}, ${data.target ?? null},
+      ${data.contentType ?? null}, ${data.seoPriority ?? null}, ${data.locale ?? null},
+      ${data.status ?? 'waiting'}, ${data.source ?? null}, ${data.dueDate ?? null}, ${data.keyword ?? null}
     )
     RETURNING *
   `
@@ -903,7 +925,10 @@ export async function updateBlogIdea(
       content_type = COALESCE(${data.content_type ?? null}, content_type),
       seo_priority = COALESCE(${data.seo_priority ?? null}, seo_priority),
       locale       = COALESCE(${data.locale ?? null}, locale),
-      status       = COALESCE(${data.status ?? null}, status)
+      status       = COALESCE(${data.status ?? null}, status),
+      source       = COALESCE(${data.source ?? null}, source),
+      due_date     = COALESCE(${data.due_date ?? null}, due_date),
+      target_keyword = COALESCE(${data.target_keyword ?? null}, target_keyword)
     WHERE id = ${id}
   `
 }
@@ -953,6 +978,7 @@ export interface BlogArticle {
 
 export async function createBlogArticle(data: {
   clientId: number
+  blogSiteId?: number | null
   ideaId?: number | null
   title: string
   slug: string
@@ -974,11 +1000,11 @@ export async function createBlogArticle(data: {
   const sql = getSql()
   const rows = await sql`
     INSERT INTO blog_articles (
-      client_id, idea_id, title, slug, canonical_slug, excerpt, content_html,
+      client_id, blog_site_id, idea_id, title, slug, canonical_slug, excerpt, content_html,
       cover_image_url, cover_alt, keywords, category, reading_time,
       locale, status, drive_md_url, drive_image_url, sheet_row_id
     ) VALUES (
-      ${data.clientId}, ${data.ideaId ?? null}, ${data.title}, ${data.slug},
+      ${data.clientId}, ${data.blogSiteId ?? null}, ${data.ideaId ?? null}, ${data.title}, ${data.slug},
       ${data.canonicalSlug ?? null}, ${data.excerpt ?? null}, ${data.contentHtml ?? ''},
       ${data.coverImageUrl ?? null}, ${data.coverAlt ?? null},
       ${data.keywords ?? null}, ${data.category ?? null}, ${data.readingTime ?? null},
@@ -1029,6 +1055,7 @@ export async function updateBlogArticle(
       slug            = COALESCE(${data.slug ?? null}, slug),
       excerpt         = COALESCE(${data.excerpt ?? null}, excerpt),
       content_html    = COALESCE(${data.content_html ?? null}, content_html),
+      blocks          = COALESCE(${data.blocks as unknown ?? null}, blocks),
       cover_image_url = COALESCE(${data.cover_image_url ?? null}, cover_image_url),
       cover_alt       = COALESCE(${data.cover_alt ?? null}, cover_alt),
       keywords        = COALESCE(${data.keywords ?? null}, keywords),
@@ -1037,6 +1064,10 @@ export async function updateBlogArticle(
       locale          = COALESCE(${data.locale ?? null}, locale),
       status          = COALESCE(${data.status ?? null}, status),
       client_notes    = COALESCE(${data.client_notes ?? null}, client_notes),
+      seo_title       = COALESCE(${data.seo_title ?? null}, seo_title),
+      seo_description = COALESCE(${data.seo_description ?? null}, seo_description),
+      geo_keywords    = COALESCE(${data.geo_keywords as unknown ?? null}, geo_keywords),
+      og_image_url    = COALESCE(${data.og_image_url ?? null}, og_image_url),
       published_at    = COALESCE(${data.published_at ?? null}, published_at),
       updated_at      = NOW()
     WHERE id = ${id}
@@ -1219,6 +1250,47 @@ export async function saveEbookLead(data: {
   return rows[0].id as number
 }
 
+export async function createEbookLead(data: {
+  email: string
+  firstName?: string
+  lastName?: string
+  company?: string
+  role?: string
+  phone?: string
+  ebookSlug: string
+  locale: string
+}): Promise<{ ebookLeadId: number; leadId: number }> {
+  await initDB()
+  const sql = getSql()
+
+  const name = [data.firstName, data.lastName].filter(Boolean).join(' ')
+  const ebookRows = await sql`
+    INSERT INTO ebook_leads (email, name, company, role, ebook_slug, locale)
+    VALUES (${data.email}, ${name || null}, ${data.company ?? null}, ${data.role ?? null}, ${data.ebookSlug}, ${data.locale})
+    RETURNING id
+  `
+  const ebookLeadId = ebookRows[0].id as number
+
+  const leadRows = await sql`
+    INSERT INTO leads (email, first_name, last_name, company, role, locale, source, source_detail, status, gdpr_consent)
+    VALUES (
+      ${data.email},
+      ${data.firstName ?? null},
+      ${data.lastName ?? null},
+      ${data.company ?? null},
+      ${data.role ?? null},
+      ${data.locale},
+      ${'ebook'},
+      ${{ ebook_slug: data.ebookSlug, ebook_lead_id: ebookLeadId }},
+      ${'new'},
+      ${true}
+    )
+    RETURNING id
+  `
+  const leadId = leadRows[0].id as number
+  return { ebookLeadId, leadId }
+}
+
 export async function getEbookLeads(ebookSlug?: string) {
   await initDB()
   const sql = getSql()
@@ -1336,7 +1408,10 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
     INSERT INTO ebook_catalog (
       slug, is_free, price_cents, original_price_cents, currency,
       promo_code, promo_discount_pct, promo_expires_at,
-      is_active, has_upsell, upsell_price_cents, upsell_slug, updated_at
+      is_active, has_upsell, upsell_price_cents, upsell_slug,
+      status, scheduled_at, published_at, author_id,
+      seo_title, seo_description, geo_keywords, canonical_slug, og_image_url,
+      form_fields, thank_you_redirect_url, calendly_url, download_count, updated_at
     ) VALUES (
       ${data.slug},
       ${data.is_free ?? true},
@@ -1350,21 +1425,47 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       ${data.has_upsell ?? false},
       ${data.upsell_price_cents ?? null},
       ${data.upsell_slug ?? null},
+      ${data.status ?? 'published'},
+      ${data.scheduled_at ?? null},
+      ${data.published_at ?? null},
+      ${data.author_id ?? null},
+      ${data.seo_title ?? null},
+      ${data.seo_description ?? null},
+      ${data.geo_keywords ?? null},
+      ${data.canonical_slug ?? null},
+      ${data.og_image_url ?? null},
+      ${data.form_fields ?? null},
+      ${data.thank_you_redirect_url ?? null},
+      ${data.calendly_url ?? null},
+      ${data.download_count ?? 0},
       NOW()
     )
     ON CONFLICT (slug) DO UPDATE SET
-      is_free              = EXCLUDED.is_free,
-      price_cents          = EXCLUDED.price_cents,
-      original_price_cents = EXCLUDED.original_price_cents,
-      currency             = EXCLUDED.currency,
-      promo_code           = EXCLUDED.promo_code,
-      promo_discount_pct   = EXCLUDED.promo_discount_pct,
-      promo_expires_at     = EXCLUDED.promo_expires_at,
-      is_active            = EXCLUDED.is_active,
-      has_upsell           = EXCLUDED.has_upsell,
-      upsell_price_cents   = EXCLUDED.upsell_price_cents,
-      upsell_slug          = EXCLUDED.upsell_slug,
-      updated_at           = NOW()
+      is_free                  = EXCLUDED.is_free,
+      price_cents              = EXCLUDED.price_cents,
+      original_price_cents     = EXCLUDED.original_price_cents,
+      currency                 = EXCLUDED.currency,
+      promo_code               = EXCLUDED.promo_code,
+      promo_discount_pct       = EXCLUDED.promo_discount_pct,
+      promo_expires_at         = EXCLUDED.promo_expires_at,
+      is_active                = EXCLUDED.is_active,
+      has_upsell               = EXCLUDED.has_upsell,
+      upsell_price_cents       = EXCLUDED.upsell_price_cents,
+      upsell_slug              = EXCLUDED.upsell_slug,
+      status                   = EXCLUDED.status,
+      scheduled_at             = EXCLUDED.scheduled_at,
+      published_at             = EXCLUDED.published_at,
+      author_id                = EXCLUDED.author_id,
+      seo_title                = EXCLUDED.seo_title,
+      seo_description          = EXCLUDED.seo_description,
+      geo_keywords             = EXCLUDED.geo_keywords,
+      canonical_slug           = EXCLUDED.canonical_slug,
+      og_image_url             = EXCLUDED.og_image_url,
+      form_fields              = EXCLUDED.form_fields,
+      thank_you_redirect_url   = EXCLUDED.thank_you_redirect_url,
+      calendly_url             = EXCLUDED.calendly_url,
+      download_count           = EXCLUDED.download_count,
+      updated_at               = NOW()
   `
 }
 
@@ -1438,6 +1539,9 @@ export async function upsertEbookContent(data: {
   features?: EbookFeature[] | null
   stats?: EbookStat[] | null
   testimonial?: EbookTestimonial | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  geoMetadata?: Record<string, unknown> | null
   isDbOnly?: boolean
 }): Promise<void> {
   await initDB()
@@ -1446,7 +1550,8 @@ export async function upsertEbookContent(data: {
     INSERT INTO ebook_content (
       slug, locale, title, subtitle, excerpt, category, tags,
       image_url, pdf_url, pages, reading_time,
-      chapters, features, stats, testimonial, is_db_only, updated_at
+      chapters, features, stats, testimonial,
+      meta_title, meta_description, geo_metadata, is_db_only, updated_at
     ) VALUES (
       ${data.slug}, ${data.locale},
       ${data.title ?? null}, ${data.subtitle ?? null}, ${data.excerpt ?? null},
@@ -1457,25 +1562,31 @@ export async function upsertEbookContent(data: {
       ${data.features ? JSON.stringify(data.features) : null}::jsonb,
       ${data.stats ? JSON.stringify(data.stats) : null}::jsonb,
       ${data.testimonial ? JSON.stringify(data.testimonial) : null}::jsonb,
+      ${data.metaTitle ?? null},
+      ${data.metaDescription ?? null},
+      ${data.geoMetadata ? JSON.stringify(data.geoMetadata) : null}::jsonb,
       ${data.isDbOnly ?? false},
       NOW()
     )
     ON CONFLICT (slug, locale) DO UPDATE SET
-      title        = EXCLUDED.title,
-      subtitle     = EXCLUDED.subtitle,
-      excerpt      = EXCLUDED.excerpt,
-      category     = EXCLUDED.category,
-      tags         = EXCLUDED.tags,
-      image_url    = EXCLUDED.image_url,
-      pdf_url      = EXCLUDED.pdf_url,
-      pages        = EXCLUDED.pages,
-      reading_time = EXCLUDED.reading_time,
-      chapters     = EXCLUDED.chapters,
-      features     = EXCLUDED.features,
-      stats        = EXCLUDED.stats,
-      testimonial  = EXCLUDED.testimonial,
-      is_db_only   = EXCLUDED.is_db_only,
-      updated_at   = NOW()
+      title           = EXCLUDED.title,
+      subtitle        = EXCLUDED.subtitle,
+      excerpt         = EXCLUDED.excerpt,
+      category        = EXCLUDED.category,
+      tags            = EXCLUDED.tags,
+      image_url       = EXCLUDED.image_url,
+      pdf_url         = EXCLUDED.pdf_url,
+      pages           = EXCLUDED.pages,
+      reading_time    = EXCLUDED.reading_time,
+      chapters        = EXCLUDED.chapters,
+      features        = EXCLUDED.features,
+      stats           = EXCLUDED.stats,
+      testimonial     = EXCLUDED.testimonial,
+      meta_title      = EXCLUDED.meta_title,
+      meta_description= EXCLUDED.meta_description,
+      geo_metadata    = EXCLUDED.geo_metadata,
+      is_db_only      = EXCLUDED.is_db_only,
+      updated_at      = NOW()
   `
 }
 
@@ -1483,6 +1594,59 @@ export async function deleteEbookContent(slug: string): Promise<void> {
   await initDB()
   const sql = getSql()
   await sql`DELETE FROM ebook_content WHERE slug = ${slug}`
+}
+
+async function seedStaticEbooksToCatalog(): Promise<void> {
+  const sql = getSql()
+  for (const ebook of staticEbooks) {
+    // Skip if this static ebook has already been seeded. This preserves any
+    // admin edits to catalog status, SEO fields, or locale content.
+    const existing = await sql`SELECT 1 FROM ebook_catalog WHERE slug = ${ebook.slug} LIMIT 1`
+    if (existing.length > 0) continue
+
+    // Insert the catalog entry once per static ebook.
+    await sql`
+      INSERT INTO ebook_catalog (
+        slug, is_free, is_active, currency, status, published_at,
+        calendly_url, download_count, updated_at
+      ) VALUES (
+        ${ebook.slug}, ${ebook.free}, ${true}, ${'eur'}, ${'published'},
+        ${ebook.publishedDate ?? new Date().toISOString().slice(0, 10)},
+        ${ebook.ctaLink ?? null}, ${ebook.downloadCount ?? 0}, NOW()
+      )
+      ON CONFLICT (slug) DO NOTHING
+    `
+
+    // Insert locale-specific content for every locale that has a title.
+    const locales = Object.keys(ebook.title) as Locale[]
+    for (const locale of locales) {
+      const title = ebook.title[locale] ?? ebook.title.fr ?? null
+      const subtitle = ebook.subtitle[locale] ?? null
+      const excerpt = ebook.excerpt[locale] ?? null
+      const chapters = ebook.chapters[locale] ?? null
+      const features = ebook.features[locale] ?? null
+      const stats = ebook.stats[locale] ?? null
+      const testimonial = ebook.testimonial[locale] ?? null
+      const pdfFile = ebook.pdfByLocale?.[locale]
+      await sql`
+        INSERT INTO ebook_content (
+          slug, locale, title, subtitle, excerpt, category, tags,
+          image_url, pdf_url, pages, chapters, features, stats, testimonial,
+          is_db_only, updated_at
+        ) VALUES (
+          ${ebook.slug}, ${locale}, ${title}, ${subtitle}, ${excerpt},
+          ${ebook.category}, ${ebook.tags}, ${ebook.image},
+          ${pdfFile ? `/ebooks/${pdfFile}` : null}, ${ebook.pages},
+          ${chapters ? JSON.stringify(chapters) : null}::jsonb,
+          ${features ? JSON.stringify(features) : null}::jsonb,
+          ${stats ? JSON.stringify(stats) : null}::jsonb,
+          ${testimonial ? JSON.stringify(testimonial) : null}::jsonb,
+          ${false}, NOW()
+        )
+        ON CONFLICT (slug, locale) DO NOTHING
+      `
+    }
+  }
 }
 
 // ─── Profiles (linktree-style founder cards) ────────────────────────────────
@@ -1736,4 +1900,293 @@ export async function getWaitingListBySlug(slug: string): Promise<WaitingList | 
   const sql = getSql()
   const rows = await sql`SELECT * FROM waiting_lists WHERE slug = ${slug} LIMIT 1`
   return (rows[0] as WaitingList) ?? null
+}
+
+// ─── Waiting list mutations ───────────────────────────────────────────────────
+
+export interface WaitingListInput {
+  slug: string
+  name: string
+  description?: string | null
+  locale?: string
+  status?: 'active' | 'paused' | 'archived'
+  form_fields?: string[] | null
+  hero_title?: string | null
+  hero_subtitle?: string | null
+  benefits?: string[] | null
+  thank_you_message?: string | null
+  redirect_url?: string | null
+}
+
+export async function createWaitingList(data: WaitingListInput): Promise<WaitingList> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO waiting_lists
+      (slug, name, description, locale, status, form_fields, hero_title, hero_subtitle, benefits, thank_you_message, redirect_url)
+    VALUES (
+      ${data.slug}, ${data.name}, ${data.description ?? null}, ${data.locale ?? 'fr'},
+      ${data.status ?? 'active'},
+      ${(data.form_fields as unknown) ?? null},
+      ${data.hero_title ?? null}, ${data.hero_subtitle ?? null},
+      ${(data.benefits as unknown) ?? null},
+      ${data.thank_you_message ?? null}, ${data.redirect_url ?? null}
+    )
+    ON CONFLICT (slug) DO UPDATE SET
+      name = EXCLUDED.name,
+      description = EXCLUDED.description,
+      status = EXCLUDED.status,
+      form_fields = EXCLUDED.form_fields,
+      hero_title = EXCLUDED.hero_title,
+      hero_subtitle = EXCLUDED.hero_subtitle,
+      benefits = EXCLUDED.benefits,
+      thank_you_message = EXCLUDED.thank_you_message,
+      redirect_url = EXCLUDED.redirect_url,
+      updated_at = NOW()
+    RETURNING *
+  `
+  return rows[0] as WaitingList
+}
+
+export async function updateWaitingList(id: number, data: Partial<WaitingListInput>): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE waiting_lists SET
+      name = COALESCE(${data.name ?? null}, name),
+      description = COALESCE(${data.description ?? null}, description),
+      status = COALESCE(${data.status ?? null}, status),
+      form_fields = COALESCE(${data.form_fields as unknown ?? null}, form_fields),
+      hero_title = COALESCE(${data.hero_title ?? null}, hero_title),
+      hero_subtitle = COALESCE(${data.hero_subtitle ?? null}, hero_subtitle),
+      benefits = COALESCE(${data.benefits as unknown ?? null}, benefits),
+      thank_you_message = COALESCE(${data.thank_you_message ?? null}, thank_you_message),
+      redirect_url = COALESCE(${data.redirect_url ?? null}, redirect_url),
+      updated_at = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteWaitingList(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM waiting_lists WHERE id = ${id}`
+}
+
+export async function countWaitlistEntriesForList(listId: number): Promise<number> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT COUNT(*)::int AS c FROM waitlist_entries WHERE waiting_list_id = ${listId}`
+  return (rows[0]?.c as number) ?? 0
+}
+
+// ─── Blog site mutations ──────────────────────────────────────────────────────
+
+export interface BlogSiteInput {
+  slug: string
+  name: string
+  domain?: string | null
+  is_default?: boolean
+  settings?: Record<string, unknown>
+}
+
+export async function createBlogSite(data: BlogSiteInput): Promise<BlogSite> {
+  await initDB()
+  const sql = getSql()
+  if (data.is_default) {
+    await sql`UPDATE blog_sites SET is_default = FALSE WHERE is_default = TRUE`
+  }
+  const rows = await sql`
+    INSERT INTO blog_sites (slug, name, domain, is_default, settings)
+    VALUES (${data.slug}, ${data.name}, ${data.domain ?? null}, ${data.is_default ?? false}, ${(data.settings as unknown) ?? {}})
+    ON CONFLICT (slug) DO UPDATE SET
+      name = EXCLUDED.name,
+      domain = EXCLUDED.domain,
+      is_default = EXCLUDED.is_default,
+      settings = EXCLUDED.settings,
+      updated_at = NOW()
+    RETURNING *
+  `
+  return rows[0] as BlogSite
+}
+
+export async function updateBlogSite(id: number, data: Partial<BlogSiteInput>): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  if (data.is_default) {
+    await sql`UPDATE blog_sites SET is_default = FALSE WHERE id <> ${id}`
+  }
+  await sql`
+    UPDATE blog_sites SET
+      name = COALESCE(${data.name ?? null}, name),
+      domain = COALESCE(${data.domain ?? null}, domain),
+      is_default = COALESCE(${data.is_default ?? null}, is_default),
+      settings = COALESCE(${data.settings as unknown ?? null}, settings),
+      updated_at = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function deleteBlogSite(id: number): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`DELETE FROM blog_sites WHERE id = ${id}`
+}
+
+// ─── Lead mutations + filters + export ────────────────────────────────────────
+
+export interface LeadInput {
+  email: string
+  first_name?: string | null
+  last_name?: string | null
+  company?: string | null
+  role?: string | null
+  phone?: string | null
+  locale?: string
+  source: string
+  source_detail?: Record<string, unknown>
+  status?: string
+  tags?: string[] | null
+  gdpr_consent?: boolean
+}
+
+export async function createLead(data: LeadInput): Promise<Lead> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    INSERT INTO leads (email, first_name, last_name, company, role, phone, locale, source, source_detail, status, tags, gdpr_consent)
+    VALUES (
+      ${data.email.toLowerCase()},
+      ${data.first_name ?? null}, ${data.last_name ?? null},
+      ${data.company ?? null}, ${data.role ?? null}, ${data.phone ?? null},
+      ${data.locale ?? 'fr'},
+      ${data.source},
+      ${(data.source_detail as unknown) ?? {}},
+      ${data.status ?? 'new'},
+      ${(data.tags as unknown) ?? null},
+      ${data.gdpr_consent ?? true}
+    )
+    RETURNING *
+  `
+  return rows[0] as Lead
+}
+
+export async function updateLead(id: number, data: Partial<LeadInput> & { notes?: unknown[] }): Promise<void> {
+  await initDB()
+  const sql = getSql()
+  await sql`
+    UPDATE leads SET
+      first_name = COALESCE(${data.first_name ?? null}, first_name),
+      last_name = COALESCE(${data.last_name ?? null}, last_name),
+      company = COALESCE(${data.company ?? null}, company),
+      role = COALESCE(${data.role ?? null}, role),
+      phone = COALESCE(${data.phone ?? null}, phone),
+      status = COALESCE(${data.status ?? null}, status),
+      tags = COALESCE(${data.tags as unknown ?? null}, tags),
+      notes = COALESCE(${(data.notes as unknown) ?? null}, notes),
+      updated_at = NOW()
+    WHERE id = ${id}
+  `
+}
+
+export async function getLeadById(id: number): Promise<Lead | null> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT * FROM leads WHERE id = ${id} LIMIT 1`
+  return (rows[0] as Lead) ?? null
+}
+
+export interface LeadFilters {
+  source?: string
+  status?: string
+  locale?: string
+  q?: string
+  limit?: number
+  offset?: number
+}
+
+export async function listLeadsFiltered(filters: LeadFilters = {}): Promise<{ rows: Lead[]; total: number }> {
+  await initDB()
+  const sql = getSql()
+  const limit = filters.limit ?? 100
+  const offset = filters.offset ?? 0
+  const conditions: ReturnType<typeof sql>[] = []
+  if (filters.source) conditions.push(sql`source = ${filters.source}`)
+  if (filters.status) conditions.push(sql`status = ${filters.status}`)
+  if (filters.locale) conditions.push(sql`locale = ${filters.locale}`)
+  if (filters.q) {
+    const term = `%${filters.q.toLowerCase()}%`
+    conditions.push(sql`(LOWER(email) LIKE ${term} OR LOWER(COALESCE(first_name, '')) LIKE ${term} OR LOWER(COALESCE(last_name, '')) LIKE ${term} OR LOWER(COALESCE(company, '')) LIKE ${term})`)
+  }
+  const where = conditions.length
+    ? sql`WHERE ${conditions.reduce((acc, c, i) => (i === 0 ? c : sql`${acc} AND ${c}`))}`
+    : sql``
+  const rows = await sql`SELECT * FROM leads ${where} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
+  const totalRows = await sql`SELECT COUNT(*)::int AS c FROM leads ${where}`
+  return { rows: rows as Lead[], total: (totalRows[0]?.c as number) ?? 0 }
+}
+
+export async function countLeadsBySource(): Promise<Record<string, number>> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`SELECT source, COUNT(*)::int AS c FROM leads GROUP BY source`
+  const out: Record<string, number> = {}
+  for (const r of rows) out[r.source as string] = r.c as number
+  return out
+}
+
+function csvEscape(value: unknown): string {
+  if (value === null || value === undefined) return ''
+  const s = String(value)
+  if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`
+  return s
+}
+
+export async function exportLeadsToCSV(filters: LeadFilters = {}): Promise<string> {
+  const { rows } = await listLeadsFiltered({ ...filters, limit: 10000, offset: 0 })
+  const headers = ['id', 'created_at', 'email', 'first_name', 'last_name', 'company', 'role', 'phone', 'locale', 'source', 'status', 'tags', 'source_detail']
+  const lines = [headers.join(',')]
+  for (const r of rows) {
+    lines.push([
+      r.id,
+      r.created_at,
+      r.email,
+      r.first_name,
+      r.last_name,
+      r.company,
+      r.role,
+      r.phone,
+      r.locale,
+      r.source,
+      r.status,
+      (r.tags ?? []).join('|'),
+      JSON.stringify(r.source_detail ?? {}),
+    ].map(csvEscape).join(','))
+  }
+  return lines.join('\n')
+}
+
+// ─── Cross-client helpers for admin pipeline views ────────────────────────────
+
+export interface BlogIdeaWithSite extends BlogIdea {
+  site_slug?: string | null
+  site_name?: string | null
+}
+
+export async function listAllBlogIdeas(): Promise<BlogIdeaWithSite[]> {
+  await initDB()
+  const sql = getSql()
+  const rows = await sql`
+    SELECT i.*, s.slug AS site_slug, s.name AS site_name
+    FROM blog_ideas i
+    LEFT JOIN blog_sites s ON s.id = i.blog_site_id
+    ORDER BY i.status ASC, i.created_at DESC
+  `
+  return rows as BlogIdeaWithSite[]
+}
+
+export async function listAllLeadsForAdmin(limit = 200): Promise<Lead[]> {
+  await initDB()
+  const sql = getSql()
+  return sql`SELECT * FROM leads ORDER BY created_at DESC LIMIT ${limit}` as unknown as Promise<Lead[]>
 }

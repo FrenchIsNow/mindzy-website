@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin, hashPassword } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
+import { hashPassword } from '@/lib/dashboard-auth'
 import { createDashboardClient, listDashboardClients, getDashboardClientBySlug, getDashboardClientByEmail } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
 export async function GET() {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const clients = await listDashboardClients()
   // Strip password_hash from response
   const safe = clients.map(({ password_hash: _ph, ...rest }) => rest)
@@ -17,11 +15,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   const body = (await req.json().catch(() => null)) as {
     slug?: string

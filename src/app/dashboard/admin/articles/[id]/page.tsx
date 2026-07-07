@@ -1,16 +1,11 @@
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import ArticleEditor from '@/components/dashboard/ArticleEditor'
-import { getBlogArticle, getDashboardClientById, getArticleTranslations } from '@/lib/db'
+import { getBlogArticle, getDashboardClientById, getArticleTranslations, getBlogSiteBySlug } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminArticlePage({ params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const { id } = await params
   const article = await getBlogArticle(Number(id))
@@ -23,15 +18,17 @@ export default async function AdminArticlePage({ params }: { params: Promise<{ i
       : Promise.resolve([article]),
   ])
 
+  // blog_sites mirrors dashboard_clients by slug; resolve the site slug for the editor.
+  const site = client ? await getBlogSiteBySlug(client.slug) : null
+  const siteSlug = site?.slug ?? client?.slug
+
   return (
-    <Shell role="admin" userName="Admin">
-      <Link
-        href={client ? `/dashboard/admin/clients/${client.slug}` : '/dashboard/admin'}
+<>      <Link
+        href={siteSlug ? `/dashboard/admin/blogs/${siteSlug}` : '/dashboard/admin'}
         className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600"
       >
         ← Retour
       </Link>
-      <ArticleEditor article={article} role="admin" translations={translations} />
-    </Shell>
-  )
+      <ArticleEditor article={article} role="admin" translations={translations} siteSlug={siteSlug} />
+</>  )
 }

@@ -1,16 +1,10 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import QRCode from 'qrcode'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { listProfiles } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function ProfilesPage() {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const profiles = await listProfiles()
 
@@ -24,8 +18,7 @@ export default async function ProfilesPage() {
   )
 
   return (
-    <Shell role="admin" userName="Admin">
-      <div className="mb-6 flex items-center justify-between">
+<>      <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Profils</h1>
           <p className="mt-1 text-sm text-slate-600">Cartes de contact style linktree (ex. /cocotier, /martel).</p>
@@ -77,6 +70,5 @@ export default async function ProfilesPage() {
           ))}
         </div>
       )}
-    </Shell>
-  )
+</>  )
 }

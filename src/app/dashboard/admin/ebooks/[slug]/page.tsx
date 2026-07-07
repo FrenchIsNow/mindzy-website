@@ -1,7 +1,5 @@
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { getCatalogEntry, getEbookLeads, getEbookOrders, getAllCatalogEntries, getEbookContent } from '@/lib/db'
 import { getEbook, ebooks as allEbooks } from '@/lib/ebooks'
 import EbookSettingsForm from './EbookSettingsForm'
@@ -24,9 +22,6 @@ type Order = {
 }
 
 export default async function EbookDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const { slug } = await params
   const staticEbook = getEbook(slug)
@@ -54,8 +49,7 @@ export default async function EbookDetail({ params }: { params: Promise<{ slug: 
   const upsellCents = paidOrders.filter(o => o.upsell_accepted).reduce((s, o) => s + (o.upsell_amount_cents || 0), 0)
 
   return (
-    <Shell role="admin" userName="Admin">
-      <Link href="/dashboard/admin/ebooks" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
+<>      <Link href="/dashboard/admin/ebooks" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
         ← Ebooks
       </Link>
       <div className="flex items-start justify-between gap-4">
@@ -190,17 +184,16 @@ export default async function EbookDetail({ params }: { params: Promise<{ slug: 
           )}
         </div>
       </section>
-    </Shell>
-  )
+</>  )
 }
 
 function KPI({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+<>    <div className="rounded-2xl border border-slate-200 bg-white p-4">
       <div className="text-xs uppercase tracking-wide text-slate-500">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
     </div>
-  )
+</>  )
 }
 
 function OrderStatus({ status }: { status: string }) {
@@ -210,8 +203,8 @@ function OrderStatus({ status }: { status: string }) {
     refunded: 'bg-red-100 text-red-800',
   }
   return (
-    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${map[status] || 'bg-slate-100 text-slate-700'}`}>
+<>    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${map[status] || 'bg-slate-100 text-slate-700'}`}>
       {status}
     </span>
-  )
+</>  )
 }

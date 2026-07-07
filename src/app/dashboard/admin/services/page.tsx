@@ -1,22 +1,15 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { listServices } from '@/lib/db'
 import ServicesTable from './ServicesTable'
 
 export const dynamic = 'force-dynamic'
 
 export default async function ServicesPage() {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const services = await listServices()
 
   return (
-    <Shell role="admin" userName="Admin">
-      <div className="mb-6 flex items-center justify-between">
+<>      <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Services & produits</h1>
           <p className="mt-1 text-sm text-slate-600">
@@ -31,6 +24,5 @@ export default async function ServicesPage() {
         </Link>
       </div>
       <ServicesTable initial={services} />
-    </Shell>
-  )
+</>  )
 }

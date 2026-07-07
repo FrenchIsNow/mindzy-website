@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { getEbookContent, upsertEbookContent } from '@/lib/db'
 import { getEbook } from '@/lib/ebooks'
 import { translateJson, type Locale } from '@/lib/translate'
@@ -12,11 +12,8 @@ export const maxDuration = 60
  * Body: { targetLocale: 'en' | 'es' }
  */
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const body = (await req.json().catch(() => null)) as { targetLocale?: Locale } | null
   if (!body?.targetLocale || !['en', 'es'].includes(body.targetLocale)) {

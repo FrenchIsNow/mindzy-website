@@ -1,45 +1,37 @@
 import { NextResponse } from 'next/server'
-import { getSession } from '@/lib/dashboard-auth'
+import { requireApiEditor, requireApiAdmin } from '@/lib/auth'
 import { getBlogArticle, updateBlogArticle, deleteBlogArticle } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
-async function canAccess(articleId: number) {
-  const session = await getSession()
-  if (!session) return { ok: false as const, status: 401, error: 'Unauthorized' }
-  const article = await getBlogArticle(articleId)
-  if (!article) return { ok: false as const, status: 404, error: 'Not found' }
-  if (session.role === 'client' && session.clientId !== article.client_id) {
-    return { ok: false as const, status: 403, error: 'Forbidden' }
-  }
-  return { ok: true as const, session, article }
-}
-
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireApiEditor()
+  if (unauthorized) return unauthorized
   const { id } = await params
   const idNum = Number(id)
   if (!Number.isFinite(idNum)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
-  const res = await canAccess(idNum)
-  if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status })
-  return NextResponse.json({ article: res.article })
+  const article = await getBlogArticle(idNum)
+  if (!article) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  return NextResponse.json({ article })
 }
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireApiEditor()
+  if (unauthorized) return unauthorized
   const { id } = await params
   const idNum = Number(id)
   if (!Number.isFinite(idNum)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
-  const res = await canAccess(idNum)
-  if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status })
+  const article = await getBlogArticle(idNum)
+  if (!article) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null
   if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
 
   const allowed: string[] = [
-    'title', 'slug', 'excerpt', 'content_html', 'cover_image_url', 'cover_alt',
+    'title', 'slug', 'excerpt', 'content_html', 'blocks', 'cover_image_url', 'cover_alt',
     'keywords', 'category', 'reading_time', 'locale', 'client_notes',
+    'seo_title', 'seo_description', 'geo_keywords', 'og_image_url',
   ]
-  // Admins may also set status directly via PATCH endpoint; for PUT we only allow content edits.
-  // Clients can add client_notes but not change status (use /status endpoint).
   const update: Record<string, unknown> = {}
   for (const k of allowed) if (k in body) update[k] = body[k]
 
@@ -48,14 +40,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 }
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { id } = await params
   const idNum = Number(id)
   if (!Number.isFinite(idNum)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
-  const res = await canAccess(idNum)
-  if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status })
-  if (res.session.role !== 'admin') {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+  const article = await getBlogArticle(idNum)
+  if (!article) return NextResponse.json({ error: 'Not found' }, { status: 404 })
   await deleteBlogArticle(idNum)
   return NextResponse.json({ ok: true })
 }

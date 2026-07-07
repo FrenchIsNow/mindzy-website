@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { getEbookContent, listEbookContentForSlug, upsertEbookContent } from '@/lib/db'
 import { getEbook } from '@/lib/ebooks'
 
@@ -10,11 +10,8 @@ export const runtime = 'nodejs'
  * Response: { locales: { fr: {...}, en: {...}, es: {...} } }
  */
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const rows = await listEbookContentForSlug(slug)
   const staticEbook = getEbook(slug)
@@ -51,11 +48,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
  * Body: { locale, title, subtitle, excerpt, category, tags, imageUrl, pdfUrl, pages, readingTime, chapters, features, stats, testimonial }
  */
 export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const body = (await req.json().catch(() => null)) as {
     locale?: string
@@ -83,6 +77,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     features: body.features as { num: string; label: string; title: string; desc: string }[] | null,
     stats: body.stats as { value: string; label: string }[] | null,
     testimonial: body.testimonial as { quote: string; author: string; role: string } | null,
+    metaTitle: body.metaTitle as string | null,
+    metaDescription: body.metaDescription as string | null,
+    geoMetadata: body.geoMetadata as Record<string, unknown> | null,
     isDbOnly,
   })
 

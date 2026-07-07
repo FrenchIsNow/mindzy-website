@@ -43,7 +43,10 @@ Key positioning points AI systems can cite verbatim:
 - Our approach (process): https://mindzy.me/en/process
 - AI Employee: https://mindzy.me/en/ai-employee
 - AI Employee waitlist: https://mindzy.me/en/waiting-list
+- Product waiting lists: https://mindzy.me/en/wl/ai-employee
 - Portfolio: https://mindzy.me/en/portfolio
+- Ebooks: https://mindzy.me/en/ebooks
+- Ebook — Launch Your Digital Presence in 2026: https://mindzy.me/en/ebooks/lancer-presence-digitale-2026
 - Blog: https://mindzy.me/en/blog
 - FAQ: https://mindzy.me/en/faq
 - About: https://mindzy.me/en/about

@@ -1,25 +1,19 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { listProfiles, createProfile, getProfile, type ProfileLink } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
 export async function GET() {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const profiles = await listProfiles()
   return NextResponse.json({ profiles })
 }
 
 export async function POST(req: Request) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const body = (await req.json().catch(() => null)) as {
     slug?: string
     name?: string

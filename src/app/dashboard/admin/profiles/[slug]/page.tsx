@@ -1,17 +1,12 @@
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import QRCode from 'qrcode'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { getProfile } from '@/lib/db'
 import ProfileForm from '../ProfileForm'
 
 export const dynamic = 'force-dynamic'
 
 export default async function EditProfilePage({ params }: { params: Promise<{ slug: string }> }) {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const { slug } = await params
   const profile = await getProfile(slug)
@@ -22,8 +17,7 @@ export default async function EditProfilePage({ params }: { params: Promise<{ sl
   const qrDataUrl = await QRCode.toDataURL(fullUrl, { width: 200, margin: 2, color: { dark: '#4C1D95', light: '#FFFFFF' } })
 
   return (
-    <Shell role="admin" userName="Admin">
-      <Link href="/dashboard/admin/profiles" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
+<>      <Link href="/dashboard/admin/profiles" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
         ← Profils
       </Link>
       <div className="mb-6 flex items-start justify-between">
@@ -47,6 +41,5 @@ export default async function EditProfilePage({ params }: { params: Promise<{ sl
         </div>
       </div>
       <ProfileForm mode="edit" initial={profile} />
-    </Shell>
-  )
+</>  )
 }

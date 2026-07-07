@@ -47,16 +47,10 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
     {
       label: 'Blogs',
       items: [
-        { href: '/dashboard/admin/blogs', label: 'Articles', icon: <IconDoc /> },
+        { href: '/dashboard/admin/blogs', label: 'Tous les sites', icon: <IconGlobe /> },
         { href: '/dashboard/admin/blogs/new', label: 'Nouvel article', icon: <IconPlus /> },
-        { href: '/dashboard/admin/blog-ideas', label: 'Idées & pipeline', icon: <IconLightbulb /> },
-      ],
-    },
-    {
-      label: 'Sites',
-      items: [
-        { href: '/dashboard/admin/blog-sites', label: 'Blog Sites', icon: <IconGlobe /> },
         { href: '/dashboard/admin/blog-sites/new', label: 'Nouveau site', icon: <IconPlus /> },
+        { href: '/dashboard/admin/blog-ideas', label: 'Idées & pipeline', icon: <IconLightbulb /> },
       ],
     },
     {

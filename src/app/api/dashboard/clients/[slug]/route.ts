@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin, hashPassword } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
+import { hashPassword } from '@/lib/dashboard-auth'
 import {
   getDashboardClientBySlug,
   updateDashboardClient,
@@ -9,11 +10,8 @@ import {
 export const runtime = 'nodejs'
 
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -22,11 +20,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
 }
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -62,11 +57,8 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ slug: 
 }
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })

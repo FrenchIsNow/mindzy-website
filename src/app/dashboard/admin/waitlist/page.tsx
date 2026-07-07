@@ -1,21 +1,14 @@
-import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/dashboard-auth'
 import { listWaitlistEntries } from '@/lib/db'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { WaitlistTable } from './WaitlistTable'
 
 export const dynamic = 'force-dynamic'
 
 export default async function WaitlistAdminPage() {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const entries = await listWaitlistEntries()
 
   return (
-    <Shell role="admin" userName="Admin">
-      <div className="mb-6 flex items-center justify-between">
+<>      <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Liste d&apos;attente</h1>
           <p className="mt-1 text-sm text-slate-600">
@@ -34,6 +27,5 @@ export default async function WaitlistAdminPage() {
       ) : (
         <WaitlistTable entries={entries} />
       )}
-    </Shell>
-  )
+</>  )
 }

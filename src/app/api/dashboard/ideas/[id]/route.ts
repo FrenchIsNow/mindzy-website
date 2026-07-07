@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { updateBlogIdea, deleteBlogIdea, getBlogIdea } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { id } = await params
   const idNum = Number(id)
   if (!Number.isFinite(idNum)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
@@ -22,6 +19,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
   const allowed: (keyof typeof body)[] = [
     'question', 'category', 'subcategory', 'target', 'content_type', 'seo_priority', 'locale', 'status',
+    'due_date', 'keyword', 'source',
   ]
   const update: Record<string, unknown> = {}
   for (const k of allowed) if (k in body) update[k as string] = body[k]
@@ -31,11 +29,8 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 }
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { id } = await params
   const idNum = Number(id)
   if (!Number.isFinite(idNum)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })

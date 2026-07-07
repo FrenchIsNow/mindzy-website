@@ -1,7 +1,5 @@
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/dashboard-auth'
-import { Shell } from '@/components/dashboard/Sidebar'
 import { getEbook } from '@/lib/ebooks'
 import { listEbookContentForSlug } from '@/lib/db'
 import EbookContentEditor from './EbookContentEditor'
@@ -9,9 +7,6 @@ import EbookContentEditor from './EbookContentEditor'
 export const dynamic = 'force-dynamic'
 
 export default async function EditEbookPage({ params }: { params: Promise<{ slug: string }> }) {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.role !== 'admin') redirect('/dashboard/client')
 
   const { slug } = await params
   const staticEbook = getEbook(slug)
@@ -45,8 +40,7 @@ export default async function EditEbookPage({ params }: { params: Promise<{ slug
   }
 
   return (
-    <Shell role="admin" userName="Admin">
-      <Link href={`/dashboard/admin/ebooks/${slug}`} className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
+<>      <Link href={`/dashboard/admin/ebooks/${slug}`} className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
         ← Retour à l&apos;ebook
       </Link>
       <h1 className="mb-1 text-2xl font-semibold tracking-tight">Édition page ebook · {staticEbook?.title.fr ?? slug}</h1>
@@ -55,6 +49,5 @@ export default async function EditEbookPage({ params }: { params: Promise<{ slug
         Éditez en FR puis cliquez <strong>Traduire avec IA</strong> pour générer EN / ES.
       </p>
       <EbookContentEditor slug={slug} initial={initial as never} isDbOnly={!staticEbook} />
-    </Shell>
-  )
+</>  )
 }

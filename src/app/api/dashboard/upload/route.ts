@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { put } from '@vercel/blob'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 
 export const runtime = 'nodejs'
 
@@ -16,11 +16,8 @@ const MAX_IMAGE_BYTES = 10 * 1024 * 1024 // 10 MB
  * Returns { url } of the uploaded blob.
  */
 export async function POST(req: Request) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return NextResponse.json(

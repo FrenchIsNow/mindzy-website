@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { upsertCatalogEntry, getAllCatalogEntries, updateCatalogStripeIds } from '@/lib/db'
 import { syncStripeProduct } from '@/lib/stripe'
 import { getEbook } from '@/lib/ebooks'
@@ -7,11 +7,8 @@ import { getEbook } from '@/lib/ebooks'
 export const runtime = 'nodejs'
 
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const all = await getAllCatalogEntries()
   const entry = all.find(e => e.slug === slug) ?? null
@@ -19,11 +16,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
 }
 
 export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null
   if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
@@ -41,6 +35,19 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     has_upsell: body.has_upsell as boolean,
     upsell_price_cents: body.upsell_price_cents as number | null,
     upsell_slug: body.upsell_slug as string | null,
+    status: body.status as string | undefined,
+    scheduled_at: body.scheduled_at as string | null,
+    published_at: body.published_at as string | null,
+    author_id: body.author_id as number | null,
+    seo_title: body.seo_title as string | null,
+    seo_description: body.seo_description as string | null,
+    geo_keywords: body.geo_keywords as string[] | null,
+    canonical_slug: body.canonical_slug as string | null,
+    og_image_url: body.og_image_url as string | null,
+    form_fields: body.form_fields as unknown[] | null,
+    thank_you_redirect_url: body.thank_you_redirect_url as string | null,
+    calendly_url: body.calendly_url as string | null,
+    download_count: body.download_count as number | undefined,
   })
 
   // Sync to Stripe only for paid, active ebooks with a real price.

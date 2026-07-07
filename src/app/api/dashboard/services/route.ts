@@ -1,25 +1,20 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin, getSession } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { listServices, createService, getServiceBySlug, updateServiceStripeIds } from '@/lib/db'
 import { syncStripeProduct } from '@/lib/stripe'
 
 export const runtime = 'nodejs'
 
 export async function GET() {
-  const session = await getSession()
-  if (!session || session.role !== 'admin') {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const services = await listServices()
   return NextResponse.json({ services })
 }
 
 export async function POST(req: Request) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   const body = (await req.json().catch(() => null)) as {
     slug?: string

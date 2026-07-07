@@ -4,6 +4,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { createAuthMiddleware, APIError } from 'better-auth/api'
 import { getSessionCookie } from 'better-auth/cookies'
 import { headers as nextHeaders } from 'next/headers'
+import { NextResponse } from 'next/server'
 import { db } from './drizzle'
 
 export type UserRole = 'admin' | 'editor' | 'viewer'
@@ -84,6 +85,33 @@ export async function requireEditor() {
 
 export async function requireViewer() {
   return requireRole('admin', 'editor', 'viewer')
+}
+
+/**
+ * API helpers that return a NextResponse on authorization failure so API routes
+ * can early-return with a proper JSON error.
+ */
+export async function requireApiRole(...allowed: UserRole[]) {
+  try {
+    await requireRole(...allowed)
+    return null
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unauthorized'
+    const status = err instanceof APIError && typeof err.status === 'number' ? err.status : 401
+    return NextResponse.json({ error: message }, { status })
+  }
+}
+
+export async function requireApiAdmin() {
+  return requireApiRole('admin')
+}
+
+export async function requireApiEditor() {
+  return requireApiRole('admin', 'editor')
+}
+
+export async function requireApiViewer() {
+  return requireApiRole('admin', 'editor', 'viewer')
 }
 
 /**

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { getDashboardClientBySlug, bulkInsertBlogIdeas } from '@/lib/db'
 
 export const runtime = 'nodejs'
@@ -48,11 +48,8 @@ function parseCSV(text: string): Array<Record<string, string>> {
 }
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
-  try {
-    await requireAdmin()
-  } catch (e) {
-    return e as Response
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
   const { slug } = await params
   const client = await getDashboardClientBySlug(slug)
   if (!client) return NextResponse.json({ error: 'Not found' }, { status: 404 })

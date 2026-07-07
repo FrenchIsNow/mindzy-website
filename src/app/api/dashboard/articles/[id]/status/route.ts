@@ -1,15 +1,14 @@
 import { NextResponse } from 'next/server'
-import { getSession } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { getBlogArticle, updateBlogArticle, getDashboardClientById } from '@/lib/db'
 
 export const runtime = 'nodejs'
 
-const CLIENT_ALLOWED = new Set(['approved', 'pending_review', 'rejected'])
 const ADMIN_ALLOWED = new Set(['pending_review', 'approved', 'rejected', 'published'])
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   const { id } = await params
   const idNum = Number(id)
@@ -18,15 +17,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   const article = await getBlogArticle(idNum)
   if (!article) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  if (session.role === 'client' && session.clientId !== article.client_id) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
-
   const body = (await req.json().catch(() => null)) as { status?: string; notes?: string } | null
   if (!body?.status) return NextResponse.json({ error: 'status required' }, { status: 400 })
 
-  const allowed = session.role === 'admin' ? ADMIN_ALLOWED : CLIENT_ALLOWED
-  if (!allowed.has(body.status)) {
+  if (!ADMIN_ALLOWED.has(body.status)) {
     return NextResponse.json({ error: 'Invalid status transition' }, { status: 400 })
   }
 
@@ -36,8 +30,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
   await updateBlogArticle(idNum, update)
 
-  // If admin published and client has ingest URL, forward the article.
-  if (session.role === 'admin' && body.status === 'published') {
+  // If published and client has ingest URL, forward the article.
+  if (body.status === 'published') {
     const client = await getDashboardClientById(article.client_id)
     if (client?.ingest_url) {
       try {

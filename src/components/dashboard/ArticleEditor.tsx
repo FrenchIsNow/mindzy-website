@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TiptapEditor from './TiptapEditor'
 import type { BlogArticle } from '@/lib/db'
+import { blocksToHtml, serializeHtmlToBlocks, type ArticleBlock } from '@/lib/article-blocks'
 
 type Role = 'admin' | 'client'
 
@@ -51,21 +52,54 @@ export default function ArticleEditor({
   article,
   role,
   translations = [],
+  siteSlug,
 }: {
   article: BlogArticle
   role: Role
   translations?: BlogArticle[]
+  siteSlug?: string
 }) {
   const router = useRouter()
   const [title, setTitle] = useState(article.title)
   const [slug, setSlug] = useState(article.slug)
   const [excerpt, setExcerpt] = useState(article.excerpt || '')
-  const [contentHtml, setContentHtml] = useState(article.content_html || '')
+  // Prefer existing blocks if non-empty; otherwise fall back to content_html
+  // so legacy articles still load. Both shapes are kept in sync on save.
+  const initialBlocks: ArticleBlock[] = Array.isArray(article.blocks) && (article.blocks as ArticleBlock[]).length > 0
+    ? (article.blocks as ArticleBlock[])
+    : serializeHtmlToBlocks(article.content_html)
+  const [blocks, setBlocks] = useState<ArticleBlock[]>(initialBlocks)
+  const [contentHtml, setContentHtml] = useState(
+    initialBlocks.length > 0 ? blocksToHtml(initialBlocks) : article.content_html || '',
+  )
   const [notes, setNotes] = useState(article.client_notes || '')
   const [status, setStatus] = useState(article.status)
+  const [seoTitle, setSeoTitle] = useState(article.seo_title || '')
+  const [seoDescription, setSeoDescription] = useState(article.seo_description || '')
+  const [ogImageUrl, setOgImageUrl] = useState(article.og_image_url || '')
+  const [geoKeywordsText, setGeoKeywordsText] = useState((article.geo_keywords || []).join(', '))
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState('')
   const [tab, setTab] = useState<'edition' | 'preview'>('edition')
+
+  // Tiptap returns HTML on every change; mirror it into blocks.
+  function onContentChange(html: string) {
+    setContentHtml(html)
+    setBlocks(serializeHtmlToBlocks(html))
+  }
+
+  function buildSeoPayload() {
+    const kw = geoKeywordsText
+      .split(',')
+      .map(s => s.trim())
+      .filter(s => s.length > 0)
+    return {
+      seo_title: seoTitle || null,
+      seo_description: seoDescription || null,
+      og_image_url: ogImageUrl || null,
+      geo_keywords: kw.length > 0 ? kw : null,
+    }
+  }
 
   async function save() {
     setSaving(true)
@@ -78,7 +112,9 @@ export default function ArticleEditor({
         slug,
         excerpt,
         content_html: contentHtml,
+        blocks,
         client_notes: notes,
+        ...buildSeoPayload(),
       }),
     })
     setSaving(false)
@@ -98,7 +134,15 @@ export default function ArticleEditor({
     await fetch(`/api/dashboard/articles/${article.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, slug, excerpt, content_html: contentHtml, client_notes: notes }),
+      body: JSON.stringify({
+        title,
+        slug,
+        excerpt,
+        content_html: contentHtml,
+        blocks,
+        client_notes: notes,
+        ...buildSeoPayload(),
+      }),
     })
     const res = await fetch(`/api/dashboard/articles/${article.id}/status`, {
       method: 'POST',
@@ -114,6 +158,14 @@ export default function ArticleEditor({
       const d = await res.json().catch(() => ({}))
       setMsg(d.error || 'Erreur')
     }
+  }
+
+  function openSitemap() {
+    if (!siteSlug) {
+      setMsg("Pas de blog site associé pour générer le sitemap.")
+      return
+    }
+    window.open(`/api/sitemap/blog/${siteSlug}.xml`, '_blank')
   }
 
   return (
@@ -180,7 +232,7 @@ export default function ArticleEditor({
               </div>
             </div>
 
-            <TiptapEditor value={contentHtml} onChange={setContentHtml} />
+            <TiptapEditor value={contentHtml} onChange={onContentChange} />
           </div>
         )}
 
@@ -238,6 +290,54 @@ export default function ArticleEditor({
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">SEO / GEO</h3>
+          <div className="space-y-3">
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500">Titre SEO</label>
+              <input
+                value={seoTitle}
+                onChange={e => setSeoTitle(e.target.value)}
+                placeholder={title.slice(0, 60)}
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500">Description SEO</label>
+              <textarea
+                value={seoDescription}
+                onChange={e => setSeoDescription(e.target.value)}
+                rows={2}
+                placeholder="160 caractères max."
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500">Image Open Graph</label>
+              <input
+                value={ogImageUrl}
+                onChange={e => setOgImageUrl(e.target.value)}
+                placeholder="https://…"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              />
+              {ogImageUrl && (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={ogImageUrl} alt="" className="mt-2 w-full rounded-lg" />
+              )}
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500">Mots-clés GEO</label>
+              <input
+                value={geoKeywordsText}
+                onChange={e => setGeoKeywordsText(e.target.value)}
+                placeholder="ia, infrastructure, audit"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              />
+              <p className="mt-1 text-[10px] text-slate-400">Séparez par des virgules.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-5">
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Notes</h3>
           <textarea
             value={notes}
@@ -256,6 +356,16 @@ export default function ArticleEditor({
           >
             {saving ? 'Enregistrement…' : 'Enregistrer le brouillon'}
           </button>
+
+          {role === 'admin' && siteSlug && (
+            <button
+              type="button"
+              onClick={openSitemap}
+              className="w-full rounded-lg border border-violet-300 px-4 py-2 text-sm font-medium text-violet-700 hover:bg-violet-50"
+            >
+              ⤴ Générer sitemap XML
+            </button>
+          )}
 
           {role === 'client' && status === 'pending_review' && (
             <>

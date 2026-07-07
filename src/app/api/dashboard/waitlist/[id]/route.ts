@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { deleteWaitlistEntry } from '@/lib/db'
 
 export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
-  try {
-    await requireAdmin()
-  } catch {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   const { id } = await params
   const num = Number(id)

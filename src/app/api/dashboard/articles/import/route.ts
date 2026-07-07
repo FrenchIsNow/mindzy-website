@@ -1,12 +1,10 @@
-import { getSession } from '@/lib/dashboard-auth'
+import { requireApiAdmin } from '@/lib/auth'
 import { createBlogArticle, listBlogArticlesForClient } from '@/lib/db'
 import type { BlogArticle } from '@/lib/db'
 
 export async function POST(req: Request) {
-  const session = await getSession()
-  if (!session || session.role !== 'admin') {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const unauthorized = await requireApiAdmin()
+  if (unauthorized) return unauthorized
 
   let body: any
   try {

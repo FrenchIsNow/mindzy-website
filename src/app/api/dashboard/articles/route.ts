@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import { getSession } from '@/lib/dashboard-auth'
-import { createBlogArticle, getDashboardClientById, listBlogArticlesForClient } from '@/lib/db'
+import { requireApiEditor } from '@/lib/auth'
+import { createBlogArticle, getDashboardClientById, listBlogArticlesForClient, getBlogSiteBySlug, getBlogIdea } from '@/lib/db'
 import { isValidLocale, type Locale } from '@/lib/i18n'
 
 export const runtime = 'nodejs'
@@ -25,41 +25,54 @@ async function ensureUniqueSlug(clientId: number, baseSlug: string, locale: stri
 }
 
 export async function POST(req: Request) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const unauthorized = await requireApiEditor()
+  if (unauthorized) return unauthorized
 
   const body = (await req.json().catch(() => null)) as
-    | { clientId?: number; title?: string; locale?: string; slug?: string }
+    | { clientId?: number; title?: string; locale?: string; slug?: string; ideaId?: number; blogSiteSlug?: string; category?: string; keyword?: string; excerpt?: string; status?: string }
     | null
   if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
 
   const title = (body.title ?? '').trim() || 'Untitled article'
   const locale = isValidLocale(body.locale ?? '') ? (body.locale as Locale) : 'fr'
 
-  // Determine clientId: admins must pass clientId; clients are scoped to their own.
-  let clientId: number | undefined
-  if (session.role === 'admin') {
-    clientId = Number(body.clientId)
-    if (!Number.isFinite(clientId)) {
-      return NextResponse.json({ error: 'clientId is required' }, { status: 400 })
-    }
-    const client = await getDashboardClientById(clientId)
-    if (!client) return NextResponse.json({ error: 'Client not found' }, { status: 404 })
-  } else {
-    clientId = session.clientId
+  const clientId = Number(body.clientId)
+  if (!Number.isFinite(clientId)) {
+    return NextResponse.json({ error: 'clientId is required' }, { status: 400 })
   }
+  const client = await getDashboardClientById(clientId)
+  if (!client) return NextResponse.json({ error: 'Client not found' }, { status: 404 })
 
   const baseSlug = body.slug?.trim() ? slugify(body.slug) : slugify(title)
   const slug = await ensureUniqueSlug(clientId, baseSlug, locale)
 
+  let blogSiteId: number | null = null
+  if (typeof body.blogSiteSlug === 'string' && body.blogSiteSlug) {
+    const site = await getBlogSiteBySlug(body.blogSiteSlug)
+    if (site) blogSiteId = site.id
+  }
+
+  let ideaId: number | null = null
+  if (Number.isFinite(body.ideaId) && (body.ideaId as number) > 0) {
+    const idea = await getBlogIdea(body.ideaId as number)
+    if (idea) ideaId = idea.id
+  }
+
+  const keywords = body.keyword ? [body.keyword] : []
+
   const article = await createBlogArticle({
     clientId,
+    blogSiteId,
+    ideaId,
     title,
     slug,
     canonicalSlug: slug,
     locale,
-    status: 'pending_review',
+    status: body.status ?? 'pending_review',
     contentHtml: '',
+    excerpt: body.excerpt ?? undefined,
+    category: body.category ?? undefined,
+    keywords: keywords.length ? keywords : undefined,
   })
 
   return NextResponse.json({ ok: true, article })

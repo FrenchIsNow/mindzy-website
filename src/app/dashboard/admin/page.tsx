@@ -1,96 +1,88 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getSession } from '@/lib/auth'
-import { listDashboardClients, countArticlesForClient, listBlogIdeas } from '@/lib/db'
-import { Shell } from '@/components/dashboard/Sidebar'
+import {
+  listDashboardClients,
+  countArticlesForClient,
+  listBlogIdeas,
+  listWaitingLists,
+  listLeads,
+  listBlogSites,
+  getAllCatalogEntries,
+} from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminHome() {
-  const session = await getSession()
-  if (!session) redirect('/dashboard/login')
-  if (session.user.role !== 'admin') redirect('/dashboard/client')
+  const [clients, waitingLists, leads, sites, ebooks] = await Promise.all([
+    listDashboardClients(),
+    listWaitingLists(),
+    listLeads(1),
+    listBlogSites(),
+    getAllCatalogEntries(),
+  ])
 
-  const allClients = await listDashboardClients()
-  // Hide Mindzy self-blog from the "Clients" table (it's accessible via "Mon blog").
-  const clients = allClients.filter(c => c.slug !== 'mindzy')
-  const rows = await Promise.all(
+  const blogRows = await Promise.all(
     clients.map(async c => {
       const [ideas, counts] = await Promise.all([listBlogIdeas(c.id), countArticlesForClient(c.id)])
-      return { client: c, ideasCount: ideas.length, counts }
+      return { ideas: ideas.length, counts }
     }),
   )
 
+  const totalIdeas = blogRows.reduce((sum, r) => sum + r.ideas, 0)
+  const totalPending = blogRows.reduce((sum, r) => sum + r.counts.pending, 0)
+  const totalPublished = blogRows.reduce((sum, r) => sum + r.counts.published, 0)
+
+  const modules = [
+    {
+      href: '/dashboard/admin/ebooks',
+      label: 'Ebooks',
+      description: `${ebooks.length} publication${ebooks.length > 1 ? 's' : ''}`,
+    },
+    {
+      href: '/dashboard/admin/waiting-lists',
+      label: 'Listes d\'attente',
+      description: `${waitingLists.length} liste${waitingLists.length > 1 ? 's' : ''}`,
+    },
+    {
+      href: '/dashboard/admin/blogs',
+      label: 'Blogs',
+      description: `${sites.length} site${sites.length > 1 ? 's' : ''} · ${totalPublished} publié${totalPublished > 1 ? 's' : ''}`,
+    },
+    {
+      href: '/dashboard/admin/blog-ideas',
+      label: 'Idées & pipeline',
+      description: `${totalIdeas} idée${totalIdeas > 1 ? 's' : ''} · ${totalPending} en attente`,
+    },
+    {
+      href: '/dashboard/admin/leads',
+      label: 'Prospects',
+      description: `${leads.length} lead${leads.length > 1 ? 's' : ''}`,
+    },
+    {
+      href: '/dashboard/admin/settings',
+      label: 'Paramètres',
+      description: 'RBAC, organisation, intégrations',
+    },
+  ]
+
   return (
-    <Shell role="admin" userName={session.user.name}>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">Clients</h1>
-        <Link
-          href="/dashboard/admin/clients/new"
-          className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
-        >
-          + Ajouter un client
-        </Link>
+    <>
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight">Vue d'ensemble</h1>
+        <p className="mt-1 text-sm text-slate-600">Modules et activité de la plateforme.</p>
       </div>
 
-      {rows.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
-          <p className="text-slate-600">Aucun client pour le moment.</p>
-          <Link href="/dashboard/admin/clients/new" className="mt-4 inline-block text-violet-600 hover:underline">
-            Créer le premier client →
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {modules.map(module => (
+          <Link
+            key={module.href}
+            href={module.href}
+            className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-violet-300 hover:shadow-sm"
+          >
+            <div className="mb-1 text-sm font-medium text-slate-900">{module.label}</div>
+            <div className="text-xs text-slate-500">{module.description}</div>
           </Link>
-        </div>
-      ) : (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
-              <tr>
-                <th className="px-4 py-3">Client</th>
-                <th className="px-4 py-3">Fréquence</th>
-                <th className="px-4 py-3 text-center">Idées</th>
-                <th className="px-4 py-3 text-center">En attente</th>
-                <th className="px-4 py-3 text-center">Approuvés</th>
-                <th className="px-4 py-3 text-center">Publiés</th>
-                <th className="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {rows.map(({ client, ideasCount, counts }) => (
-                <tr key={client.id}>
-                  <td className="px-4 py-3">
-                    <div className="font-medium">{client.name}</div>
-                    <div className="text-xs text-slate-500">/{client.slug} · {client.locale}</div>
-                  </td>
-                  <td className="px-4 py-3 text-slate-600">
-                    {client.frequency} · {client.posts_per_cycle}/cycle
-                  </td>
-                  <td className="px-4 py-3 text-center text-slate-700">{ideasCount}</td>
-                  <td className="px-4 py-3 text-center">
-                    {counts.pending > 0 ? (
-                      <span className="inline-flex rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">{counts.pending}</span>
-                    ) : (
-                      <span className="text-slate-400">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-center">
-                    {counts.approved > 0 ? (
-                      <span className="inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800">{counts.approved}</span>
-                    ) : (
-                      <span className="text-slate-400">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-center text-slate-700">{counts.published}</td>
-                  <td className="px-4 py-3 text-right">
-                    <Link href={`/dashboard/admin/clients/${client.slug}`} className="text-violet-600 hover:underline">
-                      Ouvrir →
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </Shell>
+        ))}
+      </div>
+    </>
   )
 }
