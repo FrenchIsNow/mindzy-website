@@ -46,7 +46,7 @@ async function main() {
   // (Neon's HTTP client serializes JS values via JSON.stringify, so a raw object
   // would arrive as a JSON-encoded text without the ::jsonb cast).
   const formFieldsJson = JSON.stringify(['email', 'firstName', 'lastName', 'company'])
-  const deliverableTypesJson = JSON.stringify({ fr: 'page', en: 'pdf', es: 'pdf' })
+  const deliverableTypesJson = JSON.stringify({ fr: 'page', en: 'page', es: 'page' })
 
   await sql`
     INSERT INTO ebook_catalog (
@@ -63,7 +63,7 @@ async function main() {
       form_fields = EXCLUDED.form_fields,
       updated_at = NOW()
   `
-  console.log('  ✓ ebook_catalog row ensured with deliverable_types = { fr: page, en: pdf, es: pdf }')
+  console.log('  ✓ ebook_catalog row ensured with deliverable_types = { fr: page, en: page, es: page }')
 
   // 2. Upsert the FR content with the HTML body.
   await sql`
@@ -90,7 +90,31 @@ async function main() {
   `
   console.log('  ✓ ebook_content[fr] updated with HTML body')
 
-  console.log('\nDone. Visit /fr/ebooks/eu-ai-act-2024 to see the rendered report.')
+  // 3. Mirror the FR body to EN and ES so all three locales render the in-page report.
+  // (Source is FR-only; EN/ES will display the same body until translated.)
+  for (const locale of ['en', 'es']) {
+    await sql`
+      INSERT INTO ebook_content (
+        slug, locale, title, subtitle, excerpt, category,
+        html_content, is_db_only, updated_at
+      ) VALUES (
+        ${SLUG}, ${locale},
+        ${'EU Regulation 2024/1689 — Complete AI Act Report'},
+        ${"The operational guide to AI Act compliance for businesses."},
+        ${"Executive summary, risk-level classification, operational obligations, sanctions, and compliance roadmap."},
+        ${'legal'},
+        ${body},
+        true, NOW()
+      )
+      ON CONFLICT (slug, locale) DO UPDATE SET
+        html_content = EXCLUDED.html_content,
+        is_db_only = true,
+        updated_at = NOW()
+    `
+    console.log(`  ✓ ebook_content[${locale}] mirrored to FR body`)
+  }
+
+  console.log('\nDone. Visit /fr/ebooks/eu-ai-act-2024 (or /en, /es) to see the rendered report.')
 }
 
 main().catch(err => {

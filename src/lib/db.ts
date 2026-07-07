@@ -1792,25 +1792,29 @@ async function seedStaticEbooksToCatalog(): Promise<void> {
     ) VALUES (
       ${'eu-ai-act-2024'}, ${true}, ${true}, ${'eur'}, ${'published'}, NOW(),
       ${'["email","firstName","lastName","company"]'}::jsonb,
-      ${'{"fr": "page", "en": "pdf", "es": "pdf"}'}::jsonb,
+      ${'{"fr": "page", "en": "page", "es": "page"}'}::jsonb,
       NOW()
     )
-    ON CONFLICT (slug) DO NOTHING
+    ON CONFLICT (slug) DO UPDATE SET
+      deliverable_types = EXCLUDED.deliverable_types
   `
 
-  // FR content shell (filled in by the seed script).
-  await sql`
-    INSERT INTO ebook_content (
-      slug, locale, title, subtitle, excerpt, category, is_db_only, updated_at
-    ) VALUES (
-      ${'eu-ai-act-2024'}, ${'fr'},
-      ${'Règlement (UE) 2024/1689 — Rapport Complet AI Act'},
-      ${"Le guide opérationnel de la conformité à l'AI Act pour les entreprises."},
-      ${"Synthèse exécutive, classification par niveau de risque, obligations opérationnelles, sanctions, et roadmap de mise en conformité."},
-      ${'juridique'}, ${true}, NOW()
-    )
-    ON CONFLICT (slug, locale) DO NOTHING
-  `
+  // FR content shell (filled in by the seed script). EN/ES shells point at
+  // the same FR html_content so all three locales render the in-page report.
+  for (const locale of ['fr', 'en', 'es'] as const) {
+    await sql`
+      INSERT INTO ebook_content (
+        slug, locale, title, subtitle, excerpt, category, is_db_only, updated_at
+      ) VALUES (
+        ${'eu-ai-act-2024'}, ${locale},
+        ${'Règlement (UE) 2024/1689 — Rapport Complet AI Act'},
+        ${"Le guide opérationnel de la conformité à l'AI Act pour les entreprises."},
+        ${"Synthèse exécutive, classification par niveau de risque, obligations opérationnelles, sanctions, et roadmap de mise en conformité."},
+        ${'juridique'}, ${true}, NOW()
+      )
+      ON CONFLICT (slug, locale) DO NOTHING
+    `
+  }
 }
 
 // ─── Profiles (linktree-style founder cards) ────────────────────────────────
