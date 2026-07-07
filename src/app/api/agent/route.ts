@@ -4,7 +4,6 @@ import {
   createBlogArticle,
   createBlogIdea,
   createBlogSite,
-  createEbookLead,
   createLead,
   createWaitingList,
   getBlogSiteBySlug,

@@ -2,34 +2,28 @@ import Link from 'next/link'
 import {
   listDashboardClients,
   countArticlesForClient,
-  listBlogIdeas,
   listWaitingLists,
   listLeads,
   listBlogSites,
   getAllCatalogEntries,
+  listProfiles,
 } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminHome() {
-  const [clients, waitingLists, leads, sites, ebooks] = await Promise.all([
+  const [clients, waitingLists, leads, sites, ebooks, profiles] = await Promise.all([
     listDashboardClients(),
     listWaitingLists(),
     listLeads(1),
     listBlogSites(),
     getAllCatalogEntries(),
+    listProfiles(),
   ])
 
-  const blogRows = await Promise.all(
-    clients.map(async c => {
-      const [ideas, counts] = await Promise.all([listBlogIdeas(c.id), countArticlesForClient(c.id)])
-      return { ideas: ideas.length, counts }
-    }),
-  )
-
-  const totalIdeas = blogRows.reduce((sum, r) => sum + r.ideas, 0)
-  const totalPending = blogRows.reduce((sum, r) => sum + r.counts.pending, 0)
-  const totalPublished = blogRows.reduce((sum, r) => sum + r.counts.published, 0)
+  const totalPublished = (
+    await Promise.all(clients.map(c => countArticlesForClient(c.id)))
+  ).reduce((sum, counts) => sum + counts.published, 0)
 
   const modules = [
     {
@@ -48,14 +42,14 @@ export default async function AdminHome() {
       description: `${sites.length} site${sites.length > 1 ? 's' : ''} · ${totalPublished} publié${totalPublished > 1 ? 's' : ''}`,
     },
     {
-      href: '/dashboard/admin/blog-ideas',
-      label: 'Idées & pipeline',
-      description: `${totalIdeas} idée${totalIdeas > 1 ? 's' : ''} · ${totalPending} en attente`,
-    },
-    {
       href: '/dashboard/admin/leads',
       label: 'Prospects',
       description: `${leads.length} lead${leads.length > 1 ? 's' : ''}`,
+    },
+    {
+      href: '/dashboard/admin/profiles',
+      label: 'Profils',
+      description: `${profiles.length} carte${profiles.length > 1 ? 's' : ''} de contact`,
     },
     {
       href: '/dashboard/admin/settings',

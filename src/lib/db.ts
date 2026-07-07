@@ -515,6 +515,7 @@ async function initCMSMigration(sql: ReturnType<typeof getSql>) {
   await sql`CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at DESC)`
 
   await sql`ALTER TABLE ebook_leads ADD COLUMN IF NOT EXISTS lead_id INTEGER REFERENCES leads(id) ON DELETE SET NULL`
+  await sql`ALTER TABLE ebook_leads ADD COLUMN IF NOT EXISTS role TEXT`
   await sql`ALTER TABLE waitlist_entries ADD COLUMN IF NOT EXISTS lead_id INTEGER REFERENCES leads(id) ON DELETE SET NULL`
 
   // Backfill ebook leads.
@@ -1250,45 +1251,115 @@ export async function saveEbookLead(data: {
   return rows[0].id as number
 }
 
-export async function createEbookLead(data: {
+/**
+ * Upsert a lead + ebook_lead for a download form.
+ *
+ * Dedup rules:
+ * - `leads`: one row per email (case-insensitive). Update in place, COALESCE
+ *   incoming values over stored ones so partial forms merge into the existing
+ *   record instead of overwriting a known field with null.
+ * - `ebook_leads`: one row per (email, slug). Same COALESCE pattern.
+ *
+ * Returns the leadId and ebookLeadId so the API can link them.
+ */
+export async function upsertEbookLeadForDownload(data: {
   email: string
-  firstName?: string
-  lastName?: string
-  company?: string
-  role?: string
-  phone?: string
+  firstName?: string | null
+  lastName?: string | null
+  company?: string | null
+  role?: string | null
+  phone?: string | null
   ebookSlug: string
   locale: string
-}): Promise<{ ebookLeadId: number; leadId: number }> {
+}): Promise<{ leadId: number; ebookLeadId: number }> {
   await initDB()
   const sql = getSql()
 
-  const name = [data.firstName, data.lastName].filter(Boolean).join(' ')
-  const ebookRows = await sql`
-    INSERT INTO ebook_leads (email, name, company, role, ebook_slug, locale)
-    VALUES (${data.email}, ${name || null}, ${data.company ?? null}, ${data.role ?? null}, ${data.ebookSlug}, ${data.locale})
-    RETURNING id
-  `
-  const ebookLeadId = ebookRows[0].id as number
+  const fullName = [data.firstName, data.lastName].filter(Boolean).join(' ') || null
 
-  const leadRows = await sql`
-    INSERT INTO leads (email, first_name, last_name, company, role, locale, source, source_detail, status, gdpr_consent)
-    VALUES (
-      ${data.email},
-      ${data.firstName ?? null},
-      ${data.lastName ?? null},
-      ${data.company ?? null},
-      ${data.role ?? null},
-      ${data.locale},
-      ${'ebook'},
-      ${{ ebook_slug: data.ebookSlug, ebook_lead_id: ebookLeadId }},
-      ${'new'},
-      ${true}
-    )
-    RETURNING id
+  // 1. Find or create the global lead row.
+  const existing = await sql`
+    SELECT id, source_detail FROM leads WHERE LOWER(email) = LOWER(${data.email}) LIMIT 1
   `
-  const leadId = leadRows[0].id as number
-  return { ebookLeadId, leadId }
+  let leadId: number
+  if (existing[0]) {
+    leadId = existing[0].id as number
+    // Merge: COALESCE on every field so a partial form never clobbers known data.
+    // Append this ebook slug to source_detail.ebook_slugs (deduped, lowercased).
+    const priorDetail = (existing[0].source_detail as Record<string, unknown> | null) ?? {}
+    const priorSlugs = Array.isArray(priorDetail.ebook_slugs) ? (priorDetail.ebook_slugs as string[]) : []
+    const slugLower = data.ebookSlug.toLowerCase()
+    const nextSlugs = priorSlugs.includes(slugLower) ? priorSlugs : [...priorSlugs, slugLower]
+    await sql`
+      UPDATE leads SET
+        first_name   = COALESCE(${data.firstName ?? null}::text, first_name),
+        last_name    = COALESCE(${data.lastName ?? null}::text, last_name),
+        company      = COALESCE(${data.company ?? null}::text, company),
+        role         = COALESCE(${data.role ?? null}::text, role),
+        phone        = COALESCE(${data.phone ?? null}::text, phone),
+        locale       = COALESCE(${data.locale}::text, locale),
+        source_detail = ${JSON.stringify({ ...priorDetail, ebook_slugs: nextSlugs })}::jsonb,
+        updated_at   = NOW()
+      WHERE id = ${leadId}
+    `
+  } else {
+    const inserted = await sql`
+      INSERT INTO leads (email, first_name, last_name, company, role, phone, locale, source, source_detail, status, gdpr_consent)
+      VALUES (
+        ${data.email},
+        ${data.firstName ?? null},
+        ${data.lastName ?? null},
+        ${data.company ?? null},
+        ${data.role ?? null},
+        ${data.phone ?? null},
+        ${data.locale},
+        ${'ebook'},
+        ${{ ebook_slugs: [data.ebookSlug.toLowerCase()] }},
+        ${'new'},
+        ${true}
+      )
+      RETURNING id
+    `
+    leadId = inserted[0].id as number
+  }
+
+  // 2. Find or create the ebook_lead row.
+  const existingEl = await sql`
+    SELECT id FROM ebook_leads WHERE LOWER(email) = LOWER(${data.email}) AND ebook_slug = ${data.ebookSlug} LIMIT 1
+  `
+  let ebookLeadId: number
+  if (existingEl[0]) {
+    ebookLeadId = existingEl[0].id as number
+    await sql`
+      UPDATE ebook_leads SET
+        name    = COALESCE(${fullName}::text, name),
+        company = COALESCE(${data.company ?? null}::text, company),
+        lead_id = ${leadId}
+      WHERE id = ${ebookLeadId}
+    `
+  } else {
+    const inserted = await sql`
+      INSERT INTO ebook_leads (email, name, phone, company, role, ebook_slug, locale, lead_id)
+      VALUES (
+        ${data.email},
+        ${fullName},
+        ${data.phone ?? null},
+        ${data.company ?? null},
+        ${data.role ?? null},
+        ${data.ebookSlug},
+        ${data.locale},
+        ${leadId}
+      )
+      RETURNING id
+    `
+    ebookLeadId = inserted[0].id as number
+  }
+
+  // 3. Keep both FKs consistent.
+  await sql`UPDATE leads SET source_detail = source_detail || ${JSON.stringify({ ebook_lead_id: ebookLeadId })}::jsonb WHERE id = ${leadId}`
+  await sql`UPDATE ebook_leads SET lead_id = ${leadId} WHERE id = ${ebookLeadId}`
+
+  return { leadId, ebookLeadId }
 }
 
 export async function getEbookLeads(ebookSlug?: string) {
@@ -2110,19 +2181,43 @@ export async function listLeadsFiltered(filters: LeadFilters = {}): Promise<{ ro
   const sql = getSql()
   const limit = filters.limit ?? 100
   const offset = filters.offset ?? 0
-  const conditions: ReturnType<typeof sql>[] = []
-  if (filters.source) conditions.push(sql`source = ${filters.source}`)
-  if (filters.status) conditions.push(sql`status = ${filters.status}`)
-  if (filters.locale) conditions.push(sql`locale = ${filters.locale}`)
+
+  // ponytail: Neon's tagged template returns a NeonQueryPromise whose SQL+params
+  // live on `.parameterizedQuery`, not as direct properties. Reading `c.query`
+  // yields undefined and crashes the renumber step.
+  const conds: ReturnType<typeof sql>[] = []
+  if (filters.source) conds.push(sql`source = ${filters.source}`)
+  if (filters.status) conds.push(sql`status = ${filters.status}`)
+  if (filters.locale) conds.push(sql`locale = ${filters.locale}`)
   if (filters.q) {
     const term = `%${filters.q.toLowerCase()}%`
-    conditions.push(sql`(LOWER(email) LIKE ${term} OR LOWER(COALESCE(first_name, '')) LIKE ${term} OR LOWER(COALESCE(last_name, '')) LIKE ${term} OR LOWER(COALESCE(company, '')) LIKE ${term})`)
+    conds.push(sql`(LOWER(email) LIKE ${term} OR LOWER(COALESCE(first_name, '')) LIKE ${term} OR LOWER(COALESCE(last_name, '')) LIKE ${term} OR LOWER(COALESCE(company, '')) LIKE ${term})`)
   }
-  const where = conditions.length
-    ? sql`WHERE ${conditions.reduce((acc, c, i) => (i === 0 ? c : sql`${acc} AND ${c}`))}`
-    : sql``
-  const rows = await sql`SELECT * FROM leads ${where} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
-  const totalRows = await sql`SELECT COUNT(*)::int AS c FROM leads ${where}`
+
+  // Renumber: rewrite each fragment's $N to $M where M is the running offset.
+  // ponytail: neon's ordinary `sql(string, params)` form binds by sequential
+  // $N position — concatenating fragments whose .query already has $1/$2 would
+  // misalign the outer LIMIT/OFFSET placeholders.
+  let paramOffset = 0
+  const renumbered: string[] = []
+  const allParams: unknown[] = []
+  for (const c of conds) {
+    const fragment = c.parameterizedQuery
+    const rewritten = fragment.query.replace(/\$(\d+)/g, (_, n) => `$${Number(n) + paramOffset}`)
+    renumbered.push(rewritten)
+    allParams.push(...fragment.params)
+    paramOffset += fragment.params.length
+  }
+  const whereClause = renumbered.length ? `WHERE ${renumbered.join(' AND ')}` : ''
+
+  const rows = await sql(
+    `SELECT * FROM leads ${whereClause} ORDER BY created_at DESC LIMIT $${paramOffset + 1} OFFSET $${paramOffset + 2}`,
+    [...allParams, limit, offset],
+  )
+  const totalRows = await sql(
+    `SELECT COUNT(*)::int AS c FROM leads ${whereClause}`,
+    allParams,
+  )
   return { rows: rows as Lead[], total: (totalRows[0]?.c as number) ?? 0 }
 }
 
@@ -2171,18 +2266,6 @@ export async function exportLeadsToCSV(filters: LeadFilters = {}): Promise<strin
 export interface BlogIdeaWithSite extends BlogIdea {
   site_slug?: string | null
   site_name?: string | null
-}
-
-export async function listAllBlogIdeas(): Promise<BlogIdeaWithSite[]> {
-  await initDB()
-  const sql = getSql()
-  const rows = await sql`
-    SELECT i.*, s.slug AS site_slug, s.name AS site_name
-    FROM blog_ideas i
-    LEFT JOIN blog_sites s ON s.id = i.blog_site_id
-    ORDER BY i.status ASC, i.created_at DESC
-  `
-  return rows as BlogIdeaWithSite[]
 }
 
 export async function listAllLeadsForAdmin(limit = 200): Promise<Lead[]> {

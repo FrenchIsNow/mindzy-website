@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createEbookLead, getCatalogEntry, getEbookContent } from '@/lib/db'
+import { getCatalogEntry, getEbookContent, upsertEbookLeadForDownload } from '@/lib/db'
 import { getEbook } from '@/lib/ebooks'
 import { defaultLocale } from '@/lib/i18n'
 
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    await createEbookLead({
+    await upsertEbookLeadForDownload({
       email,
       firstName,
       lastName,

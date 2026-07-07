@@ -7,6 +7,17 @@ import type { CatalogEntry, Service } from '@/lib/db'
 
 type UpsellOption = { value: string; label: string; kind: 'service' | 'ebook'; priceCents: number | null }
 
+const FORM_FIELD_OPTIONS = [
+  { key: 'firstName', label: 'Prénom' },
+  { key: 'lastName', label: 'Nom' },
+  { key: 'email', label: 'Email (toujours requis)' },
+  { key: 'company', label: 'Entreprise' },
+  { key: 'role', label: 'Poste' },
+  { key: 'phone', label: 'Téléphone' },
+] as const
+
+const DEFAULT_FORM_FIELDS = ['email', 'firstName', 'lastName', 'company', 'role']
+
 export default function EbookSettingsForm({
   slug,
   initial,
@@ -29,6 +40,12 @@ export default function EbookSettingsForm({
     has_upsell: initial?.has_upsell ?? false,
     upsell_slug: initial?.upsell_slug ?? '',
     upsellPriceEuros: initial?.upsell_price_cents ? (initial.upsell_price_cents / 100).toFixed(2) : '',
+  })
+  const [formFields, setFormFields] = useState<string[]>(() => {
+    const stored = Array.isArray(initial?.form_fields) ? (initial!.form_fields as unknown[]).map(String) : []
+    const base = stored.length > 0 ? stored : DEFAULT_FORM_FIELDS
+    // Email is always required.
+    return base.includes('email') ? base : ['email', ...base]
   })
   const [services, setServices] = useState<Service[]>([])
   const [saving, setSaving] = useState(false)
@@ -97,6 +114,7 @@ export default function EbookSettingsForm({
         has_upsell: form.has_upsell,
         upsell_price_cents: upsellCents,
         upsell_slug: form.has_upsell ? form.upsell_slug : null,
+        form_fields: formFields,
       }),
     })
     setSaving(false)
@@ -173,6 +191,38 @@ export default function EbookSettingsForm({
             <label className="mb-1 block text-xs font-medium text-slate-600">Expire le</label>
             <input type="date" value={form.promo_expires_at} onChange={e => set('promo_expires_at', e.target.value)} className={cls} />
           </div>
+        </div>
+      </div>
+
+      <div className="border-t border-slate-200 pt-4">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Champs du formulaire</h3>
+        <p className="mb-3 text-xs text-slate-500">Cochez les informations à demander au téléchargement. L&apos;email est toujours requis.</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {FORM_FIELD_OPTIONS.map(opt => {
+            const checked = formFields.includes(opt.key)
+            const locked = opt.key === 'email'
+            return (
+              <label
+                key={opt.key}
+                className={`flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm ${
+                  locked ? 'cursor-not-allowed bg-slate-50 opacity-80' : 'cursor-pointer hover:bg-slate-50'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={locked}
+                  onChange={e => {
+                    if (locked) return
+                    setFormFields(prev =>
+                      e.target.checked ? [...prev, opt.key] : prev.filter(k => k !== opt.key),
+                    )
+                  }}
+                />
+                <span>{opt.label}</span>
+              </label>
+            )
+          })}
         </div>
       </div>
 

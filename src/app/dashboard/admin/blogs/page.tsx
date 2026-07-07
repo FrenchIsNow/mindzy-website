@@ -16,15 +16,9 @@ export default async function BlogsPage() {
         <div className="flex gap-2">
           <Link
             href="/dashboard/admin/blog-sites/new"
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            + Nouveau site
-          </Link>
-          <Link
-            href="/dashboard/admin/blogs/new"
             className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
           >
-            + Nouvel article
+            + Nouveau site
           </Link>
         </div>
       </div>

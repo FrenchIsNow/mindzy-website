@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "validate:ebooks": "node ./scripts/validate-ebooks.mjs"
+    "validate:ebooks": "node ./scripts/validate-ebooks.mjs",
+    "test:ebook-upsert": "tsx test/ebook-upsert.unit.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",

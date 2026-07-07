@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getLeadById, updateLead } from '@/lib/db'
+import { ebooks as staticEbooks } from '@/lib/ebooks'
+import type { Locale } from '@/lib/i18n'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,12 +15,28 @@ async function updateStatus(formData: FormData) {
   }
 }
 
+function resolveSourceLabel(source: string | null, sourceDetail: unknown, locale: string): string {
+  if (!source) return '—'
+  if (source === 'ebook') {
+    const slug = (sourceDetail as { ebook_slug?: string } | null)?.ebook_slug
+    const ebook = slug ? staticEbooks.find(e => e.slug === slug) : undefined
+    if (ebook) {
+      const title = ebook.title[locale as Locale] ?? ebook.title.fr ?? Object.values(ebook.title)[0]
+      return title ? `${title} (ebook)` : 'ebook'
+    }
+    return slug ? `ebook · ${slug}` : 'ebook'
+  }
+  return source
+}
+
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id: idStr } = await params
   const id = Number(idStr)
   if (!Number.isFinite(id)) notFound()
   const lead = await getLeadById(id)
   if (!lead) notFound()
+
+  const sourceLabel = resolveSourceLabel(lead.source, lead.source_detail, lead.locale ?? 'fr')
 
   return (
     <>
@@ -44,7 +62,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           </Card>
 
           <Card title="Acquisition">
-            <Row k="Source" v={lead.source} />
+            <Row k="Source" v={sourceLabel} />
             <Row k="Source détail" v={lead.source_detail as unknown as string} />
             <Row k="Locale" v={lead.locale} />
             <Row k="Tags" v={Array.isArray(lead.tags) ? (lead.tags as string[]).join(', ') : null} />

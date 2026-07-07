@@ -48,9 +48,14 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
       label: 'Blogs',
       items: [
         { href: '/dashboard/admin/blogs', label: 'Tous les sites', icon: <IconGlobe /> },
-        { href: '/dashboard/admin/blogs/new', label: 'Nouvel article', icon: <IconPlus /> },
         { href: '/dashboard/admin/blog-sites/new', label: 'Nouveau site', icon: <IconPlus /> },
-        { href: '/dashboard/admin/blog-ideas', label: 'Idées & pipeline', icon: <IconLightbulb /> },
+      ],
+    },
+    {
+      label: 'Profils',
+      items: [
+        { href: '/dashboard/admin/profiles', label: 'Cartes de contact', icon: <IconUser /> },
+        { href: '/dashboard/admin/profiles/new', label: 'Nouveau profil', icon: <IconPlus /> },
       ],
     },
     {
@@ -213,16 +218,6 @@ function IconPlus() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
       <path d="M12 5v14M5 12h14" />
-    </svg>
-  )
-}
-
-function IconLightbulb() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M12 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
     </svg>
   )
 }

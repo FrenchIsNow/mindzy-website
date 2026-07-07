@@ -6,10 +6,10 @@ Replace the custom dashboard session/auth layer with Better Auth + RBAC, restruc
 
 ## Current Phase
 
-**Phase 2 — Database Migrations & Data Model**  
-Status: `completed`. `blog_sites`, `leads`, `waiting_lists` tables created; CMS columns added to `ebook_catalog`, `ebook_content`, `blog_ideas`, `blog_articles`, `waitlist_entries`; status constraints enforced; existing data backfilled; TypeScript types updated.
+**Phase 4 — Ebook Builder**  
+Status: `in_progress`. Public ebook directory and landing pages exist; admin list/wizard/detail enhancements and DB seed migration are in progress.
 
-**Next: Phase 3 — Admin Information Architecture (list pages, detail pages, server-side role checks).**
+**Next after this phase: Phase 5 — Waiting List Module.**
 
 ---
 
@@ -242,14 +242,14 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 
 ## 5. Phase-by-Phase Implementation
 
-> Each phase ends with a reviewable diff, a build, and a progress update in `progress.md`.
+> Each phase ends with a reviewable diff, a passing build, and a progress update in `progress.md`.
 
-### Phase 0 — Foundation & Auth (this approval step + first implementation)
+### Phase 1 — Foundation & Auth
 
 **Deliverables**
 - Install `better-auth` and configure Next.js API route `/api/auth/[...all]`.
 - Replace `src/lib/dashboard-auth.ts` with a thin wrapper around Better Auth server client.
-- Update `src/middleware.ts` to validate Better Auth session for `/dashboard/*`.
+- Update `src/proxy.ts` to validate Better Auth session for `/dashboard/*`.
 - Add RBAC helpers: `requireAdmin()`, `requireRole('editor')`.
 - Seed default admin `contact@mindzy.me` safely via `src/lib/db.ts` init.
 - Update `src/components/dashboard/Sidebar.tsx` with the new module grouping (placeholder links).
@@ -259,7 +259,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Non-authenticated users hitting `/dashboard/*` are redirected to login.
 - `admin` role can access everything; `editor` cannot manage users; `viewer` is read-only.
 
-### Phase 1 — Database Migrations & Data Model
+### Phase 2 — Database Migrations & Data Model
 
 **Deliverables**
 - Extend `initDB()` in `src/lib/db.ts` with all new tables/columns in idempotent form (`CREATE TABLE IF NOT EXISTS`, `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`).
@@ -276,11 +276,13 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - `initDB()` runs idempotently without errors on an existing production-like dump.
 - All old rows remain reachable.
 
-### Phase 2 — Admin Information Architecture
+### Phase 3 — Admin Information Architecture
 
 **Deliverables**
 - Implement new sidebar with sections and active-state logic.
-- Create empty but routed module index pages:
+- Create shared `src/app/dashboard/admin/layout.tsx` enforcing Better Auth + RBAC and wrapping pages in `Shell`.
+- Remove duplicate Shell/auth wrappers from existing admin pages.
+- Create routed module index pages:
   - `/dashboard/admin/ebooks`
   - `/dashboard/admin/waiting-lists`
   - `/dashboard/admin/blogs`
@@ -289,13 +291,14 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
   - `/dashboard/admin/blog-ideas`
   - `/dashboard/admin/settings`
 - Move old `/dashboard/admin/clients/[slug]` article/idea UI into `/dashboard/admin/blogs` and `/dashboard/admin/blog-ideas`.
-- Retire the old `Clients` index; replace with `Blog Sites` + `Settings`.
+- Retire the old `Clients` index; replace with module overview + `Blog Sites` + `Settings`.
 
 **Acceptance**
 - Sidebar navigation matches the target architecture.
 - All previous admin URLs either redirect or still render content.
+- `npm run build` passes.
 
-### Phase 3 — Ebook Builder
+### Phase 4 — Ebook Builder
 
 **Deliverables**
 - Admin list: card grid at `/dashboard/admin/ebooks` (status badges, filters, search).
@@ -315,7 +318,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Public landing pages render for all 10 locales (fallback to FR).
 - Submissions create both an `ebook_leads` row and a unified `leads` row.
 
-### Phase 4 — Waiting List Module
+### Phase 5 — Waiting List Module
 
 **Deliverables**
 - Admin: `/dashboard/admin/waiting-lists` card list; `/dashboard/admin/waiting-lists/new` creation wizard; `/dashboard/admin/waiting-lists/[slug]` detail with submissions, filters, CSV export.
@@ -328,7 +331,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Admin card list is the default view.
 - CSV export works.
 
-### Phase 5 — Leads / Prospects Module
+### Phase 6 — Leads / Prospects Module
 
 **Deliverables**
 - `/dashboard/admin/leads`: table with filters (source, status, locale, date), search, tags, bulk actions.
@@ -341,7 +344,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - All `ebook_leads` and `waitlist_entries` appear as leads with source tags.
 - Filtering and export work server-side.
 
-### Phase 6 — Blogs & Blog Sites Overhaul
+### Phase 7 — Blogs & Blog Sites Overhaul
 
 **Deliverables**
 - Admin: `/dashboard/admin/blog-sites` CRUD; `/dashboard/admin/blogs` filterable by site; article editor with block-based content (start with a small set: hero/heading/paragraph/quote/image/cta).
@@ -355,7 +358,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Existing blog still renders unchanged.
 - New block editor saves and renders articles.
 
-### Phase 7 — Blog Ideas / Content Pipeline
+### Phase 8 — Blog Ideas / Content Pipeline
 
 **Deliverables**
 - `/dashboard/admin/blog-ideas` pipeline board (waiting | in_progress | done | archived).
@@ -368,7 +371,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Status transitions work.
 - Ideas can be promoted into a draft article in one click.
 
-### Phase 8 — Agent Skills & Automation Hooks
+### Phase 9 — Agent Skills & Automation Hooks
 
 **Deliverables**
 - Create skill `.claude/skills/create-ebook/SKILL.md` using `create-skill` format:
@@ -384,7 +387,7 @@ ALTER TABLE blog_ideas ADD CONSTRAINT blog_ideas_status_check
 - Skills validate inputs and write to the correct tables.
 - Agent endpoints return structured JSON and log to a new `agent_events` table (optional).
 
-### Phase 9 — Testing, GEO, & Handoff
+### Phase 10 — Testing, GEO, & Handoff
 
 **Deliverables**
 - Run `npm run build` and `npm run lint`.
@@ -482,4 +485,4 @@ NEXT_PUBLIC_SITE_URL=https://mindzy.me
 
 ## 11. Next Step
 
-Approve this plan so implementation can begin with **Phase 0 — Foundation & Auth**.
+Continue **Phase 3 — Admin Information Architecture** by fully migrating the old Clients/Articles/Idées UI into `/dashboard/admin/blogs` and `/dashboard/admin/blog-ideas`, then begin **Phase 4 — Ebook Builder**.

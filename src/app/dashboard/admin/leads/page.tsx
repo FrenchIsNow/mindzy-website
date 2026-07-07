@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { listLeadsFiltered, countLeadsBySource } from '@/lib/db'
 import { type LeadFilters } from '@/lib/db'
+import CopyButton from '@/components/dashboard/CopyButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -102,30 +103,49 @@ export default async function LeadsPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {rows.map(lead => (
-                <tr key={lead.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-3 font-medium">
-                    {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
-                  </td>
-                  <td className="px-4 py-3 text-slate-600">{lead.email}</td>
-                  <td className="px-4 py-3 text-slate-600">{lead.company || '—'}</td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-800">
-                      {lead.source || 'autre'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-slate-600">{lead.status || '—'}</td>
-                  <td className="px-4 py-3 text-slate-600">{lead.locale?.toUpperCase() || '—'}</td>
-                  <td className="px-4 py-3 text-slate-500">
-                    {new Date(lead.created_at).toLocaleDateString('fr-FR')}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Link href={`/dashboard/admin/leads/${lead.id}`} className="text-violet-600 hover:underline">
-                      Voir →
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+              {rows.map(lead => {
+                const fullName = [lead.first_name, lead.last_name].filter(Boolean).join(' ')
+                return (
+                  <tr key={lead.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 font-medium">
+                      {fullName ? (
+                        <span className="inline-flex items-center gap-1.5">
+                          {fullName}
+                          <CopyButton value={fullName} label="Copier le nom" />
+                        </span>
+                      ) : (
+                        '—'
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">
+                      {lead.email ? (
+                        <span className="inline-flex items-center gap-1.5">
+                          {lead.email}
+                          <CopyButton value={lead.email} label="Copier l'email" />
+                        </span>
+                      ) : (
+                        '—'
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">{lead.company || '—'}</td>
+                    <td className="px-4 py-3">
+                      <span className="inline-flex rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-800">
+                        {lead.source || 'autre'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">{lead.status || '—'}</td>
+                    <td className="px-4 py-3 text-slate-600">{lead.locale?.toUpperCase() || '—'}</td>
+                    <td className="px-4 py-3 text-slate-500">
+                      {new Date(lead.created_at).toLocaleDateString('fr-FR')}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Link href={`/dashboard/admin/leads/${lead.id}`} className="text-violet-600 hover:underline">
+                        Voir →
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
