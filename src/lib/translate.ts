@@ -1,10 +1,10 @@
 /**
  * Translation via OpenRouter (OpenAI-compatible /chat/completions).
- * Uses moonshotai/kimi-k2 — solid FR/EN/ES quality at low cost.
+ * Default: openai/gpt-4o-mini — small, cheap, supports response_format: json_object.
  * Configure model via OPENROUTER_MODEL if you want to try a different one.
  */
 
-const DEFAULT_MODEL = 'moonshotai/kimi-k2'
+const DEFAULT_MODEL = 'openai/gpt-4o-mini'
 const ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions'
 
 export type Locale = 'fr' | 'en' | 'es'
