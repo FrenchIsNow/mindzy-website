@@ -1700,6 +1700,36 @@ export async function deleteEbookContent(slug: string): Promise<void> {
   await sql`DELETE FROM ebook_content WHERE slug = ${slug}`
 }
 
+/**
+ * Rename an ebook across all related tables. Assumes the API has already
+ * called `upsertCatalogEntry({ slug: newSlug, ... })` to seed the new
+ * catalog row, so this only needs to (1) drop the old catalog row and
+ * (2) rewrite `ebook_content.slug` and `pdf_url` for every locale.
+ *
+ * ponytail: not transactional. A failure between the DELETE and the
+ * UPDATE leaves a half-renamed state. Acceptable for an admin action;
+ * the form re-saves on retry and the catalog row is the new one.
+ */
+export async function renameEbookSlug(oldSlug: string, newSlug: string): Promise<void> {
+  if (oldSlug === newSlug) return
+  await initDB()
+  const sql = getSql()
+
+  await sql`DELETE FROM ebook_catalog WHERE slug = ${oldSlug}`
+
+  await sql`
+    UPDATE ebook_content
+    SET
+      slug = ${newSlug},
+      pdf_url = CASE
+        WHEN pdf_url = ${`/ebooks/${oldSlug}.pdf`} THEN ${`/ebooks/${newSlug}.pdf`}
+        ELSE pdf_url
+      END,
+      updated_at = NOW()
+    WHERE slug = ${oldSlug}
+  `
+}
+
 async function seedStaticEbooksToCatalog(): Promise<void> {
   const sql = getSql()
   for (const ebook of staticEbooks) {

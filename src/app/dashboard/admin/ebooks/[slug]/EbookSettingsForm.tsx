@@ -42,6 +42,7 @@ export default function EbookSettingsForm({
 }) {
   const router = useRouter()
   const [form, setForm] = useState({
+    slug: initial?.slug ?? slug,
     is_free: initial?.is_free ?? true,
     priceEuros: initial?.price_cents ? (initial.price_cents / 100).toFixed(2) : '',
     originalPriceEuros: initial?.original_price_cents ? (initial.original_price_cents / 100).toFixed(2) : '',
@@ -116,6 +117,14 @@ export default function EbookSettingsForm({
   async function save() {
     setSaving(true)
     setMsg('')
+    const newSlug = form.slug.trim().toLowerCase()
+    if (newSlug && !/^[a-z0-9-]+$/.test(newSlug)) {
+      setSaving(false)
+      setMsg('Slug invalide (a-z, 0-9, -).')
+      return
+    }
+    const targetSlug = newSlug || slug
+
     const priceCents = form.is_free ? null : Math.round(parseFloat(form.priceEuros || '0') * 100)
     const originalCents = form.is_free ? null : (form.originalPriceEuros ? Math.round(parseFloat(form.originalPriceEuros) * 100) : null)
     const upsellCents = form.has_upsell ? Math.round(parseFloat(form.upsellPriceEuros || '0') * 100) : null
@@ -124,7 +133,7 @@ export default function EbookSettingsForm({
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        slug,
+        slug: targetSlug,
         is_free: form.is_free,
         price_cents: priceCents,
         original_price_cents: originalCents,
@@ -142,7 +151,13 @@ export default function EbookSettingsForm({
     })
     setSaving(false)
     if (res.ok) {
+      const data = (await res.json().catch(() => null)) as { slug?: string } | null
+      const savedSlug = data?.slug || targetSlug
       setMsg('Enregistré.')
+      if (savedSlug !== slug) {
+        // Slug was renamed: navigate to the new URL so subsequent edits hit the right route.
+        router.push(`/dashboard/admin/ebooks/${savedSlug}`)
+      }
       router.refresh()
     } else {
       const d = await res.json().catch(() => ({}))
@@ -168,6 +183,25 @@ export default function EbookSettingsForm({
 
   return (
     <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-5">
+      <div className="border-b border-slate-200 pb-4">
+        <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500">Slug (URL publique)</label>
+        <div className="flex items-stretch gap-0">
+          <span className="inline-flex items-center rounded-l-lg border border-r-0 border-slate-300 bg-slate-50 px-3 text-xs text-slate-500">
+            /ebooks/
+          </span>
+          <input
+            value={form.slug}
+            onChange={e => set('slug', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
+            placeholder="mon-ebook"
+            className={`${cls} rounded-l-none`}
+          />
+        </div>
+        <p className="mt-1 text-xs text-slate-500">
+          Le même slug sert pour toutes les locales. Changer le slug renomme le lead magnet, met à jour
+          l&apos;URL publique et l&apos;éventuel PDF associé. Les anciennes URL ne sont pas redirigées automatiquement.
+        </p>
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <label className="flex items-center gap-3 rounded-lg border border-slate-200 px-4 py-3">
           <input type="checkbox" checked={form.is_active} onChange={e => set('is_active', e.target.checked)} />

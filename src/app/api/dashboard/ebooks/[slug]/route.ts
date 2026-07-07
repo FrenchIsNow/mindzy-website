@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { requireApiAdmin } from '@/lib/auth'
-import { upsertCatalogEntry, getAllCatalogEntries, updateCatalogStripeIds } from '@/lib/db'
+import { upsertCatalogEntry, getAllCatalogEntries, updateCatalogStripeIds, renameEbookSlug } from '@/lib/db'
 import { syncStripeProduct } from '@/lib/stripe'
 import { getEbook } from '@/lib/ebooks'
 
@@ -18,12 +18,25 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
 export async function PUT(req: Request, { params }: { params: Promise<{ slug: string }> }) {
   const unauthorized = await requireApiAdmin()
   if (unauthorized) return unauthorized
-  const { slug } = await params
+  const { slug: currentSlug } = await params
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null
   if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
 
+  // Slug rename: a single slug per ebook keeps /{locale}/ebooks/{slug} stable across locale switches.
+  const requestedSlug = typeof body.slug === 'string' && body.slug.trim() ? body.slug.trim() : currentSlug
+  if (!/^[a-z0-9-]+$/.test(requestedSlug)) {
+    return NextResponse.json({ error: 'Slug invalide (a-z, 0-9, -).' }, { status: 400 })
+  }
+  const slugChanged = requestedSlug !== currentSlug
+  if (slugChanged) {
+    const collision = await getAllCatalogEntries()
+    if (collision.some(e => e.slug === requestedSlug)) {
+      return NextResponse.json({ error: 'Ce slug est déjà utilisé.' }, { status: 409 })
+    }
+  }
+
   await upsertCatalogEntry({
-    slug,
+    slug: requestedSlug,
     is_free: body.is_free as boolean,
     price_cents: body.price_cents as number | null,
     original_price_cents: body.original_price_cents as number | null,
@@ -51,13 +64,18 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     deliverable_types: (body.deliverable_types as Record<string, 'pdf' | 'page' | 'article'>) || null,
   })
 
+  // Apply the slug rename across all related tables (atomic).
+  if (slugChanged) {
+    await renameEbookSlug(currentSlug, requestedSlug)
+  }
+
   // Sync to Stripe only for paid, active ebooks with a real price.
   if (!body.is_free && body.is_active && typeof body.price_cents === 'number' && body.price_cents > 0) {
     try {
       const all = await getAllCatalogEntries()
-      const entry = all.find(e => e.slug === slug) ?? null
-      const ebook = getEbook(slug)
-      const name = ebook?.title.fr || slug
+      const entry = all.find(e => e.slug === requestedSlug) ?? null
+      const ebook = getEbook(requestedSlug)
+      const name = ebook?.title.fr || requestedSlug
       const description = ebook?.excerpt.fr
 
       const ids = await syncStripeProduct({
@@ -67,13 +85,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
         description,
         priceCents: body.price_cents,
         currency: (body.currency as string) || 'eur',
-        metadata: { type: 'ebook', slug },
+        metadata: { type: 'ebook', slug: requestedSlug },
       })
-      if (ids) await updateCatalogStripeIds(slug, ids)
+      if (ids) await updateCatalogStripeIds(requestedSlug, ids)
     } catch (err) {
       console.error('Stripe sync failed (ebook catalog):', err)
     }
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, slug: requestedSlug })
 }
