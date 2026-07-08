@@ -20,7 +20,6 @@ const DEFAULT_FORM_FIELDS = ['email', 'firstName', 'lastName', 'company', 'role'
 
 const DELIVERABLE_TYPE_OPTIONS = [
   { value: 'pdf', label: 'PDF (téléchargement)' },
-  { value: 'page', label: 'Page interne (HTML)' },
   { value: 'article', label: 'Article (redirection)' },
 ] as const
 type DeliverableType = (typeof DELIVERABLE_TYPE_OPTIONS)[number]['value']
@@ -63,7 +62,7 @@ export default function EbookSettingsForm({
   })
   const [deliverableTypes, setDeliverableTypes] = useState<Record<'fr' | 'en' | 'es', DeliverableType>>(() => {
     const stored = initial?.deliverable_types as Record<string, unknown> | null | undefined
-    const coerce = (v: unknown): DeliverableType => (v === 'pdf' || v === 'page' || v === 'article' ? v : 'pdf')
+    const coerce = (v: unknown): DeliverableType => (v === 'pdf' || v === 'article' ? v : 'pdf')
     return {
       fr: coerce(stored?.fr ?? stored?.['fr'] ?? 'pdf'),
       en: coerce(stored?.en ?? 'pdf'),
@@ -285,7 +284,7 @@ export default function EbookSettingsForm({
 
       <div className="border-t border-slate-200 pt-4">
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Type de livrable par locale</h3>
-        <p className="mb-3 text-xs text-slate-500">Choisissez ce que reçoit l&apos;utilisateur après l&apos;envoi du formulaire : un PDF, une page HTML interne, ou une redirection vers un article.</p>
+        <p className="mb-3 text-xs text-slate-500">Choisissez ce que reçoit l&apos;utilisateur après l&apos;envoi du formulaire : un PDF téléchargeable, ou une redirection vers un article du blog.</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {LOCALES.map(loc => (
             <div key={loc.key}>

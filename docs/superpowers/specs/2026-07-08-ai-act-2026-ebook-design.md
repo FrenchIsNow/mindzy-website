@@ -17,9 +17,10 @@ The user clarified (after the first spec): no HTML preview route, no redirect la
 - No new "preview HTML" route.
 - No 302 redirect on `/ebook/[slug]`.
 - No new translation infra — only fr/en/es populated, matching the existing 2 ebooks.
-- No new deliverable types — the existing `pdf` / `page` / `article` enum is fine.
+- No new deliverable types — the existing `pdf` / `article` enum is fine.
 - No DB schema changes — the existing `ebook_catalog.deliverable_types` JSONB column covers the use case.
-- No changes to `EbookSettingsForm.tsx` (settings page).
+- The `page` (HTML) deliverable type is **removed from the settings UI** — the dropdown now only offers `pdf` and `article`. The `'page'` value is still accepted server-side and the DB column still allows it, but the form cannot produce it. The `getDeliverableType` helper in `db.ts:1468` already falls back to `'pdf'` for unknown values, so no admin can bind an ebook to an HTML page any more.
+- **Modified:** `EbookSettingsForm.tsx` — drop the `page` option from `DELIVERABLE_TYPE_OPTIONS`, drop it from the `coerce` validation, update the helper text.
 - No new image generation library — built-in `fetch` only.
 
 ## What's already in place (verified)
@@ -27,7 +28,7 @@ The user clarified (after the first spec): no HTML preview route, no redirect la
 | Component | Location | Notes |
 |---|---|---|
 | Static ebook config | `src/lib/ebooks.ts` | 2 entries: `lancer-presence-digitale-2026`, `seo-geo-expert-guide`. This is where the new entry goes. |
-| Settings page (slug, pricing, promo, upsell, per-locale deliverable type) | `src/app/dashboard/admin/ebooks/[slug]/EbookSettingsForm.tsx` | Already has 3-row per-locale deliverable type selector (lines 286-308). Do NOT modify. |
+| Settings page (slug, pricing, promo, upsell, per-locale deliverable type) | `src/app/dashboard/admin/ebooks/[slug]/EbookSettingsForm.tsx` | 3-row per-locale deliverable type selector (lines 286-308). **Page (HTML) option removed** — only PDF and Article remain. |
 | Content editor (per-locale tabs: title, chapters, points forts, stats, testimonial, image, PDF, page HTML, article URL) | `src/app/dashboard/admin/ebooks/[slug]/edit/EbookContentEditor.tsx` | Already tabbed FR/EN/ES (lines 134-152). Already exposes `htmlContent` (page) and `articleUrl` (article) fields gated by `deliverableTypes[locale]` (lines 308-358). Do NOT modify the structure — just fill values. |
 | Content API PUT | `src/app/api/dashboard/ebooks/[slug]/content/route.ts` | Persists `ebook_content` rows. |
 | Translate API | `src/app/api/dashboard/ebooks/[slug]/translate/route.ts` | Auto-translates FR → EN/ES via OpenAI (already wired). |
@@ -160,7 +161,7 @@ If the admin's "new ebook" wizard (`src/app/dashboard/admin/ebooks/new/`) doesn'
 
 ## What's NOT modified (verified)
 
-- `EbookSettingsForm.tsx` — already has per-locale deliverable type selector. Admin uses it as-is.
+- `EbookSettingsForm.tsx` — drop the `page` deliverable option (PDF + Article only).
 - `EbookContentEditor.tsx` — already has per-locale tabs, already gates `htmlContent` / `articleUrl` / `pdfUrl` on the deliverable type. Admin uses it as-is.
 - `src/app/api/ebooks/download/route.ts` — already handles all 3 deliverable types. No code change.
 - `src/app/[locale]/ebooks/[slug]/page.tsx` — already reads from static + DB overrides. No code change.
