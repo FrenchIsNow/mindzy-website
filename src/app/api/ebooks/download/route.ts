@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   }
 
   const staticEbook = getEbook(slug)
-  const dbContent = !staticEbook ? await getEbookContent(slug, locale) : null
+  const dbContent = await getEbookContent(slug, locale)
   const entry = await getCatalogEntry(slug)
 
   if (!staticEbook && !dbContent) {
