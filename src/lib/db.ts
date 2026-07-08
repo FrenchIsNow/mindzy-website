@@ -1526,7 +1526,7 @@ export async function upsertCatalogEntry(data: Partial<CatalogEntry> & { slug: s
       ${data.geo_keywords ?? null},
       ${data.canonical_slug ?? null},
       ${data.og_image_url ?? null},
-      ${data.form_fields ?? null},
+      ${data.form_fields ? JSON.stringify(data.form_fields) : null}::jsonb,
       ${data.thank_you_redirect_url ?? null},
       ${data.calendly_url ?? null},
       ${data.download_count ?? 0},
@@ -2095,9 +2095,9 @@ export async function createWaitingList(data: WaitingListInput): Promise<Waiting
     VALUES (
       ${data.slug}, ${data.name}, ${data.description ?? null}, ${data.locale ?? 'fr'},
       ${data.status ?? 'active'},
-      ${(data.form_fields as unknown) ?? null},
+      ${data.form_fields ? JSON.stringify(data.form_fields as unknown[]) : null}::jsonb,
       ${data.hero_title ?? null}, ${data.hero_subtitle ?? null},
-      ${(data.benefits as unknown) ?? null},
+      ${data.benefits ? JSON.stringify(data.benefits as unknown[]) : null}::jsonb,
       ${data.thank_you_message ?? null}, ${data.redirect_url ?? null}
     )
     ON CONFLICT (slug) DO UPDATE SET
@@ -2124,10 +2124,10 @@ export async function updateWaitingList(id: number, data: Partial<WaitingListInp
       name = COALESCE(${data.name ?? null}, name),
       description = COALESCE(${data.description ?? null}, description),
       status = COALESCE(${data.status ?? null}, status),
-      form_fields = COALESCE(${data.form_fields as unknown ?? null}, form_fields),
+      form_fields = COALESCE(${data.form_fields ? JSON.stringify(data.form_fields as unknown[]) : null}::jsonb, form_fields),
       hero_title = COALESCE(${data.hero_title ?? null}, hero_title),
       hero_subtitle = COALESCE(${data.hero_subtitle ?? null}, hero_subtitle),
-      benefits = COALESCE(${data.benefits as unknown ?? null}, benefits),
+      benefits = COALESCE(${data.benefits ? JSON.stringify(data.benefits as unknown[]) : null}::jsonb, benefits),
       thank_you_message = COALESCE(${data.thank_you_message ?? null}, thank_you_message),
       redirect_url = COALESCE(${data.redirect_url ?? null}, redirect_url),
       updated_at = NOW()

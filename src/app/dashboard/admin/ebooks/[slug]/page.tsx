@@ -50,7 +50,7 @@ export default async function EbookDetail({ params }: { params: Promise<{ slug: 
 
   return (
 <>      <Link href="/dashboard/admin/ebooks" className="mb-4 inline-block text-sm text-slate-600 hover:text-violet-600">
-        ← Ebooks
+        ← Lead magnets
       </Link>
       <div className="flex items-start justify-between gap-4">
         <div>

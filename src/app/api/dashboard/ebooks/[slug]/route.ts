@@ -35,7 +35,8 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
     }
   }
 
-  await upsertCatalogEntry({
+  try {
+    await upsertCatalogEntry({
     slug: requestedSlug,
     is_free: body.is_free as boolean,
     price_cents: body.price_cents as number | null,
@@ -94,4 +95,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{ slug: st
   }
 
   return NextResponse.json({ ok: true, slug: requestedSlug })
+  } catch (err) {
+    console.error('PUT /api/dashboard/ebooks/[slug] failed:', err)
+    const message = err instanceof Error ? err.message : 'Erreur serveur'
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 }
