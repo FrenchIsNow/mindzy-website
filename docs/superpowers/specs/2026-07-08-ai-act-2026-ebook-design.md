@@ -4,24 +4,46 @@
 **Slug:** `ai-act-2026-europe`
 **Title (fr):** Règlement Européen sur l'Intelligence Artificielle
 **Status:** Approved by user
+**Verification note:** This spec was rewritten after verifying the existing codebase. The first draft assumed no deliverable flexibility existed; the codebase already has it (PDF / page HTML / article URL per locale). The rewrite reflects reality.
 
 ## Goal
 
-Add a new lead-magnet ebook ("AI Act 2026") with full fr/en/es content (chapters, features, stats, testimonial) and a cover image generated via OpenRouter. Refactor the existing per-locale deliverable model on the admin edit page so a lead magnet is either a PDF download OR a redirect to a published article — chosen per locale, in the admin UI, on the existing edit page (no separate routing layer, no HTML preview page).
+Add a new lead-magnet ebook ("AI Act 2026") to Mindzy with full fr/en/es content (chapters, points forts, statistiques, testimonial, cover image). Use the **existing** infrastructure for admin editing, lead capture, and the per-locale deliverable choice — do not add new infrastructure.
+
+The user clarified (after the first spec): no HTML preview route, no redirect layer, no `pdfByLocale` indirection. The choice of "PDF" or "Article (redirection)" per locale already exists in the edit page; we just use it.
 
 ## Non-Goals
 
-- No HTML preview route. No `/preview/[slug].html` file. No 302 redirect from `/ebook/[slug]`.
-- No new `page` (Page interne HTML) deliverable kind — removed.
+- No new "preview HTML" route.
+- No 302 redirect on `/ebook/[slug]`.
 - No new translation infra — only fr/en/es populated, matching the existing 2 ebooks.
-- No automated re-generation of the cover — script runs once, manually.
-- No permanent URL redirects on slug rename (matches existing behavior).
+- No new deliverable types — the existing `pdf` / `page` / `article` enum is fine.
+- No DB schema changes — the existing `ebook_catalog.deliverable_types` JSONB column covers the use case.
+- No changes to `EbookSettingsForm.tsx` (settings page).
+- No new image generation library — built-in `fetch` only.
 
-## Architecture
+## What's already in place (verified)
+
+| Component | Location | Notes |
+|---|---|---|
+| Static ebook config | `src/lib/ebooks.ts` | 2 entries: `lancer-presence-digitale-2026`, `seo-geo-expert-guide`. This is where the new entry goes. |
+| Settings page (slug, pricing, promo, upsell, per-locale deliverable type) | `src/app/dashboard/admin/ebooks/[slug]/EbookSettingsForm.tsx` | Already has 3-row per-locale deliverable type selector (lines 286-308). Do NOT modify. |
+| Content editor (per-locale tabs: title, chapters, points forts, stats, testimonial, image, PDF, page HTML, article URL) | `src/app/dashboard/admin/ebooks/[slug]/edit/EbookContentEditor.tsx` | Already tabbed FR/EN/ES (lines 134-152). Already exposes `htmlContent` (page) and `articleUrl` (article) fields gated by `deliverableTypes[locale]` (lines 308-358). Do NOT modify the structure — just fill values. |
+| Content API PUT | `src/app/api/dashboard/ebooks/[slug]/content/route.ts` | Persists `ebook_content` rows. |
+| Translate API | `src/app/api/dashboard/ebooks/[slug]/translate/route.ts` | Auto-translates FR → EN/ES via OpenAI (already wired). |
+| Public ebook page | `src/app/[locale]/ebooks/[slug]/page.tsx` | Reads static config + `ebook_content` overrides + `getDeliverableType()`. Renders `htmlContent` inline if `kind === 'page'`, redirects to `article_url` if `kind === 'article'`, triggers PDF download otherwise. |
+| Download API | `src/app/api/ebooks/download/route.ts` | Captures lead, returns `{ redirectUrl, pdfUrl, deliverableType }`. Already handles all 3 kinds. |
+| Image upload | `/api/dashboard/upload` (used by editor) | Uploads to storage, returns URL. Editor's imageUrl field is just a URL string. |
+| `getDeliverableType` helper | `src/lib/db.ts:1468` | Reads `ebook_catalog.deliverable_types[locale]`, falls back to `'pdf'`. |
+| `CatalogEntry.deliverable_types` column | `ebook_catalog` table, `JSONB NOT NULL DEFAULT '{}'` | Already exists (migration at `db.ts:297`). No schema change needed. |
+| `ebook_content.html_content` column | `ebook_content` table, `TEXT` | Already exists (migration at `db.ts:299`). |
+| `ebook_content.article_url` column | `ebook_content` table, `TEXT` | Already exists (migration at `db.ts:301`). |
+
+## What needs to happen
 
 ### 1. New ebook entry — `src/lib/ebooks.ts`
 
-Append a third entry to the `ebooks` array. Full fr/en/es content for `chapters`, `features`, `stats`, `testimonial`. Same shape as the two existing entries.
+Append a third entry to the `ebooks` array. Same shape as the two existing entries. Full fr/en/es content for `chapters`, `features`, `stats`, `testimonial`.
 
 - **slug:** `ai-act-2026-europe`
 - **title (fr):** Règlement Européen sur l'Intelligence Artificielle
@@ -49,114 +71,61 @@ Append a third entry to the `ebooks` array. Full fr/en/es content for `chapters`
 | 07 | Sanctions & gouvernance | Sanctions & governance | Sanciones y gobernanza |
 | 08 | Plan d'action 90 jours | 90-day action plan | Plan de acción 90 días |
 
-**Features / Points forts (6) — fr / en / es:**
+**Points forts / Features (6):**
 
-| # | fr | en | es |
-|---|----|----|----|
-| 01 CADRE | Cadre légal complet | Complete legal framework | Marco legal completo |
-| 02 PYRAMIDE | Pyramide des 4 risques | 4-tier risk pyramid | Pirámide de los 4 riesgos |
-| 03 CAS | Cas d'usage concrets | Concrete use cases | Casos de uso concretos |
-| 04 CHECKLIST | Checklist de conformité | Compliance checklist | Lista de cumplimiento |
-| 05 CALENDRIER | Calendrier 2026-2027 | 2026-2027 timeline | Calendario 2026-2027 |
-| 06 MODÈLES | Modèles de documents | Document templates | Plantillas de documentos |
+| # | fr label | fr title | fr desc | (en, es mirror) |
+|---|---|---|---|---|
+| 01 | CADRE | Cadre légal complet | Du règlement (UE) 2024/1689 aux actes d'exécution, chaque article est décrypté avec ses implications opérationnelles. | (mirror) |
+| 02 | PYRAMIDE | Pyramide des 4 risques | Risque inacceptable, élevé, limité, minimal — pour chaque niveau, vos obligations concrètes et la liste des cas d'usage interdits. | (mirror) |
+| 03 | CAS | Cas d'usage concrets | Recrutement IA, scoring bancaire, santé, éducation, GPAI — 12 cas d'usage commentés par des praticiens du droit. | (mirror) |
+| 04 | CHECKLIST | Checklist de conformité | 38 points d'audit rangés par priorité : gouvernance, données, transparence, surveillance humaine, documentation technique. | (mirror) |
+| 05 | CALENDRIER | Calendrier 2026-2027 | Les 6 dates clés à anticiper : 2 février 2025 (entrée en vigueur), 2 août 2026 (interdictions + GPAI), 2 août 2027 (haut risque complet). | (mirror) |
+| 06 | MODÈLES | Modèles de documents | Fiche d'évaluation du risque, registre des systèmes IA, clause de sous-traitance, politique d'usage IA — prêts à l'emploi. | (mirror) |
 
-**Stats (4) — fr / en / es:**
+**Statistiques (4):**
 
 | value | fr | en | es |
 |-------|----|----|----|
-| €35M | sanction max | max fine | sanción máx |
+| €35M | sanction maximale | max fine | sanción máxima |
 | 7% | CA mondial (seuil GPAI) | global revenue (GPAI threshold) | facturación global (umbral GPAI) |
-| 2 août 2026 | 1ère date clé | first key date | 1ª fecha clave |
+| 2 août 2026 | 1ère date d'application | first application date | 1ª fecha de aplicación |
 | 6 | niveaux de risque | risk levels | niveles de riesgo |
 
-**Testimonial — fr / en / es:**
+**Testimonial (fr/en/es):**
 
 fr: « Le seul guide qui m'a permis de cartographier notre exposition à l'AI Act en moins d'une journée. La pyramide des risques vaut le détour à elle seule. » — Sophie D., DPO, scale-up SaaS
 
-### 2. Lead-magnet data model — collapse to a single per-locale `deliverable` field
+### 2. Initial deliverable config (per locale)
 
-**Before (current schema, multiple inconsistent fields):**
-- `pdfByLocale: Partial<Record<Locale, string>>` — filename only
-- `deliverable_types: Record<'fr'|'en'|'es', 'pdf'|'page'|'article'>` — kind only
-- Two sources of truth, the `page` kind is dead.
+The settings page (`EbookSettingsForm.tsx`) lets the admin pick the deliverable type per locale. To make this admin-controlled from day one, the new ebook's settings row should be created in `ebook_catalog` with:
 
-**After (one field, one source of truth):**
-
-```ts
-// New shape on the catalog table (DB)
-deliverable: Partial<Record<'fr'|'en'|'es', {
-  kind: 'pdf' | 'article',
-  file?: string,         // when kind='pdf': filename in public/ebooks/
-  articleSlug?: string,  // when kind='article': slug from articles table
-}>>
+```json
+{
+  "fr": "pdf",
+  "en": "article",
+  "es": "article"
+}
 ```
 
-**Migration:** add a single nullable `jsonb` column `deliverable` to the `catalog` table. No backfill needed for the 2 existing rows — they default to `pdf` for fr/en/es with their existing `pdfByLocale` filenames copied in. The `pdfByLocale` and `deliverable_types` columns stay in place but are no longer read by the API/download route (kept as historical columns for one release, dropped later).
+The first version of the AI Act 2026 only ships as a French PDF. EN/ES redirect to the corresponding blog article (e.g. `/en/blog/ai-act-2026-summary`, `/es/blog/reglamento-ia-2026-resumen`) — those article slugs are public on `/[locale]/blog/[slug]` already.
 
-**Validation rules (server-side, in the admin PUT route):**
-- `kind='pdf'` requires a non-empty `file` that ends in `.pdf`.
-- `kind='article'` requires a non-empty `articleSlug` that exists in the `articles` table with `status='published'`.
-- Either is fine; if neither, that locale silently falls back to the old `pdfByLocale` filename (graceful degradation during rollout).
+**Action:** create the catalog row via Neon MCP after the static entry is added. The static `src/lib/ebooks.ts` entry seeds the public page; the catalog row makes it admin-editable.
 
-### 3. Admin edit page — per-locale tabs
-
-`src/app/dashboard/admin/ebooks/[slug]/EbookSettingsForm.tsx` already has a "Type de livrable par locale" section with 3 side-by-side selects. Replace it with a **tabbed UI** — one tab per locale, no separate "type" selector, just two clear choices inside each tab:
-
-```
-┌─ [FR] [EN] [ES] ─────────────────────────┐
-│ Livrable — Français                       │
-│                                            │
-│  ( ) PDF    ( ) Article du blog            │
-│                                            │
-│  ┌─ PDF sélectionné ──────────────────┐   │
-│  │ Fichier: [ai-act-2026-europe-fr.pdf]│   │
-│  │ Emplacement: /public/ebooks/        │   │
-│  │ Aperçu URL: /ebook/ai-act-2026-europe│   │
-│  └──────────────────────────────────────┘   │
-│                                            │
-│  ┌─ Article sélectionné ───────────────┐   │
-│  │ Article: [Comprendre l'AI Act 2026 ▾]│   │
-│  │ Slug:    [comprendre-ai-act-2026]    │   │
-│  │ Aperçu URL: /fr/blog/comprendre-...  │   │
-│  └──────────────────────────────────────┘   │
-└────────────────────────────────────────────┘
-```
-
-**Implementation notes:**
-- Use the existing shadcn/ui Tabs primitive (or hand-roll a 3-state toggle — whichever is already in the project's component library; check `src/components/ui/` first).
-- "Article" dropdown is populated server-side from `GET /api/dashboard/articles?status=published` and filtered to `slug` + `title`. Searchable select if there are >10 articles.
-- The old `deliverable_types` state and the 3-row `Local` grid are deleted.
-- Form state becomes `deliverable: Record<Loc, { kind, file?, articleSlug? }>` — single state object, clean save.
-
-### 4. Public download behavior
-
-`src/app/api/leads/download/route.ts` (or whatever handles the post-form submission — to be confirmed by reading the existing route, but the contract is the same):
-
-- Receive the lead-magnet slug + the user's locale.
-- Resolve the `deliverable[locale]` from the catalog row.
-- If `kind: 'pdf'` → stream `public/ebooks/{file}` as an attachment (existing behavior, unchanged).
-- If `kind: 'article'` → return `NextResponse.redirect('/{locale}/blog/{articleSlug}', 302)`.
-- Email capture happens before either action (unchanged).
-- If `deliverable[locale]` is missing OR invalid → log warning, fall back to `pdfByLocale[locale]` (legacy) → if that's also missing, return a generic "Merci, votre guide arrive par email" message (existing fallback).
-
-### 5. fal.ai is out — OpenRouter in
+### 3. Image generation — OpenRouter
 
 - **Provider:** OpenRouter (https://openrouter.ai)
 - **Endpoint:** `POST https://openrouter.ai/api/v1/chat/completions`
 - **Model:** `google/gemini-2.5-flash-image` (~$0.03/image)
-- **Auth:** `Authorization: Bearer ${OPENROUTER_API_KEY}` from `.env.local` (script reads it via `process.env`).
-- **No new npm packages** — Node 18+ built-in `fetch` covers it. Ponytail: stdlib wins.
+- **Auth:** `Authorization: Bearer ${OPENROUTER_API_KEY}` from `.env.local`
+- **No new npm packages** — Node 18+ built-in `fetch` covers it.
 
 **Script:** `scripts/generate-ebook-image.mjs`
 
-Behavior:
 1. Read `OPENROUTER_API_KEY` from env. Exit with a clear error if missing.
-2. Read the prompt + output path from CLI args (or hardcode for this single use; can be parameterized later when needed).
-3. POST to OpenRouter with the multimodal `messages` array asking for the image.
-4. Parse the response, extract the base64 image (OpenRouter returns it in the assistant message content array as `{ type: 'image', image: { url: 'data:image/png;base64,...' } }` or similar — handle both shapes).
-5. Decode and write to `public/images/ebooks/ai-act-2026-europe.webp`.
-6. If the source is PNG and the user wants webp, use a tiny `sharp` install OR save as PNG with `.webp` renamed (research showed both work in some pipelines but it's brittle — **save as PNG for now, accept the larger file size** for the one-shot; ~150-300 KB is fine).
-7. Print summary to stdout: bytes written, path, time elapsed.
+2. POST to OpenRouter with the multimodal `messages` array asking for the image.
+3. Parse the response — extract base64 image from the assistant message.
+4. Decode and write to `public/images/ebooks/ai-act-2026-europe.png` (PNG, not webp — no `sharp` dependency, the existing code accepts both `.png` and `.webp` in the `image` field).
+5. Print summary to stdout.
 
 **Invocation:**
 
@@ -168,45 +137,47 @@ No npm script wrapper. Manual, one-shot.
 
 **Image prompt (final):**
 
-> Editorial flat-lay of the European AI Act: a 2026 EU regulation document with the European flag, a neural network diagram overlay, legal gavel, and gold-accented typography. Clean dark-violet background, premium 3D render, soft studio lighting, 1:1 aspect, French typography accent. No text on the cover itself.
+> Editorial flat-lay of the European AI Act: a 2026 EU regulation document with the European flag, a neural network diagram overlay, legal gavel, and gold-accented typography. Clean dark-violet background, premium 3D render, soft studio lighting, 1:1 aspect, 1024x1024, French typography accent. No text on the cover itself.
 
 (The "no text on the cover" prevents the model from garbling "AI Act" into nonsense — the ebook title is rendered by the React component from data, not baked into the image.)
 
-### 6. Database migration
+### 4. Adding the entry to the admin list
 
-- **Tool:** Neon MCP (`prepare_database_migration` + `complete_database_migration`).
-- **Change:** add `deliverable JSONB` to the `catalog` table, nullable, default `NULL`.
-- **Backfill:** for the 2 existing rows, copy the `pdfByLocale` value into the new `deliverable` column as `{ fr: { kind: 'pdf', file: '...' }, ... }`. Done in a single `UPDATE` after the column is added.
-- **No destructive ops.** Reversible by dropping the new column.
+The admin's ebook list (`src/app/dashboard/admin/ebooks/page.tsx`) reads from `getAllCatalogEntries()`. Once a `ebook_catalog` row exists with the new slug, it appears in the admin list automatically. No new wiring needed.
+
+If the admin's "new ebook" wizard (`src/app/dashboard/admin/ebooks/new/`) doesn't accept the slug from a static entry, the row may need to be created directly via Neon MCP. **Action:** check the wizard during implementation. If it requires a DB-only flow, create the row manually.
 
 ## Files to add / modify
 
 | File | Action |
 |---|---|
 | `src/lib/ebooks.ts` | Add `ai-act-2026-europe` entry (fr/en/es) |
-| DB migration (Neon) | Add `deliverable JSONB` to `catalog`, backfill from `pdfByLocale` |
-| `src/app/dashboard/admin/ebooks/[slug]/EbookSettingsForm.tsx` | Replace deliverable-type section with tabbed per-locale UI (PDF / Article) |
-| `src/app/api/dashboard/ebooks/[slug]/route.ts` | Accept new `deliverable` shape, validate article slugs |
-| `src/app/api/leads/download/route.ts` | Handle `kind: 'article'` → 302 redirect to `/[locale]/blog/{slug}` |
+| Neon DB | Create `ebook_catalog` row for `ai-act-2026-europe` with `deliverable_types: { fr: 'pdf', en: 'article', es: 'article' }` and `is_active: true` |
+| Neon DB | Create `ebook_content` rows for fr/en/es with `title`, `chapters`, `features`, `stats`, `testimonial`, `image_url`, `pages` (DB overrides the static config) |
 | `scripts/generate-ebook-image.mjs` | **New** — OpenRouter image generator |
-| `public/images/ebooks/ai-act-2026-europe.webp` | Generated cover |
+| `public/images/ebooks/ai-act-2026-europe.png` | Generated cover |
 | `.env.example` | Document `OPENROUTER_API_KEY` |
+
+## What's NOT modified (verified)
+
+- `EbookSettingsForm.tsx` — already has per-locale deliverable type selector. Admin uses it as-is.
+- `EbookContentEditor.tsx` — already has per-locale tabs, already gates `htmlContent` / `articleUrl` / `pdfUrl` on the deliverable type. Admin uses it as-is.
+- `src/app/api/ebooks/download/route.ts` — already handles all 3 deliverable types. No code change.
+- `src/app/[locale]/ebooks/[slug]/page.tsx` — already reads from static + DB overrides. No code change.
+- `src/lib/db.ts` — no schema change needed; all required columns already exist.
 
 ## Risk & ceilings
 
-- **DB migration is additive only** — no destructive change, easily reversible.
-- **Article slug must exist** at lead-capture time or the redirect returns 404 — server-side validation in the download API guards this. Lead is still captured; we log a warning and fall back to the email-only message.
-- **OpenRouter image quality is mid-tier** — if the cover looks off, swap to `openai/gpt-5-image` (1-line model string change).
-- **Manual image step** — script needs `OPENROUTER_API_KEY` in env, runs once. Not part of CI/build.
-- **No new npm packages** — `@fal-ai/client` and `sharp` both dropped, using Node 18+ built-in `fetch`.
+- **Image quality is mid-tier** — if the cover looks off, swap to `openai/gpt-5-image` (1-line model string change).
+- **Manual image step** — script requires `OPENROUTER_API_KEY` in env, runs once. Not part of CI/build.
+- **EN/ES articles must exist** at the time EN/ES users hit the form, or the redirect 404s. The download API gracefully returns no `redirectUrl` if `article_url` is empty (verify during smoke test). Action: confirm the EN/ES articles are published before flipping the deliverable type from `pdf` to `article` for those locales.
+- **No DB schema migration** — additive data only.
 
 ## Implementation order (handed off to writing-plans)
 
-1. DB migration (add `deliverable` column, backfill).
-2. Add new ebook entry to `src/lib/ebooks.ts`.
-3. Refactor `EbookSettingsForm.tsx` — tabbed per-locale UI.
-4. Update admin PUT route to accept the new shape.
-5. Update public download route to handle the `article` kind.
-6. Write `scripts/generate-ebook-image.mjs`.
-7. Run the script, commit the image.
-8. Manual smoke test: edit page loads, saves, public route delivers correctly.
+1. Add the static entry to `src/lib/ebooks.ts` (data only).
+2. Create the `ebook_catalog` row via Neon MCP (`deliverable_types`, `is_active=true`).
+3. Create the `ebook_content` rows via Neon MCP (fr/en/es content + image URL + article URLs).
+4. Write `scripts/generate-ebook-image.mjs`.
+5. Run the script, commit the generated image.
+6. Smoke test: visit `/fr/ebooks/ai-act-2026-europe`, submit form, verify PDF download OR article redirect per locale. Verify the admin edit page loads at `/dashboard/admin/ebooks/ai-act-2026-europe/edit`.
