@@ -2,7 +2,7 @@ import type { Components } from 'react-markdown'
 import Link from 'next/link'
 
 export const articleProseClass =
-  'prose prose-lg max-w-none prose-headings:text-anthracite prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-p:text-gray-600 prose-p:leading-relaxed prose-p:my-4 prose-a:text-violet prose-a:no-underline hover:prose-a:underline prose-strong:text-anthracite prose-ul:my-6 prose-ul:pl-6 prose-li:text-gray-600 prose-li:my-2 prose-blockquote:border-l-violet prose-blockquote:bg-violet/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-gray-700 prose-table:border-collapse prose-th:bg-gray-50 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-anthracite prose-td:px-4 prose-td:py-3 prose-td:border-b prose-td:border-gray-100 prose-hr:border-gray-200 prose-hr:my-12 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:text-violet prose-code:before:content-none prose-code:after:content-none prose-pre:bg-anthracite prose-pre:text-gray-100'
+  'prose prose-lg max-w-none prose-headings:text-anthracite prose-headings:font-semibold prose-h1:text-3xl prose-h1:mt-12 prose-h1:mb-8 prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-8 prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-4 prose-p:text-gray-700 prose-p:leading-loose prose-p:my-6 prose-a:text-violet prose-a:no-underline hover:prose-a:underline prose-strong:text-anthracite prose-ul:my-6 prose-ul:pl-6 prose-li:text-gray-700 prose-li:my-2 prose-blockquote:border-l-violet prose-blockquote:bg-violet/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic prose-blockquote:text-gray-700 prose-blockquote:my-8 prose-table:my-10 prose-table:border-collapse prose-table:shadow-sm prose-th:bg-gray-50 prose-th:px-5 prose-th:py-4 prose-th:text-left prose-th:font-semibold prose-th:text-anthracite prose-th:border-b prose-th:border-gray-200 prose-td:px-5 prose-td:py-4 prose-td:border-b prose-td:border-gray-100 prose-hr:border-gray-200 prose-hr:my-16 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:text-violet prose-code:before:content-none prose-code:after:content-none prose-pre:bg-anthracite prose-pre:text-gray-100'
 
 function slugFromChildren(children: React.ReactNode): string {
   const text = typeof children === 'string' ? children : ''
@@ -41,13 +41,13 @@ export function ArticleHeading3({ children }: { children?: React.ReactNode }) {
 }
 
 export function ArticleParagraph({ children }: { children?: React.ReactNode }) {
-  return <p className="text-gray-600 leading-relaxed">{children}</p>
+  return <p className="text-gray-700 leading-loose">{children}</p>
 }
 
 export function ArticleTable({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="overflow-x-auto my-8">
-      <table className="w-full border border-gray-200 rounded-lg overflow-hidden">{children}</table>
+    <div className="overflow-x-auto my-10">
+      <table className="w-full border border-gray-200 rounded-xl overflow-hidden shadow-sm">{children}</table>
     </div>
   )
 }

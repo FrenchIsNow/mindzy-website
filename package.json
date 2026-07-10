@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "validate:ebooks": "node ./scripts/validate-ebooks.mjs",
+    "sync:blog": "node ./scripts/import-blog-to-db.mjs",
     "test:ebook-upsert": "tsx test/ebook-upsert.unit.ts"
   },
   "dependencies": {

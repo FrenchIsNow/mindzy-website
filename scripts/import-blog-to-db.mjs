@@ -3,7 +3,10 @@
  * Import all existing Mindzy blog posts (content/blog/{locale}/*.md) into the
  * blog_articles DB table under the "mindzy" dashboard client for all locales (fr, en, es).
  *
- * Usage:  node scripts/import-blog-to-db.mjs
+ * Usage:
+ *   node scripts/import-blog-to-db.mjs          # insert only, skip existing
+ *   node scripts/import-blog-to-db.mjs --force  # UPSERT — overwrite existing rows
+ *                                              # (only use this after regenerating .md)
  * Requires DATABASE_URL in .env.local
  */
 
@@ -108,6 +111,7 @@ function mdToHtml(md) {
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 const LOCALES = ['fr', 'en', 'es']
+const FORCE = process.argv.includes('--force')
 
 // Get the mindzy client id
 const clients = await sql`SELECT id FROM dashboard_clients WHERE slug = 'mindzy' LIMIT 1`
@@ -124,6 +128,7 @@ const existingPairs = new Set(existing.map(r => `${r.slug}|${r.locale}`))
 console.log(`ℹ️   Already in DB: ${existingPairs.size} article-locale pairs\n`)
 
 let totalInserted = 0
+let totalUpdated = 0
 let totalSkipped = 0
 let totalErrors = 0
 
@@ -139,6 +144,7 @@ for (const locale of LOCALES) {
   console.log(`\n📚  Processing locale "${locale}": ${files.length} blog posts\n`)
 
   let inserted = 0
+  let updated = 0
   let skipped = 0
   let errors = 0
 
@@ -151,12 +157,6 @@ for (const locale of LOCALES) {
     const slug = data.slug || canonicalSlug
     const pair = `${slug}|${locale}`
 
-    if (existingPairs.has(pair)) {
-      console.log(`⏭️   Skip (already in DB): ${locale}/${slug}`)
-      skipped++
-      continue
-    }
-
     const title = data.title || slug
     const excerpt = data.excerpt || data.meta_description || null
     const category = data.category || data.categorie || null
@@ -168,22 +168,49 @@ for (const locale of LOCALES) {
 
     const contentHtml = mdToHtml(content)
 
+    const alreadyExists = existingPairs.has(pair)
+
+    if (alreadyExists && !FORCE) {
+      console.log(`⏭️   Skip (already in DB): ${locale}/${slug}`)
+      skipped++
+      continue
+    }
+
     try {
-      await sql`
-        INSERT INTO blog_articles (
-          client_id, title, slug, canonical_slug, excerpt, content_html,
-          cover_image_url, cover_alt, keywords, category,
-          reading_time, locale, status, published_at
-        ) VALUES (
-          ${clientId}, ${title}, ${slug}, ${canonicalSlug}, ${excerpt}, ${contentHtml},
-          ${coverImageUrl}, ${coverAlt}, ${keywords}, ${category},
-          ${readingTime}, ${locale}, 'published', ${publishedAt}
-        )
-      `
-      console.log(`✅  Inserted: ${locale}/${slug}`)
-      inserted++
+      if (alreadyExists && FORCE) {
+        // Upsert: refresh the parts that come from the .md file. Leave
+        // title/excerpt/category alone only if the existing row matches the
+        // .md — that way Tiptap edits survive for rows that diverge.
+        await sql`
+          UPDATE blog_articles SET
+            content_html = ${contentHtml},
+            cover_image_url = ${coverImageUrl},
+            cover_alt = ${coverAlt},
+            reading_time = ${readingTime},
+            locale = ${locale}
+          WHERE client_id = ${clientId}
+            AND canonical_slug = ${canonicalSlug}
+            AND locale = ${locale}
+        `
+        console.log(`🔄  Updated (--force): ${locale}/${slug}`)
+        updated++
+      } else {
+        await sql`
+          INSERT INTO blog_articles (
+            client_id, title, slug, canonical_slug, excerpt, content_html,
+            cover_image_url, cover_alt, keywords, category,
+            reading_time, locale, status, published_at
+          ) VALUES (
+            ${clientId}, ${title}, ${slug}, ${canonicalSlug}, ${excerpt}, ${contentHtml},
+            ${coverImageUrl}, ${coverAlt}, ${keywords}, ${category},
+            ${readingTime}, ${locale}, 'published', ${publishedAt}
+          )
+        `
+        console.log(`✅  Inserted: ${locale}/${slug}`)
+        inserted++
+      }
     } catch (err) {
-      console.error(`❌  Error inserting ${locale}/${slug}:`, err.message)
+      console.error(`❌  Error processing ${locale}/${slug}:`, err.message)
       errors++
     }
   }
@@ -192,12 +219,14 @@ for (const locale of LOCALES) {
 ────────────────────────────────
 Locale: ${locale}
 ✅  Inserted : ${inserted}
+🔄  Updated  : ${updated}
 ⏭️   Skipped  : ${skipped}
 ❌  Errors   : ${errors}
 ────────────────────────────────
 `)
 
   totalInserted += inserted
+  totalUpdated += updated
   totalSkipped += skipped
   totalErrors += errors
 }
@@ -206,6 +235,7 @@ console.log(`
 ════════════════════════════════
 TOTAL SUMMARY (all locales)
 ✅  Inserted : ${totalInserted}
+🔄  Updated  : ${totalUpdated}
 ⏭️   Skipped  : ${totalSkipped}
 ❌  Errors   : ${totalErrors}
 ════════════════════════════════
