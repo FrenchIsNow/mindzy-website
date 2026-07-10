@@ -34,28 +34,24 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
       label: 'Lead magnets',
       items: [
         { href: '/dashboard/admin/ebooks', label: 'Tous les lead magnets', icon: <IconBook /> },
-        { href: '/dashboard/admin/ebooks/new', label: 'Nouveau lead magnet', icon: <IconPlus /> },
       ],
     },
     {
       label: 'Listes d\'attente',
       items: [
         { href: '/dashboard/admin/waiting-lists', label: 'Toutes les listes', icon: <IconList /> },
-        { href: '/dashboard/admin/waiting-lists/new', label: 'Nouvelle liste', icon: <IconPlus /> },
       ],
     },
     {
       label: 'Blogs',
       items: [
         { href: '/dashboard/admin/blogs', label: 'Tous les sites', icon: <IconGlobe /> },
-        { href: '/dashboard/admin/blog-sites/new', label: 'Nouveau site', icon: <IconPlus /> },
       ],
     },
     {
       label: 'Profils',
       items: [
         { href: '/dashboard/admin/profiles', label: 'Cartes de contact', icon: <IconUser /> },
-        { href: '/dashboard/admin/profiles/new', label: 'Nouveau profil', icon: <IconPlus /> },
       ],
     },
     {
@@ -67,8 +63,6 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
       items: [
         { href: '/dashboard/admin/profile', label: 'Mon profil', icon: <IconUser /> },
         { href: '/dashboard/admin/settings', label: 'Utilisateurs & RBAC', icon: <IconUser /> },
-        { href: '/dashboard/admin/settings/organization', label: 'Organisation', icon: <IconBuilding /> },
-        { href: '/dashboard/admin/settings/integrations', label: 'Intégrations', icon: <IconPlug /> },
       ],
     },
   ]
@@ -81,7 +75,7 @@ export default function Sidebar({ role, userName, clientSlug }: Props) {
   const groups = role === 'admin' || role === 'editor' || role === 'viewer' ? adminGroups : []
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-white">
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-slate-200 bg-white">
       <div className="border-b border-slate-200 px-5 py-5">
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600 text-xs font-bold text-white">M</div>
@@ -215,14 +209,6 @@ function IconList() {
   )
 }
 
-function IconPlus() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
-      <path d="M12 5v14M5 12h14" />
-    </svg>
-  )
-}
-
 function IconGlobe() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
@@ -254,29 +240,11 @@ function IconUser() {
 }
 
 function IconBuilding() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
-      <rect x="4" y="2" width="16" height="20" rx="2" />
-      <line x1="9" y1="6" x2="9.01" y2="6" />
-      <line x1="15" y1="6" x2="15.01" y2="6" />
-      <line x1="9" y1="10" x2="9.01" y2="10" />
-      <line x1="15" y1="10" x2="15.01" y2="10" />
-      <line x1="9" y1="14" x2="9.01" y2="14" />
-      <line x1="15" y1="14" x2="15.01" y2="14" />
-      <line x1="9" y1="18" x2="9.01" y2="18" />
-      <line x1="15" y1="18" x2="15.01" y2="18" />
-    </svg>
-  )
+  return null
 }
 
 function IconPlug() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls}>
-      <path d="M12 22v-5" />
-      <path d="M15 8V2H9v6" />
-      <path d="M18 8v10a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8" />
-    </svg>
-  )
+  return null
 }
 
 function IconLogout() {
